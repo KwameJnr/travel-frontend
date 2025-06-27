@@ -10,7 +10,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core'; // For Datepicker
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-// import { HttpClientModule } from '@angular/common/http';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 @Component({
   selector: 'app-travel-create',
   templateUrl: './travel-create.component.html',
@@ -25,7 +28,11 @@ import { MatCardModule } from '@angular/material/card';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatStepperModule,
+    MatIcon,
+    MatProgressSpinnerModule,
+    NgxMatTimepickerModule
   ]
 })
 export class TravelCreateComponent implements OnInit {
@@ -104,4 +111,11 @@ export class TravelCreateComponent implements OnInit {
       }
     });
   }
+
+  onCancel(): void {
+    this.travelForm.reset(); // Optional: Reset the form
+    this.router.navigate(['/travel']); // Navigate back to travel list or desired route
+  }
+  
 }
+
