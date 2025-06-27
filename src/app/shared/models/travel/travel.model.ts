@@ -1,0 +1,51 @@
+export interface Travel {
+    travelId?: string;
+    employeeName: string;
+    employeeEmail: string;
+    employeePassportNo: string;
+    employeePassportExpiry: Date;
+    employeeNumber: string;
+    employeeDepartment: string;
+    employeeTravellingContact: string;
+    employeeContact: string;
+    purpose: string;
+    city: string;
+    country: string;
+    visaRequired: string;
+    departureDate: Date;
+    departureTime: string;
+    returnDate: Date;
+    returnTime: string;
+    perDiemStartDate: Date;
+    perDiemEndDate: Date;
+    daysOutOfficialAssignmentDate: Date;
+    hotelReservation: string;
+    hotelName: string;
+    hotelAddress: string;
+    hotelCity: string;
+    hotelCountry: string;
+    rentalCarRequired: string;
+    airportTransportRequiredToAndFrom: string;
+    subsistenceAllowance: string;
+    perDiemDays: number;
+    estimatedPerDiemAmount: number;
+    totalEstimatedTravelCost: number;
+    travelBudgetCode: string;
+    travelRequestApproved: string;
+    classOfTravelDeparture: string;
+    classOfTravelReturn: string;
+    excoHeadStatus: string;
+    excoHeadName: string;
+    excoHeadEmail: string;
+    excoHeadFeedback: string;
+    excoHeadFeedbackRemarks: string;
+    cfoStatus:string;
+    cfoName: string;
+    cfoEmail: string;
+    cfoFeedback: string;
+    cfoFeedbackRemarks: string;
+    status: string;
+    dateCreated: Date;
+    lastUpdated: Date
+  }
+  

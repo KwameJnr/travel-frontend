@@ -1,0 +1,79 @@
+<div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
+  
+  <div *ngIf="!loading && travel" class="detail-container">
+    <h2>Travel Request Details</h2>
+  
+    <section>
+      <h3>Employee Information</h3>
+      <p><strong>Name:</strong> {{ travel.employeeName }}</p>
+      <p><strong>Email:</strong> {{ travel.employeeEmail }}</p>
+      <p><strong>Passport No:</strong> {{ travel.employeePassportNo }}</p>
+      <p><strong>Passport Expiry:</strong> {{ travel.employeePassportExpiry | date }}</p>
+      <p><strong>Employee Number:</strong> {{ travel.employeeNumber }}</p>
+      <p><strong>Department:</strong> {{ travel.employeeDepartment }}</p>
+      <p><strong>Travelling Contact:</strong> {{ travel.employeeTravellingContact }}</p>
+      <p><strong>Personal Contact:</strong> {{ travel.employeeContact }}</p>
+    </section>
+  
+    <section>
+      <h3>Travel Information</h3>
+      <p><strong>Purpose:</strong> {{ travel.purpose }}</p>
+      <p><strong>City:</strong> {{ travel.city }}</p>
+      <p><strong>Country:</strong> {{ travel.country }}</p>
+      <p><strong>Visa Required:</strong> {{ travel.visaRequired }}</p>
+      <p><strong>Departure Date:</strong> {{ travel.departureDate | date }}</p>
+      <p><strong>Departure Time:</strong> {{ travel.departureTime }}</p>
+      <p><strong>Return Date:</strong> {{ travel.returnDate | date }}</p>
+      <p><strong>Return Time:</strong> {{ travel.returnTime }}</p>
+    </section>
+  
+    <section>
+      <h3>Per Diem & Allowances</h3>
+      <p><strong>Per Diem Start Date:</strong> {{ travel.perDiemStartDate | date }}</p>
+      <p><strong>Per Diem End Date:</strong> {{ travel.perDiemEndDate | date }}</p>
+      <p><strong>Days Out on Official Assignment:</strong> {{ travel.daysOutOfficialAssignmentDate | date }}</p>
+      <p><strong>Subsistence Allowance:</strong> {{ travel.subsistenceAllowance }}</p>
+      <p><strong>Per Diem Days:</strong> {{ travel.perDiemDays }}</p>
+      <p><strong>Estimated Per Diem Amount:</strong> {{ travel.estimatedPerDiemAmount | currency }}</p>
+      <p><strong>Total Estimated Travel Cost:</strong> {{ travel.totalEstimatedTravelCost | currency }}</p>
+      <p><strong>Budget Code:</strong> {{ travel.travelBudgetCode }}</p>
+    </section>
+  
+    <section>
+      <h3>Hotel & Transportation</h3>
+      <p><strong>Hotel Reservation:</strong> {{ travel.hotelReservation }}</p>
+      <p><strong>Hotel Name:</strong> {{ travel.hotelName }}</p>
+      <p><strong>Hotel Address:</strong> {{ travel.hotelAddress }}</p>
+      <p><strong>Hotel City:</strong> {{ travel.hotelCity }}</p>
+      <p><strong>Hotel Country:</strong> {{ travel.hotelCountry }}</p>
+      <p><strong>Rental Car Required:</strong> {{ travel.rentalCarRequired }}</p>
+      <p><strong>Airport Transport To & From:</strong> {{ travel.airportTransportRequiredToAndFrom }}</p>
+    </section>
+  
+    <section>
+      <h3>Approval Details</h3>
+      <p><strong>Class of Travel (Departure):</strong> {{ travel.classOfTravelDeparture }}</p>
+      <p><strong>Class of Travel (Return):</strong> {{ travel.classOfTravelReturn }}</p>
+      
+      <p><strong>EXCO Head Name:</strong> {{ travel.excoHeadName }}</p>
+      <p><strong>EXCO Head Email:</strong> {{ travel.excoHeadEmail }}</p>
+      <p><strong>EXCO Status:</strong> {{ travel.excoHeadStatus }}</p>
+      <p><strong>EXCO Feedback:</strong> {{ travel.excoHeadFeedback }}</p>
+      <p><strong>EXCO Remarks:</strong> {{ travel.excoHeadFeedbackRemarks }}</p>
+  
+      <p><strong>CFO Name:</strong> {{ travel.cfoName }}</p>
+      <p><strong>CFO Email:</strong> {{ travel.cfoEmail }}</p>
+      <p><strong>CFO Status:</strong> {{ travel.cfoStatus }}</p>
+      <p><strong>CFO Feedback:</strong> {{ travel.cfoFeedback }}</p>
+      <p><strong>CFO Remarks:</strong> {{ travel.cfoFeedbackRemarks }}</p>
+    </section>
+  
+    <section>
+      <h3>Meta Info</h3>
+      <p><strong>Status:</strong> {{ travel.status }}</p>
+      <p><strong>Date Created:</strong> {{ travel.dateCreated | date:'medium' }}</p>
+    </section>
+  </div>
+  

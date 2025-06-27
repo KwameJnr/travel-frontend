@@ -1,0 +1,45 @@
+<div class="travel-list-container">
+    <h2>Travel Requests</h2>
+  
+    <button mat-raised-button color="primary" routerLink="/travels/create">New Request</button>
+  
+    <mat-table [dataSource]="travels" class="mat-elevation-z8" *ngIf="travels.length > 0">
+  
+      <ng-container matColumnDef="employeeName">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let travel"> {{ travel.employeeName }} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="purpose">
+        <mat-header-cell *matHeaderCellDef> Purpose </mat-header-cell>
+        <mat-cell *matCellDef="let travel"> {{ travel.purpose }} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef> Country </mat-header-cell>
+        <mat-cell *matCellDef="let travel"> {{ travel.country }} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let travel">
+          <button mat-icon-button color="accent" [routerLink]="['/travels/detail', travel.travelId]">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" [routerLink]="['/travels/edit', travel.travelId]">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteTravel(travel.travelId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  
+    </mat-table>
+  
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
+  

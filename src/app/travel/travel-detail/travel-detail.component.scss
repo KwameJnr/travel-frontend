@@ -1,0 +1,26 @@
+.detail-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+  
+    section {
+      border-bottom: 1px solid #ddd;
+      padding: 1rem 0;
+  
+      h3 {
+        margin-bottom: 0.5rem;
+        color: #3f51b5;
+      }
+  
+      p {
+        margin: 0.25rem 0;
+      }
+    }
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+  }
+  

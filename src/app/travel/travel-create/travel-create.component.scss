@@ -1,0 +1,48 @@
+mat-card-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  .section-divider {
+    grid-column: span 2;
+    margin: 1rem 0;
+  }
+  
+  mat-card-title {
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  
+
+
+
+
+// mat-card-content {
+//     display: grid;
+//     grid-template-columns: 1fr 1fr; // two columns
+//     gap: 1rem;
+//   }
+  
+//   mat-form-field.full-width {
+//     width: 100%;
+//     grid-column: span 2; // for fields that need full width
+//   }
+  
+//   // Optionally make submit button centered
+//   mat-card-actions {
+//     display: flex;
+//     justify-content: center;
+//     margin-top: 1rem;
+//   }
+  
