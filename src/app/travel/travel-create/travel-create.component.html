@@ -35,7 +35,7 @@
         </mat-form-field>
   
         <mat-form-field class="full-width" appearance="fill">
-          <mat-label>Employee Number</mat-label>
+          <mat-label>Employee Number (F-Number)</mat-label>
           <input matInput formControlName="employeeNumber">
         </mat-form-field>
   
@@ -183,7 +183,10 @@
         <!-- Hotel Info -->
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Hotel Reservation</mat-label>
-          <input matInput formControlName="hotelReservation">
+          <mat-select formControlName="hotelReservation">
+            <mat-option value="yes">Yes</mat-option>
+            <mat-option value="no">No</mat-option>
+          </mat-select>
         </mat-form-field>
   
         <mat-form-field class="full-width" appearance="fill">
@@ -277,11 +280,6 @@
             <mat-option value="BusClass">Business Class</mat-option>
             <mat-option value="Economy">Economy</mat-option>
           </mat-select>         
-        </mat-form-field>
-  
-        <mat-form-field class="full-width" appearance="fill">
-          <mat-label>Class of Travel (Return)</mat-label>
-          <input matInput formControlName="classOfTravelReturn">
         </mat-form-field>
   
         <!-- EXCO Feedback -->

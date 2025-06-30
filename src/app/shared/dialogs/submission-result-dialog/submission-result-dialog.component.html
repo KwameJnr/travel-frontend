@@ -1,0 +1,9 @@
+<div class="result-dialog" [ngClass]="{ success: data.success, error: !data.success }">
+    <mat-icon class="icon">{{ data.success ? 'check_circle' : 'error' }}</mat-icon>
+    <h2>{{ data.success ? 'Success' : 'Failed' }}</h2>
+    <p>{{ data.message }}</p>
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="dialogRef.close()">OK</button>
+    </div>
+  </div>
+  

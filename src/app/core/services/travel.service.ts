@@ -9,7 +9,7 @@ import { Travel } from 'src/app/shared/models/travel/travel.model';
   providedIn: 'root'
 })
 export class TravelService {
-  private baseUrl = 'http://localhost:8084/api/travel'; // Adjust if needed
+  private baseUrl = 'http://localhost:8084/travelrequestservice/uat/api/travels'; // Adjust if needed
 
   constructor(private http: HttpClient) { }
 
@@ -21,8 +21,12 @@ export class TravelService {
     return this.http.get<Travel>(`${this.baseUrl}/${id}`);
   }
 
+  // getById(id: string): Observable<Travel> {
+  //   return this.http.get<Travel>(`${this.baseUrl}/${id}`);
+  // }
+
   create(travel: Travel): Observable<Travel> {
-    return this.http.post<Travel>(`${this.baseUrl}/create`, travel);
+    return this.http.post<Travel>(`${this.baseUrl}/add`, travel);
   }
 
   update(id: string, travel: Travel): Observable<Travel> {

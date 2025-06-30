@@ -1,0 +1,82 @@
+.result-dialog {
+    max-width: 100%;
+    padding: 24px 32px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+  
+    h2 {
+      margin-top: 16px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #333;
+    }
+  
+    p {
+      margin: 12px 0 24px;
+      font-size: 15px;
+      color: #555;
+      line-height: 1.6;
+      word-break: break-word; // Prevent text from overflowing
+    }
+  
+    .icon {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+  
+    &.success .icon {
+      color: #4caf50; // Green
+    }
+  
+    &.error .icon {
+      color: #f44336; // Red
+    }
+  
+    .actions {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+  
+      button {
+        padding: 8px 24px;
+        font-weight: 500;
+      }
+    }
+  
+    @media (max-width: 480px) {
+      padding: 20px;
+  
+      h2 {
+        font-size: 18px;
+      }
+  
+      p {
+        font-size: 14px;
+      }
+  
+      .icon {
+        font-size: 40px;
+      }
+    }
+  }
+  
+// .confirm-actions {
+//     padding: 16px;
+//     border-top: 1px solid #e0e0e0;
+//     display: flex;
+//     justify-content: center; // Centering action buttons
+//     gap: 12px;
+//     background: white;
+//     z-index: 1;
+//     flex-wrap: wrap; // Support small screens
+  
+//     @media (max-width: 768px) {
+//       justify-content: center;
+//     }
+//   }
+  
+  
+  

@@ -3,7 +3,7 @@ export interface Travel {
     employeeName: string;
     employeeEmail: string;
     employeePassportNo: string;
-    employeePassportExpiry: Date;
+    employeePassportExpiry: string;
     employeeNumber: string;
     employeeDepartment: string;
     employeeTravellingContact: string;
@@ -12,13 +12,13 @@ export interface Travel {
     city: string;
     country: string;
     visaRequired: string;
-    departureDate: Date;
+    departureDate: string;
     departureTime: string;
-    returnDate: Date;
+    returnDate: string;
     returnTime: string;
-    perDiemStartDate: Date;
-    perDiemEndDate: Date;
-    daysOutOfficialAssignmentDate: Date;
+    perDiemStartDate: string;
+    perDiemEndDate: string;
+    daysOutOfficialAssignmentDate: string;
     hotelReservation: string;
     hotelName: string;
     hotelAddress: string;
@@ -45,7 +45,7 @@ export interface Travel {
     cfoFeedback: string;
     cfoFeedbackRemarks: string;
     status: string;
-    dateCreated: Date;
-    lastUpdated: Date
+    dateCreated: string;
+    lastUpdated: string
   }
   

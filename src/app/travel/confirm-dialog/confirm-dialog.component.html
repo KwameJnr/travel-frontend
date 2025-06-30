@@ -1,0 +1,136 @@
+<mat-card class="confirmation-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon color="primary" style="vertical-align: middle; margin-right: 8px;">check_circle</mat-icon>
+        Confirm Travel Request
+      </mat-card-title>
+    </mat-card-header>
+  
+    <mat-card-content class="confirm-scroll-content">
+      <div class="confirm-grid">
+        <!-- Personal Info -->
+        <ng-container *ngFor="let field of [
+          { icon: 'person', label: 'Employee Name', value: data.employeeName },
+          { icon: 'email', label: 'Email', value: data.employeeEmail },
+          { icon: 'badge', label: 'Passport Number', value: data.employeePassportNo },
+          { icon: 'event', label: 'Passport Expiry', value: data.employeePassportExpiry },
+          { icon: 'badge', label: 'F-Number', value: data.employeeNumber },
+          { icon: 'apartment', label: 'Department', value: data.employeeDepartment },
+          { icon: 'call', label: 'Travel Contact', value: data.employeeTravellingContact },
+          { icon: 'smartphone', label: 'Personal Contact', value: data.employeeContact }
+        ]">
+          <div class="field-row">
+            <div class="field-label">
+              <mat-icon class="field-icon" color="primary">{{ field.icon }}</mat-icon>
+              {{ field.label }}
+            </div>
+            <div class="field-value">{{ field.value || '-' }}</div>
+          </div>
+        </ng-container>
+  
+        <!-- Travel Details -->
+        <ng-container *ngFor="let field of [
+          { icon: 'work', label: 'Purpose', value: data.purpose },
+          { icon: 'location_city', label: 'City', value: data.city },
+          { icon: 'public', label: 'Country', value: data.country },
+          { icon: 'flight_takeoff', label: 'Visa Required', value: data.visaRequired },
+          { icon: 'event', label: 'Departure Date', value: data.departureDate },
+          { icon: 'schedule', label: 'Departure Time', value: data.departureTime },
+          { icon: 'event', label: 'Return Date', value: data.returnDate },
+          { icon: 'schedule', label: 'Return Time', value: data.returnTime }
+        ]">
+          <div class="field-row">
+            <div class="field-label">
+              <mat-icon class="field-icon" color="primary">{{ field.icon }}</mat-icon>
+              {{ field.label }}
+            </div>
+            <div class="field-value">{{ field.value || '-' }}</div>
+          </div>
+        </ng-container>
+  
+        <!-- Per Diem -->
+        <ng-container *ngFor="let field of [
+          { icon: 'today', label: 'Per Diem Start Date', value: data.perDiemStartDate },
+          { icon: 'event', label: 'Per Diem End Date', value: data.perDiemEndDate },
+          { icon: 'calendar_today', label: 'Days Out', value: data.daysOutOfficialAssignmentDate }
+        ]">
+          <div class="field-row">
+            <div class="field-label">
+              <mat-icon class="field-icon" color="primary">{{ field.icon }}</mat-icon>
+              {{ field.label }}
+            </div>
+            <div class="field-value">{{ field.value || '-' }}</div>
+          </div>
+        </ng-container>
+  
+        <!-- Hotel Info -->
+        <ng-container *ngFor="let field of [
+          { icon: 'hotel', label: 'Hotel Reservation', value: data.hotelReservation },
+          { icon: 'business', label: 'Hotel Name', value: data.hotelName },
+          { icon: 'location_on', label: 'Hotel Address', value: data.hotelAddress },
+          { icon: 'location_city', label: 'Hotel City', value: data.hotelCity },
+          { icon: 'public', label: 'Hotel Country', value: data.hotelCountry }
+        ]">
+          <div class="field-row">
+            <div class="field-label">
+              <mat-icon class="field-icon" color="primary">{{ field.icon }}</mat-icon>
+              {{ field.label }}
+            </div>
+            <div class="field-value">{{ field.value || '-' }}</div>
+          </div>
+        </ng-container>
+  
+        <!-- Transport -->
+        <ng-container *ngFor="let field of [
+          { icon: 'directions_car', label: 'Rental Car Required', value: data.rentalCarRequired },
+          { icon: 'airport_shuttle', label: 'Airport Transport', value: data.airportTransportRequiredToAndFrom }
+        ]">
+          <div class="field-row">
+            <div class="field-label">
+              <mat-icon class="field-icon" color="primary">{{ field.icon }}</mat-icon>
+              {{ field.label }}
+            </div>
+            <div class="field-value">{{ field.value || '-' }}</div>
+          </div>
+        </ng-container>
+  
+        <!-- Financials -->
+        <ng-container *ngFor="let field of [
+          { icon: 'payments', label: 'Subsistence Allowance', value: data.subsistenceAllowance },
+          { icon: 'confirmation_number', label: 'Per Diem Days', value: data.perDiemDays },
+          { icon: 'attach_money', label: 'Estimated Per Diem Amount', value: data.estimatedPerDiemAmount },
+          { icon: 'calculate', label: 'Total Estimated Cost', value: data.totalEstimatedTravelCost },
+          { icon: 'code', label: 'Budget Code', value: data.travelBudgetCode }
+        ]">
+          <div class="field-row">
+            <div class="field-label">
+              <mat-icon class="field-icon" color="primary">{{ field.icon }}</mat-icon>
+              {{ field.label }}
+            </div>
+            <div class="field-value">{{ field.value || '-' }}</div>
+          </div>
+        </ng-container>
+  
+        <!-- Approval -->
+        <ng-container *ngFor="let field of [
+          { icon: 'supervisor_account', label: 'EXCO Head Email', value: data.excoHeadEmail },
+          { icon: 'email', label: 'CFO Email', value: data.cfoEmail }
+        ]">
+          <div class="field-row">
+            <div class="field-label">
+              <mat-icon class="field-icon" color="primary">{{ field.icon }}</mat-icon>
+              {{ field.label }}
+            </div>
+            <div class="field-value">{{ field.value || '-' }}</div>
+          </div>
+        </ng-container>
+      </div>
+    </mat-card-content>
+  
+   <!-- Fixed action bar -->
+  <mat-card-actions class="confirm-actions" align="end">
+    <button mat-stroked-button color="warn" (click)="onCancel()">Edit</button>
+    <button mat-raised-button color="primary" (click)="onConfirm()">Confirm</button>
+  </mat-card-actions>
+</mat-card>
+  

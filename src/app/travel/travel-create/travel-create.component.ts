@@ -14,6 +14,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component'; // adjust path
+import { SubmissionResultDialogComponent } from 'src/app/shared/dialogs/submission-result-dialog/submission-result-dialog.component';
+
 @Component({
   selector: 'app-travel-create',
   templateUrl: './travel-create.component.html',
@@ -22,7 +27,6 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    // HttpClientModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -42,7 +46,8 @@ export class TravelCreateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private travelService: TravelService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -96,22 +101,123 @@ export class TravelCreateComponent implements OnInit {
     });
   }
 
+  // onSubmit(): void {
+  //   if (this.travelForm.invalid) return;
+  
+  //   const formValue = this.travelForm.value;
+  
+  //   const formatToLocalDateTime = (date: Date | string | null): string | null => {
+  //     if (!date) return null;
+  //     return new Date(date).toISOString().slice(0, 19); // "yyyy-MM-ddTHH:mm:ss"
+  //   };
+  
+  //   const withDefaultEnum = (value: string | null | undefined, defaultValue: string): string =>
+  //     value && value.trim() !== '' ? value : defaultValue;
+
+  //   const payload = {
+  //     ...formValue,
+  //     employeePassportExpiry: formatToLocalDateTime(formValue.employeePassportExpiry),
+  //     departureDate: formatToLocalDateTime(formValue.departureDate),
+  //     returnDate: formatToLocalDateTime(formValue.returnDate),
+  //     perDiemStartDate: formatToLocalDateTime(formValue.perDiemStartDate),
+  //     perDiemEndDate: formatToLocalDateTime(formValue.perDiemEndDate),
+  //     daysOutOfficialAssignmentDate: formatToLocalDateTime(formValue.daysOutOfficialAssignmentDate),
+  //     dateCreated: formatToLocalDateTime(new Date()),
+  //     // Add more date fields here if needed
+
+  //     // Apply default for enum-like fields
+  //   excoHeadStatus: withDefaultEnum(formValue.excoHeadStatus, 'Pending'),
+  //   excoHeadFeedback: withDefaultEnum(formValue.excoHeadStatus, 'Pending'),
+  //   cfoStatus: withDefaultEnum(formValue.cfoStatus, 'Pending'),
+  //   cfoFeedback: withDefaultEnum(formValue.excoHeadStatus, 'Pending'),
+  //   // Add more enums as needed
+  //   };
+  
+  //   this.loading = true;
+  //   this.travelService.create(payload).subscribe({
+  //     next: () => {
+  //       this.loading = false;
+  //       this.router.navigate(['/travel']);
+  //     },
+  //     error: (err) => {
+  //       this.loading = false;
+  //       console.error('Creation failed', err);
+  //     }
+  //   });
+  // }
   onSubmit(): void {
     if (this.travelForm.invalid) return;
+  
+    const formValue = this.travelForm.value;
+  
+    const formatToLocalDateTime = (date: Date | string | null): string | null =>
+      date ? new Date(date).toISOString().slice(0, 19) : null;
+  
+    const withDefaultEnum = (value: string | null | undefined, defaultValue: string): string =>
+      value && value.trim() !== '' ? value : defaultValue;
+  
+    const payload = {
+      ...formValue,
+      employeePassportExpiry: formatToLocalDateTime(formValue.employeePassportExpiry),
+      departureDate: formatToLocalDateTime(formValue.departureDate),
+      returnDate: formatToLocalDateTime(formValue.returnDate),
+      perDiemStartDate: formatToLocalDateTime(formValue.perDiemStartDate),
+      perDiemEndDate: formatToLocalDateTime(formValue.perDiemEndDate),
+      daysOutOfficialAssignmentDate: formatToLocalDateTime(formValue.daysOutOfficialAssignmentDate),
+      dateCreated: formatToLocalDateTime(new Date()),
 
-    this.loading = true;
-    this.travelService.create(this.travelForm.value).subscribe({
-      next: () => {
-        this.loading = false;
-        this.router.navigate(['/travel']);
-      },
-      error: (err) => {
-        this.loading = false;
-        console.error('Creation failed', err);
+      excoHeadStatus: withDefaultEnum(formValue.excoHeadStatus, 'Pending'),
+      excoHeadFeedback: withDefaultEnum(formValue.excoHeadFeedback, 'Pending'),
+      cfoStatus: withDefaultEnum(formValue.cfoStatus, 'Pending'),
+      cfoFeedback: withDefaultEnum(formValue.cfoFeedback, 'Pending'),
+    };
+  
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '600px',
+      data: payload,
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loading = true;
+  
+        this.travelService.create(payload).subscribe({
+          next: () => {
+            this.loading = false;
+  
+            // Show success dialog
+            this.dialog.open(SubmissionResultDialogComponent, {
+              width: '400px',
+              // maxHeight: '80vh',
+              data: {
+                success: true,
+                message: 'Your travel request was submitted successfully. Approval email has been sent to your BU head'
+              }
+            });
+  
+            this.travelForm.reset(); // Soft reset
+          },
+          error: (err) => {
+            this.loading = false;
+  
+            console.error('Creation failed', err);
+  
+            // Show failure dialog
+            this.dialog.open(SubmissionResultDialogComponent, {
+              width: '400px',
+              data: {
+                success: false,
+                message: 'Failed to submit your travel request. Please try again.'
+              }
+            });
+  
+            // Do not reset form – keep user input for retry
+          }
+        });
       }
     });
   }
-
+  
   onCancel(): void {
     this.travelForm.reset(); // Optional: Reset the form
     this.router.navigate(['/travel']); // Navigate back to travel list or desired route

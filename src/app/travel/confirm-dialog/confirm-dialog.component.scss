@@ -1,0 +1,76 @@
+.confirmation-card {
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+  
+    mat-card-content {
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+  
+    .confirm-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 16px;
+  
+      .field-row {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 8px;
+  
+        .field-label {
+          display: flex;
+          align-items: center;
+          font-weight: 600;
+          color: #333;
+          font-size: 14px;
+          margin-bottom: 4px;
+  
+          .field-icon {
+            font-size: 18px;
+            margin-right: 6px;
+          }
+        }
+  
+        .field-value {
+          color: #555;
+          font-size: 13px;
+          word-wrap: break-word;
+        }
+      }
+    }
+  
+    mat-card-actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0 16px 16px;
+    }
+  
+    @media (max-width: 768px) {
+      .confirm-grid {
+        grid-template-columns: 1fr;
+      }
+  
+      mat-card-actions {
+        justify-content: center;
+      }
+    }
+  
+    @media (max-width: 480px) {
+      mat-card-title {
+        font-size: 18px;
+      }
+  
+      .field-label,
+      .field-value {
+        font-size: 12px;
+      }
+    }
+  }
+  
