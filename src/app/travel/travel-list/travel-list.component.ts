@@ -6,7 +6,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-// import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-travel-list',
@@ -15,7 +14,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [
     RouterModule,
-    // HttpClientModule,
     CommonModule,
     MatIconModule,
     MatTableModule,
