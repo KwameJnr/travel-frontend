@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatOption, MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-buhead-detail',
@@ -20,6 +21,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatOption,
+    MatSelectModule,
     MatSnackBarModule
   ],
   templateUrl: './buhead-detail.component.html',
@@ -39,6 +42,8 @@ export class BuheadDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // console.log('BuheadDetailComponent loaded');
+
     const id = this.route.snapshot.paramMap.get('id');
     this.travelService.getById(id!).subscribe({
       next: (res) => {
@@ -53,29 +58,45 @@ export class BuheadDetailComponent implements OnInit {
     });
   }
 
+  // initForm() {
+  //   this.actionForm = this.fb.group({
+  //     feedback: ['', Validators.required]
+  //   });
+  // }
   initForm() {
     this.actionForm = this.fb.group({
-      feedback: ['', Validators.required]
+      excoHeadStatus: ['Pending', Validators.required],
+      excoHeadFeedback: ['', Validators.required],
+      excoHeadFeedbackRemarks: ['', Validators.required]
     });
   }
-
+  
   approve() {
     if (this.actionForm.invalid) return;
+  
     const payload = {
-      status: 'Approved',
-      feedback: this.actionForm.value.feedback
+      // excoHeadStatus: this.actionForm.value.excoHeadStatus,
+      excoHeadStatus: 'Successful',
+      excoHeadFeedback: this.actionForm.value.excoHeadFeedback,
+      excoHeadFeedbackRemarks: this.actionForm.value.excoHeadFeedbackRemarks,
+      status: 'Pending CFO Approval'
     };
+  
     this.submitAction(payload);
   }
-
+  
   reject() {
     if (this.actionForm.invalid) return;
+  
     const payload = {
-      status: 'Rejected',
-      feedback: this.actionForm.value.feedback
+      excoHeadStatus: 'Successful',
+      excoHeadFeedback: this.actionForm.value.excoHeadFeedback,
+      excoHeadFeedbackRemarks: this.actionForm.value.excoHeadFeedbackRemarks,
+      status: 'Pending CFO Approval'
     };
+  
     this.submitAction(payload);
-  }
+  }  
 
   private submitAction(payload: any) {
     this.travelService.updateBuHeadFeedback(this.travel.travelId, payload).subscribe({

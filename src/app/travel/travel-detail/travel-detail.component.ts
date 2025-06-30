@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 // import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatCard, MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { TravelService } from 'src/app/core/services/travel.service';
@@ -13,6 +14,7 @@ import { Travel } from 'src/app/shared/models/travel/travel.model';
   standalone: true,
   imports: [
     CommonModule,
+    MatCardModule,
     // HttpClientModule,
     MatProgressSpinnerModule
   ]

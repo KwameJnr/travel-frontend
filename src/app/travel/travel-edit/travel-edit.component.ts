@@ -7,9 +7,12 @@ import { Travel } from 'src/app/shared/models/travel/travel.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+import { MatIconModule } from '@angular/material/icon';
 // import { HttpClientModule } from '@angular/common/http';
 
 
@@ -18,6 +21,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './travel-edit.component.html',
   styleUrls: ['./travel-edit.component.scss'],
   standalone: true,
+  // isReadonly: true,
   imports: [
     CommonModule,
     // HttpClientModule,
@@ -28,6 +32,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgxMatTimepickerModule,
+    MatIconModule,
     MatProgressSpinnerModule
   ]
 })
@@ -121,7 +129,7 @@ export class TravelEditComponent implements OnInit {
     this.travelService.update(this.travelId, updatedData).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/travels']);
+        this.router.navigate(['/list']);
       },
       error: (err) => {
         console.error('Update failed', err);

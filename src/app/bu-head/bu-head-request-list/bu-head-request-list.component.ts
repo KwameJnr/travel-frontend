@@ -19,8 +19,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatIconModule,
     MatProgressSpinnerModule
   ],
-  templateUrl: './bu-head-Request-list.component.html',
-  styleUrls: ['./bu-head-Request-list.component.scss']
+  templateUrl: './bu-head-request-list.component.html',
+  styleUrls: ['./bu-head-request-list.component.scss']
 })
 export class BuheadListComponent implements OnInit {
   travelRequests: any[] = [];

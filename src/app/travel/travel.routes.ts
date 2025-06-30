@@ -5,7 +5,7 @@ import { TravelCreateComponent } from './travel-create/travel-create.component';
 import { TravelEditComponent } from './travel-edit/travel-edit.component';
 import { TravelDetailComponent } from './travel-detail/travel-detail.component';
 
-import { BuheadDetailComponent } from '../bu-head/travel/buhead/buhead-detail/buhead-detail.component';
+import { BuheadDetailComponent } from '../bu-head/buhead-detail/buhead-detail.component';
 import { BuheadListComponent } from '../bu-head/bu-head-request-list/bu-head-request-list.component';
 
 export const travelRoutes: Routes = [

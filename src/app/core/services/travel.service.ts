@@ -52,7 +52,7 @@ export class TravelService {
   }
 
   updateBuHeadFeedback(id: string, payload: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/exco-feedback/pending`, payload);
+    return this.http.put(`${this.baseUrl}/update/${id}`, payload);
   }
   
 }
