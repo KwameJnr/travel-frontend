@@ -16,7 +16,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component'; // adjust path
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { SubmissionResultDialogComponent } from 'src/app/shared/dialogs/submission-result-dialog/submission-result-dialog.component';
 
 @Component({
@@ -70,7 +70,7 @@ export class TravelCreateComponent implements OnInit {
       returnTime: [''],
       perDiemStartDate: [''],
       perDiemEndDate: [''],
-      daysOutOfficialAssignmentDate: [''],
+      daysOutOfficialAssignmentDate: [{ value: 0, disabled: true }], 
       hotelReservation: [''],
       hotelName: [''],
       hotelAddress: [''],
@@ -79,7 +79,7 @@ export class TravelCreateComponent implements OnInit {
       rentalCarRequired: [''],
       airportTransportRequiredToAndFrom: [''],
       subsistenceAllowance: [''],
-      perDiemDays: [0],
+      perDiemDays: [{ value: 0, disabled: true }], 
       estimatedPerDiemAmount: [0],
       totalEstimatedTravelCost: [0],
       travelBudgetCode: [''],
@@ -99,52 +99,53 @@ export class TravelCreateComponent implements OnInit {
       status: [''],
       dateCreated: [new Date()]
     });
+
+    // 👇 Recalculate days out when dates change
+  this.travelForm.get('departureDate')?.valueChanges.subscribe(() => this.calculateWorkingDays());
+  this.travelForm.get('returnDate')?.valueChanges.subscribe(() => this.calculateWorkingDays());
+  this.travelForm.get('perDiemStartDate')?.valueChanges.subscribe(() => this.calculatePerDiemDays());
+  this.travelForm.get('perDiemEndDate')?.valueChanges.subscribe(() => this.calculatePerDiemDays());
+
   }
 
-  // onSubmit(): void {
-  //   if (this.travelForm.invalid) return;
+  calculateWorkingDays() {
+    const start = this.travelForm.get('departureDate')?.value;
+    const end = this.travelForm.get('returnDate')?.value;
   
-  //   const formValue = this.travelForm.value;
+    if (!start || !end || new Date(start) > new Date(end)) {
+      this.travelForm.patchValue({ daysOutOfficialAssignmentDate: 0 });
+      return;
+    }
   
-  //   const formatToLocalDateTime = (date: Date | string | null): string | null => {
-  //     if (!date) return null;
-  //     return new Date(date).toISOString().slice(0, 19); // "yyyy-MM-ddTHH:mm:ss"
-  //   };
+    let count = 0;
+    let current = new Date(start);
   
-  //   const withDefaultEnum = (value: string | null | undefined, defaultValue: string): string =>
-  //     value && value.trim() !== '' ? value : defaultValue;
+    while (current <= new Date(end)) {
+      const day = current.getDay();
+      if (day !== 0 && day !== 6) count++; // skip Sunday (0) and Saturday (6)
+      current.setDate(current.getDate() + 1);
+    }
+  
+    this.travelForm.patchValue({ daysOutOfficialAssignmentDate: count });
+  }  
 
-  //   const payload = {
-  //     ...formValue,
-  //     employeePassportExpiry: formatToLocalDateTime(formValue.employeePassportExpiry),
-  //     departureDate: formatToLocalDateTime(formValue.departureDate),
-  //     returnDate: formatToLocalDateTime(formValue.returnDate),
-  //     perDiemStartDate: formatToLocalDateTime(formValue.perDiemStartDate),
-  //     perDiemEndDate: formatToLocalDateTime(formValue.perDiemEndDate),
-  //     daysOutOfficialAssignmentDate: formatToLocalDateTime(formValue.daysOutOfficialAssignmentDate),
-  //     dateCreated: formatToLocalDateTime(new Date()),
-  //     // Add more date fields here if needed
-
-  //     // Apply default for enum-like fields
-  //   excoHeadStatus: withDefaultEnum(formValue.excoHeadStatus, 'Pending'),
-  //   excoHeadFeedback: withDefaultEnum(formValue.excoHeadStatus, 'Pending'),
-  //   cfoStatus: withDefaultEnum(formValue.cfoStatus, 'Pending'),
-  //   cfoFeedback: withDefaultEnum(formValue.excoHeadStatus, 'Pending'),
-  //   // Add more enums as needed
-  //   };
+  calculatePerDiemDays() {
+    const start = this.travelForm.get('perDiemStartDate')?.value;
+    const end = this.travelForm.get('perDiemEndDate')?.value;
   
-  //   this.loading = true;
-  //   this.travelService.create(payload).subscribe({
-  //     next: () => {
-  //       this.loading = false;
-  //       this.router.navigate(['/travel']);
-  //     },
-  //     error: (err) => {
-  //       this.loading = false;
-  //       console.error('Creation failed', err);
-  //     }
-  //   });
-  // }
+    if (!start || !end || new Date(start) > new Date(end)) {
+      this.travelForm.patchValue({ perDiemDays: 0 });
+      return;
+    }
+  
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const timeDiff = endDate.getTime() - startDate.getTime();
+    const dayDiff = Math.floor(timeDiff / (1000 * 3600 * 24)) + 1; // include start day
+  
+    this.travelForm.patchValue({ perDiemDays: dayDiff });
+  }
+  
   onSubmit(): void {
     if (this.travelForm.invalid) return;
   

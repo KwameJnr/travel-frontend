@@ -1,0 +1,62 @@
+<div class="login-container">
+    <div class="login-image-section">
+      <div class="system-title">
+        <h1>Travel Request Manager</h1>
+      </div>
+      <img src="assets/images/travels.svg" alt="Travel Illustration" />
+    </div>
+  
+    <div class="login-form-section">
+      <mat-card class="login-card" appearance="outlined">
+        <mat-card-title>Welcome Back</mat-card-title>
+        <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>
+  
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required />
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" required />
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">
+            Sign In
+          </button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+  
+
+<!-- <div class="login-container">
+    <div class="login-image-section">
+      <img src="assets/images/travels.svg" alt="Travel Illustration" />
+    </div>
+  
+    <div class="login-form-section">
+      <mat-card class="login-card" appearance="outlined">
+        <mat-card-title>Welcome Back</mat-card-title>
+        <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>
+  
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required />
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" required />
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">
+            Sign In
+          </button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+   -->

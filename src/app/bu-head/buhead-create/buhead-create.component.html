@@ -1,1 +1,61 @@
-<p>buhead-create works!</p>
+<form [formGroup]="buheadForm" (ngSubmit)="onSubmit()" class="buhead-form">
+    <mat-card class="buhead-card">
+      <mat-card-title>
+        <mat-icon color="primary" style="vertical-align: middle; margin-right: 8px;">business</mat-icon>
+        Create BU Head Request /
+      </mat-card-title>
+  
+      <mat-card-content>
+        <div class="form-grid">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Business Unit Head Name</mat-label>
+            <input matInput formControlName="buHeadName" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Business Unit Head Email</mat-label>
+            <input matInput formControlName="buHeadEmail" type="email" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>F-Number</mat-label>
+            <input matInput formControlName="fNumber" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Department</mat-label>
+            <input matInput formControlName="Department" required>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+  
+      <mat-card-actions class="form-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loading || buheadForm.invalid"
+        >
+          <mat-progress-spinner
+            *ngIf="loading"
+            mode="indeterminate"
+            diameter="20"
+            strokeWidth="3"
+            color="accent"
+            class="spinner"
+          ></mat-progress-spinner>
+          <span *ngIf="!loading">Submit</span>
+        </button>
+  
+        <button
+          mat-stroked-button
+          color="warn"
+          type="button"
+          (click)="onCancel()"
+        >
+          Cancel
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  

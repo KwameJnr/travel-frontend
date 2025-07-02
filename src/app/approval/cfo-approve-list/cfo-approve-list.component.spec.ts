@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BuheadListComponent } from './bu-head-request-list.component';
+import { CfoApproveListComponent } from './cfo-approve-list.component';
 
-describe('BuHeadRequestListComponent', () => {
-  let component: BuheadListComponent;
-  let fixture: ComponentFixture<BuheadListComponent>;
+describe('CfoApproveListComponent', () => {
+  let component: CfoApproveListComponent;
+  let fixture: ComponentFixture<CfoApproveListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BuheadListComponent]
+      imports: [CfoApproveListComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BuheadListComponent);
+    fixture = TestBed.createComponent(CfoApproveListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

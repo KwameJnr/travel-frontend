@@ -1,0 +1,50 @@
+<!-- <p>cfo-list works!</p> -->
+<mat-card>
+    <mat-card-title>Cfo Requests</mat-card-title>
+  
+    <div *ngIf="loading" class="loading-spinner">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  
+    <table mat-table [dataSource]="travelRequests" class="mat-elevation-z2" *ngIf="!loading && travelRequests.length">
+  
+      <!-- Employee Name -->
+      <ng-container matColumnDef="employeeName">
+        <th mat-header-cell *matHeaderCellDef> Employee </th>
+        <td mat-cell *matCellDef="let row"> {{ row.employeeName }} </td>
+      </ng-container>
+  
+      <!-- Purpose -->
+      <ng-container matColumnDef="purpose">
+        <th mat-header-cell *matHeaderCellDef> Purpose </th>
+        <td mat-cell *matCellDef="let row"> {{ row.purpose }} </td>
+      </ng-container>
+  
+      <!-- Departure Date -->
+      <ng-container matColumnDef="departureDate">
+        <th mat-header-cell *matHeaderCellDef> Departure </th>
+        <td mat-cell *matCellDef="let row"> {{ row.departureDate | date }} </td>
+      </ng-container>
+  
+      <!-- Status -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let row"> {{ row.status || 'Pending' }} </td>
+      </ng-container>
+  
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-raised-button color="primary" (click)="viewDetails(row.travelId)">
+            <mat-icon>visibility</mat-icon> View
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <p *ngIf="!loading && travelRequests.length === 0">No pending requests found.</p>
+  </mat-card>

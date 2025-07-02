@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BuheadListComponent } from './bu-head-request-list.component';
+import { BuheadEditComponent } from './buhead-edit.component';
 
-describe('BuHeadRequestListComponent', () => {
-  let component: BuheadListComponent;
-  let fixture: ComponentFixture<BuheadListComponent>;
+describe('BuheadEditComponent', () => {
+  let component: BuheadEditComponent;
+  let fixture: ComponentFixture<BuheadEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BuheadListComponent]
+      imports: [BuheadEditComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BuheadListComponent);
+    fixture = TestBed.createComponent(BuheadEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

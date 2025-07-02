@@ -1,0 +1,23 @@
+.field {
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  .full-width {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  mat-card-content {
+    padding-top: 12px;
+  }
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
