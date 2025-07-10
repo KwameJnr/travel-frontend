@@ -10,7 +10,7 @@
       <form [formGroup]="actionForm" class="action-form">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Cfo Status</mat-label>
-          <mat-select formControlName="cfoStatus">
+          <mat-select formControlName="cfoStatus" [disabled]="!isEditable">
             <mat-option value="Pending">Pending</mat-option>
             <mat-option value="Successful">Successful</mat-option>
             <!-- <mat-option value="Rejected">Rejected</mat-option> -->
@@ -19,7 +19,7 @@
   
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Feedback</mat-label>
-          <mat-select formControlName="cfoFeedback">
+          <mat-select formControlName="cfoFeedback" [disabled]="!isEditable">
             <mat-option value="Approved">Approved</mat-option>
             <mat-option value="Rejected">Rejected</mat-option>
           </mat-select>
@@ -27,12 +27,20 @@
   
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Remarks</mat-label>
-          <textarea matInput rows="4" formControlName="cfoFeedbackRemarks"></textarea>
+          <textarea matInput rows="4" formControlName="cfoFeedbackRemarks" [disabled]="!isEditable"></textarea>
         </mat-form-field>
-  
+        <mat-hint *ngIf="!isEditable" class="read-only-hint">
+          Editing is allowed for CFO only when status is <strong>Pending CFO Approval</strong>. Current status: <strong>{{ travel.status }}</strong>
+          <br>
+          <strong>Notice:</strong>.  A user who is an ADMIN does not have the permissions to make edits on this page
+        </mat-hint>
         <mat-card-actions>
-          <button mat-stroked-button color="warn" (click)="reject()">Reject</button>
-          <button mat-raised-button color="primary" (click)="approve()">Approve</button>
+          <button mat-stroked-button color="warn" (click)="reject()" [disabled]="!isEditable">Reject</button>
+          <button mat-raised-button color="primary" (click)="approve()" [disabled]="!isEditable">Approve</button>
+          <button mat-raised-button color="primary" (click)="details()">Dedtails</button>
+          <button mat-button color="primary" (click)="goBack()" class="back-btn">
+            <mat-icon>arrow_back</mat-icon> Back
+          </button>
         </mat-card-actions>
       </form>
     </mat-card-content>

@@ -9,6 +9,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatOption, MatSelectModule } from '@angular/material/select';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/travel/confirm-dialog/confirm-dialog.component';
+import { EmployeeDetailComponent } from 'src/app/travel/employee-detail/employee-detail.component';
+import { MatIconModule } from '@angular/material/icon';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-buhead-detail',
@@ -23,7 +29,9 @@ import { MatOption, MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatOption,
     MatSelectModule,
-    MatSnackBarModule
+    MatDialogModule,
+    MatSnackBarModule,
+    MatIconModule
   ],
   templateUrl: './buhead-detail.component.html',
   styleUrls: ['./buhead-detail.component.scss']
@@ -38,9 +46,27 @@ export class BuheadDetailComponent implements OnInit {
     private travelService: TravelService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private location: Location
   ) {}
 
+  
+  // get isEditable(): boolean {
+  //   return this.travel?.status === 'Pending BU Head Approval';
+  // }
+  get isEditable(): boolean {
+    // const isAdminUser = this.isAdminUser(); // Check if admin
+    // return this.travel?.status === 'Pending BU Head Approval' && !isAdminUser;
+    return this.travel?.status === 'Pending BU Head Approval';
+  }
+  
+  isAdminUser(): boolean {
+    const email = localStorage.getItem('userRole') || '';
+    return email.toLowerCase().includes('admin');
+  }
+  
+  // const userRole = localStorage.getItem('userRole');
   ngOnInit(): void {
     // console.log('BuheadDetailComponent loaded');
 
@@ -58,11 +84,6 @@ export class BuheadDetailComponent implements OnInit {
     });
   }
 
-  // initForm() {
-  //   this.actionForm = this.fb.group({
-  //     feedback: ['', Validators.required]
-  //   });
-  // }
   initForm() {
     this.actionForm = this.fb.group({
       excoHeadStatus: ['Pending', Validators.required],
@@ -82,7 +103,7 @@ export class BuheadDetailComponent implements OnInit {
       status: 'Pending CFO Approval'
     };
   
-    this.submitAction(payload);
+    this.submitAction(payload, true);
   }
   
   reject() {
@@ -93,15 +114,92 @@ export class BuheadDetailComponent implements OnInit {
       excoHeadFeedback: this.actionForm.value.excoHeadFeedback,
       excoHeadFeedbackRemarks: this.actionForm.value.excoHeadFeedbackRemarks,
       status: 'Pending CFO Approval'
+      // status: 'Rejected by BU Head'
     };
   
-    this.submitAction(payload);
+    this.submitAction(payload, false);
   }  
+  returnForReview() {
+    if (this.actionForm.invalid) return;
+  
+    const payload = {
+      // excoHeadStatus: this.actionForm.value.excoHeadStatus,
+      excoHeadStatus: 'Successful',
+      excoHeadFeedback: this.actionForm.value.excoHeadFeedback,
+      excoHeadFeedbackRemarks: this.actionForm.value.excoHeadFeedbackRemarks,
+      status: 'Returned for Review'
+    };
+  
+    this.submitAction(payload, false);
+  }
 
-  private submitAction(payload: any) {
+  details() {
+    this.dialog.open(EmployeeDetailComponent, {
+      width: '600px',
+      data: this.travel  // Pass full travel data here
+    });
+  
+    // this.submitAction(payload, false);
+  }
+  private submitAction(payload: any, notifyCfo: boolean) {
     this.travelService.updateBuHeadFeedback(this.travel.travelId, payload).subscribe({
       next: () => {
         this.snackBar.open(`Request ${payload.status.toLowerCase()}`, 'Close', { duration: 3000 });
+  
+        // Notify CFO only if approved
+        if (notifyCfo) {
+          const cfoEmailPayload = {
+            clientKey: 'Travel-Request-Manager-EmailerId-CFO',
+            approvalRequestId: this.travel.travelId,
+            fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
+            toEmail: this.travel.cfoEmail,
+            subject: `Travel Request Ready for Your Approval: ${this.travel.purpose}`,
+            body: `
+              <p>Dear ${this.travel.cfoName},</p>
+              
+              <p>A travel request by <strong>${this.travel.employeeName}</strong> has been forwarded for your approval.</p>
+              
+              <p>
+                Purpose: ${this.travel.purpose}<br>
+                Departure Date: ${this.travel.departureDate}<br>
+                Return Date: ${this.travel.returnDate}
+              </p>
+              
+              <p>Regards,<br>Travel Request Management System</p>
+            `
+          };
+  
+          this.travelService.sendApprovalEmailFrontEnd(cfoEmailPayload).subscribe({
+            next: () => console.log('Approval email sent to CFO'),
+            error: (err) => console.error('Failed to send approval email to CFO', err)
+          });
+        }
+  
+        // Always notify requester
+        const requesterEmailPayload = {
+          clientKey: 'Travel-Request-Manager-EmailerId-Requester',
+          fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
+          toEmail: `${this.travel.employeeEmail}, ${this.travel.excoHeadEmail}`,
+          subject: `Your Travel Request Status Update`,
+          body:
+          `<p>Dear ${this.travel.employeeName},</p>
+    
+          <p>Your travel request status has been updated to: <strong>${payload.status}</strong>.</p>
+          
+          <p>
+            Purpose: ${this.travel.purpose}<br>
+            Departure Date: ${this.travel.departureDate}<br>
+            Return Date: ${this.travel.returnDate}
+          </p>
+          
+          <p>Regards,<br>Travel Request Management System</p>`
+        };
+  
+        this.travelService.sendEmailMsg(requesterEmailPayload).subscribe({
+          next: () => console.log('Requester notification email sent'),
+          error: (err) => console.error('Failed to send requester notification email', err)
+        });
+  
         this.router.navigate(['/travel/buhead/list']);
       },
       error: () => {
@@ -109,4 +207,9 @@ export class BuheadDetailComponent implements OnInit {
       }
     });
   }
+  
+  goBack(): void {
+    this.location.back();  
+  }
+  
 }

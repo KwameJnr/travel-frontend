@@ -9,6 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatOption, MatSelectModule } from '@angular/material/select';
+import { EmployeeDetailComponent } from 'src/app/travel/employee-detail/employee-detail.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-cfo-detail',
@@ -23,7 +28,9 @@ import { MatOption, MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatOption,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
+    MatIcon
   ],
   templateUrl: './cfo-detail.component.html',
   styleUrl: './cfo-detail.component.scss'
@@ -38,8 +45,21 @@ export class CfoDetailComponent  implements OnInit {
     private travelService: TravelService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private location: Location
   ) {}
+
+  get isEditable(): boolean {
+    // const isAdminUser = this.isAdminUser(); // Check if admin
+    // return this.travel?.status === 'Pending BU Head Approval' && !isAdminUser;
+    return this.travel?.status === 'Pending CFO Approval';
+  }
+  
+  isAdminUser(): boolean {
+    const email = localStorage.getItem('userRole') || '';
+    return email.toLowerCase().includes('admin');
+  }
 
   ngOnInit(): void {
     // console.log('BuheadDetailComponent loaded');
@@ -77,7 +97,7 @@ export class CfoDetailComponent  implements OnInit {
       status: 'CFO Approval Successful'
     };
   
-    this.submitAction(payload);
+    this.submitAction(payload, false);
   }
   
   reject() {
@@ -90,20 +110,90 @@ export class CfoDetailComponent  implements OnInit {
       status: 'CFO Approval Successful'
     };
   
-    this.submitAction(payload);
+    this.submitAction(payload, false);
   }  
 
-  private submitAction(payload: any) {
-    this.travelService.updateCfoFeedback(this.travel.travelId, payload).subscribe({
+  details() {
+    this.dialog.open(EmployeeDetailComponent, {
+      width: '600px',
+      data: this.travel  // Pass full travel data here
+    });
+
+    // this.submitAction(payload, false);
+  }
+
+  private submitAction(payload: any, notifyCfo: boolean) {
+    this.travelService.updateBuHeadFeedback(this.travel.travelId, payload).subscribe({
       next: () => {
         this.snackBar.open(`Request ${payload.status.toLowerCase()}`, 'Close', { duration: 3000 });
-        this.router.navigate(['/travel/cfo/list']);
+  
+        // Notify CFO only if approved
+        if (notifyCfo) {
+          const cfoEmailPayload = {
+            clientKey: 'Travel-Request-Manager-EmailerId-CFO',
+            approvalRequestId: this.travel.travelId,
+            fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
+            toEmail: this.travel.cfoEmail,
+            subject: `Travel Request Ready for Your Approval: ${this.travel.purpose}`,
+            body: `
+              <p>Dear ${this.travel.cfoName},</p>
+              
+              <p>A travel request by <strong>${this.travel.employeeName}</strong> has been forwarded for your approval.</p>
+              
+              <p>
+                Purpose: ${this.travel.purpose}<br>
+                Departure Date: ${this.travel.departureDate}<br>
+                Return Date: ${this.travel.returnDate}
+              </p>
+              
+              <p>Regards,<br>Travel Request Management System</p>
+            `
+          };
+  
+          this.travelService.sendApprovalEmailFrontEnd(cfoEmailPayload).subscribe({
+            next: () => console.log('Approval email sent to CFO'),
+            error: (err) => console.error('Failed to send approval email to CFO', err)
+          });
+        }
+  
+        // Always notify requester
+        const requesterEmailPayload = {
+          clientKey: 'Travel-Request-Manager-EmailerId-Requester',
+          fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
+          // toEmail: `${this.travel.employeeEmail}, ${this.travel.excoHeadEmail}, ${this.travel.cfoEmail}`,
+          toEmail: [this.travel.employeeEmail, this.travel.excoHeadEmail, this.travel.cfoEmail].join(', '),
+          subject: `Your Travel Request Status Update`,
+          body: `
+            <p>Dear ${this.travel.employeeName},</p>
+      
+            <p>Your travel request status has been updated to: <strong>${payload.status}</strong>.</p>
+            
+            <p>
+              Purpose: ${this.travel.purpose}<br>
+              Departure Date: ${this.travel.departureDate}<br>
+              Return Date: ${this.travel.returnDate}
+            </p>
+            
+            <p>Regards,<br>Travel Request Management System</p>`
+        };
+  
+        this.travelService.sendEmailMsg(requesterEmailPayload).subscribe({
+          next: () => console.log('Requester notification email sent'),
+          error: (err) => console.error('Failed to send requester notification email', err)
+        });
+  
+        this.router.navigate(['/travel/buhead/list']);
       },
       error: () => {
         this.snackBar.open('Failed to update status.', 'Close', { duration: 3000 });
       }
     });
   }
+
+  goBack(): void {
+    this.location.back();  // ✅ This works
+  }
+  
 }
 
 

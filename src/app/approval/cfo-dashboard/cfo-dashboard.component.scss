@@ -1,0 +1,69 @@
+.dashboard-card {
+    margin: 24px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  
+  mat-card {
+    padding: 16px;
+    text-align: center;
+    background-color: #f8f9fa;
+  }
+  
+  .charts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 24px;
+    justify-content: center;
+  }
+  
+  .charts mat-card {
+    flex: 1 1 45%;
+    max-width: 500px;
+  }
+  
+  canvas {
+    max-width: 100%;
+    height: auto !important;
+  }
+  
+//   .export-buttons {
+//     display: flex;
+//     gap: 12px;
+//     margin: 16px 0;
+//   }
+  
+  .filter-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .export-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+    justify-content: center;
+  
+    button {
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+  
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+  }
+  

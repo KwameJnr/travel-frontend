@@ -13,6 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { MatIconModule } from '@angular/material/icon';
+import { Location } from '@angular/common';
 // import { HttpClientModule } from '@angular/common/http';
 
 
@@ -48,7 +49,8 @@ export class TravelEditComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private travelService: TravelService
+    private travelService: TravelService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -107,11 +109,34 @@ export class TravelEditComponent implements OnInit {
     });
   }
 
+  // loadTravel(): void {
+  //   this.loading = true;
+  //   this.travelService.getById(this.travelId).subscribe({
+  //     next: (data) => {
+  //       this.travelForm.patchValue(data);
+  //       this.loading = false;
+  //     },
+  //     error: (err) => {
+  //       console.error('Failed to load travel request', err);
+  //       this.loading = false;
+  //     }
+  //   });
+  // }
   loadTravel(): void {
     this.loading = true;
     this.travelService.getById(this.travelId).subscribe({
       next: (data) => {
-        this.travelForm.patchValue(data);
+        const convertToDate = (val: string | null) => val ? new Date(val) : null;
+  
+        this.travelForm.patchValue({
+          ...data,
+          employeePassportExpiry: convertToDate(data.employeePassportExpiry),
+          departureDate: convertToDate(data.departureDate),
+          returnDate: convertToDate(data.returnDate),
+          perDiemStartDate: convertToDate(data.perDiemStartDate),
+          perDiemEndDate: convertToDate(data.perDiemEndDate),
+        });
+  
         this.loading = false;
       },
       error: (err) => {
@@ -120,9 +145,27 @@ export class TravelEditComponent implements OnInit {
       }
     });
   }
+  
 
   onSubmit(): void {
     if (this.travelForm.invalid) return;
+
+    const formValue = this.travelForm.getRawValue(); // Get disabled fields too
+
+  const formatToLocalDateTime = (date: Date | string | null): string | null =>
+    date ? new Date(date).toISOString().slice(0, 19) : null;
+
+  const payload = {
+    ...formValue,
+    employeePassportExpiry: formatToLocalDateTime(formValue.employeePassportExpiry),
+    departureDate: formatToLocalDateTime(formValue.departureDate),
+    returnDate: formatToLocalDateTime(formValue.returnDate),
+    perDiemStartDate: formatToLocalDateTime(formValue.perDiemStartDate),
+    perDiemEndDate: formatToLocalDateTime(formValue.perDiemEndDate),
+    daysOutOfficialAssignmentDate: formValue.daysOutOfficialAssignmentDate,
+    perDiemDays: formValue.perDiemDays,
+    // dateCreated: formatToLocalDateTime(new Date()),
+  };
 
     this.loading = true;
     const updatedData: Travel = this.travelForm.value;
@@ -136,6 +179,10 @@ export class TravelEditComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
 

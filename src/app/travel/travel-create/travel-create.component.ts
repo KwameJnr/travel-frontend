@@ -134,22 +134,28 @@ export class TravelCreateComponent implements OnInit {
     const end = this.travelForm.get('perDiemEndDate')?.value;
   
     if (!start || !end || new Date(start) > new Date(end)) {
-      this.travelForm.patchValue({ perDiemDays: 0 });
+      this.travelForm.patchValue({ perDiemDays: 0, estimatedPerDiemAmount: 0 });
       return;
     }
   
     const startDate = new Date(start);
     const endDate = new Date(end);
     const timeDiff = endDate.getTime() - startDate.getTime();
-    const dayDiff = Math.floor(timeDiff / (1000 * 3600 * 24)) + 1; // include start day
+    const dayDiff = Math.floor(timeDiff / (1000 * 3600 * 24)) + 1;
   
-    this.travelForm.patchValue({ perDiemDays: dayDiff });
+    const estimatedAmount = dayDiff * 100;
+  
+    this.travelForm.patchValue({
+      perDiemDays: dayDiff,
+      estimatedPerDiemAmount: estimatedAmount
+    });
   }
+  
   
   onSubmit(): void {
     if (this.travelForm.invalid) return;
   
-    const formValue = this.travelForm.value;
+    const formValue = this.travelForm.getRawValue();
   
     const formatToLocalDateTime = (date: Date | string | null): string | null =>
       date ? new Date(date).toISOString().slice(0, 19) : null;
@@ -164,13 +170,17 @@ export class TravelCreateComponent implements OnInit {
       returnDate: formatToLocalDateTime(formValue.returnDate),
       perDiemStartDate: formatToLocalDateTime(formValue.perDiemStartDate),
       perDiemEndDate: formatToLocalDateTime(formValue.perDiemEndDate),
-      daysOutOfficialAssignmentDate: formatToLocalDateTime(formValue.daysOutOfficialAssignmentDate),
+      daysOutOfficialAssignmentDate: formValue.daysOutOfficialAssignmentDate,
+      perDiemDays: formValue.perDiemDays,
       dateCreated: formatToLocalDateTime(new Date()),
-
+  
       excoHeadStatus: withDefaultEnum(formValue.excoHeadStatus, 'Pending'),
       excoHeadFeedback: withDefaultEnum(formValue.excoHeadFeedback, 'Pending'),
       cfoStatus: withDefaultEnum(formValue.cfoStatus, 'Pending'),
       cfoFeedback: withDefaultEnum(formValue.cfoFeedback, 'Pending'),
+  
+      excRemarks: 'Pending',
+      status: 'Pending BU Head Approval',
     };
   
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -183,27 +193,79 @@ export class TravelCreateComponent implements OnInit {
         this.loading = true;
   
         this.travelService.create(payload).subscribe({
-          next: () => {
+          next: (savedTravelResponse) => {
             this.loading = false;
+            console.log('Raw backend response:', savedTravelResponse);
   
-            // Show success dialog
+            const savedTravel = savedTravelResponse.data;  // Unwrap .data here
+            console.log('Saved travel data:', savedTravel);
+  
+            const emailPayload = {
+              clientKey: 'Travel-Request-Manager-EmailerId-BU-Head',
+              approvalRequestId: savedTravel.travelId!,
+              fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
+              toEmail: savedTravel.excoHeadEmail,
+              subject: 'Approval Request for Travel: ' + savedTravel.purpose,
+              body: `
+                <p>Dear ${savedTravel.excoHeadName},</p>
+                
+                <p>${savedTravel.employeeName}'s travel request has been submitted.</p>
+                
+                <p>
+                  Purpose: ${savedTravel.purpose}<br>
+                  Departure Date: ${savedTravel.departureDate}<br>
+                  Return Date: ${savedTravel.returnDate}
+                </p>
+                
+                <p>Regards,<br>Travel Request Management System</p>
+              `
+            };
+  
+            this.travelService.sendApprovalEmail(emailPayload).subscribe({
+              next: () => console.log('Approval email sent successfully'),
+              error: (err) => console.error('Failed to send approval email', err)
+            });
+
+            const SendEmailPayload = {
+              clientKey: 'Travel-Request-Manager-EmailerId-Requester',
+              fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
+              toEmail: savedTravel.employeeEmail,
+              subject: 'Travel Approval Request Notification: ' + savedTravel.purpose,
+              body: 
+                  `
+                <p>Dear ${savedTravel.employeeName},</p>
+          
+                <p>travel request has been submitted successfully to your approver.</p>
+                
+                <p>
+                  Purpose: ${savedTravel.purpose}<br>
+                  Departure Date: ${savedTravel.departureDate}<br>
+                  Return Date: ${savedTravel.returnDate}
+                </p>
+                
+                <p>Regards,<br>Travel Request Management System</p>`
+              
+            };
+  
+            this.travelService.sendEmailMsg(SendEmailPayload).subscribe({
+              next: () => console.log('Notifacation approval email sent successfully'),
+              error: (err) => console.error('Failed to send approval email', err)
+            });
+  
             this.dialog.open(SubmissionResultDialogComponent, {
               width: '400px',
-              // maxHeight: '80vh',
               data: {
                 success: true,
                 message: 'Your travel request was submitted successfully. Approval email has been sent to your BU head'
               }
             });
   
-            this.travelForm.reset(); // Soft reset
+            this.travelForm.reset();
           },
           error: (err) => {
             this.loading = false;
-  
             console.error('Creation failed', err);
   
-            // Show failure dialog
             this.dialog.open(SubmissionResultDialogComponent, {
               width: '400px',
               data: {
@@ -211,13 +273,11 @@ export class TravelCreateComponent implements OnInit {
                 message: 'Failed to submit your travel request. Please try again.'
               }
             });
-  
-            // Do not reset form – keep user input for retry
           }
         });
       }
     });
-  }
+  }  
   
   onCancel(): void {
     this.travelForm.reset(); // Optional: Reset the form

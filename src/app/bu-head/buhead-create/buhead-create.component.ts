@@ -52,6 +52,13 @@ export class BuheadCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const userRole = localStorage.getItem('userRole');
+
+    if (userRole !== 'ADMIN') {
+      this.router.navigate(['/unauthorized']);  // Redirect unauthorized users
+      return;
+    }
+
     this.buheadForm = this.fb.group({
       buHeadName:['', Validators.required],
       buHeadEmail: ['', [Validators.required, Validators.email]],

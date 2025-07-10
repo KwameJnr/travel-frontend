@@ -1,47 +1,42 @@
+
 .login-container {
     display: flex;
     height: 100vh;
+
   }
+  .login-image-section {
+    flex: 1.5;
+    background: linear-gradient(to bottom right, #00796b, #004d40);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Remove inner spacing */
+    margin: 0;  /* Remove outer spacing */
+    height: 100vh; /* Ensure full height if needed */
   
-//   .login-image-section {
-//     flex: 1;
-//     position: relative;
-//     background-color: #f5f7fa;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     justify-content: center;
-  
-//     img {
-//       max-width: 80%;
-//       height: auto;
-//     }
-    .login-image-section {
-              flex: 1.5;
-              background: linear-gradient(to bottom right, #00796b, #004d40);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-          
-              img {
-                width: 80%;
-                max-width: 500px;
-                animation: fadeIn 1s ease-in;
-              }
-            }
-  
-    .system-title {
-      position: absolute;
-      top: 40px;
-      text-align: center;
-  
-      h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #00040a;
-        margin: 0;
-      }
+    img {
+      width: 100%;        /* Use full container width */
+      height: auto;       /* Maintain aspect ratio */
+      max-width: none;    /* Remove max limit if image is constrained */
+      display: block;     /* Removes inline spacing */
+      margin: 0;          /* Ensure no auto margin */
+      padding: 0;
+      animation: fadeIn 1s ease-in;
     }
+  }
+
+  .system-title {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: white;
+      margin: 0;
+    }
+  }
   
   .login-form-section {
     flex: 1;
@@ -66,77 +61,4 @@
     margin-top: 16px;
     width: 100%;
   }
-  
-
-// .login-container {
-//     display: flex;
-//     height: 100vh;
-//     background-color: #f5f7fa;
-//     overflow: hidden;
-  
-//     .login-image-section {
-//       flex: 1.5;
-//       background: linear-gradient(to bottom right, #00796b, #004d40);
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-  
-//       img {
-//         width: 80%;
-//         max-width: 500px;
-//         animation: fadeIn 1s ease-in;
-//       }
-//     }
-  
-//     .login-form-section {
-//       flex: 1;
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//       padding: 3rem;
-  
-//       .login-card {
-//         width: 100%;
-//         max-width: 400px;
-//         padding: 2rem;
-//         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  
-//         mat-card-title {
-//           font-size: 2rem;
-//           font-weight: bold;
-//           margin-bottom: 0.5rem;
-//           color: #004d40;
-//         }
-  
-//         mat-card-subtitle {
-//           margin-bottom: 1.5rem;
-//           color: #555;
-//           font-size: 0.95rem;
-//         }
-  
-//         .full-width {
-//           width: 100%;
-//           margin-bottom: 1.5rem;
-//         }
-  
-//         .login-btn {
-//           width: 100%;
-//           padding: 12px;
-//           font-weight: 600;
-//           font-size: 1rem;
-//         }
-//       }
-//     }
-//   }
-  
-//   @keyframes fadeIn {
-//     from {
-//       opacity: 0;
-//       transform: translateY(20px);
-//     }
-//     to {
-//       opacity: 1;
-//       transform: translateY(0);
-//     }
-//   }
   

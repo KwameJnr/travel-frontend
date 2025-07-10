@@ -1,0 +1,51 @@
+<!-- Add Navbar -->
+<mat-toolbar color="primary" class="top-toolbar">
+    <span class="logo">Travel Request Manager</span>
+  
+    <span class="spacer"></span>
+  
+    <mat-menu #adminMenu="matMenu">
+      <button mat-menu-item [routerLink]="'/travel/list'">Travel Requests</button>
+      <button mat-menu-item [routerLink]="'/travel/buhead/create'">Create BU Head</button>
+    </mat-menu>
+  
+    <button mat-button [matMenuTriggerFor]="adminMenu">Manage</button>
+    <button mat-button [routerLink]="'/travel/create'">Create Travel</button>
+    <button mat-button routerLink="/travel/buhead/list">BU Head Approvals</button>
+    <button mat-button routerLink="/travel/cfo/list">CFO Approvals</button>
+    <button mat-button routerLink="/travel/cfo/dashboard">CFO Dashboard</button>
+  
+    <span class="spacer"></span>
+  
+    <!-- <mat-menu #userMenu="matMenu">
+      <button mat-menu-item disabled>Logged in as: <strong>employee&#64;example.com</strong></button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu> -->
+  
+    <!-- <button mat-icon-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
+    </button> -->
+  </mat-toolbar>
+  
+ <!-- Unauthorized Content -->
+<div class="unauthorized-container">
+    <mat-card class="unauthorized-card">
+      <mat-card-title>
+        <mat-icon class="warning-icon" color="warn">lock</mat-icon>
+        Access Denied
+      </mat-card-title>
+      <mat-card-content>
+        <p class="message">
+          Sorry, you do not have permission to access this page.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="goHome()">
+          <mat-icon>arrow_back</mat-icon>
+          Go back to Dashboard
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
+  

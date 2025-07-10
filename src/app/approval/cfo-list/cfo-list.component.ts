@@ -30,9 +30,18 @@ export class CfoListComponent implements OnInit {
   constructor(private travelService: TravelService, private router: Router) {}
 
   ngOnInit(): void {
+    const userRole = localStorage.getItem('userRole');
+
+  if (userRole !== 'CFO' && userRole !== 'ADMIN') {
+    this.router.navigate(['/unauthorized']);  // Redirect unauthorized users
+    return;
+  }
+  
     this.travelService.getPendingRequestsForCfo().subscribe({
       next: (res) => {
-        this.travelRequests = res; // Extract the actual travel request array
+        this.travelRequests = res.sort(
+          (a: any, b: any) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+        );
         this.loading = false;
       },
       error: (err) => {
@@ -42,20 +51,10 @@ export class CfoListComponent implements OnInit {
     });
   }
   
+  
 
   viewDetails(id: string) {
     this.router.navigate(['/travel/cfo/detail', id]);
   }
 }
 
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-cfo-list',
-//   imports: [],
-//   templateUrl: './cfo-list.component.html',
-//   styleUrl: './cfo-list.component.scss'
-// })
-// export class CfoListComponent {
-
-// }

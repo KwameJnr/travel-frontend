@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { CfoDashboardMetrics } from 'src/app/shared/models/cfo/CfoDashboadMetrics';
+import { ApprovalEmailPayload } from 'src/app/shared/models/notification/ApprovalEmailPayload';
+import { EmailMsgPayload } from 'src/app/shared/models/notification/EmailMsgPayload';
 import { ApiResponse } from 'src/app/shared/models/travel/api-response.model';
 import { Travel } from 'src/app/shared/models/travel/travel.model';
 
@@ -25,9 +28,12 @@ export class TravelService {
     );
   }
 
-  create(travel: Travel): Observable<Travel> {
-    return this.http.post<Travel>(`${this.baseUrl}/add`, travel);
-  }
+  // create(travel: Travel): Observable<Travel> {
+  //   return this.http.post<Travel>(`${this.baseUrl}/add`, travel);
+  // }
+  create(travel: Travel): Observable<ApiResponse<Travel>> {
+    return this.http.post<ApiResponse<Travel>>(`${this.baseUrl}/add`, travel);
+  }  
 
   update(id: string, travel: Travel): Observable<Travel> {
     return this.http.put<Travel>(`${this.baseUrl}/update/${id}`, travel);
@@ -59,5 +65,35 @@ export class TravelService {
 
   updateCfoFeedback(id: string, payload: any): Observable<any> {
     return this.http.put(`${this.baseUrl}/update/${id}`, payload);
+  }
+
+  //Notification endpoints
+  sendApprovalEmail(payload: ApprovalEmailPayload): Observable<any> {
+    return this.http.post('http://localhost:8084/travelrequestservice/uat/api/notifications/send-approval-msg', payload);
+  }
+
+  sendApprovalEmailFrontEnd(payload: ApprovalEmailPayload): Observable<any> {
+    return this.http.post('http://localhost:8084/travelrequestservice/uat/api/notifications/send-approval-frontend-msg', payload);
+  }
+
+  sendEmailMsg(payload: EmailMsgPayload): Observable<any> {
+    return this.http.post('http://localhost:8084/travelrequestservice/uat/api/notifications/send-msg', payload);
+  }
+  
+  //Cfo dashboard notification endpoints 
+  getMetrics(): Observable<CfoDashboardMetrics> {
+    return this.http.get<CfoDashboardMetrics>('http://localhost:8084/travelrequestservice/uat/api/cfo-dashboard/metrics');
+  }
+
+  getMonthlyCosts(year: number) {
+    return this.http.get<{ month: string; cost: number }[]>(
+      `http://localhost:8084/travelrequestservice/uat/api/cfo-dashboard/monthly-costs?year=${year}`
+    );
+  }
+
+  getTopDepartments(year: number, month?: number) {
+    let params = `year=${year}`;
+    if (month) params += `&month=${month}`;
+    return this.http.get<{ department: string, cost: number }[]>(`http://localhost:8084/travelrequestservice/uat/api/cfo-dashboard/top-departments?${params}`);
   }
 }

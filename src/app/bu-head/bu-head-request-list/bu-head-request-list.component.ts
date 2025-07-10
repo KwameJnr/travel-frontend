@@ -29,10 +29,19 @@ export class BuheadListComponent implements OnInit {
 
   constructor(private travelService: TravelService, private router: Router) {}
 
+  
   ngOnInit(): void {
+    const userRole = localStorage.getItem('userRole');
+
+  if (userRole !== 'BU_HEAD' && userRole !== 'ADMIN') {
+    this.router.navigate(['/unauthorized']);  // Redirect unauthorized users
+    return;
+  }
     this.travelService.getPendingRequestsForBuHead().subscribe({
       next: (res) => {
-        this.travelRequests = res; // Extract the actual travel request array
+        this.travelRequests = res.sort(
+          (a: any, b: any) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+        );
         this.loading = false;
       },
       error: (err) => {

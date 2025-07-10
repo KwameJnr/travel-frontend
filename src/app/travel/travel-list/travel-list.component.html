@@ -1,43 +1,100 @@
-<div class="travel-list-container">
-  <h2>Travel Request List/</h2>
+<mat-card>
+  <mat-card-title>Travel Request List</mat-card-title>
 
-  <button mat-raised-button color="primary" routerLink="/travels/create">New Request</button>
+  <!-- Flex Container for Table & Chart -->
+  <div class="layout-container">
+    <!-- Travel Table Section -->
+    <div class="travel-table-section">
+      <!-- Loader -->
+      <div *ngIf="loading" class="loading-spinner">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
 
-  <mat-table [dataSource]="travels" class="mat-elevation-z8" *ngIf="travels.length > 0">
-
-    <ng-container matColumnDef="employeeName">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let travel"> {{ travel.employeeName }} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="purpose">
-      <mat-header-cell *matHeaderCellDef> Purpose </mat-header-cell>
-      <mat-cell *matCellDef="let travel"> {{ travel.purpose }} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="country">
-      <mat-header-cell *matHeaderCellDef> Country </mat-header-cell>
-      <mat-cell *matCellDef="let travel"> {{ travel.country }} </mat-cell>
-    </ng-container>
-
-    <!-- ✅ Actions Column -->
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <button mat-raised-button color="accent" [routerLink]="['/travel/detail', row.travelId]">
-          <mat-icon>visibility</mat-icon> View
+      <!-- Travel List Section -->
+      <div *ngIf="!loading">
+        <button mat-raised-button color="primary" routerLink="/travels/create">
+          <mat-icon>add</mat-icon> New Request
         </button>
-        <button mat-raised-button color="primary" [routerLink]="['/travel/edit', row.travelId]">
-          <mat-icon>edit</mat-icon> Edit
-        </button>
-      </mat-cell>
-    </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <table mat-table [dataSource]="travels" class="mat-elevation-z2" *ngIf="travels.length > 0">
 
-  </mat-table>
+          <!-- Employee Name -->
+          <ng-container matColumnDef="employeeName">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let travel"> {{ travel.employeeName }} </td>
+          </ng-container>
 
-  <mat-spinner *ngIf="loading"></mat-spinner>
+          <!-- Purpose -->
+          <ng-container matColumnDef="purpose">
+            <th mat-header-cell *matHeaderCellDef> Purpose </th>
+            <td mat-cell *matCellDef="let travel"> {{ travel.purpose }} </td>
+          </ng-container>
+
+          <!-- Country -->
+          <ng-container matColumnDef="country">
+            <th mat-header-cell *matHeaderCellDef> Country </th>
+            <td mat-cell *matCellDef="let travel"> {{ travel.country }} </td>
+          </ng-container>
+
+          <!-- Travel Date -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Travel Date </th>
+            <td mat-cell *matCellDef="let travel"> {{ travel.departureDate | date: 'MMM d, y' }} </td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let travel">
+              <mat-icon *ngIf="travel.status === 'Approved'" color="primary">check_circle</mat-icon>
+              <mat-icon *ngIf="travel.status.includes('Pending')" color="warn">hourglass_empty</mat-icon>
+              <mat-icon *ngIf="travel.status.includes('Rejected')" color="accent">cancel</mat-icon>
+              {{ travel.status }}
+            </td>
+          </ng-container>
+
+          <!-- Actions -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button color="accent" [routerLink]="['/travel/detail', row.travelId]">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button mat-icon-button color="primary"
+                [routerLink]="['/travel/edit', row.travelId]"
+                *ngIf="row.status === 'Pending BU Head Approval' || row.status === 'Returned for Review'">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <p *ngIf="travels.length === 0">No travel requests found.</p>
+      </div>
+    </div>
+
+    <!-- Analytics Chart Section -->
+    <!-- Analytics Chart Section -->
+<div class="chart-section">
+  <mat-card>
+    <h3>Travel Request Analytics (Pie)</h3>
+    <canvas baseChart
+            [data]="pieChartData"
+            type="pie">
+    </canvas>
+  </mat-card>
+
+  <mat-card>
+    <h3>Travel Request Analytics (Bar)</h3>
+    <canvas baseChart
+            [data]="barChartData"
+            chartType="bar">
+    </canvas>
+  </mat-card>
 </div>
 
+  </div>
+</mat-card>

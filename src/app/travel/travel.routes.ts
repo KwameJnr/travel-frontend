@@ -13,6 +13,7 @@ import { CfoDetailComponent } from '../approval/cfo-detail/cfo-detail.component'
 import { BuheadCreateComponent } from '../bu-head/buhead-create/buhead-create.component';
 import { BuheadEditComponent } from '../bu-head/buhead-edit/buhead-edit.component';
 import { LoginComponent } from '../auth/login/login.component';
+import { CfoDashboardComponent } from '../approval/cfo-dashboard/cfo-dashboard.component';
 
 export const travelRoutes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' }, // Default to create
@@ -37,10 +38,11 @@ export const travelRoutes: Routes = [
         { path: '', redirectTo: 'list', pathMatch: 'full' },
         { path: 'list', component: CfoListComponent },
         { path: 'detail/:id', component: CfoDetailComponent },
+        { path: 'dashboard', component: CfoDashboardComponent },
       ]},
       
-      {
-        path: 'login',
-        component: LoginComponent,
-      },
+      // {
+      //   path: 'login',
+      //   component: LoginComponent,
+      // },
 ];

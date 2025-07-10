@@ -10,16 +10,15 @@
     <form [formGroup]="actionForm" class="action-form">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Exco Head Status</mat-label>
-        <mat-select formControlName="excoHeadStatus">
+        <mat-select formControlName="excoHeadStatus" [disabled]="!isEditable">
           <mat-option value="Pending">Pending</mat-option>
           <mat-option value="Successful">Successful</mat-option>
-          <!-- <mat-option value="Rejected">Rejected</mat-option> -->
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Feedback</mat-label>
-        <mat-select formControlName="excoHeadFeedback">
+        <mat-select formControlName="excoHeadFeedback" [disabled]="!isEditable">
           <mat-option value="Approved">Approved</mat-option>
           <mat-option value="Rejected">Rejected</mat-option>
         </mat-select>
@@ -27,12 +26,22 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Remarks</mat-label>
-        <textarea matInput rows="4" formControlName="excoHeadFeedbackRemarks"></textarea>
+        <textarea matInput rows="4" formControlName="excoHeadFeedbackRemarks" [disabled]="!isEditable"></textarea>
       </mat-form-field>
 
+      <mat-hint *ngIf="!isEditable" class="read-only-hint">
+        Editing is allowed for Business Unit Heads only when status is <strong>Pending BU Head Approval</strong>. Current status: <strong>{{ travel.status }}</strong>
+        <br>
+        <strong>Notice:</strong>.  A user who is an ADMIN does not have the permissions to make edits on this page
+      </mat-hint>
       <mat-card-actions>
-        <button mat-stroked-button color="warn" (click)="reject()">Reject</button>
-        <button mat-raised-button color="primary" (click)="approve()">Approve</button>
+        <button mat-stroked-button color="warn" (click)="reject()" [disabled]="!isEditable">Reject</button>
+        <button mat-raised-button color="primary" (click)="approve()" [disabled]="!isEditable">Approve</button>
+        <button mat-raised-button color="primary" (click)="returnForReview()" [disabled]="!isEditable">Request Revision</button>
+        <button mat-raised-button color="primary" (click)="details()">Details</button>
+        <button mat-button color="primary" (click)="goBack()" class="back-btn">
+          <mat-icon>arrow_back</mat-icon> Back
+        </button>
       </mat-card-actions>
     </form>
   </mat-card-content>

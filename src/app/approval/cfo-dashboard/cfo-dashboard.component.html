@@ -1,1 +1,85 @@
-<p>cfo-dashboard works!</p>
+<mat-card class="dashboard-card">
+    <h2>CFO Dashboard Overview</h2>
+  
+    <div class="grid">
+      <mat-card>
+        <h3>Total Requests</h3>
+        <p>{{ metrics.totalRequests }}</p>
+      </mat-card>
+  
+      <mat-card>
+        <h3>Approved</h3>
+        <p>{{ metrics.approvedRequests }}</p>
+      </mat-card>
+  
+      <mat-card>
+        <h3>Pending</h3>
+        <p>{{ metrics.pendingRequests }}</p>
+      </mat-card>
+  
+      <mat-card>
+        <h3>Rejected</h3>
+        <p>{{ metrics.rejectedRequests }}</p>
+      </mat-card>
+  
+      <mat-card>
+        <h3>Total Estimated Cost</h3>
+        <p>GHS {{ metrics.totalEstimatedCost | number:'1.2-2' }}</p>
+      </mat-card>
+  
+      <mat-card>
+        <h3>Total Per Diem Cost</h3>
+        <p>$ {{ metrics.totalApprovedCost | number:'1.2-2' }}</p>
+      </mat-card>
+    </div>
+  
+    <div class="charts">
+      <mat-card>
+        <h3>Approval Status Breakdown</h3>
+        <canvas baseChart
+                [data]="approvalChartData"
+                [type]="'doughnut'">
+        </canvas>
+      </mat-card>
+  
+      <mat-card>
+        <h3>Monthly Estimated Cost</h3>
+        <canvas baseChart
+                [data]="monthlyCostChartData"
+                [type]="'bar'">
+        </canvas>
+      </mat-card>
+
+      <mat-card>
+        <h3>Top 6 Departments by Estimated Cost</h3>
+      
+        <div class="filters">
+          <label>
+            Year:
+            <select [(ngModel)]="selectedYear" (change)="fetchTopDepartments()">
+              <option *ngFor="let year of [2025, 2024, 2023]" [value]="year">{{ year }}</option>
+            </select>
+          </label>
+      
+          <label>
+            Month:
+            <select [(ngModel)]="selectedMonth" (change)="fetchTopDepartments()">
+              <option [value]="null">All</option>
+              <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">{{ m }}</option>
+            </select>
+          </label>
+        </div>
+      
+        <canvas baseChart
+                [data]="topDepartmentsChartData"
+                [type]="'bar'">
+        </canvas>
+      </mat-card>
+      <div class="export-buttons">
+        <button mat-raised-button color="primary" (click)="exportToExcel()">Export to Excel</button>
+        <button mat-raised-button color="accent" (click)="exportToPdf()">Export to PDF</button>
+      </div>
+    </div>
+  </mat-card>
+  
+  

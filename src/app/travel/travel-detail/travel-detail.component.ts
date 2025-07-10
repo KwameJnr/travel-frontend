@@ -2,10 +2,13 @@ import { CommonModule } from '@angular/common';
 // import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatCard, MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { TravelService } from 'src/app/core/services/travel.service';
 import { Travel } from 'src/app/shared/models/travel/travel.model';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-travel-detail',
@@ -16,7 +19,8 @@ import { Travel } from 'src/app/shared/models/travel/travel.model';
     CommonModule,
     MatCardModule,
     // HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule
   ]
 })
 export class TravelDetailComponent implements OnInit {
@@ -25,7 +29,8 @@ export class TravelDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private travelService: TravelService
+    private travelService: TravelService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -42,5 +47,9 @@ export class TravelDetailComponent implements OnInit {
         }
       });
     }
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
