@@ -135,6 +135,8 @@ export class TravelEditComponent implements OnInit {
           returnDate: convertToDate(data.returnDate),
           perDiemStartDate: convertToDate(data.perDiemStartDate),
           perDiemEndDate: convertToDate(data.perDiemEndDate),
+          status: `Pending BU Head Approval`,
+          excoHeadFeedback:`Pending`,
         });
   
         this.loading = false;
@@ -164,6 +166,7 @@ export class TravelEditComponent implements OnInit {
     perDiemEndDate: formatToLocalDateTime(formValue.perDiemEndDate),
     daysOutOfficialAssignmentDate: formValue.daysOutOfficialAssignmentDate,
     perDiemDays: formValue.perDiemDays,
+    // status: `Pending BU Head Approval`,
     // dateCreated: formatToLocalDateTime(new Date()),
   };
 

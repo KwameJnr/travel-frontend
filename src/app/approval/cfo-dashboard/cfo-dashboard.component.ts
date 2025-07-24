@@ -62,7 +62,7 @@ fetchTopDepartments() {
   ngOnInit(): void {
     const userRole = localStorage.getItem('userRole');
 
-  if (userRole !== 'CFO' && userRole !== 'ADMIN') {
+  if (userRole !== 'TR-CFO' && userRole !== 'TR-ADMIN') {
     this.router.navigate(['/unauthorized']);  // Redirect unauthorized users
     return;
   }

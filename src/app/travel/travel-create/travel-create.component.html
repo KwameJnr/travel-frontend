@@ -39,10 +39,19 @@
           <input matInput formControlName="employeeNumber">
         </mat-form-field>
   
-        <mat-form-field class="full-width" appearance="fill">
+        <!-- <mat-form-field class="full-width" appearance="fill">
           <mat-label>Department</mat-label>
           <input matInput formControlName="employeeDepartment">
+        </mat-form-field> -->
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Department</mat-label>
+          <mat-select formControlName="employeeDepartment">
+            <mat-option *ngFor="let dept of departments" [value]="dept.name">
+              {{ dept.name }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
+        
   
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Travel Contact</mat-label>
@@ -66,10 +75,19 @@
           <input matInput formControlName="city">
         </mat-form-field>
   
-        <mat-form-field class="full-width" appearance="fill">
+        <!-- <mat-form-field class="full-width" appearance="fill">
           <mat-label>Country</mat-label>
           <input matInput formControlName="country">
+        </mat-form-field> -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Country</mat-label>
+          <mat-select formControlName="country">
+            <mat-option *ngFor="let country of perDiemCountries" [value]="country.location">
+              {{ country.location }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
+        
   
         <!-- <mat-form-field class="full-width" appearance="fill">
           <mat-label>Visa Required</mat-label>
@@ -204,10 +222,19 @@
           <input matInput formControlName="hotelCity">
         </mat-form-field>
   
-        <mat-form-field class="full-width" appearance="fill">
+        <!-- <mat-form-field class="full-width" appearance="fill">
           <mat-label>Hotel Country</mat-label>
           <input matInput formControlName="hotelCountry">
+        </mat-form-field> -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Country</mat-label>
+          <mat-select formControlName="hotelcountry">
+            <mat-option *ngFor="let country of perDiemCountries" [value]="country.location">
+              {{ country.location }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
+        
   
         <!-- Transport -->
         <!-- <mat-form-field class="full-width" appearance="fill">
@@ -245,7 +272,7 @@
   
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Estimated Per Diem Amount</mat-label>
-          <input matInput formControlName="estimatedPerDiemAmount" type="number">
+          <input matInput formControlName="estimatedPerDiemAmount" type="number" readonly="true">
         </mat-form-field>
   
         <mat-form-field class="full-width" appearance="fill">

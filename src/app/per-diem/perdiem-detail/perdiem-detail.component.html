@@ -1,0 +1,44 @@
+<div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="60" strokeWidth="4" color="primary"></mat-spinner>
+  </div>
+  <div *ngIf="!loading && perdiem" class="detail-wrapper">
+    <h2 class="page-title">
+      <mat-icon color="primary">travel_explore</mat-icon>
+      Per Diem Details
+    </h2>
+  
+    <!-- Employee Info -->
+    <mat-card class="info-card">
+      <mat-card-title>
+        <mat-icon>person</mat-icon> Employee Information
+      </mat-card-title>
+      <mat-card-content>
+        <div class="info-grid">
+          <div><mat-icon>badge</mat-icon> <strong>Rate:</strong> {{ perdiem.rate }}</div>
+          <div><mat-icon>mail</mat-icon> <strong>Location:</strong> {{ perdiem.location }}</div>
+          <div><mat-icon>passport</mat-icon> <strong>Perdiem Status:</strong> {{ perdiem.status }}</div>
+          <div><mat-icon>event</mat-icon> <strong>Date created:</strong> {{ perdiem.dateCreated| date }}</div>
+          <div><mat-icon>numbers</mat-icon> <strong>Created by:</strong> {{ perdiem.createdBy }}</div>
+          <div><mat-icon>apartment</mat-icon> <strong>Edited by:</strong> {{ perdiem.editedDate| date }}</div>
+          <!-- <div><mat-icon>phone</mat-icon> <strong>Travel Contact:</strong> {{ perdiem. }}</div> -->
+        </div>
+      </mat-card-content>
+    </mat-card>
+  
+    <!-- Meta -->
+    <!-- <mat-card class="info-card">
+      <mat-card-title>
+        <mat-icon>info</mat-icon> Meta Info
+      </mat-card-title>
+      <mat-card-content>
+        <div class="info-grid">
+          <div><mat-icon>verified</mat-icon> <strong>Status:</strong> {{ travel.status }}</div>
+          <div><mat-icon>calendar_month</mat-icon> <strong>Created:</strong> {{ travel.dateCreated | date:'medium' }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card> -->
+  </div>
+  <button mat-button color="primary" (click)="goBack()" class="back-btn">
+    <mat-icon>arrow_back</mat-icon> Back
+  </button>
+  

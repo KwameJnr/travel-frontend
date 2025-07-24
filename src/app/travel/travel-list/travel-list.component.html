@@ -62,7 +62,8 @@
               </button>
               <button mat-icon-button color="primary"
                 [routerLink]="['/travel/edit', row.travelId]"
-                *ngIf="row.status === 'Pending BU Head Approval' || row.status === 'Returned for Review'">
+                *ngIf=" row.status === 'Returned for Review'">
+                <!-- *ngIf="row.status === 'Pending BU Head Approval' || row.status === 'Returned for Review'"> -->
                 <mat-icon>edit</mat-icon>
               </button>
             </td>

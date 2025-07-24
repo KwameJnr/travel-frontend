@@ -58,7 +58,7 @@ export class CfoDetailComponent  implements OnInit {
   
   isAdminUser(): boolean {
     const email = localStorage.getItem('userRole') || '';
-    return email.toLowerCase().includes('admin');
+    return email.toLowerCase().includes('tr-admin');
   }
 
   ngOnInit(): void {
@@ -107,7 +107,7 @@ export class CfoDetailComponent  implements OnInit {
       cfoStatus: 'Successful',
       cfoFeedback: this.actionForm.value.cfoFeedback,
       cfoFeedbackRemarks: this.actionForm.value.cfoFeedbackRemarks,
-      status: 'CFO Approval Successful'
+      status: 'CFO Approval Rejected'
     };
   
     this.submitAction(payload, false);
@@ -150,7 +150,7 @@ export class CfoDetailComponent  implements OnInit {
             `
           };
   
-          this.travelService.sendApprovalEmailFrontEnd(cfoEmailPayload).subscribe({
+          this.travelService.sendApprovalEmailFrontEndWithAttachment(cfoEmailPayload).subscribe({
             next: () => console.log('Approval email sent to CFO'),
             error: (err) => console.error('Failed to send approval email to CFO', err)
           });

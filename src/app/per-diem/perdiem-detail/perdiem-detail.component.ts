@@ -1,3 +1,15 @@
+
+
+// @Component({
+//   selector: 'app-perdiem-detail',
+//   imports: [],
+//   templateUrl: './perdiem-detail.component.html',
+//   styleUrl: './perdiem-detail.component.scss'
+// })
+// export class PerdiemDetailComponent {
+
+// }
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatCard, MatCardModule } from '@angular/material/card';
@@ -7,12 +19,14 @@ import { ActivatedRoute } from '@angular/router';
 import { TravelService } from 'src/app/core/services/travel.service';
 import { Travel } from 'src/app/shared/models/travel/travel.model';
 import { Location } from '@angular/common';
+import { PerdiemService } from 'src/app/core/services/perdiem.service';
+import { PerDiem } from 'src/app/shared/models/perdiem/perdiem.model';
 
 
 @Component({
-  selector: 'app-travel-detail',
-  templateUrl: './travel-detail.component.html',
-  styleUrls: ['./travel-detail.component.scss'],
+  selector: 'app-perdiem-detail',
+  templateUrl: './perdiem-detail.component.html',
+  styleUrl: './perdiem-detail.component.scss',
   standalone: true,
   imports: [
     CommonModule,
@@ -21,26 +35,26 @@ import { Location } from '@angular/common';
     MatIconModule
   ]
 })
-export class TravelDetailComponent implements OnInit {
-  travel?: Travel;
+export class PerdiemDetailComponent implements OnInit {
+  perdiem?: PerDiem;
   loading = true;
 
   constructor(
     private route: ActivatedRoute,
-    private travelService: TravelService,
+    private perdiemService: PerdiemService,
     private location: Location
   ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.travelService.getById(id).subscribe({
+      this.perdiemService.getById(id).subscribe({
         next: (data) => {
-          this.travel = data;
+          this.perdiem = data;
           this.loading = false;
         },
         error: (err) => {
-          console.error('Error fetching travel details', err);
+          console.error('Error fetching perdiem details', err);
           this.loading = false;
         }
       });

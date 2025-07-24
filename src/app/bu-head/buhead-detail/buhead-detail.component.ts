@@ -124,7 +124,7 @@ export class BuheadDetailComponent implements OnInit {
   
     const payload = {
       // excoHeadStatus: this.actionForm.value.excoHeadStatus,
-      excoHeadStatus: 'Successful',
+      excoHeadStatus: 'Pending',
       excoHeadFeedback: this.actionForm.value.excoHeadFeedback,
       excoHeadFeedbackRemarks: this.actionForm.value.excoHeadFeedbackRemarks,
       status: 'Returned for Review'

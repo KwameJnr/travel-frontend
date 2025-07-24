@@ -14,6 +14,9 @@ import { BuheadCreateComponent } from '../bu-head/buhead-create/buhead-create.co
 import { BuheadEditComponent } from '../bu-head/buhead-edit/buhead-edit.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { CfoDashboardComponent } from '../approval/cfo-dashboard/cfo-dashboard.component';
+import { PerDiemComponent } from '../per-diem/perdiem-create/per-diem.component';
+import { PerdiemListComponent } from '../per-diem/perdiem-list/perdiem-list.component';
+import { PerdiemDetailComponent } from '../per-diem/perdiem-detail/perdiem-detail.component';
 
 export const travelRoutes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' }, // Default to create
@@ -33,6 +36,15 @@ export const travelRoutes: Routes = [
     ]},
 
     {
+      path: 'perdiem',
+      children: [
+        { path: '', redirectTo: 'list', pathMatch: 'full' },
+        { path: 'list', component: PerdiemListComponent },
+        { path: 'detail/:id', component: PerdiemDetailComponent },
+        { path: 'create', component: PerDiemComponent },
+        { path: 'edit/:id', component: PerDiemComponent},
+      ]},
+    {
       path: 'cfo',
       children: [
         { path: '', redirectTo: 'list', pathMatch: 'full' },
@@ -40,9 +52,4 @@ export const travelRoutes: Routes = [
         { path: 'detail/:id', component: CfoDetailComponent },
         { path: 'dashboard', component: CfoDashboardComponent },
       ]},
-      
-      // {
-      //   path: 'login',
-      //   component: LoginComponent,
-      // },
 ];

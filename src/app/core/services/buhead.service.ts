@@ -9,7 +9,7 @@ import { BuHead } from 'src/app/shared/models/buhead/buhead.model';
   providedIn: 'root'
 })
 export class BuheadService {
-  private baseUrl = 'http://localhost:8084/travelrequestservice/uat/api/buheads'; // Adjust if needed
+  private baseUrl = 'http://localhost:9090/camp/buheads'; // Adjust if needed
 
   constructor(private http: HttpClient) { }
 
@@ -38,26 +38,4 @@ export class BuheadService {
       map(response => response.data)
     );
   }
-
-  // //BU Heads endpoints 
-  // getPendingRequestsForBuHead(): Observable<any[]> {
-  //   return this.http.get<any>(`${this.baseUrl}/exco-feedback/pending`).pipe(
-  //     map(response => response.data)
-  //   );
-  // }
-
-  // updateBuHeadFeedback(id: string, payload: any): Observable<any> {
-  //   return this.http.put(`${this.baseUrl}/update/${id}`, payload);
-  // }
-  
-  // //CFO endpoints 
-  // getPendingRequestsForCfo(): Observable<any[]> {
-  //   return this.http.get<any>(`${this.baseUrl}/cfo-feedback/pending`).pipe(
-  //     map(response => response.data)
-  //   );
-  // }
-
-  // updateCfoFeedback(id: string, payload: any): Observable<any> {
-  //   return this.http.put(`${this.baseUrl}/update/${id}`, payload);
-  // }
 }

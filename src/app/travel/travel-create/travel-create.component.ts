@@ -18,6 +18,9 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { SubmissionResultDialogComponent } from 'src/app/shared/dialogs/submission-result-dialog/submission-result-dialog.component';
+import { Department } from 'src/app/shared/models/deparment/department.model';
+import { BauHeadForm } from 'src/app/shared/models/buhead/buheadform';
+import { PerDiemForm } from 'src/app/shared/models/perdiem/perdiemform.model';
 
 @Component({
   selector: 'app-travel-create',
@@ -42,6 +45,11 @@ import { SubmissionResultDialogComponent } from 'src/app/shared/dialogs/submissi
 export class TravelCreateComponent implements OnInit {
   travelForm!: FormGroup;
   loading = false;
+
+  departments: Department[] = [];
+  bauHeads: BauHeadForm[] = [];
+  perDiemCountries: PerDiemForm[] = [];
+
 
   constructor(
     private fb: FormBuilder,
@@ -80,7 +88,7 @@ export class TravelCreateComponent implements OnInit {
       airportTransportRequiredToAndFrom: [''],
       subsistenceAllowance: [''],
       perDiemDays: [{ value: 0, disabled: true }], 
-      estimatedPerDiemAmount: [0],
+      estimatedPerDiemAmount: [{ value: 0, disabled: true }], 
       totalEstimatedTravelCost: [0],
       travelBudgetCode: [''],
       travelRequestApproved: [''],
@@ -105,8 +113,102 @@ export class TravelCreateComponent implements OnInit {
   this.travelForm.get('returnDate')?.valueChanges.subscribe(() => this.calculateWorkingDays());
   this.travelForm.get('perDiemStartDate')?.valueChanges.subscribe(() => this.calculatePerDiemDays());
   this.travelForm.get('perDiemEndDate')?.valueChanges.subscribe(() => this.calculatePerDiemDays());
+  this.travelForm.get('country')?.valueChanges.subscribe(() => this.calculatePerDiemDays()); // 
 
+
+  this.travelService.getDepartments().subscribe({
+    next: (response) => {
+      this.departments = response.data; // assuming 'response' has a 'data' array
+    },
+    error: (err) => {
+      console.error('Failed to load departments:', err);
+    }
+  });
+
+  this.travelService.getBAUHeads().subscribe({
+    next: (response) => {
+      this.bauHeads = response.data;
+  
+      const selectedDept = this.travelForm.get('employeeDepartment')?.value;
+  
+      const excoHead = this.bauHeads.find((bau: BauHeadForm) =>
+        selectedDept &&
+        bau.unit.toLowerCase() === selectedDept.toLowerCase()
+      );
+  
+      const cfo = this.bauHeads.find((bau: BauHeadForm) =>
+        bau.unit.toLowerCase() === 'finance'
+      );
+  
+      if (excoHead) {
+        this.travelForm.patchValue({
+          excoHeadName: excoHead.name,
+          excoHeadEmail: excoHead.email
+        });
+      }
+  
+      if (cfo) {
+        this.travelForm.patchValue({
+          cfoName: cfo.name,
+          cfoEmail: cfo.email
+        });
+      }
+    },
+    error: (err) => {
+      console.error('Failed to load BAU heads:', err);
+    }
+  });  
+
+  this.travelForm.get('employeeDepartment')?.valueChanges.subscribe((dept: string) => {
+    this.populateHeadFields(dept);
+  });  
+  
+  this.travelService.getAllPerDiemCountries().subscribe({
+    next: ({ data }) => {
+      const seen = new Set<string>();
+      const uniqueCountryObjects = data.filter(perDiem => {
+        const location = perDiem.location?.trim();
+        if (!location || seen.has(location)) return false;
+        seen.add(location);
+        return true;
+      });
+  
+      this.perDiemCountries = uniqueCountryObjects;
+    },
+    error: (error) => {
+      console.error('Failed to load per diem countries:', error);
+    }
+  });
+  
   }
+
+  populateHeadFields(selectedDept: string) {
+    if (!selectedDept || !this.bauHeads?.length) return;
+  
+    // Find Exco Head
+    const exco = this.bauHeads.find(bau => bau.unit === selectedDept);
+    if (exco) {
+      this.travelForm.patchValue({
+        excoHeadName: exco.name,
+        excoHeadEmail: exco.email
+      });
+    } else {
+      this.travelForm.patchValue({
+        excoHeadName: '',
+        excoHeadEmail: ''
+      });
+    }
+  
+    // Find CFO (Finance department is fixed)
+    const cfo = this.bauHeads.find(bau => bau.unit.toLowerCase() === 'finance');
+    if (cfo) {
+      this.travelForm.patchValue({
+        cfoName: cfo.name,
+        cfoEmail: cfo.email
+      });
+    }
+  }
+  
 
   calculateWorkingDays() {
     const start = this.travelForm.get('departureDate')?.value;
@@ -129,21 +231,44 @@ export class TravelCreateComponent implements OnInit {
     this.travelForm.patchValue({ daysOutOfficialAssignmentDate: count });
   }  
 
-  calculatePerDiemDays() {
+  calculatePerDiemDays(): void {
     const start = this.travelForm.get('perDiemStartDate')?.value;
     const end = this.travelForm.get('perDiemEndDate')?.value;
+    const selectedCountry = this.travelForm.get('country')?.value;
   
     if (!start || !end || new Date(start) > new Date(end)) {
-      this.travelForm.patchValue({ perDiemDays: 0, estimatedPerDiemAmount: 0 });
+      this.travelForm.patchValue({
+        perDiemDays: 0,
+        estimatedPerDiemAmount: 0
+      });
       return;
     }
   
     const startDate = new Date(start);
     const endDate = new Date(end);
-    const timeDiff = endDate.getTime() - startDate.getTime();
-    const dayDiff = Math.floor(timeDiff / (1000 * 3600 * 24)) + 1;
+    const dayDiff = Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24)) + 1;
   
-    const estimatedAmount = dayDiff * 100;
+    let applicableRate = 100;
+  
+    if (this.perDiemCountries?.length && selectedCountry) {
+      const today = new Date();
+  
+      const matching = this.perDiemCountries.find(p =>
+        p.location?.trim().toLowerCase() === selectedCountry.trim().toLowerCase() &&
+        p.status?.toUpperCase() === 'ACTIVE' &&
+        new Date(p.effectiveDate) <= today
+      );
+  
+      if (matching) {
+        applicableRate = Number(matching.rate) || 100;
+      }
+  
+      console.log('Selected Country:', selectedCountry);
+      console.log('Matching Record:', matching);
+      console.log('Rate Used:', applicableRate);
+    }
+  
+    const estimatedAmount = dayDiff * applicableRate;
   
     this.travelForm.patchValue({
       perDiemDays: dayDiff,

@@ -4,6 +4,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
@@ -13,7 +14,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatToolbarModule, 
     MatButtonModule, 
     MatIconModule, 
-    MatMenuModule
+    MatMenuModule,
+    NgIf
   ],
   template: `
     <mat-toolbar color="primary" class="top-toolbar">
@@ -22,36 +24,29 @@ import { MatMenuModule } from '@angular/material/menu';
       <span class="spacer"></span>
 
       <!-- Admin Dropdown -->
-      <mat-menu #adminMenu="matMenu">
-        <button mat-menu-item [routerLink]="'/travel/list'">Travel Requests</button>
-        <button mat-menu-item [routerLink]="'/travel/buhead/create'">Create BU Head</button>
-      </mat-menu>
+      <ng-container *ngIf="isAdmin">
+        <mat-menu #adminMenu="matMenu">
+          <button mat-menu-item [routerLink]="'/travel/perdiem/create'">Create Per Diem</button>
+          <button mat-menu-item [routerLink]="'/travel/perdiem/list'">List Per Diem</button>
+          <button mat-menu-item [routerLink]="'/travel/buhead/create'">Create BU Head</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="adminMenu">Manage</button>
+      </ng-container>
 
-      <button mat-button [matMenuTriggerFor]="adminMenu">Manage</button>
-
-      <!-- Other tabs -->
-      <button mat-button [routerLink]="'/travel/create'">Create Travel</button>
-      <button mat-button routerLink="/travel/buhead/list">BU Head Approvals</button>
-      <button mat-button routerLink="/travel/cfo/list">CFO Approvals</button>
-      <button mat-button routerLink="/travel/cfo/dashboard">CFO Dashboard</button>
+      <!-- Common Tabs -->
+      <button mat-button [routerLink]="'/travel/list'" *ngIf="canCreateTravel || isBUHead || isCFO || isAdmin" >Travel Requests</button>
+      <button mat-button [routerLink]="'/travel/create'" *ngIf="canCreateTravel || isBUHead || isCFO || isAdmin">Create Travel</button>
+      <button mat-button routerLink="/travel/buhead/list" *ngIf="isBUHead || isAdmin">BU Head Approvals</button>
+      <button mat-button routerLink="/travel/cfo/list" *ngIf="isCFO || isAdmin">CFO Approvals</button>
+      <button mat-button routerLink="/travel/cfo/dashboard" *ngIf="isCFO || isAdmin">CFO Dashboard</button>
+      
       <span class="spacer"></span>
-      <!-- <span class="spacer"></span> -->
-
-      <!-- Navigation Tabs -->
-      <!-- <button mat-button routerLink="/travel/list">Travel Requests</button>
-      <button mat-button routerLink="/travel/create">Create Request</button>
-      <button mat-button routerLink="/travel/buhead/list">BU Head Approvals</button>
-      <button mat-button routerLink="/travel/cfo/list">CFO Approvals</button>
-
-      <span class="spacer"></span> -->
 
       <!-- User info & Logout -->
       <mat-menu #userMenu="matMenu">
-        <!-- <button mat-menu-item disabled>Logged in as: <strong>employee@example.com</strong></button> -->
-        <button mat-menu-item disabled>Logged in as: <strong>employee&#64;example.com</strong></button>
+        <button mat-menu-item disabled>Logged in as: <strong>{{ loggedInEmail }}</strong></button>
         <button mat-menu-item (click)="logout()">Logout</button>
       </mat-menu>
-
       <button mat-icon-button [matMenuTriggerFor]="userMenu">
         <mat-icon>account_circle</mat-icon>
       </button>
@@ -83,6 +78,25 @@ import { MatMenuModule } from '@angular/material/menu';
   `]
 })
 export class LayoutComponent {
+  loggedInEmail = localStorage.getItem('loggedInEmail') || 'Guest';
+  userRole = localStorage.getItem('userRole') || 'Guest';
+
+  get isAdmin() {
+    return this.userRole === 'TR-ADMIN';
+  }
+
+  get isBUHead() {
+    return this.userRole === 'TR-BU_HEAD';
+  }
+
+  get isCFO() {
+    return this.userRole === 'TR-CFO';
+  }
+
+  get canCreateTravel() {
+    return this.userRole === 'TR-EMPLOYEE' || this.isAdmin;
+  }
+
   logout() {
     // Clear token and redirect to login
     localStorage.removeItem('loggedInEmail');

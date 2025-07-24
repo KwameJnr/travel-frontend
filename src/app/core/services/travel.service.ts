@@ -5,14 +5,18 @@ import { CfoDashboardMetrics } from 'src/app/shared/models/cfo/CfoDashboadMetric
 import { ApprovalEmailPayload } from 'src/app/shared/models/notification/ApprovalEmailPayload';
 import { EmailMsgPayload } from 'src/app/shared/models/notification/EmailMsgPayload';
 import { ApiResponse } from 'src/app/shared/models/travel/api-response.model';
+import { Department } from 'src/app/shared/models/deparment/department.model'; 
 import { Travel } from 'src/app/shared/models/travel/travel.model';
+import { BauHeadForm } from 'src/app/shared/models/buhead/buheadform';
+import { PerDiemForm } from 'src/app/shared/models/perdiem/perdiemform.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TravelService {
-  private baseUrl = 'http://localhost:8084/travelrequestservice/uat/api/travels'; // Adjust if needed
+  private baseUrl = 'http://localhost:9090/camp/travels'; // Adjust if needed
+  private apiUrl = 'http://localhost:9090/camp/company/department/index';
 
   constructor(private http: HttpClient) { }
 
@@ -28,9 +32,6 @@ export class TravelService {
     );
   }
 
-  // create(travel: Travel): Observable<Travel> {
-  //   return this.http.post<Travel>(`${this.baseUrl}/add`, travel);
-  // }
   create(travel: Travel): Observable<ApiResponse<Travel>> {
     return this.http.post<ApiResponse<Travel>>(`${this.baseUrl}/add`, travel);
   }  
@@ -69,31 +70,51 @@ export class TravelService {
 
   //Notification endpoints
   sendApprovalEmail(payload: ApprovalEmailPayload): Observable<any> {
-    return this.http.post('http://localhost:8084/travelrequestservice/uat/api/notifications/send-approval-msg', payload);
+    return this.http.post('http://localhost:9090/camp/notifications/send-approval-msg', payload);
   }
 
   sendApprovalEmailFrontEnd(payload: ApprovalEmailPayload): Observable<any> {
-    return this.http.post('http://localhost:8084/travelrequestservice/uat/api/notifications/send-approval-frontend-msg', payload);
+    return this.http.post('http://localhost:9090/camp/notifications/send-approval-frontend-msg', payload);
+  }
+
+  sendApprovalEmailFrontEndWithAttachment(payload: ApprovalEmailPayload): Observable<any> {
+    return this.http.post('http://localhost:9090/camp/notifications/send-approval-frontend-msg-with-attachment', payload);
   }
 
   sendEmailMsg(payload: EmailMsgPayload): Observable<any> {
-    return this.http.post('http://localhost:8084/travelrequestservice/uat/api/notifications/send-msg', payload);
+    return this.http.post('http://localhost:9090/camp/notifications/send-msg', payload);
   }
   
   //Cfo dashboard notification endpoints 
   getMetrics(): Observable<CfoDashboardMetrics> {
-    return this.http.get<CfoDashboardMetrics>('http://localhost:8084/travelrequestservice/uat/api/cfo-dashboard/metrics');
+    return this.http.get<CfoDashboardMetrics>('http://localhost:9090/camp/cfo-dashboard/metrics');
   }
 
   getMonthlyCosts(year: number) {
     return this.http.get<{ month: string; cost: number }[]>(
-      `http://localhost:8084/travelrequestservice/uat/api/cfo-dashboard/monthly-costs?year=${year}`
+      `http://localhost:9090/camp/cfo-dashboard/monthly-costs?year=${year}`
     );
   }
 
   getTopDepartments(year: number, month?: number) {
     let params = `year=${year}`;
     if (month) params += `&month=${month}`;
-    return this.http.get<{ department: string, cost: number }[]>(`http://localhost:8084/travelrequestservice/uat/api/cfo-dashboard/top-departments?${params}`);
+    return this.http.get<{ department: string, cost: number }[]>(`http://localhost:9090/camp/cfo-dashboard/top-departments?${params}`);
+  }
+
+  //Get deoartment endpoints 
+  // Use POST to pass {} in body
+  getDepartments(): Observable<{ status: string, message: string, data: Department[] }> {
+    return this.http.get<{ status: string, message: string, data: Department[] }>(this.apiUrl);
+  }
+  
+  getBAUHeads(): Observable<{ statusCode: string, statusMessage: string, data: BauHeadForm[] }> {
+    return this.http.get<{ statusCode: string, statusMessage: string, data: BauHeadForm[] }>(
+      'http://localhost:9090/camp/company/bau/index'
+    );
+  }
+
+  getAllPerDiemCountries(): Observable<ApiResponse<PerDiemForm[]>> {
+    return this.http.get<ApiResponse<PerDiemForm[]>>(`http://localhost:9090/camp/perdiems/all`);
   }
 }

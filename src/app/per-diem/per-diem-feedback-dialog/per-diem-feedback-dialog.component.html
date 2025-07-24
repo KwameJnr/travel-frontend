@@ -2,7 +2,7 @@
     <mat-card-header>
       <mat-card-title>
         <mat-icon color="primary" style="vertical-align: middle; margin-right: 8px;">check_circle</mat-icon>
-        Confirm Business Head Request
+        Confirm Per-Diem Request
       </mat-card-title>
     </mat-card-header>
   
@@ -10,10 +10,10 @@
       <div class="confirm-grid">
         <!-- Personal Info -->
         <ng-container *ngFor="let field of [
-          { icon: 'person', label: 'Employee Name', value: data.buHeadName },
-          { icon: 'email', label: 'Email', value: data.buHeadEmail },
-          { icon: 'badge', label: 'F-Number', value: data.fNumber },
-          { icon: 'apartment', label: 'Department', value: data.Department },
+          { icon: 'money', label: 'Rate', value: data.rate },
+          { icon: 'location_on', label: 'Location', value: data.location },
+          { icon: 'date_range', label: 'Effective Date', value: data.effectiveDate | date: 'shortDate' },
+          { icon: 'badge', label: 'Status', value: data.status },
         ]">
           <div class="field-row">
             <div class="field-label">
@@ -33,3 +33,4 @@
   </mat-card-actions>
 </mat-card>
   
+
