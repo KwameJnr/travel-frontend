@@ -10,6 +10,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { baseUrl ,baseUrlLocal, baseUrlLocalCamp} from 'src/app/core/services/constants';
 
 
 @Component({
@@ -62,7 +63,7 @@ onSubmit(): void {
       'X-SrcApp': 'Travel-Request'
     });
 
-    this.http.post<any>('http://localhost:9090/camp/security/search-and-authenticate', {
+    this.http.post<any>(`${baseUrl}/security/search-and-authenticate`, {
       fnumber,
       password
     }, { headers: authHeaders }).subscribe({
@@ -90,7 +91,7 @@ start2FAPolling(authId: string): void {
   this.pollingInterval = setInterval(() => {
     this.pollingAttempts++;
 
-    this.http.post<any>('http://localhost:9090/camp/security/verify-2fa', {
+    this.http.post<any>(`${baseUrl}/security/verify-2fa`, {
       authId
     }).subscribe({
       next: (res) => {
@@ -100,13 +101,24 @@ start2FAPolling(authId: string): void {
         clearInterval(this.pollingInterval);
         this.resetPollingState();
 
+        const userToken = res?.token;
         const user = res?.user;
         const userEmail = user?.mail;
         const userRole = user?.role;
+        const userFnumber = user?.userId;
+        const userMobile = user?.mobile;
+        const userTitle = user?.title;
+        const userName = user?.name;
 
         if (userEmail) {
           localStorage.setItem('loggedInEmail', userEmail);
           localStorage.setItem('userRole', userRole);
+          localStorage.setItem('userFnumber', userFnumber);
+          localStorage.setItem('userMobile', userMobile);
+          localStorage.setItem('userTitle', userTitle);
+          localStorage.setItem('userName', userName);
+          localStorage.setItem('userToken', userToken);
+
           this.router.navigate(['/travel/list']);
         } else {
           alert('Login failed: Email not found in response.');

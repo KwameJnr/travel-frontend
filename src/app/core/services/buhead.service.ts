@@ -9,7 +9,7 @@ import { BuHead } from 'src/app/shared/models/buhead/buhead.model';
   providedIn: 'root'
 })
 export class BuheadService {
-  private baseUrl = 'http://localhost:9090/camp/buheads'; // Adjust if needed
+  private baseUrl = 'http://localhost:9090/camp/travelre/buheads'; // Adjust if needed
 
   constructor(private http: HttpClient) { }
 

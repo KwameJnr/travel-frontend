@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/layouts/layout.component.ts"],
+  "sourcesContent": ["\n    .top-toolbar {\n      position: sticky;\n      top: 0;\n      z-index: 1000;\n      background-color: #048a73;\n      color: white; /* Ensures text and icons are visible */\n    }\n  \n    .logo {\n      font-weight: bold;\n      font-size: 1.3rem;\n    }\n  \n    .spacer {\n      flex: 1 1 auto;\n    }\n  \n    button, .mat-button, .mat-icon-button {\n      color: black;\n    }\n  "],
+  "mappings": ";AACI,CAAA;AACE,YAAA;AACA,OAAA;AACA,WAAA;AACA,oBAAA;AACA,SAAA;;AAGF,CAAA;AACE,eAAA;AACA,aAAA;;AAGF,CAAA;AACE,QAAA,EAAA,EAAA;;AAGF;AAAA,CAAA;AAAA,CAAA;AACE,SAAA;;",
+  "names": []
+}

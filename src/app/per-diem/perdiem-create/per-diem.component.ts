@@ -55,7 +55,7 @@ export class PerDiemComponent implements OnInit {
   ngOnInit(): void {
     const userRole = localStorage.getItem('userRole');
 
-    if (userRole !== 'ADMIN') {
+    if (userRole !== 'TR-ADMIN') {
       this.router.navigate(['/unauthorized']);  // Redirect unauthorized users
       return;
     }

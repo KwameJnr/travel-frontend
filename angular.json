@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "baseHref": "/tent/travel-request/",
             "outputPath": "dist/travel-request-front-end",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -37,6 +38,11 @@
           },
           "configurations": {
             "production": {
+
+              "outputPath":{
+                "base":"travel-request",
+                "browser": ""
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -52,6 +58,10 @@
               "outputHashing": "all"
             },
             "development": {
+              "outputPath":{
+                "base":"travel-request",
+                "browser": ""
+              },
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true

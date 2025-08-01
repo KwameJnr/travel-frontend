@@ -28,7 +28,7 @@ import { NgIf } from '@angular/common';
         <mat-menu #adminMenu="matMenu">
           <button mat-menu-item [routerLink]="'/travel/perdiem/create'">Create Per Diem</button>
           <button mat-menu-item [routerLink]="'/travel/perdiem/list'">List Per Diem</button>
-          <button mat-menu-item [routerLink]="'/travel/buhead/create'">Create BU Head</button>
+          <!-- <button mat-menu-item [routerLink]="'/travel/buhead/create'">Create BU Head</button> -->
         </mat-menu>
         <button mat-button [matMenuTriggerFor]="adminMenu">Manage</button>
       </ng-container>
@@ -44,7 +44,12 @@ import { NgIf } from '@angular/common';
 
       <!-- User info & Logout -->
       <mat-menu #userMenu="matMenu">
-        <button mat-menu-item disabled>Logged in as: <strong>{{ loggedInEmail }}</strong></button>
+        <button mat-menu-item disabled>Logged in as: <strong>{{ userName }}</strong></button>
+        <button mat-menu-item disabled>Email: <strong>{{ loggedInEmail }}</strong></button>
+        <button mat-menu-item disabled>System Role: <strong>{{ userRole }}</strong></button>
+        <button mat-menu-item disabled>F-Number: <strong>{{ userFnumber }}</strong></button>
+        <button mat-menu-item disabled>Mobile: <strong>{{ userMobile }}</strong></button>
+        <button mat-menu-item disabled>Job Title: <strong>{{ userTitle }}</strong></button>
         <button mat-menu-item (click)="logout()">Logout</button>
       </mat-menu>
       <button mat-icon-button [matMenuTriggerFor]="userMenu">
@@ -81,6 +86,11 @@ export class LayoutComponent {
   loggedInEmail = localStorage.getItem('loggedInEmail') || 'Guest';
   userRole = localStorage.getItem('userRole') || 'Guest';
 
+  userFnumber = localStorage.getItem('userFnumber');
+  userMobile = localStorage.getItem('userMobile');
+  userTitle = localStorage.getItem('userTitle');
+  userName = localStorage.getItem('userName');
+
   get isAdmin() {
     return this.userRole === 'TR-ADMIN';
   }
@@ -100,6 +110,10 @@ export class LayoutComponent {
   logout() {
     // Clear token and redirect to login
     localStorage.removeItem('loggedInEmail');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userFnumber');
+    localStorage.removeItem('userMobile');
+    localStorage.removeItem('userName');
     location.href = '/login';
   }
 }

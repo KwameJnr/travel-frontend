@@ -22,6 +22,8 @@ import { Department } from 'src/app/shared/models/deparment/department.model';
 import { BauHeadForm } from 'src/app/shared/models/buhead/buheadform';
 import { PerDiemForm } from 'src/app/shared/models/perdiem/perdiemform.model';
 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 @Component({
   selector: 'app-travel-create',
   templateUrl: './travel-create.component.html',
@@ -55,7 +57,8 @@ export class TravelCreateComponent implements OnInit {
     private fb: FormBuilder,
     private travelService: TravelService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -115,6 +118,7 @@ export class TravelCreateComponent implements OnInit {
   this.travelForm.get('perDiemEndDate')?.valueChanges.subscribe(() => this.calculatePerDiemDays());
   this.travelForm.get('country')?.valueChanges.subscribe(() => this.calculatePerDiemDays()); // 
 
+  // this.getTestdata();
 
   this.travelService.getDepartments().subscribe({
     next: (response) => {
@@ -181,6 +185,24 @@ export class TravelCreateComponent implements OnInit {
   });
   
   }
+
+  // getTestdata() {
+  //   console.log('Fetching test data...');
+  //   const token = localStorage.getItem('userToken') || '';
+  //   const headers = new HttpHeaders()
+  //   .set('Authorization', `Bearer ${token}`)
+  //   .set('X-SrcApp', 'Travel-Request');
+  //   this.http.get<any>('http://localhost:9090/camp/company/department/index',{headers})
+  // .subscribe({
+  //   next: (response:any) => {
+  //     console.log('Departments loaded:', response);
+  //     this.departments = response.data; // adjust if response is a plain array
+  //   },
+  //   error: (err:any) => {
+  //     console.error('Failed to load test departments:', err);
+  //   }
+  // });
+  // }
 
   populateHeadFields(selectedDept: string) {
     if (!selectedDept || !this.bauHeads?.length) return;

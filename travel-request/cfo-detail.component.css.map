@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/approval/cfo-detail/cfo-detail.component.scss"],
+  "sourcesContent": [".field {\n    margin-bottom: 10px;\n    font-size: 15px;\n  }\n  .full-width {\n    width: 100%;\n    margin-bottom: 16px;\n  }\n  \n  mat-card-actions {\n    display: flex;\n    justify-content: flex-end;\n    gap: 12px;\n  }\n  mat-card-content {\n    padding-top: 12px;\n  }\n  mat-card-actions {\n    display: flex;\n    justify-content: flex-end;\n    flex-wrap: wrap;\n    gap: 12px;\n  }\n  .read-only-hint {\n    color: #f44336;\n    font-weight: 500;\n    margin-top: 8px;\n  }"],
+  "mappings": ";AAAA,CAAA;AACI,iBAAA;AACA,aAAA;;AAEF,CAAA;AACE,SAAA;AACA,iBAAA;;AAGF;AACE,WAAA;AACA,mBAAA;AACA,OAAA;;AAEF;AACE,eAAA;;AAEF;AACE,WAAA;AACA,mBAAA;AACA,aAAA;AACA,OAAA;;AAEF,CAAA;AACE,SAAA;AACA,eAAA;AACA,cAAA;;",
+  "names": []
+}
