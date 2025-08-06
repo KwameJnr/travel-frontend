@@ -8,6 +8,10 @@
 
   <div class="login-form-section">
     <mat-card class="login-card" appearance="outlined">
+
+      <!-- Version label -->
+      <div class="version-label">v0.0.4</div>
+
       <mat-card-title>Welcome Back</mat-card-title>
       <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>
 
@@ -26,12 +30,14 @@
           Sign In
         </button>
       </form>
+
       <div *ngIf="isPolling" class="polling-message">
         <mat-spinner diameter="24"></mat-spinner> &nbsp;Waiting for 2FA approval on your phone...
       </div>
     </mat-card>
   </div>
 </div>
+
 
 
 <!-- <div class="login-container">

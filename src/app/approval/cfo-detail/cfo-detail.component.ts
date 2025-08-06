@@ -157,29 +157,45 @@ export class CfoDetailComponent  implements OnInit {
         }
   
         // Always notify requester
-        const requesterEmailPayload = {
-          clientKey: 'Travel-Request-Manager-EmailerId-Requester',
-          fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
-          // toEmail: `${this.travel.employeeEmail}, ${this.travel.excoHeadEmail}, ${this.travel.cfoEmail}`,
-          toEmail: [this.travel.employeeEmail, this.travel.excoHeadEmail, this.travel.cfoEmail].join(', '),
-          subject: `Your Travel Request Status Update`,
-          body: `
-            <p>Dear ${this.travel.employeeName},</p>
-      
-            <p>Your travel request status has been updated to: <strong>${payload.status}</strong>.</p>
-            
-            <p>
-              Purpose: ${this.travel.purpose}<br>
-              Departure Date: ${this.travel.departureDate}<br>
-              Return Date: ${this.travel.returnDate}
-            </p>
-            
-            <p>Regards,<br>Travel Request Management System</p>`
-        };
-  
-        this.travelService.sendEmailMsg(requesterEmailPayload).subscribe({
-          next: () => console.log('Requester notification email sent'),
-          error: (err) => console.error('Failed to send requester notification email', err)
+        const recipients = [
+          {
+            name: this.travel.employeeName,
+            email: this.travel.employeeEmail
+          },
+          {
+            name: this.travel.excoHeadName,
+            email: this.travel.excoHeadEmail
+          },
+          {
+            name: this.travel.cfoName,
+            email: this.travel.cfoEmail
+          }
+        ];
+    
+        recipients.forEach((recipient) => {
+          const personalizedEmailPayload = {
+            clientKey: 'Travel-Request-Manager-EmailerId-Requester',
+            fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
+            toEmail: recipient.email,
+            subject: `Your Travel Request Status Update`,
+            body: `
+              <p>Dear ${recipient.name},</p>
+    
+              <p>Travel request status for ${this.travel.employeeName} has been updated to: <strong>${payload.status}</strong>.</p>
+    
+              <p>
+                Purpose: ${this.travel.purpose}<br>
+                Departure Date: ${this.travel.departureDate}<br>
+                Return Date: ${this.travel.returnDate}
+              </p>
+    
+              <p>Regards,<br>Travel Request Management System</p>`
+          };
+    
+          this.travelService.sendEmailMsg(personalizedEmailPayload).subscribe({
+            next: () => console.log(`Notification email sent to ${recipient.name}`),
+            error: (err) => console.error(`Failed to send notification email to ${recipient.name}`, err)
+          });
         });
   
         this.router.navigate(['/travel/buhead/list']);

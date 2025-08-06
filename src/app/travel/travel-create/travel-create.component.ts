@@ -120,6 +120,8 @@ export class TravelCreateComponent implements OnInit {
 
   // this.getTestdata();
 
+  // console.log('Travel Create Component Initialized');
+  // console.log('Calling department endpoint:', this.travelService.getDepartments().);
   this.travelService.getDepartments().subscribe({
     next: (response) => {
       this.departments = response.data; // assuming 'response' has a 'data' array
@@ -185,24 +187,6 @@ export class TravelCreateComponent implements OnInit {
   });
   
   }
-
-  // getTestdata() {
-  //   console.log('Fetching test data...');
-  //   const token = localStorage.getItem('userToken') || '';
-  //   const headers = new HttpHeaders()
-  //   .set('Authorization', `Bearer ${token}`)
-  //   .set('X-SrcApp', 'Travel-Request');
-  //   this.http.get<any>('http://localhost:9090/camp/company/department/index',{headers})
-  // .subscribe({
-  //   next: (response:any) => {
-  //     console.log('Departments loaded:', response);
-  //     this.departments = response.data; // adjust if response is a plain array
-  //   },
-  //   error: (err:any) => {
-  //     console.error('Failed to load test departments:', err);
-  //   }
-  // });
-  // }
 
   populateHeadFields(selectedDept: string) {
     if (!selectedDept || !this.bauHeads?.length) return;

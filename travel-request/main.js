@@ -21,12 +21,12 @@ import {
   ReactiveFormsModule,
   RequiredValidator,
   Validators,
-  baseUrl,
+  baseUrlCamp,
   sequence,
   style,
   ɵNgNoValidate,
   ɵPRE_STYLE
-} from "./chunk-J7H4ZFRK.js";
+} from "./chunk-AH2VPI4X.js";
 import {
   MatMenu,
   MatMenuItem,
@@ -4253,12 +4253,9 @@ function LayoutComponent_ng_container_4_Template(rf, ctx) {
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(5, "button", 13);
     \u0275\u0275text(6, "List Per Diem");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "button", 13);
-    \u0275\u0275text(8, "Create BU Head");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "button", 14);
-    \u0275\u0275text(10, "Manage");
+    \u0275\u0275elementStart(7, "button", 14);
+    \u0275\u0275text(8, "Manage");
     \u0275\u0275elementEnd();
     \u0275\u0275elementContainerEnd();
   }
@@ -4268,8 +4265,6 @@ function LayoutComponent_ng_container_4_Template(rf, ctx) {
     \u0275\u0275property("routerLink", "/travel/perdiem/create");
     \u0275\u0275advance(2);
     \u0275\u0275property("routerLink", "/travel/perdiem/list");
-    \u0275\u0275advance(2);
-    \u0275\u0275property("routerLink", "/travel/buhead/create");
     \u0275\u0275advance(2);
     \u0275\u0275property("matMenuTriggerFor", adminMenu_r2);
   }
@@ -4352,7 +4347,7 @@ var LayoutComponent = class _LayoutComponent {
       \u0275\u0275text(2, "Travel Request Manager");
       \u0275\u0275elementEnd();
       \u0275\u0275element(3, "span", 4);
-      \u0275\u0275template(4, LayoutComponent_ng_container_4_Template, 11, 4, "ng-container", 5)(5, LayoutComponent_button_5_Template, 2, 1, "button", 6)(6, LayoutComponent_button_6_Template, 2, 1, "button", 6)(7, LayoutComponent_button_7_Template, 2, 0, "button", 7)(8, LayoutComponent_button_8_Template, 2, 0, "button", 8)(9, LayoutComponent_button_9_Template, 2, 0, "button", 9);
+      \u0275\u0275template(4, LayoutComponent_ng_container_4_Template, 9, 3, "ng-container", 5)(5, LayoutComponent_button_5_Template, 2, 1, "button", 6)(6, LayoutComponent_button_6_Template, 2, 1, "button", 6)(7, LayoutComponent_button_7_Template, 2, 0, "button", 7)(8, LayoutComponent_button_8_Template, 2, 0, "button", 8)(9, LayoutComponent_button_9_Template, 2, 0, "button", 9);
       \u0275\u0275element(10, "span", 4);
       \u0275\u0275elementStart(11, "mat-menu", null, 0)(13, "button", 10);
       \u0275\u0275text(14, "Logged in as: ");
@@ -4448,7 +4443,7 @@ var LayoutComponent = class _LayoutComponent {
         <mat-menu #adminMenu="matMenu">
           <button mat-menu-item [routerLink]="'/travel/perdiem/create'">Create Per Diem</button>
           <button mat-menu-item [routerLink]="'/travel/perdiem/list'">List Per Diem</button>
-          <button mat-menu-item [routerLink]="'/travel/buhead/create'">Create BU Head</button>
+          <!-- <button mat-menu-item [routerLink]="'/travel/buhead/create'">Create BU Head</button> -->
         </mat-menu>
         <button mat-button [matMenuTriggerFor]="adminMenu">Manage</button>
       </ng-container>
@@ -4486,10 +4481,10 @@ var LayoutComponent = class _LayoutComponent {
 })();
 
 // src/app/auth/login/login.component.ts
-function LoginComponent_div_23_Template(rf, ctx) {
+function LoginComponent_div_25_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 12);
-    \u0275\u0275element(1, "mat-spinner", 13);
+    \u0275\u0275elementStart(0, "div", 13);
+    \u0275\u0275element(1, "mat-spinner", 14);
     \u0275\u0275text(2, " \xA0Waiting for 2FA approval on your phone... ");
     \u0275\u0275elementEnd();
   }
@@ -4528,7 +4523,7 @@ var LoginComponent = class _LoginComponent {
         "Content-Type": "application/json",
         "X-SrcApp": "Travel-Request"
       });
-      this.http.post(baseUrl + "/security/search-and-authenticate", {
+      this.http.post(`${baseUrlCamp}/security/search-and-authenticate`, {
         fnumber,
         password
       }, { headers: authHeaders }).subscribe({
@@ -4553,7 +4548,7 @@ var LoginComponent = class _LoginComponent {
     this.pollingAttempts = 0;
     this.pollingInterval = setInterval(() => {
       this.pollingAttempts++;
-      this.http.post(baseUrl + "/security/verify-2fa", {
+      this.http.post(`${baseUrlCamp}/security/verify-2fa`, {
         authId
       }).subscribe({
         next: (res) => {
@@ -4601,41 +4596,44 @@ var LoginComponent = class _LoginComponent {
   static \u0275fac = function LoginComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _LoginComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(HttpClient));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LoginComponent, selectors: [["app-login"]], decls: 24, vars: 3, consts: [[1, "login-container"], [1, "login-image-section"], [1, "system-title"], ["src", "assets/images/travels.svg", "alt", "Travel Illustration"], [1, "login-form-section"], ["appearance", "outlined", 1, "login-card"], [3, "ngSubmit", "formGroup"], ["appearance", "fill", 1, "full-width"], ["matInput", "", "type", "text", "formControlName", "fnumber", "required", ""], ["matInput", "", "type", "password", "formControlName", "password", "required", ""], ["mat-raised-button", "", "color", "primary", 1, "login-btn", 3, "disabled"], ["class", "polling-message", 4, "ngIf"], [1, "polling-message"], ["diameter", "24"]], template: function LoginComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LoginComponent, selectors: [["app-login"]], decls: 26, vars: 3, consts: [[1, "login-container"], [1, "login-image-section"], [1, "system-title"], ["src", "assets/images/travels.svg", "alt", "Travel Illustration"], [1, "login-form-section"], ["appearance", "outlined", 1, "login-card"], [1, "version-label"], [3, "ngSubmit", "formGroup"], ["appearance", "fill", 1, "full-width"], ["matInput", "", "type", "text", "formControlName", "fnumber", "required", ""], ["matInput", "", "type", "password", "formControlName", "password", "required", ""], ["mat-raised-button", "", "color", "primary", 1, "login-btn", 3, "disabled"], ["class", "polling-message", 4, "ngIf"], [1, "polling-message"], ["diameter", "24"]], template: function LoginComponent_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h1");
       \u0275\u0275text(4, "Travel Request Management System");
       \u0275\u0275elementEnd()();
       \u0275\u0275element(5, "img", 3);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(6, "div", 4)(7, "mat-card", 5)(8, "mat-card-title");
-      \u0275\u0275text(9, "Welcome Back");
+      \u0275\u0275elementStart(6, "div", 4)(7, "mat-card", 5)(8, "div", 6);
+      \u0275\u0275text(9, "v0.0.4");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(10, "mat-card-subtitle");
-      \u0275\u0275text(11, "Sign in to book your travel requests");
+      \u0275\u0275elementStart(10, "mat-card-title");
+      \u0275\u0275text(11, "Welcome Back");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(12, "form", 6);
-      \u0275\u0275listener("ngSubmit", function LoginComponent_Template_form_ngSubmit_12_listener() {
+      \u0275\u0275elementStart(12, "mat-card-subtitle");
+      \u0275\u0275text(13, "Sign in to book your travel requests");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(14, "form", 7);
+      \u0275\u0275listener("ngSubmit", function LoginComponent_Template_form_ngSubmit_14_listener() {
         return ctx.onSubmit();
       });
-      \u0275\u0275elementStart(13, "mat-form-field", 7)(14, "mat-label");
-      \u0275\u0275text(15, "F-Number");
+      \u0275\u0275elementStart(15, "mat-form-field", 8)(16, "mat-label");
+      \u0275\u0275text(17, "F-Number");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(16, "input", 8);
+      \u0275\u0275element(18, "input", 9);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(17, "mat-form-field", 7)(18, "mat-label");
-      \u0275\u0275text(19, "Password");
+      \u0275\u0275elementStart(19, "mat-form-field", 8)(20, "mat-label");
+      \u0275\u0275text(21, "Password");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(20, "input", 9);
+      \u0275\u0275element(22, "input", 10);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(21, "button", 10);
-      \u0275\u0275text(22, " Sign In ");
+      \u0275\u0275elementStart(23, "button", 11);
+      \u0275\u0275text(24, " Sign In ");
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(23, LoginComponent_div_23_Template, 3, 0, "div", 11);
+      \u0275\u0275template(25, LoginComponent_div_25_Template, 3, 0, "div", 12);
       \u0275\u0275elementEnd()()();
     }
     if (rf & 2) {
-      \u0275\u0275advance(12);
+      \u0275\u0275advance(14);
       \u0275\u0275property("formGroup", ctx.loginForm);
       \u0275\u0275advance(9);
       \u0275\u0275property("disabled", ctx.loginForm.invalid);
@@ -4669,7 +4667,7 @@ var LoginComponent = class _LoginComponent {
     MatProgressSpinnerModule,
     MatProgressSpinner,
     RouterModule
-  ], styles: ["\n\n.login-container[_ngcontent-%COMP%] {\n  display: flex;\n  height: 100vh;\n}\n.login-image-section[_ngcontent-%COMP%] {\n  flex: 1.5;\n  background:\n    linear-gradient(\n      to bottom right,\n      #00796b,\n      #004d40);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  height: 100vh;\n}\n.login-image-section[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: auto;\n  max-width: none;\n  display: block;\n  margin: 0;\n  padding: 0;\n  animation: fadeIn 1s ease-in;\n}\n.system-title[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 20px;\n  text-align: center;\n}\n.system-title[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  font-weight: 700;\n  color: white;\n  margin: 0;\n}\n.login-form-section[_ngcontent-%COMP%] {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: #ffffff;\n}\n.login-card[_ngcontent-%COMP%] {\n  width: 100%;\n  max-width: 400px;\n  padding: 2rem;\n  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n}\n.full-width[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.login-btn[_ngcontent-%COMP%] {\n  margin-top: 16px;\n  width: 100%;\n}\n/*# sourceMappingURL=login.component.css.map */"] });
+  ], styles: ["\n\n.login-container[_ngcontent-%COMP%] {\n  display: flex;\n  height: 100vh;\n}\n.login-image-section[_ngcontent-%COMP%] {\n  flex: 1.5;\n  background:\n    linear-gradient(\n      to bottom right,\n      #00796b,\n      #004d40);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  height: 100vh;\n}\n.login-image-section[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: auto;\n  max-width: none;\n  display: block;\n  margin: 0;\n  padding: 0;\n  animation: fadeIn 1s ease-in;\n}\n.system-title[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 20px;\n  text-align: center;\n}\n.system-title[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  font-weight: 700;\n  color: white;\n  margin: 0;\n}\n.login-form-section[_ngcontent-%COMP%] {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: #ffffff;\n}\n.login-card[_ngcontent-%COMP%] {\n  width: 100%;\n  max-width: 400px;\n  padding: 2rem;\n  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n}\n.full-width[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.login-btn[_ngcontent-%COMP%] {\n  margin-top: 16px;\n  width: 100%;\n}\n.version-label[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 10px;\n  right: 16px;\n  font-size: 12px;\n  color: gray;\n  font-weight: 400;\n  opacity: 0.8;\n}\n/*# sourceMappingURL=login.component.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LoginComponent, [{
@@ -4685,7 +4683,7 @@ var LoginComponent = class _LoginComponent {
       MatSelectModule,
       MatProgressSpinnerModule,
       RouterModule
-    ], template: '<div class="login-container">\n  <div class="login-image-section">\n    <div class="system-title">\n      <h1>Travel Request Management System</h1>\n    </div>\n    <img src="assets/images/travels.svg" alt="Travel Illustration" />\n  </div>\n\n  <div class="login-form-section">\n    <mat-card class="login-card" appearance="outlined">\n      <mat-card-title>Welcome Back</mat-card-title>\n      <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>\n\n      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>F-Number</mat-label>\n          <input matInput type="text" formControlName="fnumber" required />\n        </mat-form-field>\n\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Password</mat-label>\n          <input matInput type="password" formControlName="password" required />\n        </mat-form-field>\n\n        <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">\n          Sign In\n        </button>\n      </form>\n      <div *ngIf="isPolling" class="polling-message">\n        <mat-spinner diameter="24"></mat-spinner> &nbsp;Waiting for 2FA approval on your phone...\n      </div>\n    </mat-card>\n  </div>\n</div>\n\n\n<!-- <div class="login-container">\n  <div class="login-image-section">\n    <div class="system-title">\n      <h1>Travel Request Management System</h1>\n    </div>\n    <img src="assets/images/travels.svg" alt="Travel Illustration" />\n  </div>\n\n  <div class="login-form-section">\n    <mat-card class="login-card" appearance="outlined">\n      <mat-card-title>Welcome Back</mat-card-title>\n      <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>\n\n      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Email</mat-label>\n          <input matInput type="email" formControlName="email" required />\n        </mat-form-field>\n\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Password</mat-label>\n          <input matInput type="password" formControlName="password" required />\n        </mat-form-field>\n\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Select Role</mat-label>\n          <mat-select formControlName="role" required>\n            <mat-option value="EMPLOYEE">EMPLOYEE</mat-option>\n            <mat-option value="BU_HEAD">BU_HEAD</mat-option>\n            <mat-option value="CFO">CFO</mat-option>\n            <mat-option value="ADMIN">ADMIN</mat-option>\n          </mat-select>\n        </mat-form-field>\n\n        <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">\n          Sign In\n        </button>\n      </form>\n    </mat-card>\n  </div>\n</div> -->\n\n', styles: ["/* src/app/auth/login/login.component.scss */\n.login-container {\n  display: flex;\n  height: 100vh;\n}\n.login-image-section {\n  flex: 1.5;\n  background:\n    linear-gradient(\n      to bottom right,\n      #00796b,\n      #004d40);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  height: 100vh;\n}\n.login-image-section img {\n  width: 100%;\n  height: auto;\n  max-width: none;\n  display: block;\n  margin: 0;\n  padding: 0;\n  animation: fadeIn 1s ease-in;\n}\n.system-title {\n  position: absolute;\n  top: 20px;\n  text-align: center;\n}\n.system-title h1 {\n  font-size: 2.5rem;\n  font-weight: 700;\n  color: white;\n  margin: 0;\n}\n.login-form-section {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: #ffffff;\n}\n.login-card {\n  width: 100%;\n  max-width: 400px;\n  padding: 2rem;\n  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n}\n.full-width {\n  width: 100%;\n}\n.login-btn {\n  margin-top: 16px;\n  width: 100%;\n}\n/*# sourceMappingURL=login.component.css.map */\n"] }]
+    ], template: '<div class="login-container">\n  <div class="login-image-section">\n    <div class="system-title">\n      <h1>Travel Request Management System</h1>\n    </div>\n    <img src="assets/images/travels.svg" alt="Travel Illustration" />\n  </div>\n\n  <div class="login-form-section">\n    <mat-card class="login-card" appearance="outlined">\n\n      <!-- Version label -->\n      <div class="version-label">v0.0.4</div>\n\n      <mat-card-title>Welcome Back</mat-card-title>\n      <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>\n\n      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>F-Number</mat-label>\n          <input matInput type="text" formControlName="fnumber" required />\n        </mat-form-field>\n\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Password</mat-label>\n          <input matInput type="password" formControlName="password" required />\n        </mat-form-field>\n\n        <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">\n          Sign In\n        </button>\n      </form>\n\n      <div *ngIf="isPolling" class="polling-message">\n        <mat-spinner diameter="24"></mat-spinner> &nbsp;Waiting for 2FA approval on your phone...\n      </div>\n    </mat-card>\n  </div>\n</div>\n\n\n\n<!-- <div class="login-container">\n  <div class="login-image-section">\n    <div class="system-title">\n      <h1>Travel Request Management System</h1>\n    </div>\n    <img src="assets/images/travels.svg" alt="Travel Illustration" />\n  </div>\n\n  <div class="login-form-section">\n    <mat-card class="login-card" appearance="outlined">\n      <mat-card-title>Welcome Back</mat-card-title>\n      <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>\n\n      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Email</mat-label>\n          <input matInput type="email" formControlName="email" required />\n        </mat-form-field>\n\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Password</mat-label>\n          <input matInput type="password" formControlName="password" required />\n        </mat-form-field>\n\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Select Role</mat-label>\n          <mat-select formControlName="role" required>\n            <mat-option value="EMPLOYEE">EMPLOYEE</mat-option>\n            <mat-option value="BU_HEAD">BU_HEAD</mat-option>\n            <mat-option value="CFO">CFO</mat-option>\n            <mat-option value="ADMIN">ADMIN</mat-option>\n          </mat-select>\n        </mat-form-field>\n\n        <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">\n          Sign In\n        </button>\n      </form>\n    </mat-card>\n  </div>\n</div> -->\n\n', styles: ["/* src/app/auth/login/login.component.scss */\n.login-container {\n  display: flex;\n  height: 100vh;\n}\n.login-image-section {\n  flex: 1.5;\n  background:\n    linear-gradient(\n      to bottom right,\n      #00796b,\n      #004d40);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  height: 100vh;\n}\n.login-image-section img {\n  width: 100%;\n  height: auto;\n  max-width: none;\n  display: block;\n  margin: 0;\n  padding: 0;\n  animation: fadeIn 1s ease-in;\n}\n.system-title {\n  position: absolute;\n  top: 20px;\n  text-align: center;\n}\n.system-title h1 {\n  font-size: 2.5rem;\n  font-weight: 700;\n  color: white;\n  margin: 0;\n}\n.login-form-section {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: #ffffff;\n}\n.login-card {\n  width: 100%;\n  max-width: 400px;\n  padding: 2rem;\n  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n}\n.full-width {\n  width: 100%;\n}\n.login-btn {\n  margin-top: 16px;\n  width: 100%;\n}\n.version-label {\n  position: absolute;\n  top: 10px;\n  right: 16px;\n  font-size: 12px;\n  color: gray;\n  font-weight: 400;\n  opacity: 0.8;\n}\n/*# sourceMappingURL=login.component.css.map */\n"] }]
   }], () => [{ type: FormBuilder }, { type: Router }, { type: HttpClient }], null);
 })();
 (() => {
@@ -4768,7 +4766,7 @@ var appRoutes = [
     children: [
       {
         path: "travel",
-        loadChildren: () => import("./chunk-RXTOBEW2.js").then((m) => m.travelRoutes)
+        loadChildren: () => import("./chunk-MT7C6OGC.js").then((m) => m.travelRoutes)
       },
       {
         path: "",
@@ -4779,7 +4777,7 @@ var appRoutes = [
   },
   {
     path: "unauthorized",
-    loadComponent: () => import("./chunk-KCJGTFAM.js").then((m) => m.UnauthorizedComponent)
+    loadComponent: () => import("./chunk-ZMNWVKUR.js").then((m) => m.UnauthorizedComponent)
   },
   {
     path: "**",

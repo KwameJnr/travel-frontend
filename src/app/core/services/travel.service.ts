@@ -9,7 +9,7 @@ import { Department } from 'src/app/shared/models/deparment/department.model';
 import { Travel } from 'src/app/shared/models/travel/travel.model';
 import { BauHeadForm } from 'src/app/shared/models/buhead/buheadform';
 import { PerDiemForm } from 'src/app/shared/models/perdiem/perdiemform.model';
-import { baseUrl,generateUUID } from './constants';
+import { baseUrl,baseUrlCamp,generateUUID } from './constants';
 
 
 
@@ -22,7 +22,7 @@ export class TravelService {
   // private apiUrl = baseUrl+'/company/department/index';
 
   private travelApiBaseUrl = baseUrl+'/travels'; // Adjust if needed
-  private apiUrl = baseUrl+'/company/department/index';
+  private apiUrl = baseUrlCamp+'/company/department/index';
 
   constructor(private http: HttpClient) { }
 
@@ -214,13 +214,18 @@ export class TravelService {
 
   //   return this.http.get<{ status: string, message: string, data: Department[] }>(this.apiUrl,{ headers });
   // }
+  
   getDepartments(): Observable<{ status: string, message: string, data: Department[] }> {
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`)
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
+
+    const apiUrl = this.apiUrl;
+    console.log('Calling department endpoint:', apiUrl);
     return this.http.get<{ status: string, message: string, data: Department[] }>(this.apiUrl,{ headers });
+   
   }
   
   getBAUHeads(): Observable<{ statusCode: string, statusMessage: string, data: BauHeadForm[] }> {
@@ -229,8 +234,9 @@ export class TravelService {
     .set('Authorization', `Bearer ${token}`)
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
+    console.log('Calling BAU Heads endpoint:', baseUrlCamp+'/company/bau/index');
     return this.http.get<{ statusCode: string, statusMessage: string, data: BauHeadForm[] }>(
-      baseUrl+'/company/bau/index',{ headers }
+      baseUrlCamp+'/company/bau/index',{ headers }
     );
   }
 
@@ -241,6 +247,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
+    console.log('Calling Per Diem Countries endpoint:', `${baseUrl}/perdiems/all`);
     return this.http.get<ApiResponse<PerDiemForm[]>>(`${baseUrl}/perdiems/all`,{headers});
   }
 }

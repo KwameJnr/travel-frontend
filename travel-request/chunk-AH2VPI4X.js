@@ -12880,7 +12880,11 @@ var AnimationGroupPlayer = class {
 var \u0275PRE_STYLE = "!";
 
 // src/app/core/services/constants.ts
-var baseUrl = "http://internal-fib-w4ghalb-camp-int01-618444259.eu-west-1.elb.amazonaws.com/camp/travelre/";
+var baseUrl = "http://internal-fib-w4ghalb-camp-int01-618444259.eu-west-1.elb.amazonaws.com/camp/travelre";
+var baseUrlCamp = "http://internal-fib-w4ghalb-camp-int01-618444259.eu-west-1.elb.amazonaws.com/camp";
+function generateUUID() {
+  return crypto.randomUUID();
+}
 
 export {
   AnimationMetadataType,
@@ -12937,7 +12941,9 @@ export {
   MatSelectModule,
   MatProgressSpinner,
   MatProgressSpinnerModule,
-  baseUrl
+  baseUrl,
+  baseUrlCamp,
+  generateUUID
 };
 /*! Bundled license information:
 
@@ -12949,4 +12955,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-J7H4ZFRK.js.map
+//# sourceMappingURL=chunk-AH2VPI4X.js.map

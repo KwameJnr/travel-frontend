@@ -10,7 +10,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { baseUrl ,baseUrlLocal, baseUrlLocalCamp} from 'src/app/core/services/constants';
+import { baseUrl ,baseUrlCamp} from 'src/app/core/services/constants';
 
 
 @Component({
@@ -63,7 +63,7 @@ onSubmit(): void {
       'X-SrcApp': 'Travel-Request'
     });
 
-    this.http.post<any>(`${baseUrl}/security/search-and-authenticate`, {
+    this.http.post<any>(`${baseUrlCamp}/security/search-and-authenticate`, {
       fnumber,
       password
     }, { headers: authHeaders }).subscribe({
@@ -91,7 +91,7 @@ start2FAPolling(authId: string): void {
   this.pollingInterval = setInterval(() => {
     this.pollingAttempts++;
 
-    this.http.post<any>(`${baseUrl}/security/verify-2fa`, {
+    this.http.post<any>(`${baseUrlCamp}/security/verify-2fa`, {
       authId
     }).subscribe({
       next: (res) => {
@@ -126,7 +126,13 @@ start2FAPolling(authId: string): void {
       }
       },
       error: (err) => {
-        // Silently ignore and wait for next poll
+        // Show backend error message if available
+        clearInterval(this.pollingInterval); // stop further polling on failure
+        this.resetPollingState();
+
+        const backendMessage = err?.error?.message || '2FA verification failed. Please try again.';
+        alert(backendMessage);
+        console.error('2FA error:', err);
       }
     });
 

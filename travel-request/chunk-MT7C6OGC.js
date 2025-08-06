@@ -43,13 +43,15 @@ import {
   _ErrorStateTracker,
   animate,
   baseUrl,
+  baseUrlCamp,
+  generateUUID,
   sequence,
   style,
   transition,
   trigger,
   ɵNgNoValidate,
   ɵNgSelectMultipleOption
-} from "./chunk-J7H4ZFRK.js";
+} from "./chunk-AH2VPI4X.js";
 import {
   _typeof
 } from "./chunk-7YWLATDR.js";
@@ -27741,86 +27743,96 @@ NgChartsModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({});
 // src/app/core/services/travel.service.ts
 var TravelService = class _TravelService {
   http;
+  // private travelApiBaseUrl = baseUrl+'/travels';
+  // private apiUrl = baseUrl+'/company/department/index';
   travelApiBaseUrl = baseUrl + "/travels";
   // Adjust if needed
-  apiUrl = baseUrl + "/company/department/index";
+  apiUrl = baseUrlCamp + "/company/department/index";
   constructor(http) {
     this.http = http;
   }
   getAll() {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.get(`${this.travelApiBaseUrl}/all`, { headers }).pipe(map((response) => response.data));
   }
   getById(id) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.get(`${this.travelApiBaseUrl}/view/${id}`, { headers }).pipe(map((response) => response.data));
   }
   create(travel) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.post(`${this.travelApiBaseUrl}/add`, travel, { headers });
   }
   update(id, travel) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.put(`${this.travelApiBaseUrl}/update/${id}`, travel, { headers });
   }
   delete(id) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.delete(`${this.travelApiBaseUrl}/delete/${id}`, { headers }).pipe(map((response) => response.data));
   }
   //BU Heads endpoints 
   getPendingRequestsForBuHead() {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.get(`${this.travelApiBaseUrl}/exco-feedback/pending`, { headers }).pipe(map((response) => response.data));
   }
   updateBuHeadFeedback(id, payload) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.put(`${this.travelApiBaseUrl}/update/${id}`, payload, { headers });
   }
   //CFO endpoints 
   getPendingRequestsForCfo() {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.get(`${this.travelApiBaseUrl}/cfo-feedback/pending`, { headers }).pipe(map((response) => response.data));
   }
   updateCfoFeedback(id, payload) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.put(`${this.travelApiBaseUrl}/update/${id}`, payload, { headers });
   }
   //Notification endpoints
   sendApprovalEmail(payload) {
-    return this.http.post(baseUrl + "/notifications/send-approval-msg", payload);
+    const token = localStorage.getItem("userToken") || "";
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
+    return this.http.post(baseUrl + "/notifications/send-approval-msg", payload, { headers });
   }
   sendApprovalEmailFrontEnd(payload) {
-    return this.http.post(baseUrl + "/notifications/send-approval-frontend-msg", payload);
+    const token = localStorage.getItem("userToken") || "";
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
+    return this.http.post(baseUrl + "/notifications/send-approval-frontend-msg", payload, { headers });
   }
   sendApprovalEmailFrontEndWithAttachment(payload) {
-    return this.http.post(baseUrl + "/notifications/send-approval-frontend-msg-with-attachment", payload);
+    const token = localStorage.getItem("userToken") || "";
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
+    return this.http.post(baseUrl + "/notifications/send-approval-frontend-msg-with-attachment", payload, { headers });
   }
   sendEmailMsg(payload) {
-    return this.http.post(baseUrl + "/notifications/send-msg", payload);
+    const token = localStorage.getItem("userToken") || "";
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
+    return this.http.post(baseUrl + "/notifications/send-msg", payload, { headers });
   }
   //Cfo dashboard notification endpoints 
   getMetrics() {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.get(baseUrl + "/cfo-dashboard/metrics", { headers });
   }
   getMonthlyCosts(year) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.get(`${baseUrl}/cfo-dashboard/monthly-costs?year=${year}`, { headers });
   }
   getTopDepartments(year, month) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     let params = `year=${year}`;
     if (month)
       params += `&month=${month}`;
@@ -27828,19 +27840,26 @@ var TravelService = class _TravelService {
   }
   //Get deoartment endpoints 
   // Use POST to pass {} in body
+  // getDepartments(): Observable<{ status: string, message: string, data: Department[] }> {
+  //   const token = localStorage.getItem('userToken') || '';
+  //   const headers = new HttpHeaders()
+  //   .set('Authorization', `Bearer ${token}`)
+  //   .set('X-SrcApp', 'Travel-Request');
+  //   return this.http.get<{ status: string, message: string, data: Department[] }>(this.apiUrl,{ headers });
+  // }
   getDepartments() {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.get(this.apiUrl, { headers });
   }
   getBAUHeads() {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
-    return this.http.get(baseUrl + "/company/bau/index", { headers });
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
+    return this.http.get(baseUrlCamp + "/company/bau/index", { headers });
   }
   getAllPerDiemCountries() {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.get(`${baseUrl}/perdiems/all`, { headers });
   }
   static \u0275fac = function TravelService_Factory(__ngFactoryType__) {
@@ -43385,16 +43404,18 @@ var TravelCreateComponent = class _TravelCreateComponent {
   travelService;
   router;
   dialog;
+  http;
   travelForm;
   loading = false;
   departments = [];
   bauHeads = [];
   perDiemCountries = [];
-  constructor(fb, travelService, router, dialog) {
+  constructor(fb, travelService, router, dialog, http) {
     this.fb = fb;
     this.travelService = travelService;
     this.router = router;
     this.dialog = dialog;
+    this.http = http;
   }
   ngOnInit() {
     this.travelForm = this.fb.group({
@@ -43682,9 +43703,9 @@ var TravelCreateComponent = class _TravelCreateComponent {
     this.router.navigate(["/travel"]);
   }
   static \u0275fac = function TravelCreateComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _TravelCreateComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(MatDialog));
+    return new (__ngFactoryType__ || _TravelCreateComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(MatDialog), \u0275\u0275directiveInject(HttpClient));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _TravelCreateComponent, selectors: [["app-travel-create"]], decls: 221, vars: 28, consts: [["stepper", ""], ["passportPicker", ""], ["depPicker", ""], ["departureTimePicker", ""], ["retPicker", ""], ["returnTimePicker", ""], ["startPicker", ""], ["endPicker", ""], [3, "ngSubmit", "formGroup"], ["color", "primary", 2, "vertical-align", "middle", "margin-right", "8px"], ["linear", ""], [3, "stepControl"], [1, "form-grid"], [1, "column-box"], ["appearance", "fill", 1, "full-width"], ["matInput", "", "formControlName", "employeeName"], ["matInput", "", "formControlName", "employeeEmail", "type", "email"], ["matInput", "", "formControlName", "employeePassportNo"], ["matInput", "", "formControlName", "employeePassportExpiry", 3, "matDatepicker"], ["matSuffix", "", 3, "for"], ["matInput", "", "formControlName", "employeeNumber"], ["formControlName", "employeeDepartment"], [3, "value", 4, "ngFor", "ngForOf"], ["matInput", "", "formControlName", "employeeTravellingContact"], ["matInput", "", "formControlName", "employeeContact"], ["matInput", "", "formControlName", "purpose"], ["matInput", "", "formControlName", "city"], ["formControlName", "country"], ["appearance", "fill"], ["formControlName", "visaRequired"], [3, "value"], ["matInput", "", "formControlName", "departureDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "departureTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "returnDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "returnTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "perDiemStartDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "perDiemEndDate", 3, "matDatepicker"], [1, "step-actions"], ["mat-raised-button", "", "color", "accent", "type", "button", "matStepperNext", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", "class", "spinner", 4, "ngIf"], [4, "ngIf"], ["matInput", "", "formControlName", "daysOutOfficialAssignmentDate", "type", "number", "readonly", "true"], ["formControlName", "hotelReservation"], ["value", "yes"], ["value", "no"], ["matInput", "", "formControlName", "hotelName"], ["matInput", "", "formControlName", "hotelAddress"], ["matInput", "", "formControlName", "hotelCity"], ["formControlName", "hotelcountry"], ["formControlName", "rentalCarRequired"], ["formControlName", "airportTransportRequiredToAndFrom"], ["matInput", "", "formControlName", "subsistenceAllowance"], ["matInput", "", "formControlName", "perDiemDays", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "estimatedPerDiemAmount", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "totalEstimatedTravelCost", "type", "number"], ["matInput", "", "formControlName", "travelBudgetCode"], ["formControlName", "classOfTravelDeparture"], ["value", "FisrtClass"], ["value", "BusClass"], ["value", "Economy"], ["formControlName", "classOfTravelReturn"], ["value", "FirstClass"], ["matInput", "", "formControlName", "excoHeadEmail"], ["matInput", "", "formControlName", "cfoEmail"], ["mat-stroked-button", "", "color", "primary", "type", "button", "matStepperPrevious", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", "class", "spinner", 4, "ngIf"], [1, "form-actions"], ["mat-raised-button", "", "color", "primary", "type", "submit", 3, "disabled"], ["mat-stroked-button", "", "color", "warn", "type", "button", 3, "click"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", 1, "spinner"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", 1, "spinner"]], template: function TravelCreateComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _TravelCreateComponent, selectors: [["app-travel-create"]], decls: 221, vars: 28, consts: [["stepper", ""], ["passportPicker", ""], ["depPicker", ""], ["departureTimePicker", ""], ["retPicker", ""], ["returnTimePicker", ""], ["startPicker", ""], ["endPicker", ""], [3, "ngSubmit", "formGroup"], ["color", "primary", 2, "vertical-align", "middle", "margin-right", "8px"], ["linear", ""], [3, "stepControl"], [1, "form-grid"], [1, "column-box"], ["appearance", "fill", 1, "full-width"], ["matInput", "", "formControlName", "employeeName"], ["matInput", "", "formControlName", "employeeEmail", "type", "email"], ["matInput", "", "formControlName", "employeePassportNo"], ["matInput", "", "formControlName", "employeePassportExpiry", 3, "matDatepicker"], ["matSuffix", "", 3, "for"], ["matInput", "", "formControlName", "employeeNumber"], ["formControlName", "employeeDepartment"], [3, "value", 4, "ngFor", "ngForOf"], ["matInput", "", "formControlName", "employeeTravellingContact"], ["matInput", "", "formControlName", "employeeContact"], ["matInput", "", "formControlName", "purpose"], ["matInput", "", "formControlName", "city"], ["formControlName", "country"], ["appearance", "fill"], ["formControlName", "visaRequired"], [3, "value"], ["matInput", "", "formControlName", "departureDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "departureTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "returnDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "returnTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "perDiemStartDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "perDiemEndDate", 3, "matDatepicker"], [1, "step-actions"], ["mat-raised-button", "", "color", "accent", "type", "button", "matStepperNext", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", "class", "spinner", 4, "ngIf"], [4, "ngIf"], ["matInput", "", "formControlName", "daysOutOfficialAssignmentDate", "type", "number", "readonly", "true"], ["formControlName", "hotelReservation"], ["value", "yes"], ["value", "no"], ["matInput", "", "formControlName", "hotelName"], ["matInput", "", "formControlName", "hotelAddress"], ["matInput", "", "formControlName", "hotelCity"], ["formControlName", "hotelCountry"], ["formControlName", "rentalCarRequired"], ["formControlName", "airportTransportRequiredToAndFrom"], ["matInput", "", "formControlName", "subsistenceAllowance"], ["matInput", "", "formControlName", "perDiemDays", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "estimatedPerDiemAmount", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "totalEstimatedTravelCost", "type", "number"], ["matInput", "", "formControlName", "travelBudgetCode"], ["formControlName", "classOfTravelDeparture"], ["value", "FisrtClass"], ["value", "BusClass"], ["value", "Economy"], ["formControlName", "classOfTravelReturn"], ["value", "FirstClass"], ["matInput", "", "formControlName", "excoHeadEmail"], ["matInput", "", "formControlName", "cfoEmail"], ["mat-stroked-button", "", "color", "primary", "type", "button", "matStepperPrevious", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", "class", "spinner", 4, "ngIf"], [1, "form-actions"], ["mat-raised-button", "", "color", "primary", "type", "submit", 3, "disabled"], ["mat-stroked-button", "", "color", "warn", "type", "button", 3, "click"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", 1, "spinner"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", 1, "spinner"]], template: function TravelCreateComponent_Template(rf, ctx) {
     if (rf & 1) {
       const _r1 = \u0275\u0275getCurrentView();
       \u0275\u0275elementStart(0, "form", 8);
@@ -43826,7 +43847,7 @@ var TravelCreateComponent = class _TravelCreateComponent {
       \u0275\u0275element(140, "input", 47);
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(141, "mat-form-field", 14)(142, "mat-label");
-      \u0275\u0275text(143, "Country");
+      \u0275\u0275text(143, "Hotel Country");
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(144, "mat-select", 48);
       \u0275\u0275template(145, TravelCreateComponent_mat_option_145_Template, 2, 2, "mat-option", 22);
@@ -44275,8 +44296,8 @@ var TravelCreateComponent = class _TravelCreateComponent {
           <input matInput formControlName="hotelCountry">
         </mat-form-field> -->
         <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Country</mat-label>
-          <mat-select formControlName="hotelcountry">
+          <mat-label>Hotel Country</mat-label>
+          <mat-select formControlName="hotelCountry">
             <mat-option *ngFor="let country of perDiemCountries" [value]="country.location">
               {{ country.location }}
             </mat-option>
@@ -44460,10 +44481,10 @@ var TravelCreateComponent = class _TravelCreateComponent {
   
   
   `, styles: ["/* src/app/travel/travel-create/travel-create.component.scss */\n.form-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.5rem;\n  justify-content: center;\n}\n.step-wrapper {\n  padding: 2rem;\n  margin-bottom: 2rem;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  background-color: #f4f4f4;\n}\n.column-box {\n  background-color: white;\n  padding: 2rem;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);\n  border-radius: 4px;\n  min-height: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  max-width: 794px;\n  width: 100%;\n  box-sizing: border-box;\n}\nmat-form-field {\n  width: 100%;\n}\n.step-actions {\n  margin-top: 2rem;\n  display: flex;\n  justify-content: space-between;\n}\nbutton[mat-raised-button],\nbutton[mat-stroked-button] {\n  padding: 0.75rem 2rem;\n  font-size: 1rem;\n  font-weight: 600;\n  border-radius: 8px;\n  text-transform: none;\n  transition: all 0.3s ease;\n  min-width: 140px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\nbutton[mat-raised-button]:hover:not(:disabled),\nbutton[mat-stroked-button]:hover:not(:disabled) {\n  transform: translateY(-1px);\n  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);\n}\n.spinner {\n  margin-right: 0.75rem;\n}\n@media (max-width: 768px) {\n  .form-grid {\n    grid-template-columns: 1fr;\n  }\n  .column-box {\n    max-width: 100%;\n  }\n}\n/*# sourceMappingURL=travel-create.component.css.map */\n"] }]
-  }], () => [{ type: FormBuilder }, { type: TravelService }, { type: Router }, { type: MatDialog }], null);
+  }], () => [{ type: FormBuilder }, { type: TravelService }, { type: Router }, { type: MatDialog }, { type: HttpClient }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(TravelCreateComponent, { className: "TravelCreateComponent", filePath: "src/app/travel/travel-create/travel-create.component.ts", lineNumber: 45 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(TravelCreateComponent, { className: "TravelCreateComponent", filePath: "src/app/travel/travel-create/travel-create.component.ts", lineNumber: 47 });
 })();
 
 // src/app/travel/travel-edit/travel-edit.component.ts
@@ -47282,26 +47303,39 @@ var BuheadDetailComponent = class _BuheadDetailComponent {
             error: (err2) => console.error("Failed to send approval email to CFO", err2)
           });
         }
-        const requesterEmailPayload = {
-          clientKey: "Travel-Request-Manager-EmailerId-Requester",
-          fromEmail: "Travel Request <travelrequest@firstnationalbank.com.gh>",
-          toEmail: `${this.travel.employeeEmail}, ${this.travel.excoHeadEmail}`,
-          subject: `Your Travel Request Status Update`,
-          body: `<p>Dear ${this.travel.employeeName},</p>
+        const recipients = [
+          {
+            name: this.travel.employeeName,
+            email: this.travel.employeeEmail
+          },
+          {
+            name: this.travel.excoHeadName,
+            email: this.travel.excoHeadEmail
+          }
+        ];
+        recipients.forEach((recipient) => {
+          const personalizedEmailPayload = {
+            clientKey: "Travel-Request-Manager-EmailerId-Requester",
+            fromEmail: "Travel Request <travelrequest@firstnationalbank.com.gh>",
+            toEmail: recipient.email,
+            subject: `Your Travel Request Status Update`,
+            body: `
+              <p>Dear ${recipient.name},</p>
     
-          <p>Your travel request status has been updated to: <strong>${payload.status}</strong>.</p>
-          
-          <p>
-            Purpose: ${this.travel.purpose}<br>
-            Departure Date: ${this.travel.departureDate}<br>
-            Return Date: ${this.travel.returnDate}
-          </p>
-          
-          <p>Regards,<br>Travel Request Management System</p>`
-        };
-        this.travelService.sendEmailMsg(requesterEmailPayload).subscribe({
-          next: () => console.log("Requester notification email sent"),
-          error: (err2) => console.error("Failed to send requester notification email", err2)
+              <p>Travel request status for ${this.travel.employeeName} has been updated to: <strong>${payload.status}</strong>.</p>
+    
+              <p>
+                Purpose: ${this.travel.purpose}<br>
+                Departure Date: ${this.travel.departureDate}<br>
+                Return Date: ${this.travel.returnDate}
+              </p>
+    
+              <p>Regards,<br>Travel Request Management System</p>`
+          };
+          this.travelService.sendEmailMsg(personalizedEmailPayload).subscribe({
+            next: () => console.log(`Notification email sent to ${recipient.name}`),
+            error: (err2) => console.error(`Failed to send notification email to ${recipient.name}`, err2)
+          });
         });
         this.router.navigate(["/travel/buhead/list"]);
       },
@@ -47547,7 +47581,7 @@ var BuheadListComponent = class _BuheadListComponent {
   }
   ngOnInit() {
     const userRole = localStorage.getItem("userRole");
-    if (userRole !== "BU_HEAD" && userRole !== "ADMIN") {
+    if (userRole !== "TR-BU_HEAD" && userRole !== "TR-ADMIN") {
       this.router.navigate(["/unauthorized"]);
       return;
     }
@@ -48181,28 +48215,43 @@ var CfoDetailComponent = class _CfoDetailComponent {
             error: (err2) => console.error("Failed to send approval email to CFO", err2)
           });
         }
-        const requesterEmailPayload = {
-          clientKey: "Travel-Request-Manager-EmailerId-Requester",
-          fromEmail: "Travel Request <travelrequest@firstnationalbank.com.gh>",
-          // toEmail: `${this.travel.employeeEmail}, ${this.travel.excoHeadEmail}, ${this.travel.cfoEmail}`,
-          toEmail: [this.travel.employeeEmail, this.travel.excoHeadEmail, this.travel.cfoEmail].join(", "),
-          subject: `Your Travel Request Status Update`,
-          body: `
-            <p>Dear ${this.travel.employeeName},</p>
-      
-            <p>Your travel request status has been updated to: <strong>${payload.status}</strong>.</p>
-            
-            <p>
-              Purpose: ${this.travel.purpose}<br>
-              Departure Date: ${this.travel.departureDate}<br>
-              Return Date: ${this.travel.returnDate}
-            </p>
-            
-            <p>Regards,<br>Travel Request Management System</p>`
-        };
-        this.travelService.sendEmailMsg(requesterEmailPayload).subscribe({
-          next: () => console.log("Requester notification email sent"),
-          error: (err2) => console.error("Failed to send requester notification email", err2)
+        const recipients = [
+          {
+            name: this.travel.employeeName,
+            email: this.travel.employeeEmail
+          },
+          {
+            name: this.travel.excoHeadName,
+            email: this.travel.excoHeadEmail
+          },
+          {
+            name: this.travel.cfoName,
+            email: this.travel.cfoEmail
+          }
+        ];
+        recipients.forEach((recipient) => {
+          const personalizedEmailPayload = {
+            clientKey: "Travel-Request-Manager-EmailerId-Requester",
+            fromEmail: "Travel Request <travelrequest@firstnationalbank.com.gh>",
+            toEmail: recipient.email,
+            subject: `Your Travel Request Status Update`,
+            body: `
+              <p>Dear ${recipient.name},</p>
+    
+              <p>Travel request status for ${this.travel.employeeName} has been updated to: <strong>${payload.status}</strong>.</p>
+    
+              <p>
+                Purpose: ${this.travel.purpose}<br>
+                Departure Date: ${this.travel.departureDate}<br>
+                Return Date: ${this.travel.returnDate}
+              </p>
+    
+              <p>Regards,<br>Travel Request Management System</p>`
+          };
+          this.travelService.sendEmailMsg(personalizedEmailPayload).subscribe({
+            next: () => console.log(`Notification email sent to ${recipient.name}`),
+            error: (err2) => console.error(`Failed to send notification email to ${recipient.name}`, err2)
+          });
         });
         this.router.navigate(["/travel/buhead/list"]);
       },
@@ -83505,27 +83554,27 @@ var PerdiemService = class _PerdiemService {
   }
   getAll() {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.get(`${baseUrl}/perdiems/all`, { headers }).pipe(map((response) => response.data));
   }
   getById(id) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.get(`${baseUrl}/perdiems/${id}`, { headers }).pipe(map((response) => response.data));
   }
   create(travel) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.post(`${baseUrl}/perdiems/add`, travel, { headers });
   }
   update(id, travel) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.put(`${baseUrl}/perdiems/update/${id}`, travel, { headers });
   }
   delete(id, travel) {
     const token = localStorage.getItem("userToken") || "";
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request");
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.delete(`${baseUrl}/perdiems/delete/${id}`, { headers }).pipe(map((response) => response.data));
   }
   static \u0275fac = function PerdiemService_Factory(__ngFactoryType__) {
@@ -83570,7 +83619,7 @@ var PerDiemComponent = class _PerDiemComponent {
   }
   ngOnInit() {
     const userRole = localStorage.getItem("userRole");
-    if (userRole !== "ADMIN") {
+    if (userRole !== "TR-ADMIN") {
       this.router.navigate(["/unauthorized"]);
       return;
     }
@@ -84624,4 +84673,4 @@ jspdf/dist/jspdf.es.min.js:
    * http://opensource.org/licenses/mit-license
    *)
 */
-//# sourceMappingURL=chunk-RXTOBEW2.js.map
+//# sourceMappingURL=chunk-MT7C6OGC.js.map

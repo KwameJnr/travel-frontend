@@ -51,7 +51,7 @@ var UnauthorizedComponent = class _UnauthorizedComponent {
   static \u0275fac = function UnauthorizedComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _UnauthorizedComponent)(\u0275\u0275directiveInject(Router));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _UnauthorizedComponent, selectors: [["app-unauthorized"]], decls: 35, vars: 4, consts: [["adminMenu", "matMenu"], ["color", "primary", 1, "top-toolbar"], [1, "logo"], [1, "spacer"], ["mat-menu-item", "", 3, "routerLink"], ["mat-button", "", 3, "matMenuTriggerFor"], ["mat-button", "", 3, "routerLink"], ["mat-button", "", "routerLink", "/travel/buhead/list"], ["mat-button", "", "routerLink", "/travel/cfo/list"], ["mat-button", "", "routerLink", "/travel/cfo/dashboard"], [1, "unauthorized-container"], [1, "unauthorized-card"], ["color", "warn", 1, "warning-icon"], [1, "message"], ["mat-raised-button", "", "color", "primary", 3, "click"]], template: function UnauthorizedComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _UnauthorizedComponent, selectors: [["app-unauthorized"]], decls: 33, vars: 3, consts: [["adminMenu", "matMenu"], ["color", "primary", 1, "top-toolbar"], [1, "logo"], [1, "spacer"], ["mat-menu-item", "", 3, "routerLink"], ["mat-button", "", 3, "matMenuTriggerFor"], ["mat-button", "", 3, "routerLink"], ["mat-button", "", "routerLink", "/travel/buhead/list"], ["mat-button", "", "routerLink", "/travel/cfo/list"], ["mat-button", "", "routerLink", "/travel/cfo/dashboard"], [1, "unauthorized-container"], [1, "unauthorized-card"], ["color", "warn", 1, "warning-icon"], [1, "message"], ["mat-raised-button", "", "color", "primary", 3, "click"]], template: function UnauthorizedComponent_Template(rf, ctx) {
     if (rf & 1) {
       const _r1 = \u0275\u0275getCurrentView();
       \u0275\u0275elementStart(0, "mat-toolbar", 1)(1, "span", 2);
@@ -60,52 +60,47 @@ var UnauthorizedComponent = class _UnauthorizedComponent {
       \u0275\u0275element(3, "span", 3);
       \u0275\u0275elementStart(4, "mat-menu", null, 0)(6, "button", 4);
       \u0275\u0275text(7, "Travel Requests");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(8, "button", 4);
-      \u0275\u0275text(9, "Create BU Head");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(10, "button", 5);
-      \u0275\u0275text(11, "Manage");
+      \u0275\u0275elementStart(8, "button", 5);
+      \u0275\u0275text(9, "Manage");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(12, "button", 6);
-      \u0275\u0275text(13, "Create Travel");
+      \u0275\u0275elementStart(10, "button", 6);
+      \u0275\u0275text(11, "Create Travel");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(14, "button", 7);
-      \u0275\u0275text(15, "BU Head Approvals");
+      \u0275\u0275elementStart(12, "button", 7);
+      \u0275\u0275text(13, "BU Head Approvals");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(16, "button", 8);
-      \u0275\u0275text(17, "CFO Approvals");
+      \u0275\u0275elementStart(14, "button", 8);
+      \u0275\u0275text(15, "CFO Approvals");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(18, "button", 9);
-      \u0275\u0275text(19, "CFO Dashboard");
+      \u0275\u0275elementStart(16, "button", 9);
+      \u0275\u0275text(17, "CFO Dashboard");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(20, "span", 3);
+      \u0275\u0275element(18, "span", 3);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(21, "div", 10)(22, "mat-card", 11)(23, "mat-card-title")(24, "mat-icon", 12);
-      \u0275\u0275text(25, "lock");
+      \u0275\u0275elementStart(19, "div", 10)(20, "mat-card", 11)(21, "mat-card-title")(22, "mat-icon", 12);
+      \u0275\u0275text(23, "lock");
       \u0275\u0275elementEnd();
-      \u0275\u0275text(26, " Access Denied ");
+      \u0275\u0275text(24, " Access Denied ");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(27, "mat-card-content")(28, "p", 13);
-      \u0275\u0275text(29, " Sorry, you do not have permission to access this page. ");
+      \u0275\u0275elementStart(25, "mat-card-content")(26, "p", 13);
+      \u0275\u0275text(27, " Sorry, you do not have permission to access this page. ");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(30, "mat-card-actions")(31, "button", 14);
-      \u0275\u0275listener("click", function UnauthorizedComponent_Template_button_click_31_listener() {
+      \u0275\u0275elementStart(28, "mat-card-actions")(29, "button", 14);
+      \u0275\u0275listener("click", function UnauthorizedComponent_Template_button_click_29_listener() {
         \u0275\u0275restoreView(_r1);
         return \u0275\u0275resetView(ctx.goHome());
       });
-      \u0275\u0275elementStart(32, "mat-icon");
-      \u0275\u0275text(33, "arrow_back");
+      \u0275\u0275elementStart(30, "mat-icon");
+      \u0275\u0275text(31, "arrow_back");
       \u0275\u0275elementEnd();
-      \u0275\u0275text(34, " Go back to Dashboard ");
+      \u0275\u0275text(32, " Go back to Dashboard ");
       \u0275\u0275elementEnd()()()();
     }
     if (rf & 2) {
       const adminMenu_r2 = \u0275\u0275reference(5);
       \u0275\u0275advance(6);
       \u0275\u0275property("routerLink", "/travel/list");
-      \u0275\u0275advance(2);
-      \u0275\u0275property("routerLink", "/travel/buhead/create");
       \u0275\u0275advance(2);
       \u0275\u0275property("matMenuTriggerFor", adminMenu_r2);
       \u0275\u0275advance(2);
@@ -132,7 +127,7 @@ var UnauthorizedComponent = class _UnauthorizedComponent {
   
     <mat-menu #adminMenu="matMenu">
       <button mat-menu-item [routerLink]="'/travel/list'">Travel Requests</button>
-      <button mat-menu-item [routerLink]="'/travel/buhead/create'">Create BU Head</button>
+      <!-- <button mat-menu-item [routerLink]="'/travel/buhead/create'">Create BU Head</button> -->
     </mat-menu>
   
     <button mat-button [matMenuTriggerFor]="adminMenu">Manage</button>
@@ -184,4 +179,4 @@ var UnauthorizedComponent = class _UnauthorizedComponent {
 export {
   UnauthorizedComponent
 };
-//# sourceMappingURL=chunk-KCJGTFAM.js.map
+//# sourceMappingURL=chunk-ZMNWVKUR.js.map

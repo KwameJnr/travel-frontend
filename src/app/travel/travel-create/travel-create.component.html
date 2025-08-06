@@ -227,8 +227,8 @@
           <input matInput formControlName="hotelCountry">
         </mat-form-field> -->
         <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Country</mat-label>
-          <mat-select formControlName="hotelcountry">
+          <mat-label>Hotel Country</mat-label>
+          <mat-select formControlName="hotelCountry">
             <mat-option *ngFor="let country of perDiemCountries" [value]="country.location">
               {{ country.location }}
             </mat-option>
