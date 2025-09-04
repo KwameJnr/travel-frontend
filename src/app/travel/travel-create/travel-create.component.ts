@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TravelService } from 'src/app/core/services/travel.service';
 import { Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
@@ -22,7 +23,21 @@ import { Department } from 'src/app/shared/models/deparment/department.model';
 import { BauHeadForm } from 'src/app/shared/models/buhead/buheadform';
 import { PerDiemForm } from 'src/app/shared/models/perdiem/perdiemform.model';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
+
+export const perDiemDateValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const raw = (control as any).getRawValue?.() || control.value;
+
+  const start = raw?.perDiemStartDate;
+  const end = raw?.perDiemEndDate;
+
+  if (start && end && new Date(start) > new Date(end)) {
+    return { perDiemDateInvalid: true };
+  }
+  return null;
+};
 
 @Component({
   selector: 'app-travel-create',
@@ -41,12 +56,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
     MatStepperModule,
     MatIcon,
     MatProgressSpinnerModule,
-    NgxMatTimepickerModule
+    NgxMatTimepickerModule,
+    MatSnackBarModule
   ]
 })
 export class TravelCreateComponent implements OnInit {
   travelForm!: FormGroup;
   loading = false;
+
+  public warningMessage: string | null = null;
 
   departments: Department[] = [];
   bauHeads: BauHeadForm[] = [];
@@ -58,7 +76,9 @@ export class TravelCreateComponent implements OnInit {
     private travelService: TravelService,
     private router: Router,
     private dialog: MatDialog,
-    private http: HttpClient
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -75,12 +95,12 @@ export class TravelCreateComponent implements OnInit {
       city: [''],
       country: [''],
       visaRequired: [''],
-      departureDate: [''],
-      departureTime: [''],
-      returnDate: [''],
-      returnTime: [''],
-      perDiemStartDate: [''],
-      perDiemEndDate: [''],
+      departureDate: ['', Validators.required],
+      departureTime: ['', Validators.required],
+      returnDate: ['', Validators.required],
+      returnTime: ['', Validators.required],
+      perDiemStartDate: [{ value: null, disabled: true }],
+      perDiemEndDate: [{ value: null, disabled: true }, [this.endDateAfterStartValidator()]],
       daysOutOfficialAssignmentDate: [{ value: 0, disabled: true }], 
       hotelReservation: [''],
       hotelName: [''],
@@ -109,19 +129,43 @@ export class TravelCreateComponent implements OnInit {
       cfoFeedbackRemarks: [''],
       status: [''],
       dateCreated: [new Date()]
+    }, { validators: perDiemDateValidator });
+
+    // Load draft if exists
+    const savedDraft = localStorage.getItem('travelFormDraft');
+    if (savedDraft) {
+      this.travelForm.patchValue(JSON.parse(savedDraft));
+    }
+
+    // Auto-save draft on changes
+    this.travelForm.valueChanges.subscribe(val => {
+      localStorage.setItem('travelFormDraft', JSON.stringify(val));
+    });
+
+    // Pre-populate employee fields from localStorage
+    const storedEmail = localStorage.getItem('loggedInEmail');
+    const storedName = localStorage.getItem('userName');
+    const storedNumber = localStorage.getItem('userFnumber');
+    const storedPhnone = localStorage.getItem('userMobile');
+
+    this.travelForm.patchValue({
+      employeeEmail: storedEmail || '',
+      employeeName: storedName || '',
+      employeeNumber: storedNumber || '',
+      employeeContact: storedPhnone || ''
     });
 
     // 👇 Recalculate days out when dates change
-  this.travelForm.get('departureDate')?.valueChanges.subscribe(() => this.calculateWorkingDays());
-  this.travelForm.get('returnDate')?.valueChanges.subscribe(() => this.calculateWorkingDays());
+    this.travelForm.get('departureDate')?.valueChanges.subscribe(() => this.calculateWorkingDays());
+    this.travelForm.get('departureTime')?.valueChanges.subscribe(() => this.calculateWorkingDays());
+    this.travelForm.get('returnDate')?.valueChanges.subscribe(() => this.calculateWorkingDays());
+    this.travelForm.get('returnTime')?.valueChanges.subscribe(() => this.calculateWorkingDays());
+    
   this.travelForm.get('perDiemStartDate')?.valueChanges.subscribe(() => this.calculatePerDiemDays());
   this.travelForm.get('perDiemEndDate')?.valueChanges.subscribe(() => this.calculatePerDiemDays());
-  this.travelForm.get('country')?.valueChanges.subscribe(() => this.calculatePerDiemDays()); // 
+  this.travelForm.get('country')?.valueChanges.subscribe(() => this.calculatePerDiemDays()); 
 
-  // this.getTestdata();
-
-  // console.log('Travel Create Component Initialized');
-  // console.log('Calling department endpoint:', this.travelService.getDepartments().);
+  // Load departments and BAU heads
   this.travelService.getDepartments().subscribe({
     next: (response) => {
       this.departments = response.data; // assuming 'response' has a 'data' array
@@ -188,6 +232,21 @@ export class TravelCreateComponent implements OnInit {
   
   }
 
+  endDateAfterStartValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const form = control.parent as FormGroup;
+      if (!form) return null;
+  
+      const start = form.get('perDiemStartDate')?.value;
+      const end = control.value;
+  
+      if (start && end && new Date(start) > new Date(end)) {
+        return { perDiemDateInvalid: true };
+      }
+      return null;
+    };
+  }  
+  
   populateHeadFields(selectedDept: string) {
     if (!selectedDept || !this.bauHeads?.length) return;
   
@@ -215,27 +274,83 @@ export class TravelCreateComponent implements OnInit {
     }
   }
   
-
-  calculateWorkingDays() {
-    const start = this.travelForm.get('departureDate')?.value;
-    const end = this.travelForm.get('returnDate')?.value;
+  calculateWorkingDays(): void {
+    const departureDate = this.travelForm.get('departureDate')?.value;
+    const returnDate = this.travelForm.get('returnDate')?.value;
+    const departureTime = this.travelForm.get('departureTime')?.value?.toLowerCase();
+    const returnTime = this.travelForm.get('returnTime')?.value?.toLowerCase();
   
-    if (!start || !end || new Date(start) > new Date(end)) {
-      this.travelForm.patchValue({ daysOutOfficialAssignmentDate: 0 });
+    // Reset if required fields are missing
+    if (!departureDate || !returnDate || !departureTime || !returnTime) {
+      this.travelForm.patchValue({
+        perDiemStartDate: null,
+        perDiemEndDate: null,
+        daysOutOfficialAssignmentDate: 0,
+        perDiemDays: 0,
+        estimatedPerDiemAmount: 0
+      }, { emitEvent: false });
+      this.travelForm.updateValueAndValidity({ emitEvent: true });
       return;
     }
   
+    const start = new Date(departureDate);
+    const end = new Date(returnDate);
+  
+    if (start > end) {
+      // invalid overall range → let validator handle the error
+      this.travelForm.patchValue({
+        perDiemStartDate: null,
+        perDiemEndDate: null,
+        daysOutOfficialAssignmentDate: 0,
+        perDiemDays: 0,
+        estimatedPerDiemAmount: 0
+      }, { emitEvent: false });
+  
+      this.travelForm.updateValueAndValidity({ emitEvent: true });
+      return;
+    }
+  
+    // Per Diem Start Date
+    let perDiemStart = new Date(start);
+    if (departureTime.includes('pm')) {
+      perDiemStart.setDate(perDiemStart.getDate() + 1);
+    }
+  
+    // Per Diem End Date
+    let perDiemEnd = new Date(end);
+    if (returnTime.includes('am')) {
+      perDiemEnd.setDate(perDiemEnd.getDate() - 1);
+    }
+  
+    // Patch calculated values
+    this.travelForm.patchValue({
+      perDiemStartDate: this.formatDate(perDiemStart),
+      perDiemEndDate: this.formatDate(perDiemEnd)
+    }, { emitEvent: false });
+  
+    // Count working days (Mon–Fri) between departure and return
     let count = 0;
     let current = new Date(start);
-  
-    while (current <= new Date(end)) {
+    while (current <= end) {
       const day = current.getDay();
-      if (day !== 0 && day !== 6) count++; // skip Sunday (0) and Saturday (6)
+      if (day !== 0 && day !== 6) count++;
       current.setDate(current.getDate() + 1);
     }
   
-    this.travelForm.patchValue({ daysOutOfficialAssignmentDate: count });
-  }  
+    this.travelForm.patchValue({ daysOutOfficialAssignmentDate: count }, { emitEvent: false });
+  
+    // Force validation (so validator runs instantly)
+    this.travelForm.updateValueAndValidity({ emitEvent: true });
+  
+    // Trigger recalculation of per diem days & amount
+    this.calculatePerDiemDays();
+  }
+   
+
+  formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
+  }
+  
 
   calculatePerDiemDays(): void {
     const start = this.travelForm.get('perDiemStartDate')?.value;
@@ -280,6 +395,11 @@ export class TravelCreateComponent implements OnInit {
       perDiemDays: dayDiff,
       estimatedPerDiemAmount: estimatedAmount
     });
+
+    // 👇 Force UI to re-check validity whenever status changes
+    this.travelForm.statusChanges.subscribe(() => {
+    this.cdr.detectChanges();
+  });
   }
   
   
@@ -327,6 +447,8 @@ export class TravelCreateComponent implements OnInit {
           next: (savedTravelResponse) => {
             this.loading = false;
             console.log('Raw backend response:', savedTravelResponse);
+
+            localStorage.removeItem('travelFormDraft'); // Clear draft after successful submission
   
             const savedTravel = savedTravelResponse.data;  // Unwrap .data here
             console.log('Saved travel data:', savedTravel);

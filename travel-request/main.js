@@ -15,6 +15,8 @@ import {
   MatProgressSpinner,
   MatProgressSpinnerModule,
   MatSelectModule,
+  MatSnackBar,
+  MatSnackBarModule,
   NgControlStatus,
   NgControlStatusGroup,
   NoopAnimationPlayer,
@@ -26,20 +28,22 @@ import {
   style,
   ɵNgNoValidate,
   ɵPRE_STYLE
-} from "./chunk-AH2VPI4X.js";
+} from "./chunk-KBFMIYZE.js";
 import {
   MatMenu,
   MatMenuItem,
   MatMenuModule,
   MatMenuTrigger
-} from "./chunk-VPVBWSBI.js";
+} from "./chunk-BA4SP5DG.js";
 import {
   ANIMATION_MODULE_TYPE,
   BrowserModule,
+  ChangeDetectorRef,
   CommonModule,
   Component,
   DOCUMENT,
   DomRendererFactory2,
+  HostListener,
   HttpClient,
   HttpHeaders,
   Inject,
@@ -55,6 +59,7 @@ import {
   MatIconModule,
   MatToolbar,
   MatToolbarModule,
+  NgClass,
   NgIf,
   NgModule,
   NgZone,
@@ -85,14 +90,17 @@ import {
   ɵɵgetCurrentView,
   ɵɵinject,
   ɵɵlistener,
+  ɵɵnextContext,
   ɵɵproperty,
+  ɵɵpureFunction1,
   ɵɵreference,
   ɵɵresetView,
+  ɵɵresolveDocument,
   ɵɵrestoreView,
   ɵɵtemplate,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-ZHQNQQGE.js";
+} from "./chunk-VP6RSS6Q.js";
 import {
   __objRest,
   __spreadValues
@@ -4248,13 +4256,13 @@ var NoopAnimationsModule = class _NoopAnimationsModule {
 function LayoutComponent_ng_container_4_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementContainerStart(0);
-    \u0275\u0275elementStart(1, "mat-menu", null, 1)(3, "button", 13);
+    \u0275\u0275elementStart(1, "mat-menu", null, 1)(3, "button", 14);
     \u0275\u0275text(4, "Create Per Diem");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "button", 13);
+    \u0275\u0275elementStart(5, "button", 14);
     \u0275\u0275text(6, "List Per Diem");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "button", 14);
+    \u0275\u0275elementStart(7, "button", 15);
     \u0275\u0275text(8, "Manage");
     \u0275\u0275elementEnd();
     \u0275\u0275elementContainerEnd();
@@ -4271,7 +4279,7 @@ function LayoutComponent_ng_container_4_Template(rf, ctx) {
 }
 function LayoutComponent_button_5_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "button", 15);
+    \u0275\u0275elementStart(0, "button", 16);
     \u0275\u0275text(1, "Travel Requests");
     \u0275\u0275elementEnd();
   }
@@ -4281,7 +4289,7 @@ function LayoutComponent_button_5_Template(rf, ctx) {
 }
 function LayoutComponent_button_6_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "button", 15);
+    \u0275\u0275elementStart(0, "button", 16);
     \u0275\u0275text(1, "Create Travel");
     \u0275\u0275elementEnd();
   }
@@ -4291,26 +4299,40 @@ function LayoutComponent_button_6_Template(rf, ctx) {
 }
 function LayoutComponent_button_7_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "button", 16);
+    \u0275\u0275elementStart(0, "button", 17);
     \u0275\u0275text(1, "BU Head Approvals");
     \u0275\u0275elementEnd();
   }
 }
 function LayoutComponent_button_8_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "button", 17);
+    \u0275\u0275elementStart(0, "button", 18);
     \u0275\u0275text(1, "CFO Approvals");
     \u0275\u0275elementEnd();
   }
 }
 function LayoutComponent_button_9_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "button", 18);
+    \u0275\u0275elementStart(0, "button", 19);
     \u0275\u0275text(1, "CFO Dashboard");
     \u0275\u0275elementEnd();
   }
 }
+function LayoutComponent_div_42_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 20);
+    \u0275\u0275text(1, " \u26A0\uFE0F You will be logged out in 1 minute due to inactivity. Move your mouse or press a key to stay logged in. ");
+    \u0275\u0275elementEnd();
+  }
+}
 var LayoutComponent = class _LayoutComponent {
+  logoutTimeout;
+  warningTimeout;
+  INACTIVITY_LIMIT_MS = 10 * 60 * 1e3;
+  // 10 minutes
+  WARNING_BEFORE_MS = 1 * 60 * 1e3;
+  // 1 minute before logout
+  showWarning = false;
   loggedInEmail = localStorage.getItem("loggedInEmail") || "Guest";
   userRole = localStorage.getItem("userRole") || "Guest";
   userFnumber = localStorage.getItem("userFnumber");
@@ -4329,18 +4351,61 @@ var LayoutComponent = class _LayoutComponent {
   get canCreateTravel() {
     return this.userRole === "TR-EMPLOYEE" || this.isAdmin;
   }
-  logout() {
+  ngOnInit() {
+    this.startInactivityWatcher();
+  }
+  ngOnDestroy() {
+    this.clearTimeouts();
+  }
+  resetTimer() {
+    this.showWarning = false;
+    this.clearTimeouts();
+    this.startInactivityWatcher();
+  }
+  startInactivityWatcher() {
+    this.warningTimeout = setTimeout(() => {
+      this.showWarning = true;
+    }, this.INACTIVITY_LIMIT_MS - this.WARNING_BEFORE_MS);
+    this.logoutTimeout = setTimeout(() => {
+      this.logout(true);
+    }, this.INACTIVITY_LIMIT_MS);
+  }
+  clearTimeouts() {
+    if (this.logoutTimeout) {
+      clearTimeout(this.logoutTimeout);
+    }
+    if (this.warningTimeout) {
+      clearTimeout(this.warningTimeout);
+    }
+  }
+  logout(auto = false) {
+    this.showWarning = false;
     localStorage.removeItem("loggedInEmail");
     localStorage.removeItem("userRole");
     localStorage.removeItem("userFnumber");
     localStorage.removeItem("userMobile");
     localStorage.removeItem("userName");
-    location.href = "/login";
+    if (auto) {
+      alert("You were logged out due to inactivity.");
+    }
+    location.href = "tent/travel-request/login";
   }
   static \u0275fac = function LayoutComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _LayoutComponent)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LayoutComponent, selectors: [["app-layout"]], decls: 43, vars: 13, consts: [["userMenu", "matMenu"], ["adminMenu", "matMenu"], ["color", "primary", 1, "top-toolbar"], [1, "logo"], [1, "spacer"], [4, "ngIf"], ["mat-button", "", 3, "routerLink", 4, "ngIf"], ["mat-button", "", "routerLink", "/travel/buhead/list", 4, "ngIf"], ["mat-button", "", "routerLink", "/travel/cfo/list", 4, "ngIf"], ["mat-button", "", "routerLink", "/travel/cfo/dashboard", 4, "ngIf"], ["mat-menu-item", "", "disabled", ""], ["mat-menu-item", "", 3, "click"], ["mat-icon-button", "", 3, "matMenuTriggerFor"], ["mat-menu-item", "", 3, "routerLink"], ["mat-button", "", 3, "matMenuTriggerFor"], ["mat-button", "", 3, "routerLink"], ["mat-button", "", "routerLink", "/travel/buhead/list"], ["mat-button", "", "routerLink", "/travel/cfo/list"], ["mat-button", "", "routerLink", "/travel/cfo/dashboard"]], template: function LayoutComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LayoutComponent, selectors: [["app-layout"]], hostBindings: function LayoutComponent_HostBindings(rf, ctx) {
+    if (rf & 1) {
+      \u0275\u0275listener("mousemove", function LayoutComponent_mousemove_HostBindingHandler() {
+        return ctx.resetTimer();
+      }, false, \u0275\u0275resolveDocument)("keydown", function LayoutComponent_keydown_HostBindingHandler() {
+        return ctx.resetTimer();
+      }, false, \u0275\u0275resolveDocument)("click", function LayoutComponent_click_HostBindingHandler() {
+        return ctx.resetTimer();
+      }, false, \u0275\u0275resolveDocument)("scroll", function LayoutComponent_scroll_HostBindingHandler() {
+        return ctx.resetTimer();
+      }, false, \u0275\u0275resolveDocument);
+    }
+  }, decls: 44, vars: 14, consts: [["userMenu", "matMenu"], ["adminMenu", "matMenu"], ["color", "primary", 1, "top-toolbar"], [1, "logo"], [1, "spacer"], [4, "ngIf"], ["mat-button", "", 3, "routerLink", 4, "ngIf"], ["mat-button", "", "routerLink", "/travel/buhead/list", 4, "ngIf"], ["mat-button", "", "routerLink", "/travel/cfo/list", 4, "ngIf"], ["mat-button", "", "routerLink", "/travel/cfo/dashboard", 4, "ngIf"], ["mat-menu-item", "", "disabled", ""], ["mat-menu-item", "", 3, "click"], ["mat-icon-button", "", 3, "matMenuTriggerFor"], ["class", "logout-warning", 4, "ngIf"], ["mat-menu-item", "", 3, "routerLink"], ["mat-button", "", 3, "matMenuTriggerFor"], ["mat-button", "", 3, "routerLink"], ["mat-button", "", "routerLink", "/travel/buhead/list"], ["mat-button", "", "routerLink", "/travel/cfo/list"], ["mat-button", "", "routerLink", "/travel/cfo/dashboard"], [1, "logout-warning"]], template: function LayoutComponent_Template(rf, ctx) {
     if (rf & 1) {
       const _r1 = \u0275\u0275getCurrentView();
       \u0275\u0275elementStart(0, "mat-toolbar", 2)(1, "span", 3);
@@ -4389,7 +4454,8 @@ var LayoutComponent = class _LayoutComponent {
       \u0275\u0275elementStart(39, "button", 12)(40, "mat-icon");
       \u0275\u0275text(41, "account_circle");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275element(42, "router-outlet");
+      \u0275\u0275template(42, LayoutComponent_div_42_Template, 2, 0, "div", 13);
+      \u0275\u0275element(43, "router-outlet");
     }
     if (rf & 2) {
       const userMenu_r3 = \u0275\u0275reference(12);
@@ -4419,8 +4485,10 @@ var LayoutComponent = class _LayoutComponent {
       \u0275\u0275textInterpolate(ctx.userTitle);
       \u0275\u0275advance(3);
       \u0275\u0275property("matMenuTriggerFor", userMenu_r3);
+      \u0275\u0275advance(3);
+      \u0275\u0275property("ngIf", ctx.showWarning);
     }
-  }, dependencies: [RouterModule, RouterOutlet, RouterLink, MatToolbarModule, MatToolbar, MatButtonModule, MatButton, MatIconButton, MatIconModule, MatIcon, MatMenuModule, MatMenu, MatMenuItem, MatMenuTrigger, NgIf], styles: ["\n\n.top-toolbar[_ngcontent-%COMP%] {\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  background-color: #048a73;\n  color: white;\n}\n.logo[_ngcontent-%COMP%] {\n  font-weight: bold;\n  font-size: 1.3rem;\n}\n.spacer[_ngcontent-%COMP%] {\n  flex: 1 1 auto;\n}\nbutton[_ngcontent-%COMP%], \n.mat-button[_ngcontent-%COMP%], \n.mat-icon-button[_ngcontent-%COMP%] {\n  color: black;\n}\n/*# sourceMappingURL=layout.component.css.map */"] });
+  }, dependencies: [RouterModule, RouterOutlet, RouterLink, MatToolbarModule, MatToolbar, MatButtonModule, MatButton, MatIconButton, MatIconModule, MatIcon, MatMenuModule, MatMenu, MatMenuItem, MatMenuTrigger, NgIf], styles: ["\n\n.top-toolbar[_ngcontent-%COMP%] {\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  background-color: #048a73;\n  color: white;\n}\n.logo[_ngcontent-%COMP%] {\n  font-weight: bold;\n  font-size: 1.3rem;\n}\n.spacer[_ngcontent-%COMP%] {\n  flex: 1 1 auto;\n}\n.logout-warning[_ngcontent-%COMP%] {\n  background-color: #fff3cd;\n  color: #856404;\n  padding: 12px;\n  text-align: center;\n  font-weight: bold;\n  position: fixed;\n  top: 64px;\n  width: 100%;\n  z-index: 1000;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n}\nbutton[_ngcontent-%COMP%], \n.mat-button[_ngcontent-%COMP%], \n.mat-icon-button[_ngcontent-%COMP%] {\n  color: black;\n}\n/*# sourceMappingURL=layout.component.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LayoutComponent, [{
@@ -4471,34 +4539,68 @@ var LayoutComponent = class _LayoutComponent {
         <mat-icon>account_circle</mat-icon>
       </button>
     </mat-toolbar>
+    <div *ngIf="showWarning" class="logout-warning">
+  \u26A0\uFE0F You will be logged out in 1 minute due to inactivity. Move your mouse or press a key to stay logged in.
+    </div>
 
     <router-outlet></router-outlet>
-  `, styles: ["/* angular:styles/component:scss;ac20e921ca2fd809185dde8cf428907e56f5c79b6360ed47701ff633b187759a;/Users/Wise/Documents/Projects/Front_End/TravelRequestFrontEnd/src/app/layouts/layout.component.ts */\n.top-toolbar {\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  background-color: #048a73;\n  color: white;\n}\n.logo {\n  font-weight: bold;\n  font-size: 1.3rem;\n}\n.spacer {\n  flex: 1 1 auto;\n}\nbutton,\n.mat-button,\n.mat-icon-button {\n  color: black;\n}\n/*# sourceMappingURL=layout.component.css.map */\n"] }]
-  }], null, null);
+  `, styles: ["/* angular:styles/component:scss;2261fd2136c10e64ee1e7f1306a9f594d5c244f1b40b40d5147dbdd818932fc7;/Users/Wise/Documents/Projects/Front_End/TravelRequestFrontEnd/src/app/layouts/layout.component.ts */\n.top-toolbar {\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  background-color: #048a73;\n  color: white;\n}\n.logo {\n  font-weight: bold;\n  font-size: 1.3rem;\n}\n.spacer {\n  flex: 1 1 auto;\n}\n.logout-warning {\n  background-color: #fff3cd;\n  color: #856404;\n  padding: 12px;\n  text-align: center;\n  font-weight: bold;\n  position: fixed;\n  top: 64px;\n  width: 100%;\n  z-index: 1000;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n}\nbutton,\n.mat-button,\n.mat-icon-button {\n  color: black;\n}\n/*# sourceMappingURL=layout.component.css.map */\n"] }]
+  }], null, { resetTimer: [{
+    type: HostListener,
+    args: ["document:mousemove"]
+  }, {
+    type: HostListener,
+    args: ["document:keydown"]
+  }, {
+    type: HostListener,
+    args: ["document:click"]
+  }, {
+    type: HostListener,
+    args: ["document:scroll"]
+  }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LayoutComponent, { className: "LayoutComponent", filePath: "src/app/layouts/layout.component.ts", lineNumber: 85 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LayoutComponent, { className: "LayoutComponent", filePath: "src/app/layouts/layout.component.ts", lineNumber: 101 });
 })();
 
 // src/app/auth/login/login.component.ts
+var _c0 = (a0) => ({ "error": a0 });
+function LoginComponent_div_25_mat_spinner_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "mat-spinner", 16);
+  }
+}
 function LoginComponent_div_25_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 13);
-    \u0275\u0275element(1, "mat-spinner", 14);
-    \u0275\u0275text(2, " \xA0Waiting for 2FA approval on your phone... ");
-    \u0275\u0275elementEnd();
+    \u0275\u0275template(1, LoginComponent_div_25_mat_spinner_1_Template, 1, 0, "mat-spinner", 14);
+    \u0275\u0275elementStart(2, "span", 15);
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(3, _c0, ctx_r0.isErrorPollingMessage));
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r0.isPolling);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r0.pollingMessage);
   }
 }
 var LoginComponent = class _LoginComponent {
   fb;
   router;
   http;
+  cdr;
+  snackBar;
   loginForm;
   // roles = ['EMPLOYEE', 'BU_HEAD', 'CFO', 'ADMIN'];
-  constructor(fb, router, http) {
+  constructor(fb, router, http, cdr, snackBar) {
     this.fb = fb;
     this.router = router;
     this.http = http;
+    this.cdr = cdr;
+    this.snackBar = snackBar;
   }
   ngOnInit() {
     document.body.classList.add("login-page");
@@ -4513,6 +4615,20 @@ var LoginComponent = class _LoginComponent {
   pollingAttempts = 0;
   isPolling = false;
   // control UI state
+  pollingMessage = "";
+  // message to show during polling
+  showPollingMessage = false;
+  isErrorPollingMessage = false;
+  ngOnDestroy() {
+    document.body.classList.remove("login-page");
+    clearInterval(this.pollingInterval);
+  }
+  get fnumber() {
+    return this.loginForm.get("fnumber");
+  }
+  get password() {
+    return this.loginForm.get("password");
+  }
   onSubmit() {
     if (this.loginForm.valid) {
       this.loginForm.disable();
@@ -4540,6 +4656,7 @@ var LoginComponent = class _LoginComponent {
           console.error("Login failed", err);
           alert("Invalid F-Number or Password.");
           this.resetPollingState();
+          this.cdr.detectChanges();
         }
       });
     }
@@ -4548,43 +4665,63 @@ var LoginComponent = class _LoginComponent {
     this.pollingAttempts = 0;
     this.pollingInterval = setInterval(() => {
       this.pollingAttempts++;
-      this.http.post(`${baseUrlCamp}/security/verify-2fa`, {
-        authId
-      }).subscribe({
+      this.http.post(`${baseUrlCamp}/security/verify-2fa`, { authId }).subscribe({
         next: (res) => {
           const statusCode = res?.statusCode;
+          const statusMessage = res?.statusMessage || "";
           if (statusCode === "000") {
             clearInterval(this.pollingInterval);
             this.resetPollingState();
             const userToken = res?.token;
             const user = res?.user;
             const userEmail = user?.mail;
-            const userRole = user?.role;
-            const userFnumber = user?.userId;
-            const userMobile = user?.mobile;
-            const userTitle = user?.title;
-            const userName = user?.name;
             if (userEmail) {
               localStorage.setItem("loggedInEmail", userEmail);
-              localStorage.setItem("userRole", userRole);
-              localStorage.setItem("userFnumber", userFnumber);
-              localStorage.setItem("userMobile", userMobile);
-              localStorage.setItem("userTitle", userTitle);
-              localStorage.setItem("userName", userName);
+              localStorage.setItem("userRole", user?.role);
+              localStorage.setItem("userFnumber", user?.userId);
+              localStorage.setItem("userMobile", user?.mobile);
+              localStorage.setItem("userTitle", user?.title);
+              localStorage.setItem("userName", user?.name);
               localStorage.setItem("userToken", userToken);
               this.router.navigate(["/travel/list"]);
             } else {
-              alert("Login failed: Email not found in response.");
+              this.pollingMessage = "Login failed: Email not found in response.";
+              this.showPollingMessage = true;
             }
+          } else if (statusCode === "001") {
+            this.pollingMessage = statusMessage || "Authentication failed. Please try again.";
+            this.isErrorPollingMessage = true;
+            this.showPollingMessage = true;
+            this.cdr.detectChanges();
+            clearInterval(this.pollingInterval);
+            this.resetPollingState();
+            this.isPolling = false;
+            this.loginForm.enable();
+          } else if (statusCode === "002") {
+            this.pollingMessage = statusMessage || "Awaiting push notification on your phone...";
+            this.isErrorPollingMessage = false;
+            this.showPollingMessage = true;
+            this.cdr.detectChanges();
+          } else {
+            this.pollingMessage = statusMessage || "Awaiting authentication...";
+            this.isErrorPollingMessage = false;
+            this.showPollingMessage = true;
+            this.cdr.detectChanges();
           }
         },
         error: (err) => {
+          clearInterval(this.pollingInterval);
+          const msg = err?.error?.statusMessage || "Network error. Please try again.";
+          this.snackBar.open(msg, "Dismiss", { duration: 4e3 });
+          this.resetPollingState();
+          this.cdr.detectChanges();
         }
       });
       if (this.pollingAttempts >= this.maxPollingAttempts) {
         clearInterval(this.pollingInterval);
-        alert("2FA timeout. Please try logging in again.");
+        this.snackBar.open("2FA timeout. Please try logging in again.", "Dismiss", { duration: 4e3 });
         this.resetPollingState();
+        this.cdr.detectChanges();
       }
     }, 2e3);
   }
@@ -4594,9 +4731,9 @@ var LoginComponent = class _LoginComponent {
     clearInterval(this.pollingInterval);
   }
   static \u0275fac = function LoginComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _LoginComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(HttpClient));
+    return new (__ngFactoryType__ || _LoginComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(HttpClient), \u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(MatSnackBar));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LoginComponent, selectors: [["app-login"]], decls: 26, vars: 3, consts: [[1, "login-container"], [1, "login-image-section"], [1, "system-title"], ["src", "assets/images/travels.svg", "alt", "Travel Illustration"], [1, "login-form-section"], ["appearance", "outlined", 1, "login-card"], [1, "version-label"], [3, "ngSubmit", "formGroup"], ["appearance", "fill", 1, "full-width"], ["matInput", "", "type", "text", "formControlName", "fnumber", "required", ""], ["matInput", "", "type", "password", "formControlName", "password", "required", ""], ["mat-raised-button", "", "color", "primary", 1, "login-btn", 3, "disabled"], ["class", "polling-message", 4, "ngIf"], [1, "polling-message"], ["diameter", "24"]], template: function LoginComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LoginComponent, selectors: [["app-login"]], decls: 26, vars: 3, consts: [[1, "login-container"], [1, "login-image-section"], [1, "system-title"], ["src", "assets/images/travels.svg", "alt", "Travel Illustration"], [1, "login-form-section"], ["appearance", "outlined", 1, "login-card"], [1, "version-label"], [3, "ngSubmit", "formGroup"], ["appearance", "fill", 1, "full-width"], ["matInput", "", "type", "text", "formControlName", "fnumber", "required", ""], ["matInput", "", "type", "password", "formControlName", "password", "required", ""], ["mat-raised-button", "", "color", "primary", 1, "login-btn", 3, "disabled"], ["class", "polling-message", 3, "ngClass", 4, "ngIf"], [1, "polling-message", 3, "ngClass"], ["diameter", "24", 4, "ngIf"], [2, "margin-left", "10px"], ["diameter", "24"]], template: function LoginComponent_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h1");
       \u0275\u0275text(4, "Travel Request Management System");
@@ -4604,7 +4741,7 @@ var LoginComponent = class _LoginComponent {
       \u0275\u0275element(5, "img", 3);
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(6, "div", 4)(7, "mat-card", 5)(8, "div", 6);
-      \u0275\u0275text(9, "v0.0.4");
+      \u0275\u0275text(9, "v0.0.8");
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(10, "mat-card-title");
       \u0275\u0275text(11, "Welcome Back");
@@ -4629,7 +4766,7 @@ var LoginComponent = class _LoginComponent {
       \u0275\u0275elementStart(23, "button", 11);
       \u0275\u0275text(24, " Sign In ");
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(25, LoginComponent_div_25_Template, 3, 0, "div", 12);
+      \u0275\u0275template(25, LoginComponent_div_25_Template, 4, 5, "div", 12);
       \u0275\u0275elementEnd()()();
     }
     if (rf & 2) {
@@ -4638,10 +4775,11 @@ var LoginComponent = class _LoginComponent {
       \u0275\u0275advance(9);
       \u0275\u0275property("disabled", ctx.loginForm.invalid);
       \u0275\u0275advance(2);
-      \u0275\u0275property("ngIf", ctx.isPolling);
+      \u0275\u0275property("ngIf", ctx.showPollingMessage);
     }
   }, dependencies: [
     CommonModule,
+    NgClass,
     NgIf,
     ReactiveFormsModule,
     \u0275NgNoValidate,
@@ -4666,8 +4804,9 @@ var LoginComponent = class _LoginComponent {
     MatSelectModule,
     MatProgressSpinnerModule,
     MatProgressSpinner,
-    RouterModule
-  ], styles: ["\n\n.login-container[_ngcontent-%COMP%] {\n  display: flex;\n  height: 100vh;\n}\n.login-image-section[_ngcontent-%COMP%] {\n  flex: 1.5;\n  background:\n    linear-gradient(\n      to bottom right,\n      #00796b,\n      #004d40);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  height: 100vh;\n}\n.login-image-section[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: auto;\n  max-width: none;\n  display: block;\n  margin: 0;\n  padding: 0;\n  animation: fadeIn 1s ease-in;\n}\n.system-title[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 20px;\n  text-align: center;\n}\n.system-title[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  font-weight: 700;\n  color: white;\n  margin: 0;\n}\n.login-form-section[_ngcontent-%COMP%] {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: #ffffff;\n}\n.login-card[_ngcontent-%COMP%] {\n  width: 100%;\n  max-width: 400px;\n  padding: 2rem;\n  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n}\n.full-width[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.login-btn[_ngcontent-%COMP%] {\n  margin-top: 16px;\n  width: 100%;\n}\n.version-label[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 10px;\n  right: 16px;\n  font-size: 12px;\n  color: gray;\n  font-weight: 400;\n  opacity: 0.8;\n}\n/*# sourceMappingURL=login.component.css.map */"] });
+    RouterModule,
+    MatSnackBarModule
+  ], styles: ["\n\n.login-container[_ngcontent-%COMP%] {\n  display: flex;\n  height: 100vh;\n}\n.login-image-section[_ngcontent-%COMP%] {\n  flex: 1.5;\n  background:\n    linear-gradient(\n      to bottom right,\n      #00796b,\n      #004d40);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  height: 100vh;\n}\n.login-image-section[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: auto;\n  max-width: none;\n  display: block;\n  margin: 0;\n  padding: 0;\n  animation: fadeIn 1s ease-in;\n}\n.system-title[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 20px;\n  text-align: center;\n}\n.system-title[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 2.5rem;\n  font-weight: 700;\n  color: white;\n  margin: 0;\n}\n.login-form-section[_ngcontent-%COMP%] {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: #ffffff;\n}\n.login-card[_ngcontent-%COMP%] {\n  width: 100%;\n  max-width: 400px;\n  padding: 2rem;\n  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n}\n.full-width[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.login-btn[_ngcontent-%COMP%] {\n  margin-top: 16px;\n  width: 100%;\n}\n.version-label[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 10px;\n  right: 16px;\n  font-size: 12px;\n  color: gray;\n  font-weight: 400;\n  opacity: 0.8;\n}\n.polling-message[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  margin-top: 10px;\n  font-size: 14px;\n}\n.polling-message.error[_ngcontent-%COMP%] {\n  color: #f44336;\n}\n.polling-message[_ngcontent-%COMP%]:not(.error) {\n  color: #1976d2;\n}\n.polling-text[_ngcontent-%COMP%] {\n  margin-left: 8px;\n}\n/*# sourceMappingURL=login.component.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LoginComponent, [{
@@ -4682,12 +4821,98 @@ var LoginComponent = class _LoginComponent {
       MatOptionModule,
       MatSelectModule,
       MatProgressSpinnerModule,
-      RouterModule
-    ], template: '<div class="login-container">\n  <div class="login-image-section">\n    <div class="system-title">\n      <h1>Travel Request Management System</h1>\n    </div>\n    <img src="assets/images/travels.svg" alt="Travel Illustration" />\n  </div>\n\n  <div class="login-form-section">\n    <mat-card class="login-card" appearance="outlined">\n\n      <!-- Version label -->\n      <div class="version-label">v0.0.4</div>\n\n      <mat-card-title>Welcome Back</mat-card-title>\n      <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>\n\n      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>F-Number</mat-label>\n          <input matInput type="text" formControlName="fnumber" required />\n        </mat-form-field>\n\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Password</mat-label>\n          <input matInput type="password" formControlName="password" required />\n        </mat-form-field>\n\n        <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">\n          Sign In\n        </button>\n      </form>\n\n      <div *ngIf="isPolling" class="polling-message">\n        <mat-spinner diameter="24"></mat-spinner> &nbsp;Waiting for 2FA approval on your phone...\n      </div>\n    </mat-card>\n  </div>\n</div>\n\n\n\n<!-- <div class="login-container">\n  <div class="login-image-section">\n    <div class="system-title">\n      <h1>Travel Request Management System</h1>\n    </div>\n    <img src="assets/images/travels.svg" alt="Travel Illustration" />\n  </div>\n\n  <div class="login-form-section">\n    <mat-card class="login-card" appearance="outlined">\n      <mat-card-title>Welcome Back</mat-card-title>\n      <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>\n\n      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Email</mat-label>\n          <input matInput type="email" formControlName="email" required />\n        </mat-form-field>\n\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Password</mat-label>\n          <input matInput type="password" formControlName="password" required />\n        </mat-form-field>\n\n        <mat-form-field appearance="fill" class="full-width">\n          <mat-label>Select Role</mat-label>\n          <mat-select formControlName="role" required>\n            <mat-option value="EMPLOYEE">EMPLOYEE</mat-option>\n            <mat-option value="BU_HEAD">BU_HEAD</mat-option>\n            <mat-option value="CFO">CFO</mat-option>\n            <mat-option value="ADMIN">ADMIN</mat-option>\n          </mat-select>\n        </mat-form-field>\n\n        <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">\n          Sign In\n        </button>\n      </form>\n    </mat-card>\n  </div>\n</div> -->\n\n', styles: ["/* src/app/auth/login/login.component.scss */\n.login-container {\n  display: flex;\n  height: 100vh;\n}\n.login-image-section {\n  flex: 1.5;\n  background:\n    linear-gradient(\n      to bottom right,\n      #00796b,\n      #004d40);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  height: 100vh;\n}\n.login-image-section img {\n  width: 100%;\n  height: auto;\n  max-width: none;\n  display: block;\n  margin: 0;\n  padding: 0;\n  animation: fadeIn 1s ease-in;\n}\n.system-title {\n  position: absolute;\n  top: 20px;\n  text-align: center;\n}\n.system-title h1 {\n  font-size: 2.5rem;\n  font-weight: 700;\n  color: white;\n  margin: 0;\n}\n.login-form-section {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: #ffffff;\n}\n.login-card {\n  width: 100%;\n  max-width: 400px;\n  padding: 2rem;\n  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n}\n.full-width {\n  width: 100%;\n}\n.login-btn {\n  margin-top: 16px;\n  width: 100%;\n}\n.version-label {\n  position: absolute;\n  top: 10px;\n  right: 16px;\n  font-size: 12px;\n  color: gray;\n  font-weight: 400;\n  opacity: 0.8;\n}\n/*# sourceMappingURL=login.component.css.map */\n"] }]
-  }], () => [{ type: FormBuilder }, { type: Router }, { type: HttpClient }], null);
+      RouterModule,
+      MatSnackBarModule
+    ], template: `<div class="login-container">
+  <div class="login-image-section">
+    <div class="system-title">
+      <h1>Travel Request Management System</h1>
+    </div>
+    <img src="assets/images/travels.svg" alt="Travel Illustration" />
+  </div>
+
+  <div class="login-form-section">
+    <mat-card class="login-card" appearance="outlined">
+
+      <!-- Version label -->
+      <div class="version-label">v0.0.8</div>
+
+      <mat-card-title>Welcome Back</mat-card-title>
+      <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>F-Number</mat-label>
+          <input matInput type="text" formControlName="fnumber" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">
+          Sign In
+        </button>
+      </form>
+
+      <div *ngIf="showPollingMessage" class="polling-message" [ngClass]="{'error': isErrorPollingMessage}">
+        <mat-spinner *ngIf="isPolling" diameter="24"></mat-spinner>
+        <span style="margin-left: 10px;">{{ pollingMessage }}</span>
+      </div>           
+    </mat-card>
+  </div>
+</div>
+
+
+
+<!-- <div class="login-container">
+  <div class="login-image-section">
+    <div class="system-title">
+      <h1>Travel Request Management System</h1>
+    </div>
+    <img src="assets/images/travels.svg" alt="Travel Illustration" />
+  </div>
+
+  <div class="login-form-section">
+    <mat-card class="login-card" appearance="outlined">
+      <mat-card-title>Welcome Back</mat-card-title>
+      <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Select Role</mat-label>
+          <mat-select formControlName="role" required>
+            <mat-option value="EMPLOYEE">EMPLOYEE</mat-option>
+            <mat-option value="BU_HEAD">BU_HEAD</mat-option>
+            <mat-option value="CFO">CFO</mat-option>
+            <mat-option value="ADMIN">ADMIN</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">
+          Sign In
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div> -->
+
+`, styles: ["/* src/app/auth/login/login.component.scss */\n.login-container {\n  display: flex;\n  height: 100vh;\n}\n.login-image-section {\n  flex: 1.5;\n  background:\n    linear-gradient(\n      to bottom right,\n      #00796b,\n      #004d40);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  height: 100vh;\n}\n.login-image-section img {\n  width: 100%;\n  height: auto;\n  max-width: none;\n  display: block;\n  margin: 0;\n  padding: 0;\n  animation: fadeIn 1s ease-in;\n}\n.system-title {\n  position: absolute;\n  top: 20px;\n  text-align: center;\n}\n.system-title h1 {\n  font-size: 2.5rem;\n  font-weight: 700;\n  color: white;\n  margin: 0;\n}\n.login-form-section {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: #ffffff;\n}\n.login-card {\n  width: 100%;\n  max-width: 400px;\n  padding: 2rem;\n  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);\n}\n.full-width {\n  width: 100%;\n}\n.login-btn {\n  margin-top: 16px;\n  width: 100%;\n}\n.version-label {\n  position: absolute;\n  top: 10px;\n  right: 16px;\n  font-size: 12px;\n  color: gray;\n  font-weight: 400;\n  opacity: 0.8;\n}\n.polling-message {\n  display: flex;\n  align-items: center;\n  margin-top: 10px;\n  font-size: 14px;\n}\n.polling-message.error {\n  color: #f44336;\n}\n.polling-message:not(.error) {\n  color: #1976d2;\n}\n.polling-text {\n  margin-left: 8px;\n}\n/*# sourceMappingURL=login.component.css.map */\n"] }]
+  }], () => [{ type: FormBuilder }, { type: Router }, { type: HttpClient }, { type: ChangeDetectorRef }, { type: MatSnackBar }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LoginComponent, { className: "LoginComponent", filePath: "src/app/auth/login/login.component.ts", lineNumber: 34 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LoginComponent, { className: "LoginComponent", filePath: "src/app/auth/login/login.component.ts", lineNumber: 36 });
 })();
 
 // src/app/auth/login/guards/roleRoutes.ts
@@ -4766,7 +4991,7 @@ var appRoutes = [
     children: [
       {
         path: "travel",
-        loadChildren: () => import("./chunk-MT7C6OGC.js").then((m) => m.travelRoutes)
+        loadChildren: () => import("./chunk-GAZRZOJ5.js").then((m) => m.travelRoutes)
       },
       {
         path: "",
@@ -4777,7 +5002,7 @@ var appRoutes = [
   },
   {
     path: "unauthorized",
-    loadComponent: () => import("./chunk-ZMNWVKUR.js").then((m) => m.UnauthorizedComponent)
+    loadComponent: () => import("./chunk-IZY75KIM.js").then((m) => m.UnauthorizedComponent)
   },
   {
     path: "**",

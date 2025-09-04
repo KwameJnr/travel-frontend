@@ -44,6 +44,33 @@
   
       <mat-card>
         <h3>Monthly Estimated Cost</h3>
+
+        <div class="filters">
+          <label for="year">Year:</label>
+          <select id="year" [(ngModel)]="selectedYear" (change)="onYearChange()">
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            <option value="other">Other</option>
+          </select>
+        
+          <div *ngIf="customYearInputEnabled">
+            <input
+              type="number"
+              min="2000"
+              max="2100"
+              [(ngModel)]="customYear"
+              placeholder="Enter year"
+            />
+            <button mat-button (click)="applyCustomYear()">Apply</button>
+          </div>
+        
+          <label for="month">Month:</label>
+          <select id="month" [(ngModel)]="selectedMonth" (change)="onFilterChange()">
+            <option [ngValue]="null">All</option>
+            <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">
+              {{ m }}
+            </option>
+          </select>
+        </div>
         <canvas baseChart
                 [data]="monthlyCostChartData"
                 [type]="'bar'">
@@ -54,20 +81,30 @@
         <h3>Top 6 Departments by Estimated Cost</h3>
       
         <div class="filters">
-          <label>
-            Year:
-            <select [(ngModel)]="selectedYear" (change)="fetchTopDepartments()">
-              <option *ngFor="let year of [2025, 2024, 2023]" [value]="year">{{ year }}</option>
-            </select>
-          </label>
-      
-          <label>
-            Month:
-            <select [(ngModel)]="selectedMonth" (change)="fetchTopDepartments()">
-              <option [value]="null">All</option>
-              <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">{{ m }}</option>
-            </select>
-          </label>
+          <label for="year">Year:</label>
+          <select id="year" [(ngModel)]="selectedYear" (change)="onYearChange()">
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            <option value="other">Other</option>
+          </select>
+        
+          <div *ngIf="customYearInputEnabled">
+            <input
+              type="number"
+              min="2000"
+              max="2100"
+              [(ngModel)]="customYear"
+              placeholder="Enter year"
+            />
+            <button mat-button (click)="applyCustomYear()">Apply</button>
+          </div>
+        
+          <label for="month">Month:</label>
+          <select id="month" [(ngModel)]="selectedMonth" (change)="onFilterChange()">
+            <option [ngValue]="null">All</option>
+            <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">
+              {{ m }}
+            </option>
+          </select>
         </div>
       
         <canvas baseChart

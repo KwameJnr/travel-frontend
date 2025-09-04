@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -56,6 +56,9 @@ import { NgIf } from '@angular/common';
         <mat-icon>account_circle</mat-icon>
       </button>
     </mat-toolbar>
+    <div *ngIf="showWarning" class="logout-warning">
+  ⚠️ You will be logged out in 1 minute due to inactivity. Move your mouse or press a key to stay logged in.
+    </div>
 
     <router-outlet></router-outlet>
   `,
@@ -76,6 +79,19 @@ import { NgIf } from '@angular/common';
     .spacer {
       flex: 1 1 auto;
     }
+
+    .logout-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    position: fixed;
+    top: 64px; // adjust based on your header height
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
   
     button, .mat-button, .mat-icon-button {
       color: black;
@@ -83,6 +99,14 @@ import { NgIf } from '@angular/common';
   `]
 })
 export class LayoutComponent {
+  private logoutTimeout: any;
+  private warningTimeout: any;
+
+  private readonly INACTIVITY_LIMIT_MS = 10 * 60 * 1000; // 10 minutes
+  private readonly WARNING_BEFORE_MS = 1 * 60 * 1000;     // 1 minute before logout
+
+  showWarning = false;
+
   loggedInEmail = localStorage.getItem('loggedInEmail') || 'Guest';
   userRole = localStorage.getItem('userRole') || 'Guest';
 
@@ -107,13 +131,56 @@ export class LayoutComponent {
     return this.userRole === 'TR-EMPLOYEE' || this.isAdmin;
   }
 
-  logout() {
+  ngOnInit() {
+    this.startInactivityWatcher();
+  }
+
+  ngOnDestroy() {
+    this.clearTimeouts();
+  }
+
+  @HostListener('document:mousemove')
+  @HostListener('document:keydown')
+  @HostListener('document:click')
+  @HostListener('document:scroll')
+  resetTimer() {
+    this.showWarning = false;
+    this.clearTimeouts();
+    this.startInactivityWatcher();
+  }
+
+  startInactivityWatcher() {
+    // Show warning 1 minute before logout
+    this.warningTimeout = setTimeout(() => {
+      this.showWarning = true;
+    }, this.INACTIVITY_LIMIT_MS - this.WARNING_BEFORE_MS);
+
+    // Perform logout after full timeout
+    this.logoutTimeout = setTimeout(() => {
+      this.logout(true);
+    }, this.INACTIVITY_LIMIT_MS);
+  }
+
+  clearTimeouts() {
+    if (this.logoutTimeout) {
+      clearTimeout(this.logoutTimeout);
+    }
+    if (this.warningTimeout) {
+      clearTimeout(this.warningTimeout);
+    }
+  }
+
+  logout(auto: boolean = false) {
+    this.showWarning = false;
     // Clear token and redirect to login
     localStorage.removeItem('loggedInEmail');
     localStorage.removeItem('userRole');
     localStorage.removeItem('userFnumber');
     localStorage.removeItem('userMobile');
     localStorage.removeItem('userName');
-    location.href = '/login';
+    if (auto) {
+      alert('You were logged out due to inactivity.');
+    }
+    location.href = 'tent/travel-request/login';
   }
 }

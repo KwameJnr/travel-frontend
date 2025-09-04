@@ -50497,6 +50497,7 @@ export {
   afterRender,
   afterNextRender,
   ViewEncapsulation,
+  ɵɵresolveDocument,
   ɵɵadvance,
   TemplateRef,
   RendererFactory2,
@@ -50744,4 +50745,4 @@ export {
    * found in the LICENSE file at https://angular.dev/license
    *)
 */
-//# sourceMappingURL=chunk-ZHQNQQGE.js.map
+//# sourceMappingURL=chunk-VP6RSS6Q.js.map

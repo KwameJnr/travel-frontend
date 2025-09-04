@@ -23,6 +23,13 @@ import { Router } from '@angular/router';
 export class CfoDashboardComponent implements OnInit {
   metrics!: CfoDashboardMetrics;
 
+  currentYear = new Date().getFullYear();
+  selectedYear: number | 'other' = this.currentYear;
+  selectedMonth: number | null = null;
+  customYearInputEnabled = false;
+  customYear?: number;
+  years: number[] = [];
+
   approvalChartData: ChartData<'doughnut', number[], string> = {
     labels: [],
     datasets: []
@@ -33,67 +40,106 @@ export class CfoDashboardComponent implements OnInit {
     datasets: []
   };
 
+  topDepartmentsChartData: ChartData<'bar', number[], string> = {
+    labels: [],
+    datasets: []
+  };
+
   constructor(private travelService: TravelService,private router: Router) {}
-
-  selectedYear = new Date().getFullYear();
-selectedMonth: number | null = null;
-
-topDepartmentsChartData: ChartData<'bar', number[], string> = {
-  labels: [],
-  datasets: []
-};
-
-fetchTopDepartments() {
-  this.travelService.getTopDepartments(this.selectedYear, this.selectedMonth ?? undefined)
-    .subscribe(deptData => {
-      this.topDepartmentsChartData = {
-        labels: deptData.map(item => item.department),
-        datasets: [
-          {
-            label: 'Estimated Cost by Department (GHS)',
-            data: deptData.map(item => item.cost),
-            backgroundColor: '#9c27b0'
-          }
-        ]
-      };
-    });
-}
 
   ngOnInit(): void {
     const userRole = localStorage.getItem('userRole');
+    if (userRole !== 'TR-CFO' && userRole !== 'TR-ADMIN') {
+      this.router.navigate(['/unauthorized']);
+      return;
+    }
 
-  if (userRole !== 'TR-CFO' && userRole !== 'TR-ADMIN') {
-    this.router.navigate(['/unauthorized']);  // Redirect unauthorized users
-    return;
+    this.initializeYearOptions();
+    this.fetchDashboardMetrics();
+    this.fetchMonthlyCosts();
+    this.fetchTopDepartments();
   }
-    // Approval Summary
+
+  initializeYearOptions() {
+    const currentYear = new Date().getFullYear();
+    for (let y = currentYear; y >= currentYear - 4; y--) {
+      this.years.push(y);
+    }
+  }
+
+  fetchDashboardMetrics() {
     this.travelService.getMetrics().subscribe(data => {
       this.metrics = data;
       this.approvalChartData = {
         labels: ['Approved', 'Pending', 'Rejected'],
-        datasets: [
-          {
-            data: [data.approvedRequests, data.pendingRequests, data.rejectedRequests],
-            backgroundColor: ['#4caf50', '#ff9800', '#f44336']
-          }
-        ]
+        datasets: [{
+          data: [data.approvedRequests, data.pendingRequests, data.rejectedRequests],
+          backgroundColor: ['#4caf50', '#ff9800', '#f44336']
+        }]
       };
     });
+  }
 
-    // Monthly Estimated Cost Breakdown
-    this.travelService.getMonthlyCosts(2025).subscribe(monthlyData => {
-      this.monthlyCostChartData = {
-        labels: monthlyData.map(item => item.month),
-        datasets: [
-          {
+  fetchMonthlyCosts() {
+    const year = this.resolveSelectedYear();
+    this.travelService.getMonthlyCosts(year, this.selectedMonth ?? undefined)
+      .subscribe(data => {
+        this.monthlyCostChartData = {
+          labels: data.map(d => d.month),
+          datasets: [{
             label: 'Monthly Estimated Cost (GHS)',
-            data: monthlyData.map(item => item.cost),
+            data: data.map(d => d.cost),
             backgroundColor: '#2196f3'
-          }
-        ]
-      };
-    });
+          }]
+        };
+      });
+  }
+
+  fetchTopDepartments() {
+    const year = this.resolveSelectedYear();
+    this.travelService.getTopDepartments(year, this.selectedMonth ?? undefined)
+      .subscribe(data => {
+        this.topDepartmentsChartData = {
+          labels: data.map(d => d.department),
+          datasets: [{
+            label: 'Estimated Cost by Department (GHS)',
+            data: data.map(d => d.cost),
+            backgroundColor: '#9c27b0'
+          }]
+        };
+      });
+  }
+
+  onFilterChange() {
+    this.fetchMonthlyCosts();
     this.fetchTopDepartments();
+  }
+
+  // onYearChange() {
+  //   this.customYearInputEnabled = this.selectedYear === 'other';
+  //   if (!this.customYearInputEnabled) {
+  //     this.onFilterChange();
+  //   }
+  // }
+  onYearChange(): void {
+    if (this.selectedYear === 'other') {
+      this.customYearInputEnabled = true;
+    } else {
+      this.customYearInputEnabled = false;
+      this.selectedYear = +this.selectedYear;
+      this.onFilterChange();
+    }
+  }  
+
+  applyCustomYear() {
+    if (this.customYear && this.customYear > 1900) {
+      this.selectedYear = this.customYear;
+      this.onFilterChange();
+    }
+  }
+
+  resolveSelectedYear(): number {
+    return this.selectedYear === 'other' ? this.customYear ?? this.currentYear : this.selectedYear;
   }
 
   exportToExcel(): void {
@@ -105,37 +151,37 @@ fetchTopDepartments() {
       { Metric: 'Total Estimated Cost', Value: this.metrics.totalEstimatedCost },
       { Metric: 'Total Per Diem Cost', Value: this.metrics.totalApprovedCost }
     ];
-  
+
     const approvalChart = this.approvalChartData.labels!.map((label, i) => ({
       Status: label,
       Count: this.approvalChartData.datasets[0].data[i]
     }));
-  
+
     const monthlyCosts = this.monthlyCostChartData.labels!.map((month, i) => ({
       Month: month,
       Cost: this.monthlyCostChartData.datasets[0].data[i]
     }));
-  
+
     const topDepartments = this.topDepartmentsChartData.labels!.map((dept, i) => ({
       Department: dept,
       Cost: this.topDepartmentsChartData.datasets[0].data[i]
     }));
-  
+
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(dashboardMetrics), 'Dashboard Metrics');
     XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(approvalChart), 'Approval Status');
     XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(monthlyCosts), 'Monthly Costs');
     XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(topDepartments), 'Top Departments');
-  
+
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     saveAs(new Blob([excelBuffer]), 'CFO_Dashboard_Data.xlsx');
   }
 
   exportToPdf(): void {
     const doc = new jsPDF();
-  
+
     doc.text('CFO Dashboard Metrics', 14, 10);
-  
+
     autoTable(doc, {
       startY: 20,
       head: [['Metric', 'Value']],
@@ -148,9 +194,9 @@ fetchTopDepartments() {
         ['Total Per Diem Cost', this.metrics.totalApprovedCost]
       ]
     });
-  
+
     const finalY1 = (doc as any).lastAutoTable.finalY;
-  
+
     autoTable(doc, {
       startY: finalY1 + 10,
       head: [['Status', 'Count']],
@@ -159,9 +205,9 @@ fetchTopDepartments() {
         this.approvalChartData.datasets[0].data[i]
       ])
     });
-  
+
     const finalY2 = (doc as any).lastAutoTable.finalY;
-  
+
     autoTable(doc, {
       startY: finalY2 + 10,
       head: [['Month', 'Cost']],
@@ -170,9 +216,9 @@ fetchTopDepartments() {
         this.monthlyCostChartData.datasets[0].data[i]
       ])
     });
-  
+
     const finalY3 = (doc as any).lastAutoTable.finalY;
-  
+
     autoTable(doc, {
       startY: finalY3 + 10,
       head: [['Department', 'Cost']],
@@ -181,7 +227,7 @@ fetchTopDepartments() {
         this.topDepartmentsChartData.datasets[0].data[i]
       ])
     });
-  
+
     doc.save('CFO_Dashboard_Data.pdf');
   }
 }

@@ -10,7 +10,7 @@
     <mat-card class="login-card" appearance="outlined">
 
       <!-- Version label -->
-      <div class="version-label">v0.0.4</div>
+      <div class="version-label">v0.0.8</div>
 
       <mat-card-title>Welcome Back</mat-card-title>
       <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>
@@ -31,9 +31,10 @@
         </button>
       </form>
 
-      <div *ngIf="isPolling" class="polling-message">
-        <mat-spinner diameter="24"></mat-spinner> &nbsp;Waiting for 2FA approval on your phone...
-      </div>
+      <div *ngIf="showPollingMessage" class="polling-message" [ngClass]="{'error': isErrorPollingMessage}">
+        <mat-spinner *ngIf="isPolling" diameter="24"></mat-spinner>
+        <span style="margin-left: 10px;">{{ pollingMessage }}</span>
+      </div>           
     </mat-card>
   </div>
 </div>

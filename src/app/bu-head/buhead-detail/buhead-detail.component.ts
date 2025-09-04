@@ -113,8 +113,8 @@ export class BuheadDetailComponent implements OnInit {
       excoHeadStatus: 'Successful',
       excoHeadFeedback: this.actionForm.value.excoHeadFeedback,
       excoHeadFeedbackRemarks: this.actionForm.value.excoHeadFeedbackRemarks,
-      status: 'Pending CFO Approval'
-      // status: 'Rejected by BU Head'
+      // status: 'Pending CFO Approval'
+      status: 'Rejected by BU Head'
     };
   
     this.submitAction(payload, false);

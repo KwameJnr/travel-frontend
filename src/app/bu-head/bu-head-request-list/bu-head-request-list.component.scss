@@ -17,5 +17,37 @@ mat-card {
   th.mat-header-cell, td.mat-cell {
     padding: 12px;
   }
-  
+  /* Push the whole form to the right */
+.search-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-form {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  /* ✅ Center buttons with inputs */
+  align-items: center;
+}
+
+.emp-field {
+  min-width: 250px;
+}
+
+.status-field {
+  min-width: 350px;
+}
+
+/* Optional: on small screens, let it span full width and align left */
+@media (max-width: 768px) {
+  .search-row {
+    justify-content: stretch;
+  }
+  .search-form {
+    justify-content: stretch;
+  }
+}
   

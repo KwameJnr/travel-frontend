@@ -24,8 +24,12 @@ import {
   MatProgressSpinnerModule,
   MatSelect,
   MatSelectModule,
+  MatSnackBar,
+  MatSnackBarModule,
   MatSuffix,
   MaxLengthValidator,
+  MaxValidator,
+  MinValidator,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   NgControl,
@@ -51,7 +55,7 @@ import {
   trigger,
   ɵNgNoValidate,
   ɵNgSelectMultipleOption
-} from "./chunk-AH2VPI4X.js";
+} from "./chunk-KBFMIYZE.js";
 import {
   _typeof
 } from "./chunk-7YWLATDR.js";
@@ -64,7 +68,6 @@ import {
   BasePortalOutlet,
   BehaviorSubject,
   BidiModule,
-  BreakpointObserver,
   CdkConnectedOverlay,
   CdkMonitorFocus,
   CdkOverlayOrigin,
@@ -109,7 +112,6 @@ import {
   InteractivityChecker,
   IterableDiffers,
   LEFT_ARROW,
-  LiveAnnouncer,
   Location,
   MAT_FAB_DEFAULT_OPTIONS,
   MatButton,
@@ -182,7 +184,6 @@ import {
   _bindEventWithOptions,
   _getFocusedElementPierceShadowDom,
   afterNextRender,
-  afterRender,
   booleanAttribute,
   coerceBooleanProperty,
   coerceNumberProperty,
@@ -276,7 +277,7 @@ import {
   ɵɵtwoWayListener,
   ɵɵtwoWayProperty,
   ɵɵviewQuery
-} from "./chunk-ZHQNQQGE.js";
+} from "./chunk-VP6RSS6Q.js";
 import {
   __commonJS,
   __spreadProps,
@@ -27743,9 +27744,9 @@ NgChartsModule.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({});
 // src/app/core/services/travel.service.ts
 var TravelService = class _TravelService {
   http;
-  // private travelApiBaseUrl = baseUrl+'/travels';
-  // private apiUrl = baseUrl+'/company/department/index';
-  travelApiBaseUrl = baseUrl + "/travels";
+  // private travelApibaseUrlLocal = baseUrlLocal+'/travels';
+  // private apiUrl = baseUrlLocal+'/company/department/index';
+  travelApibaseUrlLocal = baseUrl + "/travels";
   // Adjust if needed
   apiUrl = baseUrlCamp + "/company/department/index";
   constructor(http) {
@@ -27754,49 +27755,49 @@ var TravelService = class _TravelService {
   getAll() {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
-    return this.http.get(`${this.travelApiBaseUrl}/all`, { headers }).pipe(map((response) => response.data));
+    return this.http.get(`${this.travelApibaseUrlLocal}/all`, { headers }).pipe(map((response) => response.data));
   }
   getById(id) {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
-    return this.http.get(`${this.travelApiBaseUrl}/view/${id}`, { headers }).pipe(map((response) => response.data));
+    return this.http.get(`${this.travelApibaseUrlLocal}/view/${id}`, { headers }).pipe(map((response) => response.data));
   }
   create(travel) {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
-    return this.http.post(`${this.travelApiBaseUrl}/add`, travel, { headers });
+    return this.http.post(`${this.travelApibaseUrlLocal}/add`, travel, { headers });
   }
   update(id, travel) {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
-    return this.http.put(`${this.travelApiBaseUrl}/update/${id}`, travel, { headers });
+    return this.http.put(`${this.travelApibaseUrlLocal}/update/${id}`, travel, { headers });
   }
   delete(id) {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
-    return this.http.delete(`${this.travelApiBaseUrl}/delete/${id}`, { headers }).pipe(map((response) => response.data));
+    return this.http.delete(`${this.travelApibaseUrlLocal}/delete/${id}`, { headers }).pipe(map((response) => response.data));
   }
   //BU Heads endpoints 
   getPendingRequestsForBuHead() {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
-    return this.http.get(`${this.travelApiBaseUrl}/exco-feedback/pending`, { headers }).pipe(map((response) => response.data));
+    return this.http.get(`${this.travelApibaseUrlLocal}/exco-feedback/pending`, { headers }).pipe(map((response) => response.data));
   }
   updateBuHeadFeedback(id, payload) {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
-    return this.http.put(`${this.travelApiBaseUrl}/update/${id}`, payload, { headers });
+    return this.http.put(`${this.travelApibaseUrlLocal}/update/${id}`, payload, { headers });
   }
   //CFO endpoints 
   getPendingRequestsForCfo() {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
-    return this.http.get(`${this.travelApiBaseUrl}/cfo-feedback/pending`, { headers }).pipe(map((response) => response.data));
+    return this.http.get(`${this.travelApibaseUrlLocal}/cfo-feedback/pending`, { headers }).pipe(map((response) => response.data));
   }
   updateCfoFeedback(id, payload) {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
-    return this.http.put(`${this.travelApiBaseUrl}/update/${id}`, payload, { headers });
+    return this.http.put(`${this.travelApibaseUrlLocal}/update/${id}`, payload, { headers });
   }
   //Notification endpoints
   sendApprovalEmail(payload) {
@@ -27825,10 +27826,13 @@ var TravelService = class _TravelService {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.get(baseUrl + "/cfo-dashboard/metrics", { headers });
   }
-  getMonthlyCosts(year) {
+  getMonthlyCosts(year, month) {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
-    return this.http.get(`${baseUrl}/cfo-dashboard/monthly-costs?year=${year}`, { headers });
+    let params = `year=${year}`;
+    if (month)
+      params += `&month=${month}`;
+    return this.http.get(`${baseUrl}/cfo-dashboard/monthly-costs?${params}`, { headers });
   }
   getTopDepartments(year, month) {
     const token = localStorage.getItem("userToken") || "";
@@ -27838,28 +27842,23 @@ var TravelService = class _TravelService {
       params += `&month=${month}`;
     return this.http.get(`${baseUrl}/cfo-dashboard/top-departments?${params}`, { headers });
   }
-  //Get deoartment endpoints 
-  // Use POST to pass {} in body
-  // getDepartments(): Observable<{ status: string, message: string, data: Department[] }> {
-  //   const token = localStorage.getItem('userToken') || '';
-  //   const headers = new HttpHeaders()
-  //   .set('Authorization', `Bearer ${token}`)
-  //   .set('X-SrcApp', 'Travel-Request');
-  //   return this.http.get<{ status: string, message: string, data: Department[] }>(this.apiUrl,{ headers });
-  // }
   getDepartments() {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
+    const apiUrl = this.apiUrl;
+    console.log("Calling department endpoint:", apiUrl);
     return this.http.get(this.apiUrl, { headers });
   }
   getBAUHeads() {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
+    console.log("Calling BAU Heads endpoint:", baseUrlCamp + "/company/bau/index");
     return this.http.get(baseUrlCamp + "/company/bau/index", { headers });
   }
   getAllPerDiemCountries() {
     const token = localStorage.getItem("userToken") || "";
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
+    console.log("Calling Per Diem Countries endpoint:", `${baseUrl}/perdiems/all`);
     return this.http.get(`${baseUrl}/perdiems/all`, { headers });
   }
   static \u0275fac = function TravelService_Factory(__ngFactoryType__) {
@@ -43350,49 +43349,61 @@ function TravelCreateComponent_mat_option_61_Template(rf, ctx) {
     \u0275\u0275textInterpolate1(" ", country_r3.location, " ");
   }
 }
-function TravelCreateComponent_mat_progress_spinner_112_Template(rf, ctx) {
+function TravelCreateComponent_mat_hint_103_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "mat-progress-spinner", 69);
+    \u0275\u0275elementStart(0, "mat-hint", 70);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r3.warningMessage);
   }
 }
-function TravelCreateComponent_span_113_Template(rf, ctx) {
+function TravelCreateComponent_mat_progress_spinner_113_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "mat-progress-spinner", 71);
+  }
+}
+function TravelCreateComponent_span_114_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span");
     \u0275\u0275text(1, "Next");
     \u0275\u0275elementEnd();
   }
 }
-function TravelCreateComponent_mat_option_145_Template(rf, ctx) {
+function TravelCreateComponent_mat_option_146_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "mat-option", 30);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const country_r4 = ctx.$implicit;
-    \u0275\u0275property("value", country_r4.location);
+    const country_r5 = ctx.$implicit;
+    \u0275\u0275property("value", country_r5.location);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", country_r4.location, " ");
+    \u0275\u0275textInterpolate1(" ", country_r5.location, " ");
   }
 }
-function TravelCreateComponent_mat_progress_spinner_213_Template(rf, ctx) {
+function TravelCreateComponent_mat_progress_spinner_214_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "mat-progress-spinner", 70);
+    \u0275\u0275element(0, "mat-progress-spinner", 72);
   }
 }
-function TravelCreateComponent_span_214_Template(rf, ctx) {
+function TravelCreateComponent_span_215_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span");
     \u0275\u0275text(1, "Back");
     \u0275\u0275elementEnd();
   }
 }
-function TravelCreateComponent_mat_progress_spinner_217_Template(rf, ctx) {
+function TravelCreateComponent_mat_progress_spinner_218_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "mat-progress-spinner", 70);
+    \u0275\u0275element(0, "mat-progress-spinner", 72);
   }
 }
-function TravelCreateComponent_span_218_Template(rf, ctx) {
+function TravelCreateComponent_span_219_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span");
     \u0275\u0275text(1, "Submit");
@@ -43405,17 +43416,22 @@ var TravelCreateComponent = class _TravelCreateComponent {
   router;
   dialog;
   http;
+  cdr;
+  snackBar;
   travelForm;
   loading = false;
+  warningMessage = null;
   departments = [];
   bauHeads = [];
   perDiemCountries = [];
-  constructor(fb, travelService, router, dialog, http) {
+  constructor(fb, travelService, router, dialog, http, cdr, snackBar) {
     this.fb = fb;
     this.travelService = travelService;
     this.router = router;
     this.dialog = dialog;
     this.http = http;
+    this.cdr = cdr;
+    this.snackBar = snackBar;
   }
   ngOnInit() {
     this.travelForm = this.fb.group({
@@ -43431,12 +43447,12 @@ var TravelCreateComponent = class _TravelCreateComponent {
       city: [""],
       country: [""],
       visaRequired: [""],
-      departureDate: [""],
-      departureTime: [""],
-      returnDate: [""],
-      returnTime: [""],
-      perDiemStartDate: [""],
-      perDiemEndDate: [""],
+      departureDate: ["", Validators.required],
+      departureTime: ["", Validators.required],
+      returnDate: ["", Validators.required],
+      returnTime: ["", Validators.required],
+      perDiemStartDate: [{ value: null, disabled: true }],
+      perDiemEndDate: [{ value: null, disabled: true }],
       daysOutOfficialAssignmentDate: [{ value: 0, disabled: true }],
       hotelReservation: [""],
       hotelName: [""],
@@ -43466,8 +43482,27 @@ var TravelCreateComponent = class _TravelCreateComponent {
       status: [""],
       dateCreated: [/* @__PURE__ */ new Date()]
     });
+    const savedDraft = localStorage.getItem("travelFormDraft");
+    if (savedDraft) {
+      this.travelForm.patchValue(JSON.parse(savedDraft));
+    }
+    this.travelForm.valueChanges.subscribe((val) => {
+      localStorage.setItem("travelFormDraft", JSON.stringify(val));
+    });
+    const storedEmail = localStorage.getItem("loggedInEmail");
+    const storedName = localStorage.getItem("userName");
+    const storedNumber = localStorage.getItem("userFnumber");
+    const storedPhnone = localStorage.getItem("userMobile");
+    this.travelForm.patchValue({
+      employeeEmail: storedEmail || "",
+      employeeName: storedName || "",
+      employeeNumber: storedNumber || "",
+      employeeContact: storedPhnone || ""
+    });
     this.travelForm.get("departureDate")?.valueChanges.subscribe(() => this.calculateWorkingDays());
+    this.travelForm.get("departureTime")?.valueChanges.subscribe(() => this.calculateWorkingDays());
     this.travelForm.get("returnDate")?.valueChanges.subscribe(() => this.calculateWorkingDays());
+    this.travelForm.get("returnTime")?.valueChanges.subscribe(() => this.calculateWorkingDays());
     this.travelForm.get("perDiemStartDate")?.valueChanges.subscribe(() => this.calculatePerDiemDays());
     this.travelForm.get("perDiemEndDate")?.valueChanges.subscribe(() => this.calculatePerDiemDays());
     this.travelForm.get("country")?.valueChanges.subscribe(() => this.calculatePerDiemDays());
@@ -43546,21 +43581,72 @@ var TravelCreateComponent = class _TravelCreateComponent {
     }
   }
   calculateWorkingDays() {
-    const start = this.travelForm.get("departureDate")?.value;
-    const end = this.travelForm.get("returnDate")?.value;
-    if (!start || !end || new Date(start) > new Date(end)) {
-      this.travelForm.patchValue({ daysOutOfficialAssignmentDate: 0 });
+    const departureDate = this.travelForm.get("departureDate")?.value;
+    const returnDate = this.travelForm.get("returnDate")?.value;
+    const departureTime = this.travelForm.get("departureTime")?.value?.toLowerCase();
+    const returnTime = this.travelForm.get("returnTime")?.value?.toLowerCase();
+    if (!departureDate || !returnDate || !departureTime || !returnTime) {
+      this.travelForm.patchValue({
+        perDiemStartDate: null,
+        perDiemEndDate: null,
+        daysOutOfficialAssignmentDate: 0,
+        perDiemDays: 0,
+        estimatedPerDiemAmount: 0
+      });
       return;
+    }
+    const start = new Date(departureDate);
+    const end = new Date(returnDate);
+    if (start > end) {
+      this.travelForm.patchValue({
+        perDiemStartDate: null,
+        perDiemEndDate: null,
+        daysOutOfficialAssignmentDate: 0,
+        perDiemDays: 0,
+        estimatedPerDiemAmount: 0
+      });
+      return;
+    }
+    let perDiemStart = new Date(start);
+    if (departureTime.includes("pm")) {
+      perDiemStart.setDate(perDiemStart.getDate() + 1);
+    }
+    let perDiemEnd = new Date(end);
+    if (returnTime.includes("am")) {
+      perDiemEnd.setDate(perDiemEnd.getDate() - 1);
+    }
+    if (perDiemStart > perDiemEnd) {
+      this.snackBar.open("Per Diem Start Date cannot be after End Date.", "Dismiss", {
+        duration: 5e3,
+        verticalPosition: "top",
+        horizontalPosition: "center"
+      });
+      this.travelForm.patchValue({
+        perDiemStartDate: null,
+        perDiemEndDate: null,
+        perDiemDays: 0,
+        estimatedPerDiemAmount: 0
+      });
+    } else {
+      this.warningMessage = "";
+      this.travelForm.patchValue({
+        perDiemStartDate: this.formatDate(perDiemStart),
+        perDiemEndDate: this.formatDate(perDiemEnd)
+      });
     }
     let count = 0;
     let current = new Date(start);
-    while (current <= new Date(end)) {
+    while (current <= end) {
       const day = current.getDay();
       if (day !== 0 && day !== 6)
         count++;
       current.setDate(current.getDate() + 1);
     }
     this.travelForm.patchValue({ daysOutOfficialAssignmentDate: count });
+    this.calculatePerDiemDays();
+  }
+  formatDate(date) {
+    return date.toISOString().split("T")[0];
   }
   calculatePerDiemDays() {
     const start = this.travelForm.get("perDiemStartDate")?.value;
@@ -43626,6 +43712,7 @@ var TravelCreateComponent = class _TravelCreateComponent {
           next: (savedTravelResponse) => {
             this.loading = false;
             console.log("Raw backend response:", savedTravelResponse);
+            localStorage.removeItem("travelFormDraft");
             const savedTravel = savedTravelResponse.data;
             console.log("Saved travel data:", savedTravel);
             const emailPayload = {
@@ -43703,9 +43790,9 @@ var TravelCreateComponent = class _TravelCreateComponent {
     this.router.navigate(["/travel"]);
   }
   static \u0275fac = function TravelCreateComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _TravelCreateComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(MatDialog), \u0275\u0275directiveInject(HttpClient));
+    return new (__ngFactoryType__ || _TravelCreateComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(MatDialog), \u0275\u0275directiveInject(HttpClient), \u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(MatSnackBar));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _TravelCreateComponent, selectors: [["app-travel-create"]], decls: 221, vars: 28, consts: [["stepper", ""], ["passportPicker", ""], ["depPicker", ""], ["departureTimePicker", ""], ["retPicker", ""], ["returnTimePicker", ""], ["startPicker", ""], ["endPicker", ""], [3, "ngSubmit", "formGroup"], ["color", "primary", 2, "vertical-align", "middle", "margin-right", "8px"], ["linear", ""], [3, "stepControl"], [1, "form-grid"], [1, "column-box"], ["appearance", "fill", 1, "full-width"], ["matInput", "", "formControlName", "employeeName"], ["matInput", "", "formControlName", "employeeEmail", "type", "email"], ["matInput", "", "formControlName", "employeePassportNo"], ["matInput", "", "formControlName", "employeePassportExpiry", 3, "matDatepicker"], ["matSuffix", "", 3, "for"], ["matInput", "", "formControlName", "employeeNumber"], ["formControlName", "employeeDepartment"], [3, "value", 4, "ngFor", "ngForOf"], ["matInput", "", "formControlName", "employeeTravellingContact"], ["matInput", "", "formControlName", "employeeContact"], ["matInput", "", "formControlName", "purpose"], ["matInput", "", "formControlName", "city"], ["formControlName", "country"], ["appearance", "fill"], ["formControlName", "visaRequired"], [3, "value"], ["matInput", "", "formControlName", "departureDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "departureTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "returnDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "returnTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "perDiemStartDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "perDiemEndDate", 3, "matDatepicker"], [1, "step-actions"], ["mat-raised-button", "", "color", "accent", "type", "button", "matStepperNext", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", "class", "spinner", 4, "ngIf"], [4, "ngIf"], ["matInput", "", "formControlName", "daysOutOfficialAssignmentDate", "type", "number", "readonly", "true"], ["formControlName", "hotelReservation"], ["value", "yes"], ["value", "no"], ["matInput", "", "formControlName", "hotelName"], ["matInput", "", "formControlName", "hotelAddress"], ["matInput", "", "formControlName", "hotelCity"], ["formControlName", "hotelCountry"], ["formControlName", "rentalCarRequired"], ["formControlName", "airportTransportRequiredToAndFrom"], ["matInput", "", "formControlName", "subsistenceAllowance"], ["matInput", "", "formControlName", "perDiemDays", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "estimatedPerDiemAmount", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "totalEstimatedTravelCost", "type", "number"], ["matInput", "", "formControlName", "travelBudgetCode"], ["formControlName", "classOfTravelDeparture"], ["value", "FisrtClass"], ["value", "BusClass"], ["value", "Economy"], ["formControlName", "classOfTravelReturn"], ["value", "FirstClass"], ["matInput", "", "formControlName", "excoHeadEmail"], ["matInput", "", "formControlName", "cfoEmail"], ["mat-stroked-button", "", "color", "primary", "type", "button", "matStepperPrevious", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", "class", "spinner", 4, "ngIf"], [1, "form-actions"], ["mat-raised-button", "", "color", "primary", "type", "submit", 3, "disabled"], ["mat-stroked-button", "", "color", "warn", "type", "button", 3, "click"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", 1, "spinner"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", 1, "spinner"]], template: function TravelCreateComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _TravelCreateComponent, selectors: [["app-travel-create"]], decls: 222, vars: 29, consts: [["stepper", ""], ["passportPicker", ""], ["depPicker", ""], ["departureTimePicker", ""], ["retPicker", ""], ["returnTimePicker", ""], ["startPicker", ""], ["endPicker", ""], [3, "ngSubmit", "formGroup"], ["color", "primary", 2, "vertical-align", "middle", "margin-right", "8px"], ["linear", ""], [3, "stepControl"], [1, "form-grid"], [1, "column-box"], ["appearance", "fill", 1, "full-width"], ["matInput", "", "formControlName", "employeeName"], ["matInput", "", "formControlName", "employeeEmail", "type", "email"], ["matInput", "", "formControlName", "employeePassportNo"], ["matInput", "", "formControlName", "employeePassportExpiry", 3, "matDatepicker"], ["matSuffix", "", 3, "for"], ["matInput", "", "formControlName", "employeeNumber"], ["formControlName", "employeeDepartment"], [3, "value", 4, "ngFor", "ngForOf"], ["matInput", "", "formControlName", "employeeTravellingContact"], ["matInput", "", "formControlName", "employeeContact"], ["matInput", "", "formControlName", "purpose"], ["matInput", "", "formControlName", "city"], ["formControlName", "country"], ["appearance", "fill"], ["formControlName", "visaRequired"], [3, "value"], ["matInput", "", "formControlName", "departureDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "departureTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "returnDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "returnTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "perDiemStartDate", 3, "dateChange", "dateInput", "matDatepicker"], ["style", "color: red;", 4, "ngIf"], ["matInput", "", "formControlName", "perDiemEndDate", 3, "dateChange", "dateInput", "matDatepicker"], [1, "step-actions"], ["mat-raised-button", "", "color", "accent", "type", "button", "matStepperNext", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", "class", "spinner", 4, "ngIf"], [4, "ngIf"], ["matInput", "", "formControlName", "daysOutOfficialAssignmentDate", "type", "number", "readonly", "true"], ["formControlName", "hotelReservation"], ["value", "yes"], ["value", "no"], ["matInput", "", "formControlName", "hotelName"], ["matInput", "", "formControlName", "hotelAddress"], ["matInput", "", "formControlName", "hotelCity"], ["formControlName", "hotelCountry"], ["formControlName", "rentalCarRequired"], ["formControlName", "airportTransportRequiredToAndFrom"], ["matInput", "", "formControlName", "subsistenceAllowance"], ["matInput", "", "formControlName", "perDiemDays", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "estimatedPerDiemAmount", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "totalEstimatedTravelCost", "type", "number"], ["matInput", "", "formControlName", "travelBudgetCode"], ["formControlName", "classOfTravelDeparture"], ["value", "FisrtClass"], ["value", "BusClass"], ["value", "Economy"], ["formControlName", "classOfTravelReturn"], ["value", "FirstClass"], ["matInput", "", "formControlName", "excoHeadEmail"], ["matInput", "", "formControlName", "cfoEmail"], ["mat-stroked-button", "", "color", "primary", "type", "button", "matStepperPrevious", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", "class", "spinner", 4, "ngIf"], [1, "form-actions"], ["mat-raised-button", "", "color", "primary", "type", "submit", 3, "disabled"], ["mat-stroked-button", "", "color", "warn", "type", "button", 3, "click"], [2, "color", "red"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", 1, "spinner"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", 1, "spinner"]], template: function TravelCreateComponent_Template(rf, ctx) {
     if (rf & 1) {
       const _r1 = \u0275\u0275getCurrentView();
       \u0275\u0275elementStart(0, "form", 8);
@@ -43807,157 +43894,176 @@ var TravelCreateComponent = class _TravelCreateComponent {
       \u0275\u0275elementStart(96, "mat-form-field", 14)(97, "mat-label");
       \u0275\u0275text(98, "Per Diem Start Date");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(99, "input", 35)(100, "mat-datepicker-toggle", 19)(101, "mat-datepicker", null, 6);
+      \u0275\u0275elementStart(99, "input", 35);
+      \u0275\u0275listener("dateChange", function TravelCreateComponent_Template_input_dateChange_99_listener() {
+        \u0275\u0275restoreView(_r1);
+        return \u0275\u0275resetView(ctx.calculateWorkingDays());
+      })("dateInput", function TravelCreateComponent_Template_input_dateInput_99_listener() {
+        \u0275\u0275restoreView(_r1);
+        return \u0275\u0275resetView(ctx.calculateWorkingDays());
+      });
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(103, "mat-form-field", 14)(104, "mat-label");
-      \u0275\u0275text(105, "Per Diem End Date");
+      \u0275\u0275element(100, "mat-datepicker-toggle", 19)(101, "mat-datepicker", null, 6);
+      \u0275\u0275template(103, TravelCreateComponent_mat_hint_103_Template, 2, 1, "mat-hint", 36);
       \u0275\u0275elementEnd();
-      \u0275\u0275element(106, "input", 36)(107, "mat-datepicker-toggle", 19)(108, "mat-datepicker", null, 7);
+      \u0275\u0275elementStart(104, "mat-form-field", 14)(105, "mat-label");
+      \u0275\u0275text(106, "Per Diem End Date");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(110, "div", 37)(111, "button", 38);
-      \u0275\u0275template(112, TravelCreateComponent_mat_progress_spinner_112_Template, 1, 0, "mat-progress-spinner", 39)(113, TravelCreateComponent_span_113_Template, 2, 0, "span", 40);
+      \u0275\u0275elementStart(107, "input", 37);
+      \u0275\u0275listener("dateChange", function TravelCreateComponent_Template_input_dateChange_107_listener() {
+        \u0275\u0275restoreView(_r1);
+        return \u0275\u0275resetView(ctx.calculateWorkingDays());
+      })("dateInput", function TravelCreateComponent_Template_input_dateInput_107_listener() {
+        \u0275\u0275restoreView(_r1);
+        return \u0275\u0275resetView(ctx.calculateWorkingDays());
+      });
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(108, "mat-datepicker-toggle", 19)(109, "mat-datepicker", null, 7);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(111, "div", 38)(112, "button", 39);
+      \u0275\u0275template(113, TravelCreateComponent_mat_progress_spinner_113_Template, 1, 0, "mat-progress-spinner", 40)(114, TravelCreateComponent_span_114_Template, 2, 0, "span", 41);
       \u0275\u0275elementEnd()()()()();
-      \u0275\u0275elementStart(114, "mat-step")(115, "div", 12)(116, "div", 13)(117, "mat-form-field", 14)(118, "mat-label");
-      \u0275\u0275text(119, "Days Out");
+      \u0275\u0275elementStart(115, "mat-step")(116, "div", 12)(117, "div", 13)(118, "mat-form-field", 14)(119, "mat-label");
+      \u0275\u0275text(120, "Days Out");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(120, "input", 41);
+      \u0275\u0275element(121, "input", 42);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(121, "mat-form-field", 14)(122, "mat-label");
-      \u0275\u0275text(123, "Hotel Reservation");
+      \u0275\u0275elementStart(122, "mat-form-field", 14)(123, "mat-label");
+      \u0275\u0275text(124, "Hotel Reservation");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(124, "mat-select", 42)(125, "mat-option", 43);
-      \u0275\u0275text(126, "Yes");
+      \u0275\u0275elementStart(125, "mat-select", 43)(126, "mat-option", 44);
+      \u0275\u0275text(127, "Yes");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(127, "mat-option", 44);
-      \u0275\u0275text(128, "No");
+      \u0275\u0275elementStart(128, "mat-option", 45);
+      \u0275\u0275text(129, "No");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(129, "mat-form-field", 14)(130, "mat-label");
-      \u0275\u0275text(131, "Hotel Name");
+      \u0275\u0275elementStart(130, "mat-form-field", 14)(131, "mat-label");
+      \u0275\u0275text(132, "Hotel Name");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(132, "input", 45);
+      \u0275\u0275element(133, "input", 46);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(133, "mat-form-field", 14)(134, "mat-label");
-      \u0275\u0275text(135, "Hotel Address");
+      \u0275\u0275elementStart(134, "mat-form-field", 14)(135, "mat-label");
+      \u0275\u0275text(136, "Hotel Address");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(136, "input", 46);
+      \u0275\u0275element(137, "input", 47);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(137, "mat-form-field", 14)(138, "mat-label");
-      \u0275\u0275text(139, "Hotel City");
+      \u0275\u0275elementStart(138, "mat-form-field", 14)(139, "mat-label");
+      \u0275\u0275text(140, "Hotel City");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(140, "input", 47);
+      \u0275\u0275element(141, "input", 48);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(141, "mat-form-field", 14)(142, "mat-label");
-      \u0275\u0275text(143, "Hotel Country");
+      \u0275\u0275elementStart(142, "mat-form-field", 14)(143, "mat-label");
+      \u0275\u0275text(144, "Hotel Country");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(144, "mat-select", 48);
-      \u0275\u0275template(145, TravelCreateComponent_mat_option_145_Template, 2, 2, "mat-option", 22);
+      \u0275\u0275elementStart(145, "mat-select", 49);
+      \u0275\u0275template(146, TravelCreateComponent_mat_option_146_Template, 2, 2, "mat-option", 22);
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(146, "mat-form-field", 14)(147, "mat-label");
-      \u0275\u0275text(148, "Rental Car Required");
+      \u0275\u0275elementStart(147, "mat-form-field", 14)(148, "mat-label");
+      \u0275\u0275text(149, "Rental Car Required");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(149, "mat-select", 49)(150, "mat-option", 43);
-      \u0275\u0275text(151, "Yes");
+      \u0275\u0275elementStart(150, "mat-select", 50)(151, "mat-option", 44);
+      \u0275\u0275text(152, "Yes");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(152, "mat-option", 44);
-      \u0275\u0275text(153, "No");
+      \u0275\u0275elementStart(153, "mat-option", 45);
+      \u0275\u0275text(154, "No");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(154, "mat-form-field", 14)(155, "mat-label");
-      \u0275\u0275text(156, "Airport Transport Required");
+      \u0275\u0275elementStart(155, "mat-form-field", 14)(156, "mat-label");
+      \u0275\u0275text(157, "Airport Transport Required");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(157, "mat-select", 50)(158, "mat-option", 43);
-      \u0275\u0275text(159, "Yes");
+      \u0275\u0275elementStart(158, "mat-select", 51)(159, "mat-option", 44);
+      \u0275\u0275text(160, "Yes");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(160, "mat-option", 44);
-      \u0275\u0275text(161, "No");
+      \u0275\u0275elementStart(161, "mat-option", 45);
+      \u0275\u0275text(162, "No");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(162, "mat-form-field", 14)(163, "mat-label");
-      \u0275\u0275text(164, "Subsistence Allowance");
+      \u0275\u0275elementStart(163, "mat-form-field", 14)(164, "mat-label");
+      \u0275\u0275text(165, "Subsistence Allowance");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(165, "input", 51);
+      \u0275\u0275element(166, "input", 52);
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(166, "div", 13)(167, "mat-form-field", 14)(168, "mat-label");
-      \u0275\u0275text(169, "Per Diem Days");
+      \u0275\u0275elementStart(167, "div", 13)(168, "mat-form-field", 14)(169, "mat-label");
+      \u0275\u0275text(170, "Per Diem Days");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(170, "input", 52);
+      \u0275\u0275element(171, "input", 53);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(171, "mat-form-field", 14)(172, "mat-label");
-      \u0275\u0275text(173, "Estimated Per Diem Amount");
+      \u0275\u0275elementStart(172, "mat-form-field", 14)(173, "mat-label");
+      \u0275\u0275text(174, "Estimated Per Diem Amount");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(174, "input", 53);
+      \u0275\u0275element(175, "input", 54);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(175, "mat-form-field", 14)(176, "mat-label");
-      \u0275\u0275text(177, "Total Estimated Travel Cost");
+      \u0275\u0275elementStart(176, "mat-form-field", 14)(177, "mat-label");
+      \u0275\u0275text(178, "Total Estimated Travel Cost");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(178, "input", 54);
+      \u0275\u0275element(179, "input", 55);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(179, "mat-form-field", 14)(180, "mat-label");
-      \u0275\u0275text(181, "Travel Budget Code");
+      \u0275\u0275elementStart(180, "mat-form-field", 14)(181, "mat-label");
+      \u0275\u0275text(182, "Travel Budget Code");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(182, "input", 55);
+      \u0275\u0275element(183, "input", 56);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(183, "mat-form-field", 14)(184, "mat-label");
-      \u0275\u0275text(185, "Class of Travel (Departure)");
+      \u0275\u0275elementStart(184, "mat-form-field", 14)(185, "mat-label");
+      \u0275\u0275text(186, "Class of Travel (Departure)");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(186, "mat-select", 56)(187, "mat-option", 57);
-      \u0275\u0275text(188, "Fisrt Class");
+      \u0275\u0275elementStart(187, "mat-select", 57)(188, "mat-option", 58);
+      \u0275\u0275text(189, "Fisrt Class");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(189, "mat-option", 58);
-      \u0275\u0275text(190, "Business Class");
+      \u0275\u0275elementStart(190, "mat-option", 59);
+      \u0275\u0275text(191, "Business Class");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(191, "mat-option", 59);
-      \u0275\u0275text(192, "Economy");
+      \u0275\u0275elementStart(192, "mat-option", 60);
+      \u0275\u0275text(193, "Economy");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(193, "mat-form-field", 14)(194, "mat-label");
-      \u0275\u0275text(195, "Class of Travel (Return)");
+      \u0275\u0275elementStart(194, "mat-form-field", 14)(195, "mat-label");
+      \u0275\u0275text(196, "Class of Travel (Return)");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(196, "mat-select", 60)(197, "mat-option", 61);
-      \u0275\u0275text(198, "Fisrt Class");
+      \u0275\u0275elementStart(197, "mat-select", 61)(198, "mat-option", 62);
+      \u0275\u0275text(199, "Fisrt Class");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(199, "mat-option", 58);
-      \u0275\u0275text(200, "Business Class");
+      \u0275\u0275elementStart(200, "mat-option", 59);
+      \u0275\u0275text(201, "Business Class");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(201, "mat-option", 59);
-      \u0275\u0275text(202, "Economy");
+      \u0275\u0275elementStart(202, "mat-option", 60);
+      \u0275\u0275text(203, "Economy");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(203, "mat-form-field", 14)(204, "mat-label");
-      \u0275\u0275text(205, "EXCO Head Email");
+      \u0275\u0275elementStart(204, "mat-form-field", 14)(205, "mat-label");
+      \u0275\u0275text(206, "EXCO Head Email");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(206, "input", 62);
+      \u0275\u0275element(207, "input", 63);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(207, "mat-form-field", 14)(208, "mat-label");
-      \u0275\u0275text(209, "CFO Email");
+      \u0275\u0275elementStart(208, "mat-form-field", 14)(209, "mat-label");
+      \u0275\u0275text(210, "CFO Email");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(210, "input", 63);
+      \u0275\u0275element(211, "input", 64);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(211, "div", 37)(212, "button", 64);
-      \u0275\u0275template(213, TravelCreateComponent_mat_progress_spinner_213_Template, 1, 0, "mat-progress-spinner", 65)(214, TravelCreateComponent_span_214_Template, 2, 0, "span", 40);
+      \u0275\u0275elementStart(212, "div", 38)(213, "button", 65);
+      \u0275\u0275template(214, TravelCreateComponent_mat_progress_spinner_214_Template, 1, 0, "mat-progress-spinner", 66)(215, TravelCreateComponent_span_215_Template, 2, 0, "span", 41);
       \u0275\u0275elementEnd()()()()()()();
-      \u0275\u0275elementStart(215, "mat-card-actions", 66)(216, "button", 67);
-      \u0275\u0275template(217, TravelCreateComponent_mat_progress_spinner_217_Template, 1, 0, "mat-progress-spinner", 65)(218, TravelCreateComponent_span_218_Template, 2, 0, "span", 40);
+      \u0275\u0275elementStart(216, "mat-card-actions", 67)(217, "button", 68);
+      \u0275\u0275template(218, TravelCreateComponent_mat_progress_spinner_218_Template, 1, 0, "mat-progress-spinner", 66)(219, TravelCreateComponent_span_219_Template, 2, 0, "span", 41);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(219, "button", 68);
-      \u0275\u0275listener("click", function TravelCreateComponent_Template_button_click_219_listener() {
+      \u0275\u0275elementStart(220, "button", 69);
+      \u0275\u0275listener("click", function TravelCreateComponent_Template_button_click_220_listener() {
         \u0275\u0275restoreView(_r1);
         return \u0275\u0275resetView(ctx.onCancel());
       });
-      \u0275\u0275text(220, " Cancel ");
+      \u0275\u0275text(221, " Cancel ");
       \u0275\u0275elementEnd()()()();
     }
     if (rf & 2) {
-      const passportPicker_r5 = \u0275\u0275reference(30);
-      const depPicker_r6 = \u0275\u0275reference(76);
-      const departureTimePicker_r7 = \u0275\u0275reference(82);
-      const retPicker_r8 = \u0275\u0275reference(89);
-      const returnTimePicker_r9 = \u0275\u0275reference(95);
-      const startPicker_r10 = \u0275\u0275reference(102);
-      const endPicker_r11 = \u0275\u0275reference(109);
+      const passportPicker_r6 = \u0275\u0275reference(30);
+      const depPicker_r7 = \u0275\u0275reference(76);
+      const departureTimePicker_r8 = \u0275\u0275reference(82);
+      const retPicker_r9 = \u0275\u0275reference(89);
+      const returnTimePicker_r10 = \u0275\u0275reference(95);
+      const startPicker_r11 = \u0275\u0275reference(102);
+      const endPicker_r12 = \u0275\u0275reference(110);
       \u0275\u0275property("formGroup", ctx.travelForm);
       \u0275\u0275advance(9);
       \u0275\u0275property("stepControl", ctx.travelForm);
       \u0275\u0275advance(18);
-      \u0275\u0275property("matDatepicker", passportPicker_r5);
+      \u0275\u0275property("matDatepicker", passportPicker_r6);
       \u0275\u0275advance();
-      \u0275\u0275property("for", passportPicker_r5);
+      \u0275\u0275property("for", passportPicker_r6);
       \u0275\u0275advance(11);
       \u0275\u0275property("ngForOf", ctx.departments);
       \u0275\u0275advance(22);
@@ -43967,25 +44073,27 @@ var TravelCreateComponent = class _TravelCreateComponent {
       \u0275\u0275advance(2);
       \u0275\u0275property("value", "No");
       \u0275\u0275advance(5);
-      \u0275\u0275property("matDatepicker", depPicker_r6);
+      \u0275\u0275property("matDatepicker", depPicker_r7);
       \u0275\u0275advance();
-      \u0275\u0275property("for", depPicker_r6);
+      \u0275\u0275property("for", depPicker_r7);
       \u0275\u0275advance(6);
-      \u0275\u0275property("ngxMatTimepicker", departureTimePicker_r7);
+      \u0275\u0275property("ngxMatTimepicker", departureTimePicker_r8);
       \u0275\u0275advance(6);
-      \u0275\u0275property("matDatepicker", retPicker_r8);
+      \u0275\u0275property("matDatepicker", retPicker_r9);
       \u0275\u0275advance();
-      \u0275\u0275property("for", retPicker_r8);
+      \u0275\u0275property("for", retPicker_r9);
       \u0275\u0275advance(6);
-      \u0275\u0275property("ngxMatTimepicker", returnTimePicker_r9);
+      \u0275\u0275property("ngxMatTimepicker", returnTimePicker_r10);
       \u0275\u0275advance(6);
-      \u0275\u0275property("matDatepicker", startPicker_r10);
+      \u0275\u0275property("matDatepicker", startPicker_r11);
       \u0275\u0275advance();
-      \u0275\u0275property("for", startPicker_r10);
-      \u0275\u0275advance(6);
-      \u0275\u0275property("matDatepicker", endPicker_r11);
+      \u0275\u0275property("for", startPicker_r11);
+      \u0275\u0275advance(3);
+      \u0275\u0275property("ngIf", ctx.warningMessage);
+      \u0275\u0275advance(4);
+      \u0275\u0275property("matDatepicker", endPicker_r12);
       \u0275\u0275advance();
-      \u0275\u0275property("for", endPicker_r11);
+      \u0275\u0275property("for", endPicker_r12);
       \u0275\u0275advance(4);
       \u0275\u0275property("disabled", ctx.loading);
       \u0275\u0275advance();
@@ -44022,6 +44130,7 @@ var TravelCreateComponent = class _TravelCreateComponent {
     MatFormFieldModule,
     MatFormField,
     MatLabel,
+    MatHint,
     MatSuffix,
     MatInputModule,
     MatInput,
@@ -44048,8 +44157,9 @@ var TravelCreateComponent = class _TravelCreateComponent {
     MatProgressSpinner,
     NgxMatTimepickerModule,
     NgxMatTimepickerComponent,
-    NgxMatTimepickerDirective
-  ], styles: ["\n\n.form-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.5rem;\n  justify-content: center;\n}\n.step-wrapper[_ngcontent-%COMP%] {\n  padding: 2rem;\n  margin-bottom: 2rem;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  background-color: #f4f4f4;\n}\n.column-box[_ngcontent-%COMP%] {\n  background-color: white;\n  padding: 2rem;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);\n  border-radius: 4px;\n  min-height: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  max-width: 794px;\n  width: 100%;\n  box-sizing: border-box;\n}\nmat-form-field[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.step-actions[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: flex;\n  justify-content: space-between;\n}\nbutton[mat-raised-button][_ngcontent-%COMP%], \nbutton[mat-stroked-button][_ngcontent-%COMP%] {\n  padding: 0.75rem 2rem;\n  font-size: 1rem;\n  font-weight: 600;\n  border-radius: 8px;\n  text-transform: none;\n  transition: all 0.3s ease;\n  min-width: 140px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\nbutton[mat-raised-button][_ngcontent-%COMP%]:hover:not(:disabled), \nbutton[mat-stroked-button][_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-1px);\n  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);\n}\n.spinner[_ngcontent-%COMP%] {\n  margin-right: 0.75rem;\n}\n@media (max-width: 768px) {\n  .form-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .column-box[_ngcontent-%COMP%] {\n    max-width: 100%;\n  }\n}\n/*# sourceMappingURL=travel-create.component.css.map */"] });
+    NgxMatTimepickerDirective,
+    MatSnackBarModule
+  ], styles: ["\n\n.form-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.5rem;\n  justify-content: center;\n}\n.step-wrapper[_ngcontent-%COMP%] {\n  padding: 2rem;\n  margin-bottom: 2rem;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  background-color: #f4f4f4;\n}\n.column-box[_ngcontent-%COMP%] {\n  background-color: white;\n  padding: 2rem;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);\n  border-radius: 4px;\n  min-height: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  max-width: 794px;\n  width: 100%;\n  box-sizing: border-box;\n}\nmat-form-field[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.step-actions[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: flex;\n  justify-content: space-between;\n}\n.warning-text[_ngcontent-%COMP%] {\n  color: #d9534f;\n  font-weight: 500;\n}\nbutton[mat-raised-button][_ngcontent-%COMP%], \nbutton[mat-stroked-button][_ngcontent-%COMP%] {\n  padding: 0.75rem 2rem;\n  font-size: 1rem;\n  font-weight: 600;\n  border-radius: 8px;\n  text-transform: none;\n  transition: all 0.3s ease;\n  min-width: 140px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\nbutton[mat-raised-button][_ngcontent-%COMP%]:hover:not(:disabled), \nbutton[mat-stroked-button][_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-1px);\n  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);\n}\n.spinner[_ngcontent-%COMP%] {\n  margin-right: 0.75rem;\n}\n@media (max-width: 768px) {\n  .form-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .column-box[_ngcontent-%COMP%] {\n    max-width: 100%;\n  }\n}\n/*# sourceMappingURL=travel-create.component.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TravelCreateComponent, [{
@@ -44066,7 +44176,8 @@ var TravelCreateComponent = class _TravelCreateComponent {
       MatStepperModule,
       MatIcon,
       MatProgressSpinnerModule,
-      NgxMatTimepickerModule
+      NgxMatTimepickerModule,
+      MatSnackBarModule
     ], template: `<form [formGroup]="travelForm" (ngSubmit)="onSubmit()">
     <mat-card>
       <mat-card-title>
@@ -44178,10 +44289,6 @@ var TravelCreateComponent = class _TravelCreateComponent {
           <mat-datepicker #depPicker></mat-datepicker>
         </mat-form-field>
 
-        <!-- <mat-form-field class="full-width" appearance="fill">
-          <mat-label>Departure Time</mat-label>
-          <input matInput type="time" formControlName="departureTime">
-        </mat-form-field> -->
         <mat-form-field appearance="fill">
           <mat-label>Departure Time</mat-label>
           <input
@@ -44198,8 +44305,12 @@ var TravelCreateComponent = class _TravelCreateComponent {
           <input matInput [matDatepicker]="retPicker" formControlName="returnDate">
           <mat-datepicker-toggle matSuffix [for]="retPicker"></mat-datepicker-toggle>
           <mat-datepicker #retPicker></mat-datepicker>
+          <!-- Show warning inside mat-hint -->
         </mat-form-field>
-  
+        <!-- <div *ngIf="warningMessage" style="color: red; font-size: 12px;">
+          {{ warningMessage }}
+        </div> -->
+
         <!-- <mat-form-field class="full-width" appearance="fill">
           <mat-label>Return Time</mat-label>
           <input matInput type="time" formControlName="returnTime">
@@ -44219,14 +44330,25 @@ var TravelCreateComponent = class _TravelCreateComponent {
         <!-- Per Diem -->
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Per Diem Start Date</mat-label>
-          <input matInput [matDatepicker]="startPicker" formControlName="perDiemStartDate">
+          <input 
+            matInput 
+            [matDatepicker]="startPicker" 
+            formControlName="perDiemStartDate"
+            (dateChange)="calculateWorkingDays()" 
+            (dateInput)="calculateWorkingDays()" />
           <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
           <mat-datepicker #startPicker></mat-datepicker>
+          <mat-hint *ngIf="warningMessage" style="color: red;">{{ warningMessage }}</mat-hint>
         </mat-form-field>
   
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Per Diem End Date</mat-label>
-          <input matInput [matDatepicker]="endPicker" formControlName="perDiemEndDate">
+          <input 
+            matInput 
+            [matDatepicker]="endPicker" 
+            formControlName="perDiemEndDate"
+            (dateChange)="calculateWorkingDays()" 
+            (dateInput)="calculateWorkingDays()" />
           <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
           <mat-datepicker #endPicker></mat-datepicker>
         </mat-form-field>
@@ -44480,11 +44602,11 @@ var TravelCreateComponent = class _TravelCreateComponent {
   </form>
   
   
-  `, styles: ["/* src/app/travel/travel-create/travel-create.component.scss */\n.form-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.5rem;\n  justify-content: center;\n}\n.step-wrapper {\n  padding: 2rem;\n  margin-bottom: 2rem;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  background-color: #f4f4f4;\n}\n.column-box {\n  background-color: white;\n  padding: 2rem;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);\n  border-radius: 4px;\n  min-height: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  max-width: 794px;\n  width: 100%;\n  box-sizing: border-box;\n}\nmat-form-field {\n  width: 100%;\n}\n.step-actions {\n  margin-top: 2rem;\n  display: flex;\n  justify-content: space-between;\n}\nbutton[mat-raised-button],\nbutton[mat-stroked-button] {\n  padding: 0.75rem 2rem;\n  font-size: 1rem;\n  font-weight: 600;\n  border-radius: 8px;\n  text-transform: none;\n  transition: all 0.3s ease;\n  min-width: 140px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\nbutton[mat-raised-button]:hover:not(:disabled),\nbutton[mat-stroked-button]:hover:not(:disabled) {\n  transform: translateY(-1px);\n  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);\n}\n.spinner {\n  margin-right: 0.75rem;\n}\n@media (max-width: 768px) {\n  .form-grid {\n    grid-template-columns: 1fr;\n  }\n  .column-box {\n    max-width: 100%;\n  }\n}\n/*# sourceMappingURL=travel-create.component.css.map */\n"] }]
-  }], () => [{ type: FormBuilder }, { type: TravelService }, { type: Router }, { type: MatDialog }, { type: HttpClient }], null);
+  `, styles: ["/* src/app/travel/travel-create/travel-create.component.scss */\n.form-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.5rem;\n  justify-content: center;\n}\n.step-wrapper {\n  padding: 2rem;\n  margin-bottom: 2rem;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  background-color: #f4f4f4;\n}\n.column-box {\n  background-color: white;\n  padding: 2rem;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);\n  border-radius: 4px;\n  min-height: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  max-width: 794px;\n  width: 100%;\n  box-sizing: border-box;\n}\nmat-form-field {\n  width: 100%;\n}\n.step-actions {\n  margin-top: 2rem;\n  display: flex;\n  justify-content: space-between;\n}\n.warning-text {\n  color: #d9534f;\n  font-weight: 500;\n}\nbutton[mat-raised-button],\nbutton[mat-stroked-button] {\n  padding: 0.75rem 2rem;\n  font-size: 1rem;\n  font-weight: 600;\n  border-radius: 8px;\n  text-transform: none;\n  transition: all 0.3s ease;\n  min-width: 140px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\nbutton[mat-raised-button]:hover:not(:disabled),\nbutton[mat-stroked-button]:hover:not(:disabled) {\n  transform: translateY(-1px);\n  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);\n}\n.spinner {\n  margin-right: 0.75rem;\n}\n@media (max-width: 768px) {\n  .form-grid {\n    grid-template-columns: 1fr;\n  }\n  .column-box {\n    max-width: 100%;\n  }\n}\n/*# sourceMappingURL=travel-create.component.css.map */\n"] }]
+  }], () => [{ type: FormBuilder }, { type: TravelService }, { type: Router }, { type: MatDialog }, { type: HttpClient }, { type: ChangeDetectorRef }, { type: MatSnackBar }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(TravelCreateComponent, { className: "TravelCreateComponent", filePath: "src/app/travel/travel-create/travel-create.component.ts", lineNumber: 47 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(TravelCreateComponent, { className: "TravelCreateComponent", filePath: "src/app/travel/travel-create/travel-create.component.ts", lineNumber: 49 });
 })();
 
 // src/app/travel/travel-edit/travel-edit.component.ts
@@ -45738,893 +45860,8 @@ var TravelDetailComponent = class _TravelDetailComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(TravelDetailComponent, { className: "TravelDetailComponent", filePath: "src/app/travel/travel-detail/travel-detail.component.ts", lineNumber: 24 });
 })();
 
-// node_modules/@angular/cdk/fesm2022/layout.mjs
-var LayoutModule = class _LayoutModule {
-  static \u0275fac = function LayoutModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _LayoutModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _LayoutModule
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({});
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LayoutModule, [{
-    type: NgModule,
-    args: [{}]
-  }], null, null);
-})();
-var Breakpoints = {
-  XSmall: "(max-width: 599.98px)",
-  Small: "(min-width: 600px) and (max-width: 959.98px)",
-  Medium: "(min-width: 960px) and (max-width: 1279.98px)",
-  Large: "(min-width: 1280px) and (max-width: 1919.98px)",
-  XLarge: "(min-width: 1920px)",
-  Handset: "(max-width: 599.98px) and (orientation: portrait), (max-width: 959.98px) and (orientation: landscape)",
-  Tablet: "(min-width: 600px) and (max-width: 839.98px) and (orientation: portrait), (min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape)",
-  Web: "(min-width: 840px) and (orientation: portrait), (min-width: 1280px) and (orientation: landscape)",
-  HandsetPortrait: "(max-width: 599.98px) and (orientation: portrait)",
-  TabletPortrait: "(min-width: 600px) and (max-width: 839.98px) and (orientation: portrait)",
-  WebPortrait: "(min-width: 840px) and (orientation: portrait)",
-  HandsetLandscape: "(max-width: 959.98px) and (orientation: landscape)",
-  TabletLandscape: "(min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape)",
-  WebLandscape: "(min-width: 1280px) and (orientation: landscape)"
-};
-
-// node_modules/@angular/material/fesm2022/snack-bar.mjs
-function SimpleSnackBar_Conditional_2_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 1)(1, "button", 2);
-    \u0275\u0275listener("click", function SimpleSnackBar_Conditional_2_Template_button_click_1_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.action());
-    });
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.data.action, " ");
-  }
-}
-var _c010 = ["label"];
-function MatSnackBarContainer_ng_template_4_Template(rf, ctx) {
-}
-var MAX_TIMEOUT = Math.pow(2, 31) - 1;
-var MatSnackBarRef = class {
-  _overlayRef;
-  /** The instance of the component making up the content of the snack bar. */
-  instance;
-  /**
-   * The instance of the component making up the content of the snack bar.
-   * @docs-private
-   */
-  containerInstance;
-  /** Subject for notifying the user that the snack bar has been dismissed. */
-  _afterDismissed = new Subject();
-  /** Subject for notifying the user that the snack bar has opened and appeared. */
-  _afterOpened = new Subject();
-  /** Subject for notifying the user that the snack bar action was called. */
-  _onAction = new Subject();
-  /**
-   * Timeout ID for the duration setTimeout call. Used to clear the timeout if the snackbar is
-   * dismissed before the duration passes.
-   */
-  _durationTimeoutId;
-  /** Whether the snack bar was dismissed using the action button. */
-  _dismissedByAction = false;
-  constructor(containerInstance, _overlayRef) {
-    this._overlayRef = _overlayRef;
-    this.containerInstance = containerInstance;
-    containerInstance._onExit.subscribe(() => this._finishDismiss());
-  }
-  /** Dismisses the snack bar. */
-  dismiss() {
-    if (!this._afterDismissed.closed) {
-      this.containerInstance.exit();
-    }
-    clearTimeout(this._durationTimeoutId);
-  }
-  /** Marks the snackbar action clicked. */
-  dismissWithAction() {
-    if (!this._onAction.closed) {
-      this._dismissedByAction = true;
-      this._onAction.next();
-      this._onAction.complete();
-      this.dismiss();
-    }
-    clearTimeout(this._durationTimeoutId);
-  }
-  /**
-   * Marks the snackbar action clicked.
-   * @deprecated Use `dismissWithAction` instead.
-   * @breaking-change 8.0.0
-   */
-  closeWithAction() {
-    this.dismissWithAction();
-  }
-  /** Dismisses the snack bar after some duration */
-  _dismissAfter(duration) {
-    this._durationTimeoutId = setTimeout(() => this.dismiss(), Math.min(duration, MAX_TIMEOUT));
-  }
-  /** Marks the snackbar as opened */
-  _open() {
-    if (!this._afterOpened.closed) {
-      this._afterOpened.next();
-      this._afterOpened.complete();
-    }
-  }
-  /** Cleans up the DOM after closing. */
-  _finishDismiss() {
-    this._overlayRef.dispose();
-    if (!this._onAction.closed) {
-      this._onAction.complete();
-    }
-    this._afterDismissed.next({
-      dismissedByAction: this._dismissedByAction
-    });
-    this._afterDismissed.complete();
-    this._dismissedByAction = false;
-  }
-  /** Gets an observable that is notified when the snack bar is finished closing. */
-  afterDismissed() {
-    return this._afterDismissed;
-  }
-  /** Gets an observable that is notified when the snack bar has opened and appeared. */
-  afterOpened() {
-    return this.containerInstance._onEnter;
-  }
-  /** Gets an observable that is notified when the snack bar action is called. */
-  onAction() {
-    return this._onAction;
-  }
-};
-var MAT_SNACK_BAR_DATA = new InjectionToken("MatSnackBarData");
-var MatSnackBarConfig = class {
-  /** The politeness level for the MatAriaLiveAnnouncer announcement. */
-  politeness = "assertive";
-  /**
-   * Message to be announced by the LiveAnnouncer. When opening a snackbar without a custom
-   * component or template, the announcement message will default to the specified message.
-   */
-  announcementMessage = "";
-  /**
-   * The view container that serves as the parent for the snackbar for the purposes of dependency
-   * injection. Note: this does not affect where the snackbar is inserted in the DOM.
-   */
-  viewContainerRef;
-  /** The length of time in milliseconds to wait before automatically dismissing the snack bar. */
-  duration = 0;
-  /** Extra CSS classes to be added to the snack bar container. */
-  panelClass;
-  /** Text layout direction for the snack bar. */
-  direction;
-  /** Data being injected into the child component. */
-  data = null;
-  /** The horizontal position to place the snack bar. */
-  horizontalPosition = "center";
-  /** The vertical position to place the snack bar. */
-  verticalPosition = "bottom";
-};
-var MatSnackBarLabel = class _MatSnackBarLabel {
-  static \u0275fac = function MatSnackBarLabel_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatSnackBarLabel)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _MatSnackBarLabel,
-    selectors: [["", "matSnackBarLabel", ""]],
-    hostAttrs: [1, "mat-mdc-snack-bar-label", "mdc-snackbar__label"]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatSnackBarLabel, [{
-    type: Directive,
-    args: [{
-      selector: `[matSnackBarLabel]`,
-      host: {
-        "class": "mat-mdc-snack-bar-label mdc-snackbar__label"
-      }
-    }]
-  }], null, null);
-})();
-var MatSnackBarActions = class _MatSnackBarActions {
-  static \u0275fac = function MatSnackBarActions_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatSnackBarActions)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _MatSnackBarActions,
-    selectors: [["", "matSnackBarActions", ""]],
-    hostAttrs: [1, "mat-mdc-snack-bar-actions", "mdc-snackbar__actions"]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatSnackBarActions, [{
-    type: Directive,
-    args: [{
-      selector: `[matSnackBarActions]`,
-      host: {
-        "class": "mat-mdc-snack-bar-actions mdc-snackbar__actions"
-      }
-    }]
-  }], null, null);
-})();
-var MatSnackBarAction = class _MatSnackBarAction {
-  static \u0275fac = function MatSnackBarAction_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatSnackBarAction)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _MatSnackBarAction,
-    selectors: [["", "matSnackBarAction", ""]],
-    hostAttrs: [1, "mat-mdc-snack-bar-action", "mdc-snackbar__action"]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatSnackBarAction, [{
-    type: Directive,
-    args: [{
-      selector: `[matSnackBarAction]`,
-      host: {
-        "class": "mat-mdc-snack-bar-action mdc-snackbar__action"
-      }
-    }]
-  }], null, null);
-})();
-var SimpleSnackBar = class _SimpleSnackBar {
-  snackBarRef = inject(MatSnackBarRef);
-  data = inject(MAT_SNACK_BAR_DATA);
-  constructor() {
-  }
-  /** Performs the action on the snack bar. */
-  action() {
-    this.snackBarRef.dismissWithAction();
-  }
-  /** If the action button should be shown. */
-  get hasAction() {
-    return !!this.data.action;
-  }
-  static \u0275fac = function SimpleSnackBar_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _SimpleSnackBar)();
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _SimpleSnackBar,
-    selectors: [["simple-snack-bar"]],
-    hostAttrs: [1, "mat-mdc-simple-snack-bar"],
-    exportAs: ["matSnackBar"],
-    decls: 3,
-    vars: 2,
-    consts: [["matSnackBarLabel", ""], ["matSnackBarActions", ""], ["mat-button", "", "matSnackBarAction", "", 3, "click"]],
-    template: function SimpleSnackBar_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275elementStart(0, "div", 0);
-        \u0275\u0275text(1);
-        \u0275\u0275elementEnd();
-        \u0275\u0275template(2, SimpleSnackBar_Conditional_2_Template, 3, 1, "div", 1);
-      }
-      if (rf & 2) {
-        \u0275\u0275advance();
-        \u0275\u0275textInterpolate1(" ", ctx.data.message, "\n");
-        \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.hasAction ? 2 : -1);
-      }
-    },
-    dependencies: [MatButton, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction],
-    styles: [".mat-mdc-simple-snack-bar{display:flex}\n"],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(SimpleSnackBar, [{
-    type: Component,
-    args: [{
-      selector: "simple-snack-bar",
-      exportAs: "matSnackBar",
-      encapsulation: ViewEncapsulation.None,
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      imports: [MatButton, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction],
-      host: {
-        "class": "mat-mdc-simple-snack-bar"
-      },
-      template: '<div matSnackBarLabel>\n  {{data.message}}\n</div>\n\n@if (hasAction) {\n  <div matSnackBarActions>\n    <button mat-button matSnackBarAction (click)="action()">\n      {{data.action}}\n    </button>\n  </div>\n}\n',
-      styles: [".mat-mdc-simple-snack-bar{display:flex}\n"]
-    }]
-  }], () => [], null);
-})();
-var ENTER_ANIMATION = "_mat-snack-bar-enter";
-var EXIT_ANIMATION = "_mat-snack-bar-exit";
-var MatSnackBarContainer = class _MatSnackBarContainer extends BasePortalOutlet {
-  _ngZone = inject(NgZone);
-  _elementRef = inject(ElementRef);
-  _changeDetectorRef = inject(ChangeDetectorRef);
-  _platform = inject(Platform);
-  _rendersRef;
-  _animationsDisabled = inject(ANIMATION_MODULE_TYPE, {
-    optional: true
-  }) === "NoopAnimations";
-  snackBarConfig = inject(MatSnackBarConfig);
-  _document = inject(DOCUMENT);
-  _trackedModals = /* @__PURE__ */ new Set();
-  _enterFallback;
-  _exitFallback;
-  _renders = new Subject();
-  /** The number of milliseconds to wait before announcing the snack bar's content. */
-  _announceDelay = 150;
-  /** The timeout for announcing the snack bar's content. */
-  _announceTimeoutId;
-  /** Whether the component has been destroyed. */
-  _destroyed = false;
-  /** The portal outlet inside of this container into which the snack bar content will be loaded. */
-  _portalOutlet;
-  /** Subject for notifying that the snack bar has announced to screen readers. */
-  _onAnnounce = new Subject();
-  /** Subject for notifying that the snack bar has exited from view. */
-  _onExit = new Subject();
-  /** Subject for notifying that the snack bar has finished entering the view. */
-  _onEnter = new Subject();
-  /** The state of the snack bar animations. */
-  _animationState = "void";
-  /** aria-live value for the live region. */
-  _live;
-  /**
-   * Element that will have the `mdc-snackbar__label` class applied if the attached component
-   * or template does not have it. This ensures that the appropriate structure, typography, and
-   * color is applied to the attached view.
-   */
-  _label;
-  /**
-   * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
-   * JAWS does not read out aria-live message.
-   */
-  _role;
-  /** Unique ID of the aria-live element. */
-  _liveElementId = inject(_IdGenerator).getId("mat-snack-bar-container-live-");
-  constructor() {
-    super();
-    const config2 = this.snackBarConfig;
-    if (config2.politeness === "assertive" && !config2.announcementMessage) {
-      this._live = "assertive";
-    } else if (config2.politeness === "off") {
-      this._live = "off";
-    } else {
-      this._live = "polite";
-    }
-    if (this._platform.FIREFOX) {
-      if (this._live === "polite") {
-        this._role = "status";
-      }
-      if (this._live === "assertive") {
-        this._role = "alert";
-      }
-    }
-    this._rendersRef = afterRender(() => this._renders.next(), {
-      manualCleanup: true
-    });
-  }
-  /** Attach a component portal as content to this snack bar container. */
-  attachComponentPortal(portal) {
-    this._assertNotAttached();
-    const result = this._portalOutlet.attachComponentPortal(portal);
-    this._afterPortalAttached();
-    return result;
-  }
-  /** Attach a template portal as content to this snack bar container. */
-  attachTemplatePortal(portal) {
-    this._assertNotAttached();
-    const result = this._portalOutlet.attachTemplatePortal(portal);
-    this._afterPortalAttached();
-    return result;
-  }
-  /**
-   * Attaches a DOM portal to the snack bar container.
-   * @deprecated To be turned into a method.
-   * @breaking-change 10.0.0
-   */
-  attachDomPortal = (portal) => {
-    this._assertNotAttached();
-    const result = this._portalOutlet.attachDomPortal(portal);
-    this._afterPortalAttached();
-    return result;
-  };
-  /** Handle end of animations, updating the state of the snackbar. */
-  onAnimationEnd(animationName) {
-    if (animationName === EXIT_ANIMATION) {
-      this._completeExit();
-    } else if (animationName === ENTER_ANIMATION) {
-      clearTimeout(this._enterFallback);
-      this._ngZone.run(() => {
-        this._onEnter.next();
-        this._onEnter.complete();
-      });
-    }
-  }
-  /** Begin animation of snack bar entrance into view. */
-  enter() {
-    if (!this._destroyed) {
-      this._animationState = "visible";
-      this._changeDetectorRef.markForCheck();
-      this._changeDetectorRef.detectChanges();
-      this._screenReaderAnnounce();
-      if (this._animationsDisabled) {
-        this._renders.pipe(take(1)).subscribe(() => {
-          this._ngZone.run(() => queueMicrotask(() => this.onAnimationEnd(ENTER_ANIMATION)));
-        });
-      } else {
-        clearTimeout(this._enterFallback);
-        this._enterFallback = setTimeout(() => {
-          this._elementRef.nativeElement.classList.add("mat-snack-bar-fallback-visible");
-          this.onAnimationEnd(ENTER_ANIMATION);
-        }, 200);
-      }
-    }
-  }
-  /** Begin animation of the snack bar exiting from view. */
-  exit() {
-    if (this._destroyed) {
-      return of(void 0);
-    }
-    this._ngZone.run(() => {
-      this._animationState = "hidden";
-      this._changeDetectorRef.markForCheck();
-      this._elementRef.nativeElement.setAttribute("mat-exit", "");
-      clearTimeout(this._announceTimeoutId);
-      if (this._animationsDisabled) {
-        this._renders.pipe(take(1)).subscribe(() => {
-          this._ngZone.run(() => queueMicrotask(() => this.onAnimationEnd(EXIT_ANIMATION)));
-        });
-      } else {
-        clearTimeout(this._exitFallback);
-        this._exitFallback = setTimeout(() => this.onAnimationEnd(EXIT_ANIMATION), 200);
-      }
-    });
-    return this._onExit;
-  }
-  /** Makes sure the exit callbacks have been invoked when the element is destroyed. */
-  ngOnDestroy() {
-    this._destroyed = true;
-    this._clearFromModals();
-    this._completeExit();
-    this._renders.complete();
-    this._rendersRef.destroy();
-  }
-  _completeExit() {
-    clearTimeout(this._exitFallback);
-    queueMicrotask(() => {
-      this._onExit.next();
-      this._onExit.complete();
-    });
-  }
-  /**
-   * Called after the portal contents have been attached. Can be
-   * used to modify the DOM once it's guaranteed to be in place.
-   */
-  _afterPortalAttached() {
-    const element = this._elementRef.nativeElement;
-    const panelClasses = this.snackBarConfig.panelClass;
-    if (panelClasses) {
-      if (Array.isArray(panelClasses)) {
-        panelClasses.forEach((cssClass) => element.classList.add(cssClass));
-      } else {
-        element.classList.add(panelClasses);
-      }
-    }
-    this._exposeToModals();
-    const label = this._label.nativeElement;
-    const labelClass = "mdc-snackbar__label";
-    label.classList.toggle(labelClass, !label.querySelector(`.${labelClass}`));
-  }
-  /**
-   * Some browsers won't expose the accessibility node of the live element if there is an
-   * `aria-modal` and the live element is outside of it. This method works around the issue by
-   * pointing the `aria-owns` of all modals to the live element.
-   */
-  _exposeToModals() {
-    const id = this._liveElementId;
-    const modals = this._document.querySelectorAll('body > .cdk-overlay-container [aria-modal="true"]');
-    for (let i2 = 0; i2 < modals.length; i2++) {
-      const modal = modals[i2];
-      const ariaOwns = modal.getAttribute("aria-owns");
-      this._trackedModals.add(modal);
-      if (!ariaOwns) {
-        modal.setAttribute("aria-owns", id);
-      } else if (ariaOwns.indexOf(id) === -1) {
-        modal.setAttribute("aria-owns", ariaOwns + " " + id);
-      }
-    }
-  }
-  /** Clears the references to the live element from any modals it was added to. */
-  _clearFromModals() {
-    this._trackedModals.forEach((modal) => {
-      const ariaOwns = modal.getAttribute("aria-owns");
-      if (ariaOwns) {
-        const newValue = ariaOwns.replace(this._liveElementId, "").trim();
-        if (newValue.length > 0) {
-          modal.setAttribute("aria-owns", newValue);
-        } else {
-          modal.removeAttribute("aria-owns");
-        }
-      }
-    });
-    this._trackedModals.clear();
-  }
-  /** Asserts that no content is already attached to the container. */
-  _assertNotAttached() {
-    if (this._portalOutlet.hasAttached() && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw Error("Attempting to attach snack bar content after content is already attached");
-    }
-  }
-  /**
-   * Starts a timeout to move the snack bar content to the live region so screen readers will
-   * announce it.
-   */
-  _screenReaderAnnounce() {
-    if (this._announceTimeoutId) {
-      return;
-    }
-    this._ngZone.runOutsideAngular(() => {
-      this._announceTimeoutId = setTimeout(() => {
-        if (this._destroyed) {
-          return;
-        }
-        const element = this._elementRef.nativeElement;
-        const inertElement = element.querySelector("[aria-hidden]");
-        const liveElement = element.querySelector("[aria-live]");
-        if (inertElement && liveElement) {
-          let focusedElement = null;
-          if (this._platform.isBrowser && document.activeElement instanceof HTMLElement && inertElement.contains(document.activeElement)) {
-            focusedElement = document.activeElement;
-          }
-          inertElement.removeAttribute("aria-hidden");
-          liveElement.appendChild(inertElement);
-          focusedElement?.focus();
-          this._onAnnounce.next();
-          this._onAnnounce.complete();
-        }
-      }, this._announceDelay);
-    });
-  }
-  static \u0275fac = function MatSnackBarContainer_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatSnackBarContainer)();
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _MatSnackBarContainer,
-    selectors: [["mat-snack-bar-container"]],
-    viewQuery: function MatSnackBarContainer_Query(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275viewQuery(CdkPortalOutlet, 7);
-        \u0275\u0275viewQuery(_c010, 7);
-      }
-      if (rf & 2) {
-        let _t2;
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._portalOutlet = _t2.first);
-        \u0275\u0275queryRefresh(_t2 = \u0275\u0275loadQuery()) && (ctx._label = _t2.first);
-      }
-    },
-    hostAttrs: [1, "mdc-snackbar", "mat-mdc-snack-bar-container"],
-    hostVars: 6,
-    hostBindings: function MatSnackBarContainer_HostBindings(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275listener("animationend", function MatSnackBarContainer_animationend_HostBindingHandler($event) {
-          return ctx.onAnimationEnd($event.animationName);
-        })("animationcancel", function MatSnackBarContainer_animationcancel_HostBindingHandler($event) {
-          return ctx.onAnimationEnd($event.animationName);
-        });
-      }
-      if (rf & 2) {
-        \u0275\u0275classProp("mat-snack-bar-container-enter", ctx._animationState === "visible")("mat-snack-bar-container-exit", ctx._animationState === "hidden")("mat-snack-bar-container-animations-enabled", !ctx._animationsDisabled);
-      }
-    },
-    features: [\u0275\u0275InheritDefinitionFeature],
-    decls: 6,
-    vars: 3,
-    consts: [["label", ""], [1, "mdc-snackbar__surface", "mat-mdc-snackbar-surface"], [1, "mat-mdc-snack-bar-label"], ["aria-hidden", "true"], ["cdkPortalOutlet", ""]],
-    template: function MatSnackBarContainer_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275elementStart(0, "div", 1)(1, "div", 2, 0)(3, "div", 3);
-        \u0275\u0275template(4, MatSnackBarContainer_ng_template_4_Template, 0, 0, "ng-template", 4);
-        \u0275\u0275elementEnd();
-        \u0275\u0275element(5, "div");
-        \u0275\u0275elementEnd()();
-      }
-      if (rf & 2) {
-        \u0275\u0275advance(5);
-        \u0275\u0275attribute("aria-live", ctx._live)("role", ctx._role)("id", ctx._liveElementId);
-      }
-    },
-    dependencies: [CdkPortalOutlet],
-    styles: ["@keyframes _mat-snack-bar-enter{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}@keyframes _mat-snack-bar-exit{from{opacity:1}to{opacity:0}}.mat-mdc-snack-bar-container{display:flex;align-items:center;justify-content:center;box-sizing:border-box;-webkit-tap-highlight-color:rgba(0,0,0,0);margin:8px}.mat-mdc-snack-bar-handset .mat-mdc-snack-bar-container{width:100vw}.mat-snack-bar-container-animations-enabled{opacity:0}.mat-snack-bar-container-animations-enabled.mat-snack-bar-fallback-visible{opacity:1}.mat-snack-bar-container-animations-enabled.mat-snack-bar-container-enter{animation:_mat-snack-bar-enter 150ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-snack-bar-container-animations-enabled.mat-snack-bar-container-exit{animation:_mat-snack-bar-exit 75ms cubic-bezier(0.4, 0, 1, 1) forwards}.mat-mdc-snackbar-surface{box-shadow:0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);display:flex;align-items:center;justify-content:flex-start;box-sizing:border-box;padding-left:0;padding-right:8px}[dir=rtl] .mat-mdc-snackbar-surface{padding-right:0;padding-left:8px}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{min-width:344px;max-width:672px}.mat-mdc-snack-bar-handset .mat-mdc-snackbar-surface{width:100%;min-width:0}@media(forced-colors: active){.mat-mdc-snackbar-surface{outline:solid 1px}}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{color:var(--mdc-snackbar-supporting-text-color, var(--mat-sys-inverse-on-surface));border-radius:var(--mdc-snackbar-container-shape, var(--mat-sys-corner-extra-small));background-color:var(--mdc-snackbar-container-color, var(--mat-sys-inverse-surface))}.mdc-snackbar__label{width:100%;flex-grow:1;box-sizing:border-box;margin:0;padding:14px 8px 14px 16px}[dir=rtl] .mdc-snackbar__label{padding-left:8px;padding-right:16px}.mat-mdc-snack-bar-container .mdc-snackbar__label{font-family:var(--mdc-snackbar-supporting-text-font, var(--mat-sys-body-medium-font));font-size:var(--mdc-snackbar-supporting-text-size, var(--mat-sys-body-medium-size));font-weight:var(--mdc-snackbar-supporting-text-weight, var(--mat-sys-body-medium-weight));line-height:var(--mdc-snackbar-supporting-text-line-height, var(--mat-sys-body-medium-line-height))}.mat-mdc-snack-bar-actions{display:flex;flex-shrink:0;align-items:center;box-sizing:border-box}.mat-mdc-snack-bar-handset,.mat-mdc-snack-bar-container,.mat-mdc-snack-bar-label{flex:1 1 auto}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled).mat-unthemed{color:var(--mat-snack-bar-button-color, var(--mat-sys-inverse-primary))}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled){--mat-text-button-state-layer-color:currentColor;--mat-text-button-ripple-color:currentColor}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) .mat-ripple-element{opacity:.1}\n"],
-    encapsulation: 2
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatSnackBarContainer, [{
-    type: Component,
-    args: [{
-      selector: "mat-snack-bar-container",
-      changeDetection: ChangeDetectionStrategy.Default,
-      encapsulation: ViewEncapsulation.None,
-      imports: [CdkPortalOutlet],
-      host: {
-        "class": "mdc-snackbar mat-mdc-snack-bar-container",
-        "[class.mat-snack-bar-container-enter]": '_animationState === "visible"',
-        "[class.mat-snack-bar-container-exit]": '_animationState === "hidden"',
-        "[class.mat-snack-bar-container-animations-enabled]": "!_animationsDisabled",
-        "(animationend)": "onAnimationEnd($event.animationName)",
-        "(animationcancel)": "onAnimationEnd($event.animationName)"
-      },
-      template: '<div class="mdc-snackbar__surface mat-mdc-snackbar-surface">\n  <!--\n    This outer label wrapper will have the class `mdc-snackbar__label` applied if\n    the attached template/component does not contain it.\n  -->\n  <div class="mat-mdc-snack-bar-label" #label>\n    <!-- Initialy holds the snack bar content, will be empty after announcing to screen readers. -->\n    <div aria-hidden="true">\n      <ng-template cdkPortalOutlet />\n    </div>\n\n    <!-- Will receive the snack bar content from the non-live div, move will happen a short delay after opening -->\n    <div [attr.aria-live]="_live" [attr.role]="_role" [attr.id]="_liveElementId"></div>\n  </div>\n</div>\n',
-      styles: ["@keyframes _mat-snack-bar-enter{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}@keyframes _mat-snack-bar-exit{from{opacity:1}to{opacity:0}}.mat-mdc-snack-bar-container{display:flex;align-items:center;justify-content:center;box-sizing:border-box;-webkit-tap-highlight-color:rgba(0,0,0,0);margin:8px}.mat-mdc-snack-bar-handset .mat-mdc-snack-bar-container{width:100vw}.mat-snack-bar-container-animations-enabled{opacity:0}.mat-snack-bar-container-animations-enabled.mat-snack-bar-fallback-visible{opacity:1}.mat-snack-bar-container-animations-enabled.mat-snack-bar-container-enter{animation:_mat-snack-bar-enter 150ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-snack-bar-container-animations-enabled.mat-snack-bar-container-exit{animation:_mat-snack-bar-exit 75ms cubic-bezier(0.4, 0, 1, 1) forwards}.mat-mdc-snackbar-surface{box-shadow:0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);display:flex;align-items:center;justify-content:flex-start;box-sizing:border-box;padding-left:0;padding-right:8px}[dir=rtl] .mat-mdc-snackbar-surface{padding-right:0;padding-left:8px}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{min-width:344px;max-width:672px}.mat-mdc-snack-bar-handset .mat-mdc-snackbar-surface{width:100%;min-width:0}@media(forced-colors: active){.mat-mdc-snackbar-surface{outline:solid 1px}}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{color:var(--mdc-snackbar-supporting-text-color, var(--mat-sys-inverse-on-surface));border-radius:var(--mdc-snackbar-container-shape, var(--mat-sys-corner-extra-small));background-color:var(--mdc-snackbar-container-color, var(--mat-sys-inverse-surface))}.mdc-snackbar__label{width:100%;flex-grow:1;box-sizing:border-box;margin:0;padding:14px 8px 14px 16px}[dir=rtl] .mdc-snackbar__label{padding-left:8px;padding-right:16px}.mat-mdc-snack-bar-container .mdc-snackbar__label{font-family:var(--mdc-snackbar-supporting-text-font, var(--mat-sys-body-medium-font));font-size:var(--mdc-snackbar-supporting-text-size, var(--mat-sys-body-medium-size));font-weight:var(--mdc-snackbar-supporting-text-weight, var(--mat-sys-body-medium-weight));line-height:var(--mdc-snackbar-supporting-text-line-height, var(--mat-sys-body-medium-line-height))}.mat-mdc-snack-bar-actions{display:flex;flex-shrink:0;align-items:center;box-sizing:border-box}.mat-mdc-snack-bar-handset,.mat-mdc-snack-bar-container,.mat-mdc-snack-bar-label{flex:1 1 auto}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled).mat-unthemed{color:var(--mat-snack-bar-button-color, var(--mat-sys-inverse-primary))}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled){--mat-text-button-state-layer-color:currentColor;--mat-text-button-ripple-color:currentColor}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) .mat-ripple-element{opacity:.1}\n"]
-    }]
-  }], () => [], {
-    _portalOutlet: [{
-      type: ViewChild,
-      args: [CdkPortalOutlet, {
-        static: true
-      }]
-    }],
-    _label: [{
-      type: ViewChild,
-      args: ["label", {
-        static: true
-      }]
-    }]
-  });
-})();
-function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY() {
-  return new MatSnackBarConfig();
-}
-var MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken("mat-snack-bar-default-options", {
-  providedIn: "root",
-  factory: MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY
-});
-var MatSnackBar = class _MatSnackBar {
-  _overlay = inject(Overlay);
-  _live = inject(LiveAnnouncer);
-  _injector = inject(Injector);
-  _breakpointObserver = inject(BreakpointObserver);
-  _parentSnackBar = inject(_MatSnackBar, {
-    optional: true,
-    skipSelf: true
-  });
-  _defaultConfig = inject(MAT_SNACK_BAR_DEFAULT_OPTIONS);
-  /**
-   * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
-   * If there is a parent snack-bar service, all operations should delegate to that parent
-   * via `_openedSnackBarRef`.
-   */
-  _snackBarRefAtThisLevel = null;
-  /** The component that should be rendered as the snack bar's simple component. */
-  simpleSnackBarComponent = SimpleSnackBar;
-  /** The container component that attaches the provided template or component. */
-  snackBarContainerComponent = MatSnackBarContainer;
-  /** The CSS class to apply for handset mode. */
-  handsetCssClass = "mat-mdc-snack-bar-handset";
-  /** Reference to the currently opened snackbar at *any* level. */
-  get _openedSnackBarRef() {
-    const parent = this._parentSnackBar;
-    return parent ? parent._openedSnackBarRef : this._snackBarRefAtThisLevel;
-  }
-  set _openedSnackBarRef(value) {
-    if (this._parentSnackBar) {
-      this._parentSnackBar._openedSnackBarRef = value;
-    } else {
-      this._snackBarRefAtThisLevel = value;
-    }
-  }
-  constructor() {
-  }
-  /**
-   * Creates and dispatches a snack bar with a custom component for the content, removing any
-   * currently opened snack bars.
-   *
-   * @param component Component to be instantiated.
-   * @param config Extra configuration for the snack bar.
-   */
-  openFromComponent(component, config2) {
-    return this._attach(component, config2);
-  }
-  /**
-   * Creates and dispatches a snack bar with a custom template for the content, removing any
-   * currently opened snack bars.
-   *
-   * @param template Template to be instantiated.
-   * @param config Extra configuration for the snack bar.
-   */
-  openFromTemplate(template, config2) {
-    return this._attach(template, config2);
-  }
-  /**
-   * Opens a snackbar with a message and an optional action.
-   * @param message The message to show in the snackbar.
-   * @param action The label for the snackbar action.
-   * @param config Additional configuration options for the snackbar.
-   */
-  open(message, action = "", config2) {
-    const _config = __spreadValues(__spreadValues({}, this._defaultConfig), config2);
-    _config.data = {
-      message,
-      action
-    };
-    if (_config.announcementMessage === message) {
-      _config.announcementMessage = void 0;
-    }
-    return this.openFromComponent(this.simpleSnackBarComponent, _config);
-  }
-  /**
-   * Dismisses the currently-visible snack bar.
-   */
-  dismiss() {
-    if (this._openedSnackBarRef) {
-      this._openedSnackBarRef.dismiss();
-    }
-  }
-  ngOnDestroy() {
-    if (this._snackBarRefAtThisLevel) {
-      this._snackBarRefAtThisLevel.dismiss();
-    }
-  }
-  /**
-   * Attaches the snack bar container component to the overlay.
-   */
-  _attachSnackBarContainer(overlayRef, config2) {
-    const userInjector = config2 && config2.viewContainerRef && config2.viewContainerRef.injector;
-    const injector = Injector.create({
-      parent: userInjector || this._injector,
-      providers: [{
-        provide: MatSnackBarConfig,
-        useValue: config2
-      }]
-    });
-    const containerPortal = new ComponentPortal(this.snackBarContainerComponent, config2.viewContainerRef, injector);
-    const containerRef = overlayRef.attach(containerPortal);
-    containerRef.instance.snackBarConfig = config2;
-    return containerRef.instance;
-  }
-  /**
-   * Places a new component or a template as the content of the snack bar container.
-   */
-  _attach(content, userConfig) {
-    const config2 = __spreadValues(__spreadValues(__spreadValues({}, new MatSnackBarConfig()), this._defaultConfig), userConfig);
-    const overlayRef = this._createOverlay(config2);
-    const container = this._attachSnackBarContainer(overlayRef, config2);
-    const snackBarRef = new MatSnackBarRef(container, overlayRef);
-    if (content instanceof TemplateRef) {
-      const portal = new TemplatePortal(content, null, {
-        $implicit: config2.data,
-        snackBarRef
-      });
-      snackBarRef.instance = container.attachTemplatePortal(portal);
-    } else {
-      const injector = this._createInjector(config2, snackBarRef);
-      const portal = new ComponentPortal(content, void 0, injector);
-      const contentRef = container.attachComponentPortal(portal);
-      snackBarRef.instance = contentRef.instance;
-    }
-    this._breakpointObserver.observe(Breakpoints.HandsetPortrait).pipe(takeUntil(overlayRef.detachments())).subscribe((state2) => {
-      overlayRef.overlayElement.classList.toggle(this.handsetCssClass, state2.matches);
-    });
-    if (config2.announcementMessage) {
-      container._onAnnounce.subscribe(() => {
-        this._live.announce(config2.announcementMessage, config2.politeness);
-      });
-    }
-    this._animateSnackBar(snackBarRef, config2);
-    this._openedSnackBarRef = snackBarRef;
-    return this._openedSnackBarRef;
-  }
-  /** Animates the old snack bar out and the new one in. */
-  _animateSnackBar(snackBarRef, config2) {
-    snackBarRef.afterDismissed().subscribe(() => {
-      if (this._openedSnackBarRef == snackBarRef) {
-        this._openedSnackBarRef = null;
-      }
-      if (config2.announcementMessage) {
-        this._live.clear();
-      }
-    });
-    if (config2.duration && config2.duration > 0) {
-      snackBarRef.afterOpened().subscribe(() => snackBarRef._dismissAfter(config2.duration));
-    }
-    if (this._openedSnackBarRef) {
-      this._openedSnackBarRef.afterDismissed().subscribe(() => {
-        snackBarRef.containerInstance.enter();
-      });
-      this._openedSnackBarRef.dismiss();
-    } else {
-      snackBarRef.containerInstance.enter();
-    }
-  }
-  /**
-   * Creates a new overlay and places it in the correct location.
-   * @param config The user-specified snack bar config.
-   */
-  _createOverlay(config2) {
-    const overlayConfig = new OverlayConfig();
-    overlayConfig.direction = config2.direction;
-    let positionStrategy = this._overlay.position().global();
-    const isRtl = config2.direction === "rtl";
-    const isLeft = config2.horizontalPosition === "left" || config2.horizontalPosition === "start" && !isRtl || config2.horizontalPosition === "end" && isRtl;
-    const isRight = !isLeft && config2.horizontalPosition !== "center";
-    if (isLeft) {
-      positionStrategy.left("0");
-    } else if (isRight) {
-      positionStrategy.right("0");
-    } else {
-      positionStrategy.centerHorizontally();
-    }
-    if (config2.verticalPosition === "top") {
-      positionStrategy.top("0");
-    } else {
-      positionStrategy.bottom("0");
-    }
-    overlayConfig.positionStrategy = positionStrategy;
-    return this._overlay.create(overlayConfig);
-  }
-  /**
-   * Creates an injector to be used inside of a snack bar component.
-   * @param config Config that was used to create the snack bar.
-   * @param snackBarRef Reference to the snack bar.
-   */
-  _createInjector(config2, snackBarRef) {
-    const userInjector = config2 && config2.viewContainerRef && config2.viewContainerRef.injector;
-    return Injector.create({
-      parent: userInjector || this._injector,
-      providers: [{
-        provide: MatSnackBarRef,
-        useValue: snackBarRef
-      }, {
-        provide: MAT_SNACK_BAR_DATA,
-        useValue: config2.data
-      }]
-    });
-  }
-  static \u0275fac = function MatSnackBar_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatSnackBar)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _MatSnackBar,
-    factory: _MatSnackBar.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatSnackBar, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var DIRECTIVES2 = [MatSnackBarContainer, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction];
-var MatSnackBarModule = class _MatSnackBarModule {
-  static \u0275fac = function MatSnackBarModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatSnackBarModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _MatSnackBarModule,
-    imports: [OverlayModule, PortalModule, MatButtonModule, MatCommonModule, SimpleSnackBar, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction],
-    exports: [MatCommonModule, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction]
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
-    providers: [MatSnackBar],
-    imports: [OverlayModule, PortalModule, MatButtonModule, MatCommonModule, SimpleSnackBar, MatCommonModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatSnackBarModule, [{
-    type: NgModule,
-    args: [{
-      imports: [OverlayModule, PortalModule, MatButtonModule, MatCommonModule, SimpleSnackBar, ...DIRECTIVES2],
-      exports: [MatCommonModule, ...DIRECTIVES2],
-      providers: [MatSnackBar]
-    }]
-  }], null, null);
-})();
-
 // src/app/travel/employee-detail/employee-detail.component.ts
-var _c011 = (a0) => ({ icon: "person", label: "Employee Name", value: a0 });
+var _c010 = (a0) => ({ icon: "person", label: "Employee Name", value: a0 });
 var _c110 = (a0) => ({ icon: "email", label: "Email", value: a0 });
 var _c210 = (a0) => ({ icon: "badge", label: "Passport Number", value: a0 });
 var _c37 = (a0) => ({ icon: "event", label: "Passport Expiry", value: a0 });
@@ -46857,7 +46094,7 @@ var EmployeeDetailComponent = class _EmployeeDetailComponent {
     }
     if (rf & 2) {
       \u0275\u0275advance(8);
-      \u0275\u0275property("ngForOf", \u0275\u0275pureFunction8(23, _c83, \u0275\u0275pureFunction1(7, _c011, ctx.data.employeeName), \u0275\u0275pureFunction1(9, _c110, ctx.data.employeeEmail), \u0275\u0275pureFunction1(11, _c210, ctx.data.employeePassportNo), \u0275\u0275pureFunction1(13, _c37, ctx.data.employeePassportExpiry), \u0275\u0275pureFunction1(15, _c44, ctx.data.employeeNumber), \u0275\u0275pureFunction1(17, _c54, ctx.data.employeeDepartment), \u0275\u0275pureFunction1(19, _c64, ctx.data.employeeTravellingContact), \u0275\u0275pureFunction1(21, _c73, ctx.data.employeeContact)));
+      \u0275\u0275property("ngForOf", \u0275\u0275pureFunction8(23, _c83, \u0275\u0275pureFunction1(7, _c010, ctx.data.employeeName), \u0275\u0275pureFunction1(9, _c110, ctx.data.employeeEmail), \u0275\u0275pureFunction1(11, _c210, ctx.data.employeePassportNo), \u0275\u0275pureFunction1(13, _c37, ctx.data.employeePassportExpiry), \u0275\u0275pureFunction1(15, _c44, ctx.data.employeeNumber), \u0275\u0275pureFunction1(17, _c54, ctx.data.employeeDepartment), \u0275\u0275pureFunction1(19, _c64, ctx.data.employeeTravellingContact), \u0275\u0275pureFunction1(21, _c73, ctx.data.employeeContact)));
       \u0275\u0275advance();
       \u0275\u0275property("ngForOf", \u0275\u0275pureFunction8(48, _c83, \u0275\u0275pureFunction1(32, _c93, ctx.data.purpose), \u0275\u0275pureFunction1(34, _c103, ctx.data.city), \u0275\u0275pureFunction1(36, _c113, ctx.data.country), \u0275\u0275pureFunction1(38, _c123, ctx.data.visaRequired), \u0275\u0275pureFunction1(40, _c133, ctx.data.departureDate), \u0275\u0275pureFunction1(42, _c143, ctx.data.departureTime), \u0275\u0275pureFunction1(44, _c153, ctx.data.returnDate), \u0275\u0275pureFunction1(46, _c163, ctx.data.returnTime)));
       \u0275\u0275advance();
@@ -47023,7 +46260,7 @@ var EmployeeDetailComponent = class _EmployeeDetailComponent {
 })();
 
 // src/app/bu-head/buhead-detail/buhead-detail.component.ts
-function BuheadDetailComponent_mat_card_0_mat_hint_47_Template(rf, ctx) {
+function BuheadDetailComponent_mat_card_0_mat_hint_51_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "mat-hint", 16);
     \u0275\u0275text(1, " Editing is allowed for Business Unit Heads only when status is ");
@@ -47069,83 +46306,88 @@ function BuheadDetailComponent_mat_card_0_Template(rf, ctx) {
     \u0275\u0275text(15);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(16, "div", 1)(17, "strong");
-    \u0275\u0275text(18, "E:");
+    \u0275\u0275text(18, "Perdiem Amount:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(19);
-    \u0275\u0275pipe(20, "date");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(21, "div", 1)(22, "strong");
-    \u0275\u0275text(23, "Return:");
+    \u0275\u0275elementStart(20, "div", 1)(21, "strong");
+    \u0275\u0275text(22, "Departure:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(24);
-    \u0275\u0275pipe(25, "date");
+    \u0275\u0275text(23);
+    \u0275\u0275pipe(24, "date");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(26, "form", 2)(27, "mat-form-field", 3)(28, "mat-label");
-    \u0275\u0275text(29, "Exco Head Status");
+    \u0275\u0275elementStart(25, "div", 1)(26, "strong");
+    \u0275\u0275text(27, "Return:");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(30, "mat-select", 4)(31, "mat-option", 5);
-    \u0275\u0275text(32, "Pending");
+    \u0275\u0275text(28);
+    \u0275\u0275pipe(29, "date");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(33, "mat-option", 6);
-    \u0275\u0275text(34, "Successful");
+    \u0275\u0275elementStart(30, "form", 2)(31, "mat-form-field", 3)(32, "mat-label");
+    \u0275\u0275text(33, "Exco Head Status");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(34, "mat-select", 4)(35, "mat-option", 5);
+    \u0275\u0275text(36, "Pending");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(37, "mat-option", 6);
+    \u0275\u0275text(38, "Successful");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(35, "mat-form-field", 3)(36, "mat-label");
-    \u0275\u0275text(37, "Feedback");
+    \u0275\u0275elementStart(39, "mat-form-field", 3)(40, "mat-label");
+    \u0275\u0275text(41, "Feedback");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(38, "mat-select", 7)(39, "mat-option", 8);
-    \u0275\u0275text(40, "Approved");
+    \u0275\u0275elementStart(42, "mat-select", 7)(43, "mat-option", 8);
+    \u0275\u0275text(44, "Approved");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(41, "mat-option", 9);
-    \u0275\u0275text(42, "Rejected");
+    \u0275\u0275elementStart(45, "mat-option", 9);
+    \u0275\u0275text(46, "Rejected");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(43, "mat-form-field", 3)(44, "mat-label");
-    \u0275\u0275text(45, "Remarks");
+    \u0275\u0275elementStart(47, "mat-form-field", 3)(48, "mat-label");
+    \u0275\u0275text(49, "Remarks");
     \u0275\u0275elementEnd();
-    \u0275\u0275element(46, "textarea", 10);
+    \u0275\u0275element(50, "textarea", 10);
     \u0275\u0275elementEnd();
-    \u0275\u0275template(47, BuheadDetailComponent_mat_card_0_mat_hint_47_Template, 11, 1, "mat-hint", 11);
-    \u0275\u0275elementStart(48, "mat-card-actions")(49, "button", 12);
-    \u0275\u0275listener("click", function BuheadDetailComponent_mat_card_0_Template_button_click_49_listener() {
+    \u0275\u0275template(51, BuheadDetailComponent_mat_card_0_mat_hint_51_Template, 11, 1, "mat-hint", 11);
+    \u0275\u0275elementStart(52, "mat-card-actions")(53, "button", 12);
+    \u0275\u0275listener("click", function BuheadDetailComponent_mat_card_0_Template_button_click_53_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.reject());
     });
-    \u0275\u0275text(50, "Reject");
+    \u0275\u0275text(54, "Reject");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(51, "button", 13);
-    \u0275\u0275listener("click", function BuheadDetailComponent_mat_card_0_Template_button_click_51_listener() {
+    \u0275\u0275elementStart(55, "button", 13);
+    \u0275\u0275listener("click", function BuheadDetailComponent_mat_card_0_Template_button_click_55_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.approve());
     });
-    \u0275\u0275text(52, "Approve");
+    \u0275\u0275text(56, "Approve");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(53, "button", 13);
-    \u0275\u0275listener("click", function BuheadDetailComponent_mat_card_0_Template_button_click_53_listener() {
+    \u0275\u0275elementStart(57, "button", 13);
+    \u0275\u0275listener("click", function BuheadDetailComponent_mat_card_0_Template_button_click_57_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.returnForReview());
     });
-    \u0275\u0275text(54, "Request Revision");
+    \u0275\u0275text(58, "Request Revision");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(55, "button", 14);
-    \u0275\u0275listener("click", function BuheadDetailComponent_mat_card_0_Template_button_click_55_listener() {
+    \u0275\u0275elementStart(59, "button", 14);
+    \u0275\u0275listener("click", function BuheadDetailComponent_mat_card_0_Template_button_click_59_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.details());
     });
-    \u0275\u0275text(56, "Details");
+    \u0275\u0275text(60, "Details");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(57, "button", 15);
-    \u0275\u0275listener("click", function BuheadDetailComponent_mat_card_0_Template_button_click_57_listener() {
+    \u0275\u0275elementStart(61, "button", 15);
+    \u0275\u0275listener("click", function BuheadDetailComponent_mat_card_0_Template_button_click_61_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.goBack());
     });
-    \u0275\u0275elementStart(58, "mat-icon");
-    \u0275\u0275text(59, "arrow_back");
+    \u0275\u0275elementStart(62, "mat-icon");
+    \u0275\u0275text(63, "arrow_back");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(60, " Back ");
+    \u0275\u0275text(64, " Back ");
     \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
@@ -47157,9 +46399,11 @@ function BuheadDetailComponent_mat_card_0_Template(rf, ctx) {
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate2(" ", ctx_r1.travel.city, ", ", ctx_r1.travel.country, "");
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(20, 16, ctx_r1.travel.departureDate), " ", ctx_r1.travel.departureTime, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.estimatedPerDiemAmount, "");
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(24, 17, ctx_r1.travel.departureDate), " ", ctx_r1.travel.departureTime, "");
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(25, 18, ctx_r1.travel.returnDate), " ", ctx_r1.travel.returnTime, "");
+    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(29, 19, ctx_r1.travel.returnDate), " ", ctx_r1.travel.returnTime, "");
     \u0275\u0275advance(2);
     \u0275\u0275property("formGroup", ctx_r1.actionForm);
     \u0275\u0275advance(4);
@@ -47352,7 +46596,7 @@ var BuheadDetailComponent = class _BuheadDetailComponent {
   };
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BuheadDetailComponent, selectors: [["app-buhead-detail"]], decls: 1, vars: 1, consts: [[4, "ngIf"], [1, "field"], [1, "action-form", 3, "formGroup"], ["appearance", "outline", 1, "full-width"], ["formControlName", "excoHeadStatus", 3, "disabled"], ["value", "Pending"], ["value", "Successful"], ["formControlName", "excoHeadFeedback", 3, "disabled"], ["value", "Approved"], ["value", "Rejected"], ["matInput", "", "rows", "4", "formControlName", "excoHeadFeedbackRemarks", 3, "disabled"], ["class", "read-only-hint", 4, "ngIf"], ["mat-stroked-button", "", "color", "warn", 3, "click", "disabled"], ["mat-raised-button", "", "color", "primary", 3, "click", "disabled"], ["mat-raised-button", "", "color", "primary", 3, "click"], ["mat-button", "", "color", "primary", 1, "back-btn", 3, "click"], [1, "read-only-hint"]], template: function BuheadDetailComponent_Template(rf, ctx) {
     if (rf & 1) {
-      \u0275\u0275template(0, BuheadDetailComponent_mat_card_0_Template, 61, 20, "mat-card", 0);
+      \u0275\u0275template(0, BuheadDetailComponent_mat_card_0_Template, 65, 21, "mat-card", 0);
     }
     if (rf & 2) {
       \u0275\u0275property("ngIf", !ctx.loading);
@@ -47407,7 +46651,7 @@ var BuheadDetailComponent = class _BuheadDetailComponent {
       MatDialogModule,
       MatSnackBarModule,
       MatIconModule
-    ], template: '<mat-card *ngIf="!loading">\n  <mat-card-title>Travel Request Detail</mat-card-title>\n  <mat-card-content>\n    <div class="field"><strong>Employee:</strong> {{ travel.employeeName }}</div>\n    <div class="field"><strong>Purpose:</strong> {{ travel.purpose }}</div>\n    <div class="field"><strong>City:</strong> {{ travel.city }}, {{ travel.country }}</div>\n    <div class="field"><strong>E:</strong> {{ travel.departureDate | date }} {{ travel.departureTime }}</div>\n    <div class="field"><strong>Return:</strong> {{ travel.returnDate | date }} {{ travel.returnTime }}</div>\n\n    <form [formGroup]="actionForm" class="action-form">\n      <mat-form-field appearance="outline" class="full-width">\n        <mat-label>Exco Head Status</mat-label>\n        <mat-select formControlName="excoHeadStatus" [disabled]="!isEditable">\n          <mat-option value="Pending">Pending</mat-option>\n          <mat-option value="Successful">Successful</mat-option>\n        </mat-select>\n      </mat-form-field>\n\n      <mat-form-field appearance="outline" class="full-width">\n        <mat-label>Feedback</mat-label>\n        <mat-select formControlName="excoHeadFeedback" [disabled]="!isEditable">\n          <mat-option value="Approved">Approved</mat-option>\n          <mat-option value="Rejected">Rejected</mat-option>\n        </mat-select>\n      </mat-form-field>\n\n      <mat-form-field appearance="outline" class="full-width">\n        <mat-label>Remarks</mat-label>\n        <textarea matInput rows="4" formControlName="excoHeadFeedbackRemarks" [disabled]="!isEditable"></textarea>\n      </mat-form-field>\n\n      <mat-hint *ngIf="!isEditable" class="read-only-hint">\n        Editing is allowed for Business Unit Heads only when status is <strong>Pending BU Head Approval</strong>. Current status: <strong>{{ travel.status }}</strong>\n        <br>\n        <strong>Notice:</strong>.  A user who is an ADMIN does not have the permissions to make edits on this page\n      </mat-hint>\n      <mat-card-actions>\n        <button mat-stroked-button color="warn" (click)="reject()" [disabled]="!isEditable">Reject</button>\n        <button mat-raised-button color="primary" (click)="approve()" [disabled]="!isEditable">Approve</button>\n        <button mat-raised-button color="primary" (click)="returnForReview()" [disabled]="!isEditable">Request Revision</button>\n        <button mat-raised-button color="primary" (click)="details()">Details</button>\n        <button mat-button color="primary" (click)="goBack()" class="back-btn">\n          <mat-icon>arrow_back</mat-icon> Back\n        </button>\n      </mat-card-actions>\n    </form>\n  </mat-card-content>\n</mat-card>\n', styles: ["/* src/app/bu-head/buhead-detail/buhead-detail.component.scss */\n.field {\n  margin-bottom: 10px;\n  font-size: 15px;\n}\n.full-width {\n  width: 100%;\n  margin-bottom: 16px;\n}\nmat-card-actions {\n  display: flex;\n  justify-content: flex-end;\n  gap: 12px;\n}\nmat-card-content {\n  padding-top: 12px;\n}\nmat-card-actions {\n  display: flex;\n  justify-content: flex-end;\n  flex-wrap: wrap;\n  gap: 12px;\n}\n.read-only-hint {\n  color: #f44336;\n  font-weight: 500;\n  margin-top: 8px;\n}\n/*# sourceMappingURL=buhead-detail.component.css.map */\n"] }]
+    ], template: '<mat-card *ngIf="!loading">\n  <mat-card-title>Travel Request Detail</mat-card-title>\n  <mat-card-content>\n    <div class="field"><strong>Employee:</strong> {{ travel.employeeName }}</div>\n    <div class="field"><strong>Purpose:</strong> {{ travel.purpose }}</div>\n    <div class="field"><strong>City:</strong> {{ travel.city }}, {{ travel.country }}</div>\n    <div class="field"><strong>Perdiem Amount:</strong> {{ travel.estimatedPerDiemAmount }}</div>\n    <div class="field"><strong>Departure:</strong> {{ travel.departureDate | date }} {{ travel.departureTime }}</div>\n    <div class="field"><strong>Return:</strong> {{ travel.returnDate | date }} {{ travel.returnTime }}</div>\n\n    <form [formGroup]="actionForm" class="action-form">\n      <mat-form-field appearance="outline" class="full-width">\n        <mat-label>Exco Head Status</mat-label>\n        <mat-select formControlName="excoHeadStatus" [disabled]="!isEditable">\n          <mat-option value="Pending">Pending</mat-option>\n          <mat-option value="Successful">Successful</mat-option>\n        </mat-select>\n      </mat-form-field>\n\n      <mat-form-field appearance="outline" class="full-width">\n        <mat-label>Feedback</mat-label>\n        <mat-select formControlName="excoHeadFeedback" [disabled]="!isEditable">\n          <mat-option value="Approved">Approved</mat-option>\n          <mat-option value="Rejected">Rejected</mat-option>\n        </mat-select>\n      </mat-form-field>\n\n      <mat-form-field appearance="outline" class="full-width">\n        <mat-label>Remarks</mat-label>\n        <textarea matInput rows="4" formControlName="excoHeadFeedbackRemarks" [disabled]="!isEditable"></textarea>\n      </mat-form-field>\n\n      <mat-hint *ngIf="!isEditable" class="read-only-hint">\n        Editing is allowed for Business Unit Heads only when status is <strong>Pending BU Head Approval</strong>. Current status: <strong>{{ travel.status }}</strong>\n        <br>\n        <strong>Notice:</strong>.  A user who is an ADMIN does not have the permissions to make edits on this page\n      </mat-hint>\n      <mat-card-actions>\n        <button mat-stroked-button color="warn" (click)="reject()" [disabled]="!isEditable">Reject</button>\n        <button mat-raised-button color="primary" (click)="approve()" [disabled]="!isEditable">Approve</button>\n        <button mat-raised-button color="primary" (click)="returnForReview()" [disabled]="!isEditable">Request Revision</button>\n        <button mat-raised-button color="primary" (click)="details()">Details</button>\n        <button mat-button color="primary" (click)="goBack()" class="back-btn">\n          <mat-icon>arrow_back</mat-icon> Back\n        </button>\n      </mat-card-actions>\n    </form>\n  </mat-card-content>\n</mat-card>\n', styles: ["/* src/app/bu-head/buhead-detail/buhead-detail.component.scss */\n.field {\n  margin-bottom: 10px;\n  font-size: 15px;\n}\n.full-width {\n  width: 100%;\n  margin-bottom: 16px;\n}\nmat-card-actions {\n  display: flex;\n  justify-content: flex-end;\n  gap: 12px;\n}\nmat-card-content {\n  padding-top: 12px;\n}\nmat-card-actions {\n  display: flex;\n  justify-content: flex-end;\n  flex-wrap: wrap;\n  gap: 12px;\n}\n.read-only-hint {\n  color: #f44336;\n  font-weight: 500;\n  margin-top: 8px;\n}\n/*# sourceMappingURL=buhead-detail.component.css.map */\n"] }]
   }], () => [{ type: ActivatedRoute }, { type: TravelService }, { type: FormBuilder }, { type: MatSnackBar }, { type: Router }, { type: MatDialog }, { type: Location }], null);
 })();
 (() => {
@@ -47415,105 +46659,160 @@ var BuheadDetailComponent = class _BuheadDetailComponent {
 })();
 
 // src/app/bu-head/bu-head-request-list/bu-head-request-list.component.ts
-function BuheadListComponent_div_3_Template(rf, ctx) {
+function BuheadListComponent_div_8_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 3);
-    \u0275\u0275element(1, "mat-spinner", 4);
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 6)(1, "div", 7)(2, "form", 8);
+    \u0275\u0275listener("ngSubmit", function BuheadListComponent_div_8_Template_form_ngSubmit_2_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.applyFilters());
+    });
+    \u0275\u0275elementStart(3, "mat-form-field", 9)(4, "mat-label");
+    \u0275\u0275text(5, "Employee");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(6, "input", 10);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "mat-form-field", 11)(8, "mat-label");
+    \u0275\u0275text(9, "Status");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(10, "mat-select", 12)(11, "mat-option", 13);
+    \u0275\u0275text(12, "All");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(13, "mat-option", 14);
+    \u0275\u0275text(14, "Pending BU Head Approval");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(15, "mat-option", 15);
+    \u0275\u0275text(16, "Pending CFO Approval");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(17, "mat-option", 16);
+    \u0275\u0275text(18, "CFO Approval Successful");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(19, "mat-option", 17);
+    \u0275\u0275text(20, "BU Head Approval Successful");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(21, "button", 18)(22, "mat-icon");
+    \u0275\u0275text(23, "search");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(24, " Search ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "button", 19);
+    \u0275\u0275listener("click", function BuheadListComponent_div_8_Template_button_click_25_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.resetFilters());
+    });
+    \u0275\u0275elementStart(26, "mat-icon");
+    \u0275\u0275text(27, "refresh");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(28, " Reset ");
+    \u0275\u0275elementEnd()()()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(2);
+    \u0275\u0275property("formGroup", ctx_r1.searchForm);
+  }
+}
+function BuheadListComponent_div_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 20);
+    \u0275\u0275element(1, "mat-spinner", 21);
     \u0275\u0275elementEnd();
   }
 }
-function BuheadListComponent_table_4_th_2_Template(rf, ctx) {
+function BuheadListComponent_table_10_th_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "th", 15);
+    \u0275\u0275elementStart(0, "th", 32);
     \u0275\u0275text(1, " Employee ");
     \u0275\u0275elementEnd();
   }
 }
-function BuheadListComponent_table_4_td_3_Template(rf, ctx) {
+function BuheadListComponent_table_10_td_3_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "td", 16);
+    \u0275\u0275elementStart(0, "td", 33);
     \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const row_r1 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", row_r1.employeeName, " ");
-  }
-}
-function BuheadListComponent_table_4_th_5_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "th", 15);
-    \u0275\u0275text(1, " Purpose ");
-    \u0275\u0275elementEnd();
-  }
-}
-function BuheadListComponent_table_4_td_6_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "td", 16);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const row_r2 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", row_r2.purpose, " ");
-  }
-}
-function BuheadListComponent_table_4_th_8_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "th", 15);
-    \u0275\u0275text(1, " Departure ");
-    \u0275\u0275elementEnd();
-  }
-}
-function BuheadListComponent_table_4_td_9_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "td", 16);
-    \u0275\u0275text(1);
-    \u0275\u0275pipe(2, "date");
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     const row_r3 = ctx.$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(2, 1, row_r3.departureDate), " ");
+    \u0275\u0275textInterpolate1(" ", row_r3.employeeName, " ");
   }
 }
-function BuheadListComponent_table_4_th_11_Template(rf, ctx) {
+function BuheadListComponent_table_10_th_5_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "th", 15);
-    \u0275\u0275text(1, " Status ");
+    \u0275\u0275elementStart(0, "th", 32);
+    \u0275\u0275text(1, " Purpose ");
     \u0275\u0275elementEnd();
   }
 }
-function BuheadListComponent_table_4_td_12_Template(rf, ctx) {
+function BuheadListComponent_table_10_td_6_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "td", 16);
+    \u0275\u0275elementStart(0, "td", 33);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     const row_r4 = ctx.$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", row_r4.status || "Pending", " ");
+    \u0275\u0275textInterpolate1(" ", row_r4.purpose, " ");
   }
 }
-function BuheadListComponent_table_4_th_14_Template(rf, ctx) {
+function BuheadListComponent_table_10_th_8_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "th", 15);
+    \u0275\u0275elementStart(0, "th", 32);
+    \u0275\u0275text(1, " Departure ");
+    \u0275\u0275elementEnd();
+  }
+}
+function BuheadListComponent_table_10_td_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "td", 33);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "date");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const row_r5 = ctx.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(2, 1, row_r5.departureDate), " ");
+  }
+}
+function BuheadListComponent_table_10_th_11_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "th", 32);
+    \u0275\u0275text(1, " Status ");
+    \u0275\u0275elementEnd();
+  }
+}
+function BuheadListComponent_table_10_td_12_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "td", 33);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const row_r6 = ctx.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", row_r6.status, " ");
+  }
+}
+function BuheadListComponent_table_10_th_14_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "th", 32);
     \u0275\u0275text(1, " Actions ");
     \u0275\u0275elementEnd();
   }
 }
-function BuheadListComponent_table_4_td_15_Template(rf, ctx) {
+function BuheadListComponent_table_10_td_15_Template(rf, ctx) {
   if (rf & 1) {
-    const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "td", 16)(1, "button", 17);
-    \u0275\u0275listener("click", function BuheadListComponent_table_4_td_15_Template_button_click_1_listener() {
-      const row_r6 = \u0275\u0275restoreView(_r5).$implicit;
-      const ctx_r6 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r6.viewDetails(row_r6.travelId));
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "td", 33)(1, "button", 34);
+    \u0275\u0275listener("click", function BuheadListComponent_table_10_td_15_Template_button_click_1_listener() {
+      const row_r8 = \u0275\u0275restoreView(_r7).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.viewDetails(row_r8.travelId));
     });
     \u0275\u0275elementStart(2, "mat-icon");
     \u0275\u0275text(3, "visibility");
@@ -47522,62 +46821,74 @@ function BuheadListComponent_table_4_td_15_Template(rf, ctx) {
     \u0275\u0275elementEnd()();
   }
 }
-function BuheadListComponent_table_4_tr_16_Template(rf, ctx) {
+function BuheadListComponent_table_10_tr_16_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "tr", 18);
+    \u0275\u0275element(0, "tr", 35);
   }
 }
-function BuheadListComponent_table_4_tr_17_Template(rf, ctx) {
+function BuheadListComponent_table_10_tr_17_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "tr", 19);
+    \u0275\u0275element(0, "tr", 36);
   }
 }
-function BuheadListComponent_table_4_Template(rf, ctx) {
+function BuheadListComponent_table_10_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "table", 5);
-    \u0275\u0275elementContainerStart(1, 6);
-    \u0275\u0275template(2, BuheadListComponent_table_4_th_2_Template, 2, 0, "th", 7)(3, BuheadListComponent_table_4_td_3_Template, 2, 1, "td", 8);
+    \u0275\u0275elementStart(0, "table", 22);
+    \u0275\u0275elementContainerStart(1, 23);
+    \u0275\u0275template(2, BuheadListComponent_table_10_th_2_Template, 2, 0, "th", 24)(3, BuheadListComponent_table_10_td_3_Template, 2, 1, "td", 25);
     \u0275\u0275elementContainerEnd();
-    \u0275\u0275elementContainerStart(4, 9);
-    \u0275\u0275template(5, BuheadListComponent_table_4_th_5_Template, 2, 0, "th", 7)(6, BuheadListComponent_table_4_td_6_Template, 2, 1, "td", 8);
+    \u0275\u0275elementContainerStart(4, 26);
+    \u0275\u0275template(5, BuheadListComponent_table_10_th_5_Template, 2, 0, "th", 24)(6, BuheadListComponent_table_10_td_6_Template, 2, 1, "td", 25);
     \u0275\u0275elementContainerEnd();
-    \u0275\u0275elementContainerStart(7, 10);
-    \u0275\u0275template(8, BuheadListComponent_table_4_th_8_Template, 2, 0, "th", 7)(9, BuheadListComponent_table_4_td_9_Template, 3, 3, "td", 8);
+    \u0275\u0275elementContainerStart(7, 27);
+    \u0275\u0275template(8, BuheadListComponent_table_10_th_8_Template, 2, 0, "th", 24)(9, BuheadListComponent_table_10_td_9_Template, 3, 3, "td", 25);
     \u0275\u0275elementContainerEnd();
-    \u0275\u0275elementContainerStart(10, 11);
-    \u0275\u0275template(11, BuheadListComponent_table_4_th_11_Template, 2, 0, "th", 7)(12, BuheadListComponent_table_4_td_12_Template, 2, 1, "td", 8);
+    \u0275\u0275elementContainerStart(10, 28);
+    \u0275\u0275template(11, BuheadListComponent_table_10_th_11_Template, 2, 0, "th", 24)(12, BuheadListComponent_table_10_td_12_Template, 2, 1, "td", 25);
     \u0275\u0275elementContainerEnd();
-    \u0275\u0275elementContainerStart(13, 12);
-    \u0275\u0275template(14, BuheadListComponent_table_4_th_14_Template, 2, 0, "th", 7)(15, BuheadListComponent_table_4_td_15_Template, 5, 0, "td", 8);
+    \u0275\u0275elementContainerStart(13, 29);
+    \u0275\u0275template(14, BuheadListComponent_table_10_th_14_Template, 2, 0, "th", 24)(15, BuheadListComponent_table_10_td_15_Template, 5, 0, "td", 25);
     \u0275\u0275elementContainerEnd();
-    \u0275\u0275template(16, BuheadListComponent_table_4_tr_16_Template, 1, 0, "tr", 13)(17, BuheadListComponent_table_4_tr_17_Template, 1, 0, "tr", 14);
+    \u0275\u0275template(16, BuheadListComponent_table_10_tr_16_Template, 1, 0, "tr", 30)(17, BuheadListComponent_table_10_tr_17_Template, 1, 0, "tr", 31);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r6 = \u0275\u0275nextContext();
-    \u0275\u0275property("dataSource", ctx_r6.travelRequests);
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275property("dataSource", ctx_r1.showHistory ? ctx_r1.filteredRequests : ctx_r1.travelRequests);
     \u0275\u0275advance(16);
-    \u0275\u0275property("matHeaderRowDef", ctx_r6.displayedColumns);
+    \u0275\u0275property("matHeaderRowDef", ctx_r1.displayedColumns);
     \u0275\u0275advance();
-    \u0275\u0275property("matRowDefColumns", ctx_r6.displayedColumns);
+    \u0275\u0275property("matRowDefColumns", ctx_r1.displayedColumns);
   }
 }
-function BuheadListComponent_p_5_Template(rf, ctx) {
+function BuheadListComponent_p_11_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "p");
-    \u0275\u0275text(1, "No pending requests found.");
+    \u0275\u0275text(1);
     \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" No ", ctx_r1.showHistory ? "history" : "pending requests", " found. ");
   }
 }
 var BuheadListComponent = class _BuheadListComponent {
   travelService;
   router;
+  fb;
   travelRequests = [];
+  filteredRequests = [];
+  // ✅ used only in history
   loading = true;
   displayedColumns = ["employeeName", "purpose", "departureDate", "status", "actions"];
-  constructor(travelService, router) {
+  // track which list is showing
+  showHistory = false;
+  searchForm;
+  constructor(travelService, router, fb) {
     this.travelService = travelService;
     this.router = router;
+    this.fb = fb;
   }
   ngOnInit() {
     const userRole = localStorage.getItem("userRole");
@@ -47585,6 +46896,22 @@ var BuheadListComponent = class _BuheadListComponent {
       this.router.navigate(["/unauthorized"]);
       return;
     }
+    this.searchForm = this.fb.group({
+      employee: [""],
+      status: [""]
+    });
+    this.loadPendingRequests();
+  }
+  toggleView() {
+    this.showHistory = !this.showHistory;
+    if (this.showHistory) {
+      this.loadHistory();
+    } else {
+      this.loadPendingRequests();
+    }
+  }
+  loadPendingRequests() {
+    this.loading = true;
     this.travelService.getPendingRequestsForBuHead().subscribe({
       next: (res) => {
         this.travelRequests = res.sort((a2, b2) => new Date(b2.dateCreated).getTime() - new Date(a2.dateCreated).getTime());
@@ -47596,29 +46923,78 @@ var BuheadListComponent = class _BuheadListComponent {
       }
     });
   }
+  loadHistory() {
+    this.loading = true;
+    const currentUserEmail = localStorage.getItem("loggedInEmail");
+    this.travelService.getAll().subscribe({
+      next: (data) => {
+        this.travelRequests = data.filter((travel) => [
+          "Pending BU Head Approval",
+          "Pending CFO Approval",
+          "CFO Approval Successful",
+          "BU Head Approval Successful"
+        ].includes(travel.status)).filter((travel) => travel.excoHeadEmail === currentUserEmail).sort((a2, b2) => new Date(b2.dateCreated).getTime() - new Date(a2.dateCreated).getTime());
+        this.filteredRequests = [...this.travelRequests];
+        this.loading = false;
+      },
+      error: (err2) => {
+        console.error("Failed to load travel data", err2);
+        this.loading = false;
+      }
+    });
+  }
+  applyFilters() {
+    const { employee, status } = this.searchForm.value;
+    this.filteredRequests = this.travelRequests.filter((req) => {
+      const matchesEmployee = employee ? req.employeeName.toLowerCase().includes(employee.toLowerCase()) : true;
+      const matchesStatus = status ? req.status === status : true;
+      return matchesEmployee && matchesStatus;
+    });
+  }
+  resetFilters() {
+    this.searchForm.reset();
+    this.filteredRequests = [...this.travelRequests];
+  }
   viewDetails(id) {
     this.router.navigate(["/travel/buhead/detail", id]);
   }
   static \u0275fac = function BuheadListComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _BuheadListComponent)(\u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Router));
+    return new (__ngFactoryType__ || _BuheadListComponent)(\u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(FormBuilder));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BuheadListComponent, selectors: [["app-buhead-list"]], decls: 6, vars: 3, consts: [["class", "loading-spinner", 4, "ngIf"], ["mat-table", "", "class", "mat-elevation-z2", 3, "dataSource", 4, "ngIf"], [4, "ngIf"], [1, "loading-spinner"], ["diameter", "40"], ["mat-table", "", 1, "mat-elevation-z2", 3, "dataSource"], ["matColumnDef", "employeeName"], ["mat-header-cell", "", 4, "matHeaderCellDef"], ["mat-cell", "", 4, "matCellDef"], ["matColumnDef", "purpose"], ["matColumnDef", "departureDate"], ["matColumnDef", "status"], ["matColumnDef", "actions"], ["mat-header-row", "", 4, "matHeaderRowDef"], ["mat-row", "", 4, "matRowDef", "matRowDefColumns"], ["mat-header-cell", ""], ["mat-cell", ""], ["mat-raised-button", "", "color", "primary", 3, "click"], ["mat-header-row", ""], ["mat-row", ""]], template: function BuheadListComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _BuheadListComponent, selectors: [["app-buhead-list"]], decls: 12, vars: 7, consts: [[1, "flex", "justify-between", "items-center", "mb-6"], ["mat-raised-button", "", "color", "accent", 3, "click"], ["class", "search-filters mb-6", 4, "ngIf"], ["class", "loading-spinner", 4, "ngIf"], ["mat-table", "", "class", "mat-elevation-z2 w-full", 3, "dataSource", 4, "ngIf"], [4, "ngIf"], [1, "search-filters", "mb-6"], [1, "search-row"], [1, "search-form", 3, "ngSubmit", "formGroup"], ["appearance", "outline", 1, "emp-field"], ["matInput", "", "formControlName", "employee", "placeholder", "Search by employee"], ["appearance", "outline", 1, "status-field"], ["formControlName", "status"], ["value", ""], ["value", "Pending BU Head Approval"], ["value", "Pending CFO Approval"], ["value", "CFO Approval Successful"], ["value", "BU Head Approval Successful"], ["mat-raised-button", "", "color", "primary", "type", "submit"], ["mat-raised-button", "", "color", "warn", "type", "button", 3, "click"], [1, "loading-spinner"], ["diameter", "40"], ["mat-table", "", 1, "mat-elevation-z2", "w-full", 3, "dataSource"], ["matColumnDef", "employeeName"], ["mat-header-cell", "", 4, "matHeaderCellDef"], ["mat-cell", "", 4, "matCellDef"], ["matColumnDef", "purpose"], ["matColumnDef", "departureDate"], ["matColumnDef", "status"], ["matColumnDef", "actions"], ["mat-header-row", "", 4, "matHeaderRowDef"], ["mat-row", "", 4, "matRowDef", "matRowDefColumns"], ["mat-header-cell", ""], ["mat-cell", ""], ["mat-raised-button", "", "color", "primary", 3, "click"], ["mat-header-row", ""], ["mat-row", ""]], template: function BuheadListComponent_Template(rf, ctx) {
     if (rf & 1) {
-      \u0275\u0275elementStart(0, "mat-card")(1, "mat-card-title");
-      \u0275\u0275text(2, "BU Head Travel Requests");
+      \u0275\u0275elementStart(0, "mat-card")(1, "mat-card-title", 0)(2, "span");
+      \u0275\u0275text(3);
       \u0275\u0275elementEnd();
-      \u0275\u0275template(3, BuheadListComponent_div_3_Template, 2, 0, "div", 0)(4, BuheadListComponent_table_4_Template, 18, 3, "table", 1)(5, BuheadListComponent_p_5_Template, 2, 0, "p", 2);
+      \u0275\u0275elementStart(4, "button", 1);
+      \u0275\u0275listener("click", function BuheadListComponent_Template_button_click_4_listener() {
+        return ctx.toggleView();
+      });
+      \u0275\u0275elementStart(5, "mat-icon");
+      \u0275\u0275text(6);
+      \u0275\u0275elementEnd();
+      \u0275\u0275text(7);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275template(8, BuheadListComponent_div_8_Template, 29, 1, "div", 2)(9, BuheadListComponent_div_9_Template, 2, 0, "div", 3)(10, BuheadListComponent_table_10_Template, 18, 3, "table", 4)(11, BuheadListComponent_p_11_Template, 2, 1, "p", 5);
       \u0275\u0275elementEnd();
     }
     if (rf & 2) {
       \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate1(" ", ctx.showHistory ? "Travel Request History" : "BU Head Pending Requests", " ");
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(ctx.showHistory ? "assignment" : "history");
+      \u0275\u0275advance();
+      \u0275\u0275textInterpolate1(" ", ctx.showHistory ? "Pending" : "History", " ");
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.showHistory);
+      \u0275\u0275advance();
       \u0275\u0275property("ngIf", ctx.loading);
       \u0275\u0275advance();
-      \u0275\u0275property("ngIf", !ctx.loading && ctx.travelRequests.length);
+      \u0275\u0275property("ngIf", !ctx.loading && (ctx.showHistory ? ctx.filteredRequests.length : ctx.travelRequests.length));
       \u0275\u0275advance();
-      \u0275\u0275property("ngIf", !ctx.loading && ctx.travelRequests.length === 0);
+      \u0275\u0275property("ngIf", !ctx.loading && (ctx.showHistory ? !ctx.filteredRequests.length : !ctx.travelRequests.length));
     }
-  }, dependencies: [CommonModule, NgIf, DatePipe, MatCardModule, MatCard, MatCardTitle, MatTableModule, MatTable, MatHeaderCellDef, MatHeaderRowDef, MatColumnDef, MatCellDef, MatRowDef, MatHeaderCell, MatCell, MatHeaderRow, MatRow, MatButtonModule, MatButton, MatIconModule, MatIcon, MatProgressSpinnerModule, MatProgressSpinner], styles: ["\n\nmat-card[_ngcontent-%COMP%] {\n  margin: 16px;\n  padding: 16px;\n}\n.loading-spinner[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  margin: 40px 0;\n}\ntable[_ngcontent-%COMP%] {\n  width: 100%;\n  margin-top: 16px;\n}\nth.mat-header-cell[_ngcontent-%COMP%], \ntd.mat-cell[_ngcontent-%COMP%] {\n  padding: 12px;\n}\n/*# sourceMappingURL=bu-head-request-list.component.css.map */"] });
+  }, dependencies: [CommonModule, NgIf, DatePipe, MatCardModule, MatCard, MatCardTitle, MatTableModule, MatTable, MatHeaderCellDef, MatHeaderRowDef, MatColumnDef, MatCellDef, MatRowDef, MatHeaderCell, MatCell, MatHeaderRow, MatRow, MatButtonModule, MatButton, MatIconModule, MatIcon, MatProgressSpinnerModule, MatProgressSpinner, MatFormFieldModule, MatFormField, MatLabel, MatInputModule, MatInput, MatSelectModule, MatSelect, MatOption, ReactiveFormsModule, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName], styles: ['@charset "UTF-8";\n\n\n\nmat-card[_ngcontent-%COMP%] {\n  margin: 16px;\n  padding: 16px;\n}\n.loading-spinner[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  margin: 40px 0;\n}\ntable[_ngcontent-%COMP%] {\n  width: 100%;\n  margin-top: 16px;\n}\nth.mat-header-cell[_ngcontent-%COMP%], \ntd.mat-cell[_ngcontent-%COMP%] {\n  padding: 12px;\n}\n.search-row[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: flex-end;\n}\n.search-form[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 24px;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-items: center;\n}\n.emp-field[_ngcontent-%COMP%] {\n  min-width: 250px;\n}\n.status-field[_ngcontent-%COMP%] {\n  min-width: 350px;\n}\n@media (max-width: 768px) {\n  .search-row[_ngcontent-%COMP%] {\n    justify-content: stretch;\n  }\n  .search-form[_ngcontent-%COMP%] {\n    justify-content: stretch;\n  }\n}\n/*# sourceMappingURL=bu-head-request-list.component.css.map */'] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BuheadListComponent, [{
@@ -47629,165 +47005,284 @@ var BuheadListComponent = class _BuheadListComponent {
       MatTableModule,
       MatButtonModule,
       MatIconModule,
-      MatProgressSpinnerModule
+      MatProgressSpinnerModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatSelectModule,
+      ReactiveFormsModule
     ], template: `<mat-card>
-    <mat-card-title>BU Head Travel Requests</mat-card-title>
+  <mat-card-title class="flex justify-between items-center mb-6">
+    <span>
+      {{ showHistory ? 'Travel Request History' : 'BU Head Pending Requests' }}
+    </span>
+
+    <button mat-raised-button color="accent" (click)="toggleView()">
+      <mat-icon>{{ showHistory ? 'assignment' : 'history' }}</mat-icon>
+      {{ showHistory ? 'Pending' : 'History' }}
+    </button>
+  </mat-card-title>
+
+  <!-- \u2705 Search filters appear only in History -->
+<div *ngIf="showHistory" class="search-filters mb-6">
+  <div class="search-row">
+    <form
+      [formGroup]="searchForm"
+      (ngSubmit)="applyFilters()"
+      class="search-form"
+    >
+      <!-- Employee Search -->
+      <mat-form-field appearance="outline" class="emp-field">
+        <mat-label>Employee</mat-label>
+        <input
+          matInput
+          formControlName="employee"
+          placeholder="Search by employee"
+        />
+      </mat-form-field>
+
+      <!-- Status Select (wider box) -->
+      <mat-form-field appearance="outline" class="status-field">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="">All</mat-option>
+          <mat-option value="Pending BU Head Approval">Pending BU Head Approval</mat-option>
+          <mat-option value="Pending CFO Approval">Pending CFO Approval</mat-option>
+          <mat-option value="CFO Approval Successful">CFO Approval Successful</mat-option>
+          <mat-option value="BU Head Approval Successful">BU Head Approval Successful</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Search Button -->
+      <button mat-raised-button color="primary" type="submit">
+        <mat-icon>search</mat-icon> Search
+      </button>
+
+      <!-- Reset Button -->
+      <button mat-raised-button color="warn" type="button" (click)="resetFilters()">
+        <mat-icon>refresh</mat-icon> Reset
+      </button>
+    </form>
+  </div>
+</div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <table
+    mat-table
+    [dataSource]="showHistory ? filteredRequests : travelRequests"
+    class="mat-elevation-z2 w-full"
+    *ngIf="!loading && (showHistory ? filteredRequests.length : travelRequests.length)"
+  >
+    <!-- Employee Name -->
+    <ng-container matColumnDef="employeeName">
+      <th mat-header-cell *matHeaderCellDef> Employee </th>
+      <td mat-cell *matCellDef="let row"> {{ row.employeeName }} </td>
+    </ng-container>
+
+    <!-- Purpose -->
+    <ng-container matColumnDef="purpose">
+      <th mat-header-cell *matHeaderCellDef> Purpose </th>
+      <td mat-cell *matCellDef="let row"> {{ row.purpose }} </td>
+    </ng-container>
+
+    <!-- Departure Date -->
+    <ng-container matColumnDef="departureDate">
+      <th mat-header-cell *matHeaderCellDef> Departure </th>
+      <td mat-cell *matCellDef="let row"> {{ row.departureDate | date }} </td>
+    </ng-container>
+
+    <!-- Status -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let row"> {{ row.status }} </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-raised-button color="primary" (click)="viewDetails(row.travelId)">
+          <mat-icon>visibility</mat-icon> View
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <p *ngIf="!loading && (showHistory ? !filteredRequests.length : !travelRequests.length)">
+    No {{ showHistory ? 'history' : 'pending requests' }} found.
+  </p>
+</mat-card>
+
+
   
-    <div *ngIf="loading" class="loading-spinner">
-      <mat-spinner diameter="40"></mat-spinner>
-    </div>
   
-    <table mat-table [dataSource]="travelRequests" class="mat-elevation-z2" *ngIf="!loading && travelRequests.length">
-  
-      <!-- Employee Name -->
-      <ng-container matColumnDef="employeeName">
-        <th mat-header-cell *matHeaderCellDef> Employee </th>
-        <td mat-cell *matCellDef="let row"> {{ row.employeeName }} </td>
-      </ng-container>
-  
-      <!-- Purpose -->
-      <ng-container matColumnDef="purpose">
-        <th mat-header-cell *matHeaderCellDef> Purpose </th>
-        <td mat-cell *matCellDef="let row"> {{ row.purpose }} </td>
-      </ng-container>
-  
-      <!-- Departure Date -->
-      <ng-container matColumnDef="departureDate">
-        <th mat-header-cell *matHeaderCellDef> Departure </th>
-        <td mat-cell *matCellDef="let row"> {{ row.departureDate | date }} </td>
-      </ng-container>
-  
-      <!-- Status -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let row"> {{ row.status || 'Pending' }} </td>
-      </ng-container>
-  
-      <!-- Actions -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let row">
-          <button mat-raised-button color="primary" (click)="viewDetails(row.travelId)">
-            <mat-icon>visibility</mat-icon> View
-          </button>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <p *ngIf="!loading && travelRequests.length === 0">No pending requests found.</p>
-  </mat-card>
-  
-  
-`, styles: ["/* src/app/bu-head/bu-head-request-list/bu-head-request-list.component.scss */\nmat-card {\n  margin: 16px;\n  padding: 16px;\n}\n.loading-spinner {\n  display: flex;\n  justify-content: center;\n  margin: 40px 0;\n}\ntable {\n  width: 100%;\n  margin-top: 16px;\n}\nth.mat-header-cell,\ntd.mat-cell {\n  padding: 12px;\n}\n/*# sourceMappingURL=bu-head-request-list.component.css.map */\n"] }]
-  }], () => [{ type: TravelService }, { type: Router }], null);
+`, styles: ['@charset "UTF-8";\n\n/* src/app/bu-head/bu-head-request-list/bu-head-request-list.component.scss */\nmat-card {\n  margin: 16px;\n  padding: 16px;\n}\n.loading-spinner {\n  display: flex;\n  justify-content: center;\n  margin: 40px 0;\n}\ntable {\n  width: 100%;\n  margin-top: 16px;\n}\nth.mat-header-cell,\ntd.mat-cell {\n  padding: 12px;\n}\n.search-row {\n  display: flex;\n  justify-content: flex-end;\n}\n.search-form {\n  display: flex;\n  gap: 24px;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-items: center;\n}\n.emp-field {\n  min-width: 250px;\n}\n.status-field {\n  min-width: 350px;\n}\n@media (max-width: 768px) {\n  .search-row {\n    justify-content: stretch;\n  }\n  .search-form {\n    justify-content: stretch;\n  }\n}\n/*# sourceMappingURL=bu-head-request-list.component.css.map */\n'] }]
+  }], () => [{ type: TravelService }, { type: Router }, { type: FormBuilder }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(BuheadListComponent, { className: "BuheadListComponent", filePath: "src/app/bu-head/bu-head-request-list/bu-head-request-list.component.ts", lineNumber: 25 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(BuheadListComponent, { className: "BuheadListComponent", filePath: "src/app/bu-head/bu-head-request-list/bu-head-request-list.component.ts", lineNumber: 33 });
 })();
 
 // src/app/approval/cfo-list/cfo-list.component.ts
-function CfoListComponent_div_3_Template(rf, ctx) {
+function CfoListComponent_div_8_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 3);
-    \u0275\u0275element(1, "mat-spinner", 4);
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 6)(1, "div", 7)(2, "form", 8);
+    \u0275\u0275listener("ngSubmit", function CfoListComponent_div_8_Template_form_ngSubmit_2_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.applyFilters());
+    });
+    \u0275\u0275elementStart(3, "mat-form-field", 9)(4, "mat-label");
+    \u0275\u0275text(5, "Employee");
+    \u0275\u0275elementEnd();
+    \u0275\u0275element(6, "input", 10);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "mat-form-field", 11)(8, "mat-label");
+    \u0275\u0275text(9, "Status");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(10, "mat-select", 12)(11, "mat-option", 13);
+    \u0275\u0275text(12, "All");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(13, "mat-option", 14);
+    \u0275\u0275text(14, "Pending BU Head Approval");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(15, "mat-option", 15);
+    \u0275\u0275text(16, "Pending CFO Approval");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(17, "mat-option", 16);
+    \u0275\u0275text(18, "CFO Approval Successful");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(19, "mat-option", 17);
+    \u0275\u0275text(20, "BU Head Approval Successful");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(21, "button", 18)(22, "mat-icon");
+    \u0275\u0275text(23, "search");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(24, " Search ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "button", 19);
+    \u0275\u0275listener("click", function CfoListComponent_div_8_Template_button_click_25_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.resetFilters());
+    });
+    \u0275\u0275elementStart(26, "mat-icon");
+    \u0275\u0275text(27, "refresh");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(28, " Reset ");
+    \u0275\u0275elementEnd()()()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(2);
+    \u0275\u0275property("formGroup", ctx_r1.searchForm);
+  }
+}
+function CfoListComponent_div_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 20);
+    \u0275\u0275element(1, "mat-spinner", 21);
     \u0275\u0275elementEnd();
   }
 }
-function CfoListComponent_table_4_th_2_Template(rf, ctx) {
+function CfoListComponent_table_10_th_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "th", 15);
+    \u0275\u0275elementStart(0, "th", 32);
     \u0275\u0275text(1, " Employee ");
     \u0275\u0275elementEnd();
   }
 }
-function CfoListComponent_table_4_td_3_Template(rf, ctx) {
+function CfoListComponent_table_10_td_3_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "td", 16);
+    \u0275\u0275elementStart(0, "td", 33);
     \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const row_r1 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", row_r1.employeeName, " ");
-  }
-}
-function CfoListComponent_table_4_th_5_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "th", 15);
-    \u0275\u0275text(1, " Purpose ");
-    \u0275\u0275elementEnd();
-  }
-}
-function CfoListComponent_table_4_td_6_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "td", 16);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const row_r2 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", row_r2.purpose, " ");
-  }
-}
-function CfoListComponent_table_4_th_8_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "th", 15);
-    \u0275\u0275text(1, " Departure ");
-    \u0275\u0275elementEnd();
-  }
-}
-function CfoListComponent_table_4_td_9_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "td", 16);
-    \u0275\u0275text(1);
-    \u0275\u0275pipe(2, "date");
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     const row_r3 = ctx.$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(2, 1, row_r3.departureDate), " ");
+    \u0275\u0275textInterpolate1(" ", row_r3.employeeName, " ");
   }
 }
-function CfoListComponent_table_4_th_11_Template(rf, ctx) {
+function CfoListComponent_table_10_th_5_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "th", 15);
-    \u0275\u0275text(1, " Status ");
+    \u0275\u0275elementStart(0, "th", 32);
+    \u0275\u0275text(1, " Purpose ");
     \u0275\u0275elementEnd();
   }
 }
-function CfoListComponent_table_4_td_12_Template(rf, ctx) {
+function CfoListComponent_table_10_td_6_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "td", 16);
+    \u0275\u0275elementStart(0, "td", 33);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     const row_r4 = ctx.$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", row_r4.status || "Pending", " ");
+    \u0275\u0275textInterpolate1(" ", row_r4.purpose, " ");
   }
 }
-function CfoListComponent_table_4_th_14_Template(rf, ctx) {
+function CfoListComponent_table_10_th_8_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "th", 15);
+    \u0275\u0275elementStart(0, "th", 32);
+    \u0275\u0275text(1, " Departure ");
+    \u0275\u0275elementEnd();
+  }
+}
+function CfoListComponent_table_10_td_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "td", 33);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "date");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const row_r5 = ctx.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(2, 1, row_r5.departureDate), " ");
+  }
+}
+function CfoListComponent_table_10_th_11_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "th", 32);
+    \u0275\u0275text(1, " Status ");
+    \u0275\u0275elementEnd();
+  }
+}
+function CfoListComponent_table_10_td_12_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "td", 33);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const row_r6 = ctx.$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", row_r6.status, " ");
+  }
+}
+function CfoListComponent_table_10_th_14_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "th", 32);
     \u0275\u0275text(1, " Actions ");
     \u0275\u0275elementEnd();
   }
 }
-function CfoListComponent_table_4_td_15_Template(rf, ctx) {
+function CfoListComponent_table_10_td_15_Template(rf, ctx) {
   if (rf & 1) {
-    const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "td", 16)(1, "button", 17);
-    \u0275\u0275listener("click", function CfoListComponent_table_4_td_15_Template_button_click_1_listener() {
-      const row_r6 = \u0275\u0275restoreView(_r5).$implicit;
-      const ctx_r6 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r6.viewDetails(row_r6.travelId));
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "td", 33)(1, "button", 34);
+    \u0275\u0275listener("click", function CfoListComponent_table_10_td_15_Template_button_click_1_listener() {
+      const row_r8 = \u0275\u0275restoreView(_r7).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.viewDetails(row_r8.travelId));
     });
     \u0275\u0275elementStart(2, "mat-icon");
     \u0275\u0275text(3, "visibility");
@@ -47796,62 +47291,74 @@ function CfoListComponent_table_4_td_15_Template(rf, ctx) {
     \u0275\u0275elementEnd()();
   }
 }
-function CfoListComponent_table_4_tr_16_Template(rf, ctx) {
+function CfoListComponent_table_10_tr_16_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "tr", 18);
+    \u0275\u0275element(0, "tr", 35);
   }
 }
-function CfoListComponent_table_4_tr_17_Template(rf, ctx) {
+function CfoListComponent_table_10_tr_17_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "tr", 19);
+    \u0275\u0275element(0, "tr", 36);
   }
 }
-function CfoListComponent_table_4_Template(rf, ctx) {
+function CfoListComponent_table_10_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "table", 5);
-    \u0275\u0275elementContainerStart(1, 6);
-    \u0275\u0275template(2, CfoListComponent_table_4_th_2_Template, 2, 0, "th", 7)(3, CfoListComponent_table_4_td_3_Template, 2, 1, "td", 8);
+    \u0275\u0275elementStart(0, "table", 22);
+    \u0275\u0275elementContainerStart(1, 23);
+    \u0275\u0275template(2, CfoListComponent_table_10_th_2_Template, 2, 0, "th", 24)(3, CfoListComponent_table_10_td_3_Template, 2, 1, "td", 25);
     \u0275\u0275elementContainerEnd();
-    \u0275\u0275elementContainerStart(4, 9);
-    \u0275\u0275template(5, CfoListComponent_table_4_th_5_Template, 2, 0, "th", 7)(6, CfoListComponent_table_4_td_6_Template, 2, 1, "td", 8);
+    \u0275\u0275elementContainerStart(4, 26);
+    \u0275\u0275template(5, CfoListComponent_table_10_th_5_Template, 2, 0, "th", 24)(6, CfoListComponent_table_10_td_6_Template, 2, 1, "td", 25);
     \u0275\u0275elementContainerEnd();
-    \u0275\u0275elementContainerStart(7, 10);
-    \u0275\u0275template(8, CfoListComponent_table_4_th_8_Template, 2, 0, "th", 7)(9, CfoListComponent_table_4_td_9_Template, 3, 3, "td", 8);
+    \u0275\u0275elementContainerStart(7, 27);
+    \u0275\u0275template(8, CfoListComponent_table_10_th_8_Template, 2, 0, "th", 24)(9, CfoListComponent_table_10_td_9_Template, 3, 3, "td", 25);
     \u0275\u0275elementContainerEnd();
-    \u0275\u0275elementContainerStart(10, 11);
-    \u0275\u0275template(11, CfoListComponent_table_4_th_11_Template, 2, 0, "th", 7)(12, CfoListComponent_table_4_td_12_Template, 2, 1, "td", 8);
+    \u0275\u0275elementContainerStart(10, 28);
+    \u0275\u0275template(11, CfoListComponent_table_10_th_11_Template, 2, 0, "th", 24)(12, CfoListComponent_table_10_td_12_Template, 2, 1, "td", 25);
     \u0275\u0275elementContainerEnd();
-    \u0275\u0275elementContainerStart(13, 12);
-    \u0275\u0275template(14, CfoListComponent_table_4_th_14_Template, 2, 0, "th", 7)(15, CfoListComponent_table_4_td_15_Template, 5, 0, "td", 8);
+    \u0275\u0275elementContainerStart(13, 29);
+    \u0275\u0275template(14, CfoListComponent_table_10_th_14_Template, 2, 0, "th", 24)(15, CfoListComponent_table_10_td_15_Template, 5, 0, "td", 25);
     \u0275\u0275elementContainerEnd();
-    \u0275\u0275template(16, CfoListComponent_table_4_tr_16_Template, 1, 0, "tr", 13)(17, CfoListComponent_table_4_tr_17_Template, 1, 0, "tr", 14);
+    \u0275\u0275template(16, CfoListComponent_table_10_tr_16_Template, 1, 0, "tr", 30)(17, CfoListComponent_table_10_tr_17_Template, 1, 0, "tr", 31);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r6 = \u0275\u0275nextContext();
-    \u0275\u0275property("dataSource", ctx_r6.travelRequests);
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275property("dataSource", ctx_r1.showHistory ? ctx_r1.filteredRequests : ctx_r1.travelRequests);
     \u0275\u0275advance(16);
-    \u0275\u0275property("matHeaderRowDef", ctx_r6.displayedColumns);
+    \u0275\u0275property("matHeaderRowDef", ctx_r1.displayedColumns);
     \u0275\u0275advance();
-    \u0275\u0275property("matRowDefColumns", ctx_r6.displayedColumns);
+    \u0275\u0275property("matRowDefColumns", ctx_r1.displayedColumns);
   }
 }
-function CfoListComponent_p_5_Template(rf, ctx) {
+function CfoListComponent_p_11_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "p");
-    \u0275\u0275text(1, "No pending requests found.");
+    \u0275\u0275text(1);
     \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" No ", ctx_r1.showHistory ? "history" : "pending requests", " found. ");
   }
 }
 var CfoListComponent = class _CfoListComponent {
   travelService;
   router;
+  fb;
   travelRequests = [];
+  filteredRequests = [];
+  // ✅ used only in history
   loading = true;
   displayedColumns = ["employeeName", "purpose", "departureDate", "status", "actions"];
-  constructor(travelService, router) {
+  // track which list is showing
+  showHistory = false;
+  searchForm;
+  constructor(travelService, router, fb) {
     this.travelService = travelService;
     this.router = router;
+    this.fb = fb;
   }
   ngOnInit() {
     const userRole = localStorage.getItem("userRole");
@@ -47859,6 +47366,22 @@ var CfoListComponent = class _CfoListComponent {
       this.router.navigate(["/unauthorized"]);
       return;
     }
+    this.searchForm = this.fb.group({
+      employee: [""],
+      status: [""]
+    });
+    this.loadPendingRequests();
+  }
+  toggleView() {
+    this.showHistory = !this.showHistory;
+    if (this.showHistory) {
+      this.loadHistory();
+    } else {
+      this.loadPendingRequests();
+    }
+  }
+  loadPendingRequests() {
+    this.loading = true;
     this.travelService.getPendingRequestsForCfo().subscribe({
       next: (res) => {
         this.travelRequests = res.sort((a2, b2) => new Date(b2.dateCreated).getTime() - new Date(a2.dateCreated).getTime());
@@ -47870,29 +47393,78 @@ var CfoListComponent = class _CfoListComponent {
       }
     });
   }
+  loadHistory() {
+    this.loading = true;
+    const currentUserEmail = localStorage.getItem("loggedInEmail");
+    this.travelService.getAll().subscribe({
+      next: (data) => {
+        this.travelRequests = data.filter((travel) => [
+          "Pending BU Head Approval",
+          "Pending CFO Approval",
+          "CFO Approval Successful",
+          "BU Head Approval Successful"
+        ].includes(travel.status)).filter((travel) => travel.cfoEmail === currentUserEmail).sort((a2, b2) => new Date(b2.dateCreated).getTime() - new Date(a2.dateCreated).getTime());
+        this.filteredRequests = [...this.travelRequests];
+        this.loading = false;
+      },
+      error: (err2) => {
+        console.error("Failed to load travel data", err2);
+        this.loading = false;
+      }
+    });
+  }
+  applyFilters() {
+    const { employee, status } = this.searchForm.value;
+    this.filteredRequests = this.travelRequests.filter((req) => {
+      const matchesEmployee = employee ? req.employeeName.toLowerCase().includes(employee.toLowerCase()) : true;
+      const matchesStatus = status ? req.status === status : true;
+      return matchesEmployee && matchesStatus;
+    });
+  }
+  resetFilters() {
+    this.searchForm.reset();
+    this.filteredRequests = [...this.travelRequests];
+  }
   viewDetails(id) {
     this.router.navigate(["/travel/cfo/detail", id]);
   }
   static \u0275fac = function CfoListComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CfoListComponent)(\u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Router));
+    return new (__ngFactoryType__ || _CfoListComponent)(\u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(FormBuilder));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _CfoListComponent, selectors: [["app-cfo-list"]], decls: 6, vars: 3, consts: [["class", "loading-spinner", 4, "ngIf"], ["mat-table", "", "class", "mat-elevation-z2", 3, "dataSource", 4, "ngIf"], [4, "ngIf"], [1, "loading-spinner"], ["diameter", "40"], ["mat-table", "", 1, "mat-elevation-z2", 3, "dataSource"], ["matColumnDef", "employeeName"], ["mat-header-cell", "", 4, "matHeaderCellDef"], ["mat-cell", "", 4, "matCellDef"], ["matColumnDef", "purpose"], ["matColumnDef", "departureDate"], ["matColumnDef", "status"], ["matColumnDef", "actions"], ["mat-header-row", "", 4, "matHeaderRowDef"], ["mat-row", "", 4, "matRowDef", "matRowDefColumns"], ["mat-header-cell", ""], ["mat-cell", ""], ["mat-raised-button", "", "color", "primary", 3, "click"], ["mat-header-row", ""], ["mat-row", ""]], template: function CfoListComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _CfoListComponent, selectors: [["app-cfo-list"]], decls: 12, vars: 7, consts: [[1, "flex", "justify-between", "items-center", "mb-6"], ["mat-raised-button", "", "color", "accent", 3, "click"], ["class", "search-filters mb-6", 4, "ngIf"], ["class", "loading-spinner", 4, "ngIf"], ["mat-table", "", "class", "mat-elevation-z2 w-full", 3, "dataSource", 4, "ngIf"], [4, "ngIf"], [1, "search-filters", "mb-6"], [1, "search-row"], [1, "search-form", 3, "ngSubmit", "formGroup"], ["appearance", "outline", 1, "emp-field"], ["matInput", "", "formControlName", "employee", "placeholder", "Search by employee"], ["appearance", "outline", 1, "status-field"], ["formControlName", "status"], ["value", ""], ["value", "Pending BU Head Approval"], ["value", "Pending CFO Approval"], ["value", "CFO Approval Successful"], ["value", "BU Head Approval Successful"], ["mat-raised-button", "", "color", "primary", "type", "submit"], ["mat-raised-button", "", "color", "warn", "type", "button", 3, "click"], [1, "loading-spinner"], ["diameter", "40"], ["mat-table", "", 1, "mat-elevation-z2", "w-full", 3, "dataSource"], ["matColumnDef", "employeeName"], ["mat-header-cell", "", 4, "matHeaderCellDef"], ["mat-cell", "", 4, "matCellDef"], ["matColumnDef", "purpose"], ["matColumnDef", "departureDate"], ["matColumnDef", "status"], ["matColumnDef", "actions"], ["mat-header-row", "", 4, "matHeaderRowDef"], ["mat-row", "", 4, "matRowDef", "matRowDefColumns"], ["mat-header-cell", ""], ["mat-cell", ""], ["mat-raised-button", "", "color", "primary", 3, "click"], ["mat-header-row", ""], ["mat-row", ""]], template: function CfoListComponent_Template(rf, ctx) {
     if (rf & 1) {
-      \u0275\u0275elementStart(0, "mat-card")(1, "mat-card-title");
-      \u0275\u0275text(2, "Cfo Requests");
+      \u0275\u0275elementStart(0, "mat-card")(1, "mat-card-title", 0)(2, "span");
+      \u0275\u0275text(3);
       \u0275\u0275elementEnd();
-      \u0275\u0275template(3, CfoListComponent_div_3_Template, 2, 0, "div", 0)(4, CfoListComponent_table_4_Template, 18, 3, "table", 1)(5, CfoListComponent_p_5_Template, 2, 0, "p", 2);
+      \u0275\u0275elementStart(4, "button", 1);
+      \u0275\u0275listener("click", function CfoListComponent_Template_button_click_4_listener() {
+        return ctx.toggleView();
+      });
+      \u0275\u0275elementStart(5, "mat-icon");
+      \u0275\u0275text(6);
+      \u0275\u0275elementEnd();
+      \u0275\u0275text(7);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275template(8, CfoListComponent_div_8_Template, 29, 1, "div", 2)(9, CfoListComponent_div_9_Template, 2, 0, "div", 3)(10, CfoListComponent_table_10_Template, 18, 3, "table", 4)(11, CfoListComponent_p_11_Template, 2, 1, "p", 5);
       \u0275\u0275elementEnd();
     }
     if (rf & 2) {
       \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate1(" ", ctx.showHistory ? "CFO History" : "CFO Pending Requests", " ");
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(ctx.showHistory ? "assignment" : "history");
+      \u0275\u0275advance();
+      \u0275\u0275textInterpolate1(" ", ctx.showHistory ? "Pending" : "History", " ");
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.showHistory);
+      \u0275\u0275advance();
       \u0275\u0275property("ngIf", ctx.loading);
       \u0275\u0275advance();
-      \u0275\u0275property("ngIf", !ctx.loading && ctx.travelRequests.length);
+      \u0275\u0275property("ngIf", !ctx.loading && (ctx.showHistory ? ctx.filteredRequests.length : ctx.travelRequests.length));
       \u0275\u0275advance();
-      \u0275\u0275property("ngIf", !ctx.loading && ctx.travelRequests.length === 0);
+      \u0275\u0275property("ngIf", !ctx.loading && (ctx.showHistory ? !ctx.filteredRequests.length : !ctx.travelRequests.length));
     }
-  }, dependencies: [CommonModule, NgIf, DatePipe, MatCardModule, MatCard, MatCardTitle, MatTableModule, MatTable, MatHeaderCellDef, MatHeaderRowDef, MatColumnDef, MatCellDef, MatRowDef, MatHeaderCell, MatCell, MatHeaderRow, MatRow, MatButtonModule, MatButton, MatIconModule, MatIcon, MatProgressSpinnerModule, MatProgressSpinner], styles: ["\n\nmat-card[_ngcontent-%COMP%] {\n  margin: 16px;\n  padding: 16px;\n}\n.loading-spinner[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  margin: 40px 0;\n}\ntable[_ngcontent-%COMP%] {\n  width: 100%;\n  margin-top: 16px;\n}\nth.mat-header-cell[_ngcontent-%COMP%], \ntd.mat-cell[_ngcontent-%COMP%] {\n  padding: 12px;\n}\n/*# sourceMappingURL=cfo-list.component.css.map */"] });
+  }, dependencies: [CommonModule, NgIf, DatePipe, MatCardModule, MatCard, MatCardTitle, MatTableModule, MatTable, MatHeaderCellDef, MatHeaderRowDef, MatColumnDef, MatCellDef, MatRowDef, MatHeaderCell, MatCell, MatHeaderRow, MatRow, MatButtonModule, MatButton, MatIconModule, MatIcon, MatProgressSpinnerModule, MatProgressSpinner, MatFormFieldModule, MatFormField, MatLabel, MatInputModule, MatInput, MatSelectModule, MatSelect, MatOption, ReactiveFormsModule, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName], styles: ['@charset "UTF-8";\n\n\n\nmat-card[_ngcontent-%COMP%] {\n  margin: 16px;\n  padding: 16px;\n}\n.loading-spinner[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  margin: 40px 0;\n}\ntable[_ngcontent-%COMP%] {\n  width: 100%;\n  margin-top: 16px;\n}\nth.mat-header-cell[_ngcontent-%COMP%], \ntd.mat-cell[_ngcontent-%COMP%] {\n  padding: 12px;\n}\n.search-row[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: flex-end;\n}\n.search-form[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 24px;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-items: center;\n}\n.emp-field[_ngcontent-%COMP%] {\n  min-width: 250px;\n}\n.status-field[_ngcontent-%COMP%] {\n  min-width: 350px;\n}\n@media (max-width: 768px) {\n  .search-row[_ngcontent-%COMP%] {\n    justify-content: stretch;\n  }\n  .search-form[_ngcontent-%COMP%] {\n    justify-content: stretch;\n  }\n}\n/*# sourceMappingURL=cfo-list.component.css.map */'] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CfoListComponent, [{
@@ -47903,66 +47475,129 @@ var CfoListComponent = class _CfoListComponent {
       MatTableModule,
       MatButtonModule,
       MatIconModule,
-      MatProgressSpinnerModule
+      MatProgressSpinnerModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatSelectModule,
+      ReactiveFormsModule
     ], template: `<!-- <p>cfo-list works!</p> -->
 <mat-card>
-    <mat-card-title>Cfo Requests</mat-card-title>
-  
-    <div *ngIf="loading" class="loading-spinner">
-      <mat-spinner diameter="40"></mat-spinner>
-    </div>
-  
-    <table mat-table [dataSource]="travelRequests" class="mat-elevation-z2" *ngIf="!loading && travelRequests.length">
-  
-      <!-- Employee Name -->
-      <ng-container matColumnDef="employeeName">
-        <th mat-header-cell *matHeaderCellDef> Employee </th>
-        <td mat-cell *matCellDef="let row"> {{ row.employeeName }} </td>
-      </ng-container>
-  
-      <!-- Purpose -->
-      <ng-container matColumnDef="purpose">
-        <th mat-header-cell *matHeaderCellDef> Purpose </th>
-        <td mat-cell *matCellDef="let row"> {{ row.purpose }} </td>
-      </ng-container>
-  
-      <!-- Departure Date -->
-      <ng-container matColumnDef="departureDate">
-        <th mat-header-cell *matHeaderCellDef> Departure </th>
-        <td mat-cell *matCellDef="let row"> {{ row.departureDate | date }} </td>
-      </ng-container>
-  
-      <!-- Status -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let row"> {{ row.status || 'Pending' }} </td>
-      </ng-container>
-  
-      <!-- Actions -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let row">
-          <button mat-raised-button color="primary" (click)="viewDetails(row.travelId)">
-            <mat-icon>visibility</mat-icon> View
-          </button>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <p *ngIf="!loading && travelRequests.length === 0">No pending requests found.</p>
-  </mat-card>
-`, styles: ["/* src/app/approval/cfo-list/cfo-list.component.scss */\nmat-card {\n  margin: 16px;\n  padding: 16px;\n}\n.loading-spinner {\n  display: flex;\n  justify-content: center;\n  margin: 40px 0;\n}\ntable {\n  width: 100%;\n  margin-top: 16px;\n}\nth.mat-header-cell,\ntd.mat-cell {\n  padding: 12px;\n}\n/*# sourceMappingURL=cfo-list.component.css.map */\n"] }]
-  }], () => [{ type: TravelService }, { type: Router }], null);
+  <mat-card-title class="flex justify-between items-center mb-6">
+    <span>
+      {{ showHistory ? 'CFO History' : 'CFO Pending Requests' }}
+    </span>
+
+    <button mat-raised-button color="accent" (click)="toggleView()">
+      <mat-icon>{{ showHistory ? 'assignment' : 'history' }}</mat-icon>
+      {{ showHistory ? 'Pending' : 'History' }}
+    </button>
+  </mat-card-title>
+
+  <!-- \u2705 Search filters appear only in History -->
+<div *ngIf="showHistory" class="search-filters mb-6">
+  <div class="search-row">
+    <form
+      [formGroup]="searchForm"
+      (ngSubmit)="applyFilters()"
+      class="search-form"
+    >
+      <!-- Employee Search -->
+      <mat-form-field appearance="outline" class="emp-field">
+        <mat-label>Employee</mat-label>
+        <input
+          matInput
+          formControlName="employee"
+          placeholder="Search by employee"
+        />
+      </mat-form-field>
+
+      <!-- Status Select (wider box) -->
+      <mat-form-field appearance="outline" class="status-field">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="">All</mat-option>
+          <mat-option value="Pending BU Head Approval">Pending BU Head Approval</mat-option>
+          <mat-option value="Pending CFO Approval">Pending CFO Approval</mat-option>
+          <mat-option value="CFO Approval Successful">CFO Approval Successful</mat-option>
+          <mat-option value="BU Head Approval Successful">BU Head Approval Successful</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Search Button -->
+      <button mat-raised-button color="primary" type="submit">
+        <mat-icon>search</mat-icon> Search
+      </button>
+
+      <!-- Reset Button -->
+      <button mat-raised-button color="warn" type="button" (click)="resetFilters()">
+        <mat-icon>refresh</mat-icon> Reset
+      </button>
+    </form>
+  </div>
+</div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <table
+    mat-table
+    [dataSource]="showHistory ? filteredRequests : travelRequests"
+    class="mat-elevation-z2 w-full"
+    *ngIf="!loading && (showHistory ? filteredRequests.length : travelRequests.length)"
+  >
+    <!-- Employee Name -->
+    <ng-container matColumnDef="employeeName">
+      <th mat-header-cell *matHeaderCellDef> Employee </th>
+      <td mat-cell *matCellDef="let row"> {{ row.employeeName }} </td>
+    </ng-container>
+
+    <!-- Purpose -->
+    <ng-container matColumnDef="purpose">
+      <th mat-header-cell *matHeaderCellDef> Purpose </th>
+      <td mat-cell *matCellDef="let row"> {{ row.purpose }} </td>
+    </ng-container>
+
+    <!-- Departure Date -->
+    <ng-container matColumnDef="departureDate">
+      <th mat-header-cell *matHeaderCellDef> Departure </th>
+      <td mat-cell *matCellDef="let row"> {{ row.departureDate | date }} </td>
+    </ng-container>
+
+    <!-- Status -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let row"> {{ row.status }} </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-raised-button color="primary" (click)="viewDetails(row.travelId)">
+          <mat-icon>visibility</mat-icon> View
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <p *ngIf="!loading && (showHistory ? !filteredRequests.length : !travelRequests.length)">
+    No {{ showHistory ? 'history' : 'pending requests' }} found.
+  </p>
+</mat-card>
+
+`, styles: ['@charset "UTF-8";\n\n/* src/app/approval/cfo-list/cfo-list.component.scss */\nmat-card {\n  margin: 16px;\n  padding: 16px;\n}\n.loading-spinner {\n  display: flex;\n  justify-content: center;\n  margin: 40px 0;\n}\ntable {\n  width: 100%;\n  margin-top: 16px;\n}\nth.mat-header-cell,\ntd.mat-cell {\n  padding: 12px;\n}\n.search-row {\n  display: flex;\n  justify-content: flex-end;\n}\n.search-form {\n  display: flex;\n  gap: 24px;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-items: center;\n}\n.emp-field {\n  min-width: 250px;\n}\n.status-field {\n  min-width: 350px;\n}\n@media (max-width: 768px) {\n  .search-row {\n    justify-content: stretch;\n  }\n  .search-form {\n    justify-content: stretch;\n  }\n}\n/*# sourceMappingURL=cfo-list.component.css.map */\n'] }]
+  }], () => [{ type: TravelService }, { type: Router }, { type: FormBuilder }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CfoListComponent, { className: "CfoListComponent", filePath: "src/app/approval/cfo-list/cfo-list.component.ts", lineNumber: 25 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CfoListComponent, { className: "CfoListComponent", filePath: "src/app/approval/cfo-list/cfo-list.component.ts", lineNumber: 33 });
 })();
 
 // src/app/approval/cfo-detail/cfo-detail.component.ts
-function CfoDetailComponent_mat_card_0_mat_hint_47_Template(rf, ctx) {
+function CfoDetailComponent_mat_card_0_mat_hint_51_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "mat-hint", 16);
     \u0275\u0275text(1, " Editing is allowed for CFO only when status is ");
@@ -48008,75 +47643,80 @@ function CfoDetailComponent_mat_card_0_Template(rf, ctx) {
     \u0275\u0275text(15);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(16, "div", 1)(17, "strong");
-    \u0275\u0275text(18, "E:");
+    \u0275\u0275text(18, "Perdiem Amount:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(19);
-    \u0275\u0275pipe(20, "date");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(21, "div", 1)(22, "strong");
-    \u0275\u0275text(23, "Return:");
+    \u0275\u0275elementStart(20, "div", 1)(21, "strong");
+    \u0275\u0275text(22, "Departure:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(24);
-    \u0275\u0275pipe(25, "date");
+    \u0275\u0275text(23);
+    \u0275\u0275pipe(24, "date");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(26, "form", 2)(27, "mat-form-field", 3)(28, "mat-label");
-    \u0275\u0275text(29, "Cfo Status");
+    \u0275\u0275elementStart(25, "div", 1)(26, "strong");
+    \u0275\u0275text(27, "Return:");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(30, "mat-select", 4)(31, "mat-option", 5);
-    \u0275\u0275text(32, "Pending");
+    \u0275\u0275text(28);
+    \u0275\u0275pipe(29, "date");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(33, "mat-option", 6);
-    \u0275\u0275text(34, "Successful");
+    \u0275\u0275elementStart(30, "form", 2)(31, "mat-form-field", 3)(32, "mat-label");
+    \u0275\u0275text(33, "Cfo Status");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(34, "mat-select", 4)(35, "mat-option", 5);
+    \u0275\u0275text(36, "Pending");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(37, "mat-option", 6);
+    \u0275\u0275text(38, "Successful");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(35, "mat-form-field", 3)(36, "mat-label");
-    \u0275\u0275text(37, "Feedback");
+    \u0275\u0275elementStart(39, "mat-form-field", 3)(40, "mat-label");
+    \u0275\u0275text(41, "Feedback");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(38, "mat-select", 7)(39, "mat-option", 8);
-    \u0275\u0275text(40, "Approved");
+    \u0275\u0275elementStart(42, "mat-select", 7)(43, "mat-option", 8);
+    \u0275\u0275text(44, "Approved");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(41, "mat-option", 9);
-    \u0275\u0275text(42, "Rejected");
+    \u0275\u0275elementStart(45, "mat-option", 9);
+    \u0275\u0275text(46, "Rejected");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(43, "mat-form-field", 3)(44, "mat-label");
-    \u0275\u0275text(45, "Remarks");
+    \u0275\u0275elementStart(47, "mat-form-field", 3)(48, "mat-label");
+    \u0275\u0275text(49, "Remarks");
     \u0275\u0275elementEnd();
-    \u0275\u0275element(46, "textarea", 10);
+    \u0275\u0275element(50, "textarea", 10);
     \u0275\u0275elementEnd();
-    \u0275\u0275template(47, CfoDetailComponent_mat_card_0_mat_hint_47_Template, 11, 1, "mat-hint", 11);
-    \u0275\u0275elementStart(48, "mat-card-actions")(49, "button", 12);
-    \u0275\u0275listener("click", function CfoDetailComponent_mat_card_0_Template_button_click_49_listener() {
+    \u0275\u0275template(51, CfoDetailComponent_mat_card_0_mat_hint_51_Template, 11, 1, "mat-hint", 11);
+    \u0275\u0275elementStart(52, "mat-card-actions")(53, "button", 12);
+    \u0275\u0275listener("click", function CfoDetailComponent_mat_card_0_Template_button_click_53_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.reject());
     });
-    \u0275\u0275text(50, "Reject");
+    \u0275\u0275text(54, "Reject");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(51, "button", 13);
-    \u0275\u0275listener("click", function CfoDetailComponent_mat_card_0_Template_button_click_51_listener() {
+    \u0275\u0275elementStart(55, "button", 13);
+    \u0275\u0275listener("click", function CfoDetailComponent_mat_card_0_Template_button_click_55_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.approve());
     });
-    \u0275\u0275text(52, "Approve");
+    \u0275\u0275text(56, "Approve");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(53, "button", 14);
-    \u0275\u0275listener("click", function CfoDetailComponent_mat_card_0_Template_button_click_53_listener() {
+    \u0275\u0275elementStart(57, "button", 14);
+    \u0275\u0275listener("click", function CfoDetailComponent_mat_card_0_Template_button_click_57_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.details());
     });
-    \u0275\u0275text(54, "Dedtails");
+    \u0275\u0275text(58, "Dedtails");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(55, "button", 15);
-    \u0275\u0275listener("click", function CfoDetailComponent_mat_card_0_Template_button_click_55_listener() {
+    \u0275\u0275elementStart(59, "button", 15);
+    \u0275\u0275listener("click", function CfoDetailComponent_mat_card_0_Template_button_click_59_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.goBack());
     });
-    \u0275\u0275elementStart(56, "mat-icon");
-    \u0275\u0275text(57, "arrow_back");
+    \u0275\u0275elementStart(60, "mat-icon");
+    \u0275\u0275text(61, "arrow_back");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(58, " Back ");
+    \u0275\u0275text(62, " Back ");
     \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
@@ -48088,9 +47728,11 @@ function CfoDetailComponent_mat_card_0_Template(rf, ctx) {
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate2(" ", ctx_r1.travel.city, ", ", ctx_r1.travel.country, "");
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(20, 15, ctx_r1.travel.departureDate), " ", ctx_r1.travel.departureTime, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.estimatedPerDiemAmount, "");
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(24, 16, ctx_r1.travel.departureDate), " ", ctx_r1.travel.departureTime, "");
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(25, 17, ctx_r1.travel.returnDate), " ", ctx_r1.travel.returnTime, "");
+    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(29, 18, ctx_r1.travel.returnDate), " ", ctx_r1.travel.returnTime, "");
     \u0275\u0275advance(2);
     \u0275\u0275property("formGroup", ctx_r1.actionForm);
     \u0275\u0275advance(4);
@@ -48268,7 +47910,7 @@ var CfoDetailComponent = class _CfoDetailComponent {
   };
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _CfoDetailComponent, selectors: [["app-cfo-detail"]], decls: 1, vars: 1, consts: [[4, "ngIf"], [1, "field"], [1, "action-form", 3, "formGroup"], ["appearance", "outline", 1, "full-width"], ["formControlName", "cfoStatus", 3, "disabled"], ["value", "Pending"], ["value", "Successful"], ["formControlName", "cfoFeedback", 3, "disabled"], ["value", "Approved"], ["value", "Rejected"], ["matInput", "", "rows", "4", "formControlName", "cfoFeedbackRemarks", 3, "disabled"], ["class", "read-only-hint", 4, "ngIf"], ["mat-stroked-button", "", "color", "warn", 3, "click", "disabled"], ["mat-raised-button", "", "color", "primary", 3, "click", "disabled"], ["mat-raised-button", "", "color", "primary", 3, "click"], ["mat-button", "", "color", "primary", 1, "back-btn", 3, "click"], [1, "read-only-hint"]], template: function CfoDetailComponent_Template(rf, ctx) {
     if (rf & 1) {
-      \u0275\u0275template(0, CfoDetailComponent_mat_card_0_Template, 59, 19, "mat-card", 0);
+      \u0275\u0275template(0, CfoDetailComponent_mat_card_0_Template, 63, 20, "mat-card", 0);
     }
     if (rf & 2) {
       \u0275\u0275property("ngIf", !ctx.loading);
@@ -48322,7 +47964,7 @@ var CfoDetailComponent = class _CfoDetailComponent {
       MatSnackBarModule,
       MatDialogModule,
       MatIcon
-    ], template: '<mat-card *ngIf="!loading">\n    <mat-card-title>Travel Request Detail</mat-card-title>\n    <mat-card-content>\n      <div class="field"><strong>Employee:</strong> {{ travel.employeeName }}</div>\n      <div class="field"><strong>Purpose:</strong> {{ travel.purpose }}</div>\n      <div class="field"><strong>City:</strong> {{ travel.city }}, {{ travel.country }}</div>\n      <div class="field"><strong>E:</strong> {{ travel.departureDate | date }} {{ travel.departureTime }}</div>\n      <div class="field"><strong>Return:</strong> {{ travel.returnDate | date }} {{ travel.returnTime }}</div>\n  \n      <form [formGroup]="actionForm" class="action-form">\n        <mat-form-field appearance="outline" class="full-width">\n          <mat-label>Cfo Status</mat-label>\n          <mat-select formControlName="cfoStatus" [disabled]="!isEditable">\n            <mat-option value="Pending">Pending</mat-option>\n            <mat-option value="Successful">Successful</mat-option>\n            <!-- <mat-option value="Rejected">Rejected</mat-option> -->\n          </mat-select>\n        </mat-form-field>\n  \n        <mat-form-field appearance="outline" class="full-width">\n          <mat-label>Feedback</mat-label>\n          <mat-select formControlName="cfoFeedback" [disabled]="!isEditable">\n            <mat-option value="Approved">Approved</mat-option>\n            <mat-option value="Rejected">Rejected</mat-option>\n          </mat-select>\n        </mat-form-field>\n  \n        <mat-form-field appearance="outline" class="full-width">\n          <mat-label>Remarks</mat-label>\n          <textarea matInput rows="4" formControlName="cfoFeedbackRemarks" [disabled]="!isEditable"></textarea>\n        </mat-form-field>\n        <mat-hint *ngIf="!isEditable" class="read-only-hint">\n          Editing is allowed for CFO only when status is <strong>Pending CFO Approval</strong>. Current status: <strong>{{ travel.status }}</strong>\n          <br>\n          <strong>Notice:</strong>.  A user who is an ADMIN does not have the permissions to make edits on this page\n        </mat-hint>\n        <mat-card-actions>\n          <button mat-stroked-button color="warn" (click)="reject()" [disabled]="!isEditable">Reject</button>\n          <button mat-raised-button color="primary" (click)="approve()" [disabled]="!isEditable">Approve</button>\n          <button mat-raised-button color="primary" (click)="details()">Dedtails</button>\n          <button mat-button color="primary" (click)="goBack()" class="back-btn">\n            <mat-icon>arrow_back</mat-icon> Back\n          </button>\n        </mat-card-actions>\n      </form>\n    </mat-card-content>\n  </mat-card>\n', styles: ["/* src/app/approval/cfo-detail/cfo-detail.component.scss */\n.field {\n  margin-bottom: 10px;\n  font-size: 15px;\n}\n.full-width {\n  width: 100%;\n  margin-bottom: 16px;\n}\nmat-card-actions {\n  display: flex;\n  justify-content: flex-end;\n  gap: 12px;\n}\nmat-card-content {\n  padding-top: 12px;\n}\nmat-card-actions {\n  display: flex;\n  justify-content: flex-end;\n  flex-wrap: wrap;\n  gap: 12px;\n}\n.read-only-hint {\n  color: #f44336;\n  font-weight: 500;\n  margin-top: 8px;\n}\n/*# sourceMappingURL=cfo-detail.component.css.map */\n"] }]
+    ], template: '<mat-card *ngIf="!loading">\n    <mat-card-title>Travel Request Detail</mat-card-title>\n    <mat-card-content>\n      <div class="field"><strong>Employee:</strong> {{ travel.employeeName }}</div>\n      <div class="field"><strong>Purpose:</strong> {{ travel.purpose }}</div>\n      <div class="field"><strong>City:</strong> {{ travel.city }}, {{ travel.country }}</div>\n      <div class="field"><strong>Perdiem Amount:</strong> {{ travel.estimatedPerDiemAmount }}</div>\n      <div class="field"><strong>Departure:</strong> {{ travel.departureDate | date }} {{ travel.departureTime }}</div>\n      <div class="field"><strong>Return:</strong> {{ travel.returnDate | date }} {{ travel.returnTime }}</div>\n  \n      <form [formGroup]="actionForm" class="action-form">\n        <mat-form-field appearance="outline" class="full-width">\n          <mat-label>Cfo Status</mat-label>\n          <mat-select formControlName="cfoStatus" [disabled]="!isEditable">\n            <mat-option value="Pending">Pending</mat-option>\n            <mat-option value="Successful">Successful</mat-option>\n            <!-- <mat-option value="Rejected">Rejected</mat-option> -->\n          </mat-select>\n        </mat-form-field>\n  \n        <mat-form-field appearance="outline" class="full-width">\n          <mat-label>Feedback</mat-label>\n          <mat-select formControlName="cfoFeedback" [disabled]="!isEditable">\n            <mat-option value="Approved">Approved</mat-option>\n            <mat-option value="Rejected">Rejected</mat-option>\n          </mat-select>\n        </mat-form-field>\n  \n        <mat-form-field appearance="outline" class="full-width">\n          <mat-label>Remarks</mat-label>\n          <textarea matInput rows="4" formControlName="cfoFeedbackRemarks" [disabled]="!isEditable"></textarea>\n        </mat-form-field>\n        <mat-hint *ngIf="!isEditable" class="read-only-hint">\n          Editing is allowed for CFO only when status is <strong>Pending CFO Approval</strong>. Current status: <strong>{{ travel.status }}</strong>\n          <br>\n          <strong>Notice:</strong>.  A user who is an ADMIN does not have the permissions to make edits on this page\n        </mat-hint>\n        <mat-card-actions>\n          <button mat-stroked-button color="warn" (click)="reject()" [disabled]="!isEditable">Reject</button>\n          <button mat-raised-button color="primary" (click)="approve()" [disabled]="!isEditable">Approve</button>\n          <button mat-raised-button color="primary" (click)="details()">Dedtails</button>\n          <button mat-button color="primary" (click)="goBack()" class="back-btn">\n            <mat-icon>arrow_back</mat-icon> Back\n          </button>\n        </mat-card-actions>\n      </form>\n    </mat-card-content>\n  </mat-card>\n', styles: ["/* src/app/approval/cfo-detail/cfo-detail.component.scss */\n.field {\n  margin-bottom: 10px;\n  font-size: 15px;\n}\n.full-width {\n  width: 100%;\n  margin-bottom: 16px;\n}\nmat-card-actions {\n  display: flex;\n  justify-content: flex-end;\n  gap: 12px;\n}\nmat-card-content {\n  padding-top: 12px;\n}\nmat-card-actions {\n  display: flex;\n  justify-content: flex-end;\n  flex-wrap: wrap;\n  gap: 12px;\n}\n.read-only-hint {\n  color: #f44336;\n  font-weight: 500;\n  margin-top: 8px;\n}\n/*# sourceMappingURL=cfo-detail.component.css.map */\n"] }]
   }], () => [{ type: ActivatedRoute }, { type: TravelService }, { type: FormBuilder }, { type: MatSnackBar }, { type: Router }, { type: MatDialog }, { type: Location }], null);
 })();
 (() => {
@@ -48330,7 +47972,7 @@ var CfoDetailComponent = class _CfoDetailComponent {
 })();
 
 // src/app/bu-head/buhead-feedback-dialog/buhead-feedback-dialog.component.ts
-var _c012 = (a0) => ({ icon: "person", label: "Employee Name", value: a0 });
+var _c011 = (a0) => ({ icon: "person", label: "Employee Name", value: a0 });
 var _c111 = (a0) => ({ icon: "email", label: "Email", value: a0 });
 var _c211 = (a0) => ({ icon: "badge", label: "F-Number", value: a0 });
 var _c38 = (a0) => ({ icon: "apartment", label: "Department", value: a0 });
@@ -48399,7 +48041,7 @@ var BuheadFeedbackDialogComponent = class _BuheadFeedbackDialogComponent {
     }
     if (rf & 2) {
       \u0275\u0275advance(8);
-      \u0275\u0275property("ngForOf", \u0275\u0275pureFunction4(9, _c45, \u0275\u0275pureFunction1(1, _c012, ctx.data.buHeadName), \u0275\u0275pureFunction1(3, _c111, ctx.data.buHeadEmail), \u0275\u0275pureFunction1(5, _c211, ctx.data.fNumber), \u0275\u0275pureFunction1(7, _c38, ctx.data.Department)));
+      \u0275\u0275property("ngForOf", \u0275\u0275pureFunction4(9, _c45, \u0275\u0275pureFunction1(1, _c011, ctx.data.buHeadName), \u0275\u0275pureFunction1(3, _c111, ctx.data.buHeadEmail), \u0275\u0275pureFunction1(5, _c211, ctx.data.fNumber), \u0275\u0275pureFunction1(7, _c38, ctx.data.Department)));
     }
   }, dependencies: [CommonModule, NgForOf, MatDialogModule, MatButtonModule, MatButton, MatCardModule, MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle, MatIcon], styles: ["\n\n.confirmation-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  max-height: 90vh;\n}\n.confirmation-card[_ngcontent-%COMP%]   mat-card-content[_ngcontent-%COMP%] {\n  max-height: 60vh;\n  overflow-y: auto;\n  padding-right: 8px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  padding: 16px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  border-bottom: 1px solid #e0e0e0;\n  padding-bottom: 8px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%]   .field-label[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  font-weight: 600;\n  color: #333;\n  font-size: 14px;\n  margin-bottom: 4px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%]   .field-label[_ngcontent-%COMP%]   .field-icon[_ngcontent-%COMP%] {\n  font-size: 18px;\n  margin-right: 6px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%]   .field-value[_ngcontent-%COMP%] {\n  color: #555;\n  font-size: 13px;\n  word-wrap: break-word;\n}\n.confirmation-card[_ngcontent-%COMP%]   mat-card-actions[_ngcontent-%COMP%] {\n  margin-top: 20px;\n  display: flex;\n  justify-content: flex-end;\n  flex-wrap: wrap;\n  gap: 10px;\n  padding: 0 16px 16px;\n}\n@media (max-width: 768px) {\n  .confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .confirmation-card[_ngcontent-%COMP%]   mat-card-actions[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n}\n@media (max-width: 480px) {\n  .confirmation-card[_ngcontent-%COMP%]   mat-card-title[_ngcontent-%COMP%] {\n    font-size: 18px;\n  }\n  .confirmation-card[_ngcontent-%COMP%]   .field-label[_ngcontent-%COMP%], \n   .confirmation-card[_ngcontent-%COMP%]   .field-value[_ngcontent-%COMP%] {\n    font-size: 12px;\n  }\n}\n/*# sourceMappingURL=buhead-feedback-dialog.component.css.map */"] });
 };
@@ -83025,11 +82667,10 @@ var anyWindow;
 var jsPDF;
 
 // src/app/approval/cfo-dashboard/cfo-dashboard.component.ts
-var _c013 = () => [2025, 2024, 2023];
-var _c114 = () => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-function CfoDashboardComponent_option_52_Template(rf, ctx) {
+var _c012 = () => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+function CfoDashboardComponent_option_48_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "option", 7);
+    \u0275\u0275elementStart(0, "option", 16);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -83040,23 +82681,107 @@ function CfoDashboardComponent_option_52_Template(rf, ctx) {
     \u0275\u0275textInterpolate(year_r1);
   }
 }
-function CfoDashboardComponent_option_58_Template(rf, ctx) {
+function CfoDashboardComponent_div_51_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "option", 7);
+    const _r2 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div")(1, "input", 17);
+    \u0275\u0275twoWayListener("ngModelChange", function CfoDashboardComponent_div_51_Template_input_ngModelChange_1_listener($event) {
+      \u0275\u0275restoreView(_r2);
+      const ctx_r2 = \u0275\u0275nextContext();
+      \u0275\u0275twoWayBindingSet(ctx_r2.customYear, $event) || (ctx_r2.customYear = $event);
+      return \u0275\u0275resetView($event);
+    });
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(2, "button", 18);
+    \u0275\u0275listener("click", function CfoDashboardComponent_div_51_Template_button_click_2_listener() {
+      \u0275\u0275restoreView(_r2);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.applyCustomYear());
+    });
+    \u0275\u0275text(3, "Apply");
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275twoWayProperty("ngModel", ctx_r2.customYear);
+  }
+}
+function CfoDashboardComponent_option_57_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "option", 16);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const m_r2 = ctx.$implicit;
-    \u0275\u0275property("value", m_r2);
+    const m_r4 = ctx.$implicit;
+    \u0275\u0275property("value", m_r4);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(m_r2);
+    \u0275\u0275textInterpolate1(" ", m_r4, " ");
+  }
+}
+function CfoDashboardComponent_option_66_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "option", 16);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const year_r5 = ctx.$implicit;
+    \u0275\u0275property("value", year_r5);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(year_r5);
+  }
+}
+function CfoDashboardComponent_div_69_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div")(1, "input", 17);
+    \u0275\u0275twoWayListener("ngModelChange", function CfoDashboardComponent_div_69_Template_input_ngModelChange_1_listener($event) {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r2 = \u0275\u0275nextContext();
+      \u0275\u0275twoWayBindingSet(ctx_r2.customYear, $event) || (ctx_r2.customYear = $event);
+      return \u0275\u0275resetView($event);
+    });
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(2, "button", 18);
+    \u0275\u0275listener("click", function CfoDashboardComponent_div_69_Template_button_click_2_listener() {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.applyCustomYear());
+    });
+    \u0275\u0275text(3, "Apply");
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275twoWayProperty("ngModel", ctx_r2.customYear);
+  }
+}
+function CfoDashboardComponent_option_75_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "option", 16);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const m_r7 = ctx.$implicit;
+    \u0275\u0275property("value", m_r7);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", m_r7, " ");
   }
 }
 var CfoDashboardComponent = class _CfoDashboardComponent {
   travelService;
   router;
   metrics;
+  currentYear = (/* @__PURE__ */ new Date()).getFullYear();
+  selectedYear = this.currentYear;
+  selectedMonth = null;
+  customYearInputEnabled = false;
+  customYear;
+  years = [];
   approvalChartData = {
     labels: [],
     datasets: []
@@ -83065,29 +82790,13 @@ var CfoDashboardComponent = class _CfoDashboardComponent {
     labels: [],
     datasets: []
   };
-  constructor(travelService, router) {
-    this.travelService = travelService;
-    this.router = router;
-  }
-  selectedYear = (/* @__PURE__ */ new Date()).getFullYear();
-  selectedMonth = null;
   topDepartmentsChartData = {
     labels: [],
     datasets: []
   };
-  fetchTopDepartments() {
-    this.travelService.getTopDepartments(this.selectedYear, this.selectedMonth ?? void 0).subscribe((deptData) => {
-      this.topDepartmentsChartData = {
-        labels: deptData.map((item) => item.department),
-        datasets: [
-          {
-            label: "Estimated Cost by Department (GHS)",
-            data: deptData.map((item) => item.cost),
-            backgroundColor: "#9c27b0"
-          }
-        ]
-      };
-    });
+  constructor(travelService, router) {
+    this.travelService = travelService;
+    this.router = router;
   }
   ngOnInit() {
     const userRole = localStorage.getItem("userRole");
@@ -83095,31 +82804,82 @@ var CfoDashboardComponent = class _CfoDashboardComponent {
       this.router.navigate(["/unauthorized"]);
       return;
     }
+    this.initializeYearOptions();
+    this.fetchDashboardMetrics();
+    this.fetchMonthlyCosts();
+    this.fetchTopDepartments();
+  }
+  initializeYearOptions() {
+    const currentYear = (/* @__PURE__ */ new Date()).getFullYear();
+    for (let y2 = currentYear; y2 >= currentYear - 4; y2--) {
+      this.years.push(y2);
+    }
+  }
+  fetchDashboardMetrics() {
     this.travelService.getMetrics().subscribe((data) => {
       this.metrics = data;
       this.approvalChartData = {
         labels: ["Approved", "Pending", "Rejected"],
-        datasets: [
-          {
-            data: [data.approvedRequests, data.pendingRequests, data.rejectedRequests],
-            backgroundColor: ["#4caf50", "#ff9800", "#f44336"]
-          }
-        ]
+        datasets: [{
+          data: [data.approvedRequests, data.pendingRequests, data.rejectedRequests],
+          backgroundColor: ["#4caf50", "#ff9800", "#f44336"]
+        }]
       };
     });
-    this.travelService.getMonthlyCosts(2025).subscribe((monthlyData) => {
+  }
+  fetchMonthlyCosts() {
+    const year = this.resolveSelectedYear();
+    this.travelService.getMonthlyCosts(year, this.selectedMonth ?? void 0).subscribe((data) => {
       this.monthlyCostChartData = {
-        labels: monthlyData.map((item) => item.month),
-        datasets: [
-          {
-            label: "Monthly Estimated Cost (GHS)",
-            data: monthlyData.map((item) => item.cost),
-            backgroundColor: "#2196f3"
-          }
-        ]
+        labels: data.map((d2) => d2.month),
+        datasets: [{
+          label: "Monthly Estimated Cost (GHS)",
+          data: data.map((d2) => d2.cost),
+          backgroundColor: "#2196f3"
+        }]
       };
     });
+  }
+  fetchTopDepartments() {
+    const year = this.resolveSelectedYear();
+    this.travelService.getTopDepartments(year, this.selectedMonth ?? void 0).subscribe((data) => {
+      this.topDepartmentsChartData = {
+        labels: data.map((d2) => d2.department),
+        datasets: [{
+          label: "Estimated Cost by Department (GHS)",
+          data: data.map((d2) => d2.cost),
+          backgroundColor: "#9c27b0"
+        }]
+      };
+    });
+  }
+  onFilterChange() {
+    this.fetchMonthlyCosts();
     this.fetchTopDepartments();
+  }
+  // onYearChange() {
+  //   this.customYearInputEnabled = this.selectedYear === 'other';
+  //   if (!this.customYearInputEnabled) {
+  //     this.onFilterChange();
+  //   }
+  // }
+  onYearChange() {
+    if (this.selectedYear === "other") {
+      this.customYearInputEnabled = true;
+    } else {
+      this.customYearInputEnabled = false;
+      this.selectedYear = +this.selectedYear;
+      this.onFilterChange();
+    }
+  }
+  applyCustomYear() {
+    if (this.customYear && this.customYear > 1900) {
+      this.selectedYear = this.customYear;
+      this.onFilterChange();
+    }
+  }
+  resolveSelectedYear() {
+    return this.selectedYear === "other" ? this.customYear ?? this.currentYear : this.selectedYear;
   }
   exportToExcel() {
     const dashboardMetrics = [
@@ -83197,7 +82957,7 @@ var CfoDashboardComponent = class _CfoDashboardComponent {
   static \u0275fac = function CfoDashboardComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _CfoDashboardComponent)(\u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Router));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _CfoDashboardComponent, selectors: [["app-cfo-dashboard"]], decls: 65, vars: 25, consts: [[1, "dashboard-card"], [1, "grid"], [1, "charts"], ["baseChart", "", 3, "data", "type"], [1, "filters"], [3, "ngModelChange", "change", "ngModel"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"], [1, "export-buttons"], ["mat-raised-button", "", "color", "primary", 3, "click"], ["mat-raised-button", "", "color", "accent", 3, "click"]], template: function CfoDashboardComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _CfoDashboardComponent, selectors: [["app-cfo-dashboard"]], decls: 82, vars: 32, consts: [[1, "dashboard-card"], [1, "grid"], [1, "charts"], ["baseChart", "", 3, "data", "type"], [1, "filters"], ["for", "year"], ["id", "year", 3, "ngModelChange", "change", "ngModel"], [3, "value", 4, "ngFor", "ngForOf"], ["value", "other"], [4, "ngIf"], ["for", "month"], ["id", "month", 3, "ngModelChange", "change", "ngModel"], [3, "ngValue"], [1, "export-buttons"], ["mat-raised-button", "", "color", "primary", 3, "click"], ["mat-raised-button", "", "color", "accent", 3, "click"], [3, "value"], ["type", "number", "min", "2000", "max", "2100", "placeholder", "Enter year", 3, "ngModelChange", "ngModel"], ["mat-button", "", 3, "click"]], template: function CfoDashboardComponent_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "mat-card", 0)(1, "h2");
       \u0275\u0275text(2, "CFO Dashboard Overview");
@@ -83248,51 +83008,88 @@ var CfoDashboardComponent = class _CfoDashboardComponent {
       \u0275\u0275elementStart(41, "mat-card")(42, "h3");
       \u0275\u0275text(43, "Monthly Estimated Cost");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(44, "canvas", 3);
+      \u0275\u0275elementStart(44, "div", 4)(45, "label", 5);
+      \u0275\u0275text(46, "Year:");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(45, "mat-card")(46, "h3");
-      \u0275\u0275text(47, "Top 6 Departments by Estimated Cost");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(48, "div", 4)(49, "label");
-      \u0275\u0275text(50, " Year: ");
-      \u0275\u0275elementStart(51, "select", 5);
-      \u0275\u0275twoWayListener("ngModelChange", function CfoDashboardComponent_Template_select_ngModelChange_51_listener($event) {
+      \u0275\u0275elementStart(47, "select", 6);
+      \u0275\u0275twoWayListener("ngModelChange", function CfoDashboardComponent_Template_select_ngModelChange_47_listener($event) {
         \u0275\u0275twoWayBindingSet(ctx.selectedYear, $event) || (ctx.selectedYear = $event);
         return $event;
       });
-      \u0275\u0275listener("change", function CfoDashboardComponent_Template_select_change_51_listener() {
-        return ctx.fetchTopDepartments();
+      \u0275\u0275listener("change", function CfoDashboardComponent_Template_select_change_47_listener() {
+        return ctx.onYearChange();
       });
-      \u0275\u0275template(52, CfoDashboardComponent_option_52_Template, 2, 2, "option", 6);
+      \u0275\u0275template(48, CfoDashboardComponent_option_48_Template, 2, 2, "option", 7);
+      \u0275\u0275elementStart(49, "option", 8);
+      \u0275\u0275text(50, "Other");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(53, "label");
-      \u0275\u0275text(54, " Month: ");
-      \u0275\u0275elementStart(55, "select", 5);
-      \u0275\u0275twoWayListener("ngModelChange", function CfoDashboardComponent_Template_select_ngModelChange_55_listener($event) {
+      \u0275\u0275template(51, CfoDashboardComponent_div_51_Template, 4, 1, "div", 9);
+      \u0275\u0275elementStart(52, "label", 10);
+      \u0275\u0275text(53, "Month:");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(54, "select", 11);
+      \u0275\u0275twoWayListener("ngModelChange", function CfoDashboardComponent_Template_select_ngModelChange_54_listener($event) {
         \u0275\u0275twoWayBindingSet(ctx.selectedMonth, $event) || (ctx.selectedMonth = $event);
         return $event;
       });
-      \u0275\u0275listener("change", function CfoDashboardComponent_Template_select_change_55_listener() {
-        return ctx.fetchTopDepartments();
+      \u0275\u0275listener("change", function CfoDashboardComponent_Template_select_change_54_listener() {
+        return ctx.onFilterChange();
       });
-      \u0275\u0275elementStart(56, "option", 7);
-      \u0275\u0275text(57, "All");
+      \u0275\u0275elementStart(55, "option", 12);
+      \u0275\u0275text(56, "All");
       \u0275\u0275elementEnd();
-      \u0275\u0275template(58, CfoDashboardComponent_option_58_Template, 2, 2, "option", 6);
-      \u0275\u0275elementEnd()()();
-      \u0275\u0275element(59, "canvas", 3);
+      \u0275\u0275template(57, CfoDashboardComponent_option_57_Template, 2, 2, "option", 7);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275element(58, "canvas", 3);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(60, "div", 8)(61, "button", 9);
-      \u0275\u0275listener("click", function CfoDashboardComponent_Template_button_click_61_listener() {
+      \u0275\u0275elementStart(59, "mat-card")(60, "h3");
+      \u0275\u0275text(61, "Top 6 Departments by Estimated Cost");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(62, "div", 4)(63, "label", 5);
+      \u0275\u0275text(64, "Year:");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(65, "select", 6);
+      \u0275\u0275twoWayListener("ngModelChange", function CfoDashboardComponent_Template_select_ngModelChange_65_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.selectedYear, $event) || (ctx.selectedYear = $event);
+        return $event;
+      });
+      \u0275\u0275listener("change", function CfoDashboardComponent_Template_select_change_65_listener() {
+        return ctx.onYearChange();
+      });
+      \u0275\u0275template(66, CfoDashboardComponent_option_66_Template, 2, 2, "option", 7);
+      \u0275\u0275elementStart(67, "option", 8);
+      \u0275\u0275text(68, "Other");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275template(69, CfoDashboardComponent_div_69_Template, 4, 1, "div", 9);
+      \u0275\u0275elementStart(70, "label", 10);
+      \u0275\u0275text(71, "Month:");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(72, "select", 11);
+      \u0275\u0275twoWayListener("ngModelChange", function CfoDashboardComponent_Template_select_ngModelChange_72_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.selectedMonth, $event) || (ctx.selectedMonth = $event);
+        return $event;
+      });
+      \u0275\u0275listener("change", function CfoDashboardComponent_Template_select_change_72_listener() {
+        return ctx.onFilterChange();
+      });
+      \u0275\u0275elementStart(73, "option", 12);
+      \u0275\u0275text(74, "All");
+      \u0275\u0275elementEnd();
+      \u0275\u0275template(75, CfoDashboardComponent_option_75_Template, 2, 2, "option", 7);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275element(76, "canvas", 3);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(77, "div", 13)(78, "button", 14);
+      \u0275\u0275listener("click", function CfoDashboardComponent_Template_button_click_78_listener() {
         return ctx.exportToExcel();
       });
-      \u0275\u0275text(62, "Export to Excel");
+      \u0275\u0275text(79, "Export to Excel");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(63, "button", 10);
-      \u0275\u0275listener("click", function CfoDashboardComponent_Template_button_click_63_listener() {
+      \u0275\u0275elementStart(80, "button", 15);
+      \u0275\u0275listener("click", function CfoDashboardComponent_Template_button_click_80_listener() {
         return ctx.exportToPdf();
       });
-      \u0275\u0275text(64, "Export to PDF");
+      \u0275\u0275text(81, "Export to PDF");
       \u0275\u0275elementEnd()()()();
     }
     if (rf & 2) {
@@ -83305,27 +83102,41 @@ var CfoDashboardComponent = class _CfoDashboardComponent {
       \u0275\u0275advance(5);
       \u0275\u0275textInterpolate(ctx.metrics.rejectedRequests);
       \u0275\u0275advance(5);
-      \u0275\u0275textInterpolate1("GHS ", \u0275\u0275pipeBind2(29, 17, ctx.metrics.totalEstimatedCost, "1.2-2"), "");
+      \u0275\u0275textInterpolate1("GHS ", \u0275\u0275pipeBind2(29, 24, ctx.metrics.totalEstimatedCost, "1.2-2"), "");
       \u0275\u0275advance(6);
-      \u0275\u0275textInterpolate1("$ ", \u0275\u0275pipeBind2(35, 20, ctx.metrics.totalApprovedCost, "1.2-2"), "");
+      \u0275\u0275textInterpolate1("$ ", \u0275\u0275pipeBind2(35, 27, ctx.metrics.totalApprovedCost, "1.2-2"), "");
       \u0275\u0275advance(6);
       \u0275\u0275property("data", ctx.approvalChartData)("type", "doughnut");
-      \u0275\u0275advance(4);
+      \u0275\u0275advance(7);
+      \u0275\u0275twoWayProperty("ngModel", ctx.selectedYear);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngForOf", ctx.years);
+      \u0275\u0275advance(3);
+      \u0275\u0275property("ngIf", ctx.customYearInputEnabled);
+      \u0275\u0275advance(3);
+      \u0275\u0275twoWayProperty("ngModel", ctx.selectedMonth);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngValue", null);
+      \u0275\u0275advance(2);
+      \u0275\u0275property("ngForOf", \u0275\u0275pureFunction0(30, _c012));
+      \u0275\u0275advance();
       \u0275\u0275property("data", ctx.monthlyCostChartData)("type", "bar");
       \u0275\u0275advance(7);
       \u0275\u0275twoWayProperty("ngModel", ctx.selectedYear);
       \u0275\u0275advance();
-      \u0275\u0275property("ngForOf", \u0275\u0275pureFunction0(23, _c013));
+      \u0275\u0275property("ngForOf", ctx.years);
+      \u0275\u0275advance(3);
+      \u0275\u0275property("ngIf", ctx.customYearInputEnabled);
       \u0275\u0275advance(3);
       \u0275\u0275twoWayProperty("ngModel", ctx.selectedMonth);
       \u0275\u0275advance();
-      \u0275\u0275property("value", null);
+      \u0275\u0275property("ngValue", null);
       \u0275\u0275advance(2);
-      \u0275\u0275property("ngForOf", \u0275\u0275pureFunction0(24, _c114));
+      \u0275\u0275property("ngForOf", \u0275\u0275pureFunction0(31, _c012));
       \u0275\u0275advance();
       \u0275\u0275property("data", ctx.topDepartmentsChartData)("type", "bar");
     }
-  }, dependencies: [CommonModule, NgForOf, DecimalPipe, MatCardModule, MatCard, NgChartsModule, BaseChartDirective, FormsModule, NgSelectOption, \u0275NgSelectMultipleOption, SelectControlValueAccessor, NgControlStatus, NgModel], styles: ["\n\n.dashboard-card[_ngcontent-%COMP%] {\n  margin: 24px;\n}\n.grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));\n  gap: 16px;\n}\nmat-card[_ngcontent-%COMP%] {\n  padding: 16px;\n  text-align: center;\n  background-color: #f8f9fa;\n}\n.charts[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 16px;\n  margin-top: 24px;\n  justify-content: center;\n}\n.charts[_ngcontent-%COMP%]   mat-card[_ngcontent-%COMP%] {\n  flex: 1 1 45%;\n  max-width: 500px;\n}\ncanvas[_ngcontent-%COMP%] {\n  max-width: 100%;\n  height: auto !important;\n}\n.filter-section[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  margin-bottom: 16px;\n}\n.export-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 16px;\n  margin-top: 24px;\n  justify-content: center;\n}\n.export-buttons[_ngcontent-%COMP%]   button[_ngcontent-%COMP%] {\n  padding: 12px 24px;\n  font-weight: 600;\n  font-size: 14px;\n  letter-spacing: 0.5px;\n  border-radius: 8px;\n  text-transform: uppercase;\n  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);\n  transition: background-color 0.3s ease, transform 0.2s ease;\n}\n.export-buttons[_ngcontent-%COMP%]   button[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n/*# sourceMappingURL=cfo-dashboard.component.css.map */"] });
+  }, dependencies: [CommonModule, NgForOf, NgIf, DecimalPipe, MatCardModule, MatCard, NgChartsModule, BaseChartDirective, FormsModule, NgSelectOption, \u0275NgSelectMultipleOption, DefaultValueAccessor, NumberValueAccessor, SelectControlValueAccessor, NgControlStatus, MinValidator, MaxValidator, NgModel], styles: ["\n\n.dashboard-card[_ngcontent-%COMP%] {\n  margin: 24px;\n}\n.grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));\n  gap: 16px;\n}\nmat-card[_ngcontent-%COMP%] {\n  padding: 16px;\n  text-align: center;\n  background-color: #f8f9fa;\n}\n.charts[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 16px;\n  margin-top: 24px;\n  justify-content: center;\n}\n.charts[_ngcontent-%COMP%]   mat-card[_ngcontent-%COMP%] {\n  flex: 1 1 45%;\n  max-width: 500px;\n}\ncanvas[_ngcontent-%COMP%] {\n  max-width: 100%;\n  height: auto !important;\n}\n.filter-section[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  margin-bottom: 16px;\n}\n.export-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 16px;\n  margin-top: 24px;\n  justify-content: center;\n}\n.export-buttons[_ngcontent-%COMP%]   button[_ngcontent-%COMP%] {\n  padding: 12px 24px;\n  font-weight: 600;\n  font-size: 14px;\n  letter-spacing: 0.5px;\n  border-radius: 8px;\n  text-transform: uppercase;\n  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);\n  transition: background-color 0.3s ease, transform 0.2s ease;\n}\n.export-buttons[_ngcontent-%COMP%]   button[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n}\n/*# sourceMappingURL=cfo-dashboard.component.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CfoDashboardComponent, [{
@@ -83376,6 +83187,33 @@ var CfoDashboardComponent = class _CfoDashboardComponent {
   
       <mat-card>
         <h3>Monthly Estimated Cost</h3>
+
+        <div class="filters">
+          <label for="year">Year:</label>
+          <select id="year" [(ngModel)]="selectedYear" (change)="onYearChange()">
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            <option value="other">Other</option>
+          </select>
+        
+          <div *ngIf="customYearInputEnabled">
+            <input
+              type="number"
+              min="2000"
+              max="2100"
+              [(ngModel)]="customYear"
+              placeholder="Enter year"
+            />
+            <button mat-button (click)="applyCustomYear()">Apply</button>
+          </div>
+        
+          <label for="month">Month:</label>
+          <select id="month" [(ngModel)]="selectedMonth" (change)="onFilterChange()">
+            <option [ngValue]="null">All</option>
+            <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">
+              {{ m }}
+            </option>
+          </select>
+        </div>
         <canvas baseChart
                 [data]="monthlyCostChartData"
                 [type]="'bar'">
@@ -83386,20 +83224,30 @@ var CfoDashboardComponent = class _CfoDashboardComponent {
         <h3>Top 6 Departments by Estimated Cost</h3>
       
         <div class="filters">
-          <label>
-            Year:
-            <select [(ngModel)]="selectedYear" (change)="fetchTopDepartments()">
-              <option *ngFor="let year of [2025, 2024, 2023]" [value]="year">{{ year }}</option>
-            </select>
-          </label>
-      
-          <label>
-            Month:
-            <select [(ngModel)]="selectedMonth" (change)="fetchTopDepartments()">
-              <option [value]="null">All</option>
-              <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">{{ m }}</option>
-            </select>
-          </label>
+          <label for="year">Year:</label>
+          <select id="year" [(ngModel)]="selectedYear" (change)="onYearChange()">
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            <option value="other">Other</option>
+          </select>
+        
+          <div *ngIf="customYearInputEnabled">
+            <input
+              type="number"
+              min="2000"
+              max="2100"
+              [(ngModel)]="customYear"
+              placeholder="Enter year"
+            />
+            <button mat-button (click)="applyCustomYear()">Apply</button>
+          </div>
+        
+          <label for="month">Month:</label>
+          <select id="month" [(ngModel)]="selectedMonth" (change)="onFilterChange()">
+            <option [ngValue]="null">All</option>
+            <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">
+              {{ m }}
+            </option>
+          </select>
         </div>
       
         <canvas baseChart
@@ -83422,8 +83270,8 @@ var CfoDashboardComponent = class _CfoDashboardComponent {
 })();
 
 // src/app/per-diem/per-diem-feedback-dialog/per-diem-feedback-dialog.component.ts
-var _c014 = (a0) => ({ icon: "money", label: "Rate", value: a0 });
-var _c115 = (a0) => ({ icon: "location_on", label: "Location", value: a0 });
+var _c013 = (a0) => ({ icon: "money", label: "Rate", value: a0 });
+var _c114 = (a0) => ({ icon: "location_on", label: "Location", value: a0 });
 var _c213 = (a0) => ({ icon: "date_range", label: "Effective Date", value: a0 });
 var _c39 = (a0) => ({ icon: "badge", label: "Status", value: a0 });
 var _c46 = (a0, a1, a2, a3) => [a0, a1, a2, a3];
@@ -83492,7 +83340,7 @@ var PerDiemFeedbackDialogComponent = class _PerDiemFeedbackDialogComponent {
     }
     if (rf & 2) {
       \u0275\u0275advance(8);
-      \u0275\u0275property("ngForOf", \u0275\u0275pureFunction4(12, _c46, \u0275\u0275pureFunction1(4, _c014, ctx.data.rate), \u0275\u0275pureFunction1(6, _c115, ctx.data.location), \u0275\u0275pureFunction1(8, _c213, \u0275\u0275pipeBind2(9, 1, ctx.data.effectiveDate, "shortDate")), \u0275\u0275pureFunction1(10, _c39, ctx.data.status)));
+      \u0275\u0275property("ngForOf", \u0275\u0275pureFunction4(12, _c46, \u0275\u0275pureFunction1(4, _c013, ctx.data.rate), \u0275\u0275pureFunction1(6, _c114, ctx.data.location), \u0275\u0275pureFunction1(8, _c213, \u0275\u0275pipeBind2(9, 1, ctx.data.effectiveDate, "shortDate")), \u0275\u0275pureFunction1(10, _c39, ctx.data.status)));
     }
   }, dependencies: [CommonModule, NgForOf, DatePipe, MatDialogModule, MatButtonModule, MatButton, MatCardModule, MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle, MatIcon], styles: ["\n\n.confirmation-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  max-height: 90vh;\n}\n.confirmation-card[_ngcontent-%COMP%]   mat-card-content[_ngcontent-%COMP%] {\n  max-height: 60vh;\n  overflow-y: auto;\n  padding-right: 8px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  padding: 16px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  border-bottom: 1px solid #e0e0e0;\n  padding-bottom: 8px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%]   .field-label[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  font-weight: 600;\n  color: #333;\n  font-size: 14px;\n  margin-bottom: 4px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%]   .field-label[_ngcontent-%COMP%]   .field-icon[_ngcontent-%COMP%] {\n  font-size: 18px;\n  margin-right: 6px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%]   .field-value[_ngcontent-%COMP%] {\n  color: #555;\n  font-size: 13px;\n  word-wrap: break-word;\n}\n.confirmation-card[_ngcontent-%COMP%]   mat-card-actions[_ngcontent-%COMP%] {\n  margin-top: 20px;\n  display: flex;\n  justify-content: flex-end;\n  flex-wrap: wrap;\n  gap: 10px;\n  padding: 0 16px 16px;\n}\n@media (max-width: 768px) {\n  .confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .confirmation-card[_ngcontent-%COMP%]   mat-card-actions[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n}\n@media (max-width: 480px) {\n  .confirmation-card[_ngcontent-%COMP%]   mat-card-title[_ngcontent-%COMP%] {\n    font-size: 18px;\n  }\n  .confirmation-card[_ngcontent-%COMP%]   .field-label[_ngcontent-%COMP%], \n   .confirmation-card[_ngcontent-%COMP%]   .field-value[_ngcontent-%COMP%] {\n    font-size: 12px;\n  }\n}\n/*# sourceMappingURL=per-diem-feedback-dialog.component.css.map */"] });
 };
@@ -83896,8 +83744,8 @@ var PerDiemComponent = class _PerDiemComponent {
 })();
 
 // src/app/per-diem/perdiem-list/perdiem-list.component.ts
-var _c015 = (a0) => ["/travel/perdiem/detail", a0];
-var _c116 = (a0) => ["/travel/perdiem/edit", a0];
+var _c014 = (a0) => ["/travel/perdiem/detail", a0];
+var _c115 = (a0) => ["/travel/perdiem/edit", a0];
 function PerdiemListComponent_div_5_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 4);
@@ -84001,9 +83849,9 @@ function PerdiemListComponent_div_6_table_5_td_15_Template(rf, ctx) {
   if (rf & 2) {
     const row_r5 = ctx.$implicit;
     \u0275\u0275advance();
-    \u0275\u0275property("routerLink", \u0275\u0275pureFunction1(2, _c015, row_r5.perDiemId));
+    \u0275\u0275property("routerLink", \u0275\u0275pureFunction1(2, _c014, row_r5.perDiemId));
     \u0275\u0275advance(3);
-    \u0275\u0275property("routerLink", \u0275\u0275pureFunction1(4, _c116, row_r5.perDiemId));
+    \u0275\u0275property("routerLink", \u0275\u0275pureFunction1(4, _c115, row_r5.perDiemId));
   }
 }
 function PerdiemListComponent_div_6_table_5_tr_16_Template(rf, ctx) {
@@ -84673,4 +84521,4 @@ jspdf/dist/jspdf.es.min.js:
    * http://opensource.org/licenses/mit-license
    *)
 */
-//# sourceMappingURL=chunk-MT7C6OGC.js.map
+//# sourceMappingURL=chunk-GAZRZOJ5.js.map

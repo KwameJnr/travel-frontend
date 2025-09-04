@@ -18,10 +18,10 @@ import { baseUrl,baseUrlCamp,generateUUID } from './constants';
 })
 export class TravelService {
   
-  // private travelApiBaseUrl = baseUrl+'/travels';
-  // private apiUrl = baseUrl+'/company/department/index';
+  // private travelApibaseUrlLocal = baseUrlLocal+'/travels';
+  // private apiUrl = baseUrlLocal+'/company/department/index';
 
-  private travelApiBaseUrl = baseUrl+'/travels'; // Adjust if needed
+  private travelApibaseUrlLocal = baseUrl+'/travels'; // Adjust if needed
   private apiUrl = baseUrlCamp+'/company/department/index';
 
   constructor(private http: HttpClient) { }
@@ -33,7 +33,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID()); // Generate a unique request ID
 
-    return this.http.get<ApiResponse<Travel[]>>(`${this.travelApiBaseUrl}/all`,{headers}).pipe(
+    return this.http.get<ApiResponse<Travel[]>>(`${this.travelApibaseUrlLocal}/all`,{headers}).pipe(
       map(response => response.data)
     );
   }
@@ -45,7 +45,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.get<ApiResponse<Travel>>(`${this.travelApiBaseUrl}/view/${id}`,{headers}).pipe(
+    return this.http.get<ApiResponse<Travel>>(`${this.travelApibaseUrlLocal}/view/${id}`,{headers}).pipe(
       map(response => response.data)
     );
   }
@@ -57,7 +57,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.post<ApiResponse<Travel>>(`${this.travelApiBaseUrl}/add`, travel,{ headers});
+    return this.http.post<ApiResponse<Travel>>(`${this.travelApibaseUrlLocal}/add`, travel,{ headers});
   }  
 
   update(id: string, travel: Travel): Observable<Travel> {
@@ -67,7 +67,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.put<Travel>(`${this.travelApiBaseUrl}/update/${id}`, travel,{ headers })
+    return this.http.put<Travel>(`${this.travelApibaseUrlLocal}/update/${id}`, travel,{ headers })
   }
 
   delete(id: string): Observable<string> {
@@ -77,7 +77,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.delete<ApiResponse<string>>(`${this.travelApiBaseUrl}/delete/${id}`,{headers}).pipe(
+    return this.http.delete<ApiResponse<string>>(`${this.travelApibaseUrlLocal}/delete/${id}`,{headers}).pipe(
       map(response => response.data)
     );
   }
@@ -90,7 +90,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.get<any>(`${this.travelApiBaseUrl}/exco-feedback/pending`,{headers}).pipe(
+    return this.http.get<any>(`${this.travelApibaseUrlLocal}/exco-feedback/pending`,{headers}).pipe(
       map(response => response.data)
     );
   }
@@ -102,7 +102,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.put(`${this.travelApiBaseUrl}/update/${id}`, payload, { headers });
+    return this.http.put(`${this.travelApibaseUrlLocal}/update/${id}`, payload, { headers });
   }
   
   //CFO endpoints 
@@ -113,7 +113,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.get<any>(`${this.travelApiBaseUrl}/cfo-feedback/pending`,{headers}).pipe(
+    return this.http.get<any>(`${this.travelApibaseUrlLocal}/cfo-feedback/pending`,{headers}).pipe(
       map(response => response.data)
     );
   }
@@ -125,7 +125,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.put(`${this.travelApiBaseUrl}/update/${id}`, payload,{ headers });
+    return this.http.put(`${this.travelApibaseUrlLocal}/update/${id}`, payload,{ headers });
   }
 
   //Notification endpoints
@@ -180,16 +180,17 @@ export class TravelService {
     return this.http.get<CfoDashboardMetrics>(baseUrl+'/cfo-dashboard/metrics',{ headers });
   }
 
-  getMonthlyCosts(year: number) {
+  getMonthlyCosts(year: number, month?: number): Observable<{ month: string; cost: number }[]> {
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.get<{ month: string; cost: number }[]>(
-      `${baseUrl}/cfo-dashboard/monthly-costs?year=${year}`,{ headers }
-    );
+      .set('Authorization', `Bearer ${token}`)
+      .set('X-SrcApp', 'Travel-Request')
+      .set('X-Request-ID', generateUUID());
+  
+    let params = `year=${year}`;
+    if (month) params += `&month=${month}`;
+  
+    return this.http.get<{ month: string; cost: number }[]>(`${baseUrl}/cfo-dashboard/monthly-costs?${params}`, { headers });
   }
 
   getTopDepartments(year: number, month?: number) {
@@ -203,17 +204,6 @@ export class TravelService {
     if (month) params += `&month=${month}`;
     return this.http.get<{ department: string, cost: number }[]>(`${baseUrl}/cfo-dashboard/top-departments?${params}`, { headers });
   }
-
-  //Get deoartment endpoints 
-  // Use POST to pass {} in body
-  // getDepartments(): Observable<{ status: string, message: string, data: Department[] }> {
-  //   const token = localStorage.getItem('userToken') || '';
-  //   const headers = new HttpHeaders()
-  //   .set('Authorization', `Bearer ${token}`)
-  //   .set('X-SrcApp', 'Travel-Request');
-
-  //   return this.http.get<{ status: string, message: string, data: Department[] }>(this.apiUrl,{ headers });
-  // }
   
   getDepartments(): Observable<{ status: string, message: string, data: Department[] }> {
     const token = localStorage.getItem('userToken') || '';

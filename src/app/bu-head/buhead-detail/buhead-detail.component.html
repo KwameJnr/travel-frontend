@@ -4,7 +4,8 @@
     <div class="field"><strong>Employee:</strong> {{ travel.employeeName }}</div>
     <div class="field"><strong>Purpose:</strong> {{ travel.purpose }}</div>
     <div class="field"><strong>City:</strong> {{ travel.city }}, {{ travel.country }}</div>
-    <div class="field"><strong>E:</strong> {{ travel.departureDate | date }} {{ travel.departureTime }}</div>
+    <div class="field"><strong>Perdiem Amount:</strong> {{ travel.estimatedPerDiemAmount }}</div>
+    <div class="field"><strong>Departure:</strong> {{ travel.departureDate | date }} {{ travel.departureTime }}</div>
     <div class="field"><strong>Return:</strong> {{ travel.returnDate | date }} {{ travel.returnTime }}</div>
 
     <form [formGroup]="actionForm" class="action-form">

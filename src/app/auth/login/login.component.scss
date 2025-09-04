@@ -70,4 +70,24 @@
     font-weight: 400;
     opacity: 0.8;
   }
+  .polling-message {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 14px;
+    // color: #666;
+  }
+
+  .polling-message.error {
+    color: #f44336; /* Red for errors */
+  }
+  
+  .polling-message:not(.error) {
+    color: #1976d2; /* Blue (info) for waiting messages */
+  }
+  
+  .polling-text {
+    margin-left: 8px;
+  }
+  
   

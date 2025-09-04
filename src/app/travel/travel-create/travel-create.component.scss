@@ -37,17 +37,10 @@
     justify-content: space-between;
   }
 
-//   mat-card-title {
-//     font-size: 1.8rem;
-//     font-weight: 600;
-//     text-align: left;
-//     margin-bottom: 1.5rem;
-//     padding-bottom: 0.5rem;
-//     border-bottom: 2px solid #3f51b5; /* Use theme primary color */
-//     color: #3f51b5; /* Optional: matches border */
-//     background-color: #f0f4ff;
-//     border-radius: 4px;
-//   }
+  .warning-text {
+    color: #d9534f; // Bootstrap danger red
+    font-weight: 500;
+  } 
 
 button[mat-raised-button],
 button[mat-stroked-button] {
@@ -82,7 +75,14 @@ button[mat-stroked-button]:hover:not(:disabled) {
       max-width: 100%;
     }
   }
+  .error-message {
+    color: red;
+    font-size: 13px;
+    margin-top: 6px;
+  }
   
+  
+
   
   
 
