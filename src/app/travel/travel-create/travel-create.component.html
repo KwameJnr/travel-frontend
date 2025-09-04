@@ -162,21 +162,25 @@
         </mat-form-field>
   
         <mat-form-field class="full-width" appearance="fill">
-          <mat-label>Per Diem End Date</mat-label>
+          <mat-label>
+            Per Diem End Date -
+            <span class="error-label" 
+                  *ngIf="!travelForm.get('perDiemEndDate')?.value">
+              &nbsp; Per Diem End Date cannot be earlier than Per Diem Start Date.
+            </span>
+          </mat-label>
+        
           <input 
             matInput 
             [matDatepicker]="endPicker" 
             formControlName="perDiemEndDate"
             (dateChange)="calculateWorkingDays()" 
             (dateInput)="calculateWorkingDays()" />
+        
           <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
           <mat-datepicker #endPicker></mat-datepicker>
-        
-          <!-- 🚨 Error now belongs to this field -->
-          <mat-error *ngIf="travelForm.get('perDiemEndDate')?.hasError('perDiemDateInvalid')">
-            Per Diem Start Date cannot be after End Date.
-          </mat-error>
-        </mat-form-field>                           
+        </mat-form-field>
+                        
         
          <!-- next button> -->
         <div class="step-actions">

@@ -27,16 +27,22 @@ import { HttpClient } from '@angular/common/http';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 
-export const perDiemDateValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const raw = (control as any).getRawValue?.() || control.value;
+export const perDiemDateValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+  const form = group as FormGroup;
+  const start = form.get('perDiemStartDate');
+  const end = form.get('perDiemEndDate');
 
-  const start = raw?.perDiemStartDate;
-  const end = raw?.perDiemEndDate;
-
-  if (start && end && new Date(start) > new Date(end)) {
-    return { perDiemDateInvalid: true };
+  if (start?.value && end?.value && new Date(start.value) > new Date(end.value)) {
+    // Attach error ONLY to end date
+    end?.setErrors({ ...(end.errors || {}), perDiemDateInvalid: true });
+    return null; // nothing at the group level
+  } else {
+    if (end?.errors) {
+      const { perDiemDateInvalid, ...otherErrors } = end.errors;
+      end.setErrors(Object.keys(otherErrors).length ? otherErrors : null);
+    }
+    return null;
   }
-  return null;
 };
 
 @Component({
@@ -100,7 +106,7 @@ export class TravelCreateComponent implements OnInit {
       returnDate: ['', Validators.required],
       returnTime: ['', Validators.required],
       perDiemStartDate: [{ value: null, disabled: true }],
-      perDiemEndDate: [{ value: null, disabled: true }, [this.endDateAfterStartValidator()]],
+      perDiemEndDate: [{ value: null, disabled: true },],
       daysOutOfficialAssignmentDate: [{ value: 0, disabled: true }], 
       hotelReservation: [''],
       hotelName: [''],
@@ -131,6 +137,13 @@ export class TravelCreateComponent implements OnInit {
       dateCreated: [new Date()]
     }, { validators: perDiemDateValidator });
 
+    this.travelForm.get('perDiemStartDate')?.valueChanges.subscribe(() => {
+      this.travelForm.updateValueAndValidity({ onlySelf: false, emitEvent: true });
+    });
+    this.travelForm.get('perDiemEndDate')?.valueChanges.subscribe(() => {
+      this.travelForm.updateValueAndValidity({ onlySelf: false, emitEvent: true });
+    });
+    
     // Load draft if exists
     const savedDraft = localStorage.getItem('travelFormDraft');
     if (savedDraft) {
@@ -231,21 +244,6 @@ export class TravelCreateComponent implements OnInit {
   });
   
   }
-
-  endDateAfterStartValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const form = control.parent as FormGroup;
-      if (!form) return null;
-  
-      const start = form.get('perDiemStartDate')?.value;
-      const end = control.value;
-  
-      if (start && end && new Date(start) > new Date(end)) {
-        return { perDiemDateInvalid: true };
-      }
-      return null;
-    };
-  }  
   
   populateHeadFields(selectedDept: string) {
     if (!selectedDept || !this.bauHeads?.length) return;
