@@ -100,7 +100,7 @@ loadHistory(): void {
             'BU Head Approval Successful'
           ].includes(travel.status)
         )
-        .filter((travel: any) => travel.cfoEmail === currentUserEmail)
+        .filter((travel: any) => travel.cfoEmail?.toLowerCase() === currentUserEmail?.toLowerCase())
         .sort(
           (a: any, b: any) =>
             new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()

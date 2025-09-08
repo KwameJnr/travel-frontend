@@ -102,7 +102,7 @@ export class BuheadListComponent implements OnInit {
               'BU Head Approval Successful'
             ].includes(travel.status)
           )
-          .filter((travel: any) => travel.excoHeadEmail === currentUserEmail)
+          .filter((travel: any) => travel.excoHeadEmail?.toLowerCase() === currentUserEmail?.toLowerCase())
           .sort(
             (a: any, b: any) =>
               new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()

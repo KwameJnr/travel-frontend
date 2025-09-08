@@ -160,26 +160,25 @@
           <mat-datepicker #startPicker></mat-datepicker>
           <mat-hint *ngIf="warningMessage" style="color: red;">{{ warningMessage }}</mat-hint>
         </mat-form-field>
-  
-        <mat-form-field class="full-width" appearance="fill">
-          <mat-label>
-            Per Diem End Date -
-            <span class="error-label" 
-                  *ngIf="!travelForm.get('perDiemEndDate')?.value">
-              &nbsp; Per Diem End Date cannot be earlier than Per Diem Start Date.
-            </span>
-          </mat-label>
-        
-          <input 
-            matInput 
-            [matDatepicker]="endPicker" 
-            formControlName="perDiemEndDate"
-            (dateChange)="calculateWorkingDays()" 
-            (dateInput)="calculateWorkingDays()" />
-        
-          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-          <mat-datepicker #endPicker></mat-datepicker>
-        </mat-form-field>
+
+        <form [formGroup]="travelForm">
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Per Diem End Date</mat-label>
+            <input 
+              matInput 
+              [matDatepicker]="endPicker" 
+              formControlName="perDiemEndDate"
+              (dateChange)="calculateWorkingDays()" 
+              (dateInput)="calculateWorkingDays()" />
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </mat-form-field>
+          <!-- 🔴 Error displayed at the top of the form -->
+        <div class="form-error" *ngIf="!travelForm.get('perDiemEndDate')?.value">
+          Per Diem End Date cannot be earlier than Per Diem Start Date.
+        </div>
+        </form>
+
                         
         
          <!-- next button> -->
@@ -189,7 +188,7 @@
             color="accent"
             type="button"
             matStepperNext
-            [disabled]="loading"
+            [disabled]="loading  || !travelForm.get('perDiemEndDate')?.value"
           >
             <mat-progress-spinner
               *ngIf="loading"

@@ -80,10 +80,12 @@ button[mat-stroked-button]:hover:not(:disabled) {
     font-size: 13px;
     margin-top: 6px;
   }
-  .error-label {
-    color: #f44336; // Angular Material red
+  .form-error {
+    color: #f44336; /* Material red */
     font-weight: 500;
+    margin-bottom: 12px;
   }
+  
   
   
   

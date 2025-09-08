@@ -4741,7 +4741,7 @@ var LoginComponent = class _LoginComponent {
       \u0275\u0275element(5, "img", 3);
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(6, "div", 4)(7, "mat-card", 5)(8, "div", 6);
-      \u0275\u0275text(9, "v0.0.8");
+      \u0275\u0275text(9, "v0.0.9");
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(10, "mat-card-title");
       \u0275\u0275text(11, "Welcome Back");
@@ -4835,7 +4835,7 @@ var LoginComponent = class _LoginComponent {
     <mat-card class="login-card" appearance="outlined">
 
       <!-- Version label -->
-      <div class="version-label">v0.0.8</div>
+      <div class="version-label">v0.0.9</div>
 
       <mat-card-title>Welcome Back</mat-card-title>
       <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>
@@ -4991,7 +4991,7 @@ var appRoutes = [
     children: [
       {
         path: "travel",
-        loadChildren: () => import("./chunk-GAZRZOJ5.js").then((m) => m.travelRoutes)
+        loadChildren: () => import("./chunk-POYODRAP.js").then((m) => m.travelRoutes)
       },
       {
         path: "",

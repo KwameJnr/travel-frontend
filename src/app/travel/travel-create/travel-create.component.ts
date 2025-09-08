@@ -105,7 +105,7 @@ export class TravelCreateComponent implements OnInit {
       departureTime: ['', Validators.required],
       returnDate: ['', Validators.required],
       returnTime: ['', Validators.required],
-      perDiemStartDate: [{ value: null, disabled: true }],
+      perDiemStartDate: [{ value: null, disabled: true },Validators.required],
       perDiemEndDate: [{ value: null, disabled: true },],
       daysOutOfficialAssignmentDate: [{ value: 0, disabled: true }], 
       hotelReservation: [''],
