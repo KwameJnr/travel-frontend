@@ -198,7 +198,7 @@ export class CfoDetailComponent  implements OnInit {
           });
         });
   
-        this.router.navigate(['/travel/buhead/list']);
+        this.router.navigate(['/travel/cfo/list']);
       },
       error: () => {
         this.snackBar.open('Failed to update status.', 'Close', { duration: 3000 });
@@ -211,16 +211,3 @@ export class CfoDetailComponent  implements OnInit {
   }
   
 }
-
-
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-cfo-detail',
-//   imports: [],
-//   templateUrl: './cfo-detail.component.html',
-//   styleUrl: './cfo-detail.component.scss'
-// })
-// export class CfoDetailComponent {
-
-// }

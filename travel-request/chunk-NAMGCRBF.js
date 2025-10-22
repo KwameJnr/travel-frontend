@@ -43352,7 +43352,7 @@ function TravelCreateComponent_mat_option_61_Template(rf, ctx) {
 }
 function TravelCreateComponent_mat_hint_103_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "mat-hint", 71);
+    \u0275\u0275elementStart(0, "mat-hint", 72);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -43362,26 +43362,26 @@ function TravelCreateComponent_mat_hint_103_Template(rf, ctx) {
     \u0275\u0275textInterpolate(ctx_r3.warningMessage);
   }
 }
-function TravelCreateComponent_span_107_Template(rf, ctx) {
+function TravelCreateComponent_div_112_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 72);
-    \u0275\u0275text(1, " \xA0 Per Diem End Date cannot be earlier than Per Diem Start Date. ");
+    \u0275\u0275elementStart(0, "div", 73);
+    \u0275\u0275text(1, " Per Diem End Date cannot be earlier than Per Diem Start Date. ");
     \u0275\u0275elementEnd();
   }
 }
-function TravelCreateComponent_mat_progress_spinner_114_Template(rf, ctx) {
+function TravelCreateComponent_mat_progress_spinner_115_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "mat-progress-spinner", 73);
+    \u0275\u0275element(0, "mat-progress-spinner", 74);
   }
 }
-function TravelCreateComponent_span_115_Template(rf, ctx) {
+function TravelCreateComponent_span_116_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span");
     \u0275\u0275text(1, "Next");
     \u0275\u0275elementEnd();
   }
 }
-function TravelCreateComponent_mat_option_147_Template(rf, ctx) {
+function TravelCreateComponent_mat_option_148_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "mat-option", 30);
     \u0275\u0275text(1);
@@ -43394,24 +43394,24 @@ function TravelCreateComponent_mat_option_147_Template(rf, ctx) {
     \u0275\u0275textInterpolate1(" ", country_r5.location, " ");
   }
 }
-function TravelCreateComponent_mat_progress_spinner_215_Template(rf, ctx) {
+function TravelCreateComponent_mat_progress_spinner_216_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "mat-progress-spinner", 74);
+    \u0275\u0275element(0, "mat-progress-spinner", 75);
   }
 }
-function TravelCreateComponent_span_216_Template(rf, ctx) {
+function TravelCreateComponent_span_217_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span");
     \u0275\u0275text(1, "Back");
     \u0275\u0275elementEnd();
   }
 }
-function TravelCreateComponent_mat_progress_spinner_219_Template(rf, ctx) {
+function TravelCreateComponent_mat_progress_spinner_220_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "mat-progress-spinner", 74);
+    \u0275\u0275element(0, "mat-progress-spinner", 75);
   }
 }
-function TravelCreateComponent_span_220_Template(rf, ctx) {
+function TravelCreateComponent_span_221_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span");
     \u0275\u0275text(1, "Submit");
@@ -43474,7 +43474,7 @@ var TravelCreateComponent = class _TravelCreateComponent {
       departureTime: ["", Validators.required],
       returnDate: ["", Validators.required],
       returnTime: ["", Validators.required],
-      perDiemStartDate: [{ value: null, disabled: true }],
+      perDiemStartDate: [{ value: null, disabled: true }, Validators.required],
       perDiemEndDate: [{ value: null, disabled: true }],
       daysOutOfficialAssignmentDate: [{ value: 0, disabled: true }],
       hotelReservation: [""],
@@ -43812,7 +43812,7 @@ var TravelCreateComponent = class _TravelCreateComponent {
   static \u0275fac = function TravelCreateComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _TravelCreateComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(MatDialog), \u0275\u0275directiveInject(HttpClient), \u0275\u0275directiveInject(ChangeDetectorRef), \u0275\u0275directiveInject(MatSnackBar));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _TravelCreateComponent, selectors: [["app-travel-create"]], decls: 223, vars: 30, consts: [["stepper", ""], ["passportPicker", ""], ["depPicker", ""], ["departureTimePicker", ""], ["retPicker", ""], ["returnTimePicker", ""], ["startPicker", ""], ["endPicker", ""], [3, "ngSubmit", "formGroup"], ["color", "primary", 2, "vertical-align", "middle", "margin-right", "8px"], ["linear", ""], [3, "stepControl"], [1, "form-grid"], [1, "column-box"], ["appearance", "fill", 1, "full-width"], ["matInput", "", "formControlName", "employeeName"], ["matInput", "", "formControlName", "employeeEmail", "type", "email"], ["matInput", "", "formControlName", "employeePassportNo"], ["matInput", "", "formControlName", "employeePassportExpiry", 3, "matDatepicker"], ["matSuffix", "", 3, "for"], ["matInput", "", "formControlName", "employeeNumber"], ["formControlName", "employeeDepartment"], [3, "value", 4, "ngFor", "ngForOf"], ["matInput", "", "formControlName", "employeeTravellingContact"], ["matInput", "", "formControlName", "employeeContact"], ["matInput", "", "formControlName", "purpose"], ["matInput", "", "formControlName", "city"], ["formControlName", "country"], ["appearance", "fill"], ["formControlName", "visaRequired"], [3, "value"], ["matInput", "", "formControlName", "departureDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "departureTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "returnDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "returnTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "perDiemStartDate", 3, "dateChange", "dateInput", "matDatepicker"], ["style", "color: red;", 4, "ngIf"], ["class", "error-label", 4, "ngIf"], ["matInput", "", "formControlName", "perDiemEndDate", 3, "dateChange", "dateInput", "matDatepicker"], [1, "step-actions"], ["mat-raised-button", "", "color", "accent", "type", "button", "matStepperNext", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", "class", "spinner", 4, "ngIf"], [4, "ngIf"], ["matInput", "", "formControlName", "daysOutOfficialAssignmentDate", "type", "number", "readonly", "true"], ["formControlName", "hotelReservation"], ["value", "yes"], ["value", "no"], ["matInput", "", "formControlName", "hotelName"], ["matInput", "", "formControlName", "hotelAddress"], ["matInput", "", "formControlName", "hotelCity"], ["formControlName", "hotelCountry"], ["formControlName", "rentalCarRequired"], ["formControlName", "airportTransportRequiredToAndFrom"], ["matInput", "", "formControlName", "subsistenceAllowance"], ["matInput", "", "formControlName", "perDiemDays", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "estimatedPerDiemAmount", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "totalEstimatedTravelCost", "type", "number"], ["matInput", "", "formControlName", "travelBudgetCode"], ["formControlName", "classOfTravelDeparture"], ["value", "FisrtClass"], ["value", "BusClass"], ["value", "Economy"], ["formControlName", "classOfTravelReturn"], ["value", "FirstClass"], ["matInput", "", "formControlName", "excoHeadEmail"], ["matInput", "", "formControlName", "cfoEmail"], ["mat-stroked-button", "", "color", "primary", "type", "button", "matStepperPrevious", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", "class", "spinner", 4, "ngIf"], [1, "form-actions"], ["mat-raised-button", "", "color", "primary", "type", "submit", 3, "disabled"], ["mat-stroked-button", "", "color", "warn", "type", "button", 3, "click"], [2, "color", "red"], [1, "error-label"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", 1, "spinner"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", 1, "spinner"]], template: function TravelCreateComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _TravelCreateComponent, selectors: [["app-travel-create"]], decls: 224, vars: 31, consts: [["stepper", ""], ["passportPicker", ""], ["depPicker", ""], ["departureTimePicker", ""], ["retPicker", ""], ["returnTimePicker", ""], ["startPicker", ""], ["endPicker", ""], [3, "ngSubmit", "formGroup"], ["color", "primary", 2, "vertical-align", "middle", "margin-right", "8px"], ["linear", ""], [3, "stepControl"], [1, "form-grid"], [1, "column-box"], ["appearance", "fill", 1, "full-width"], ["matInput", "", "formControlName", "employeeName"], ["matInput", "", "formControlName", "employeeEmail", "type", "email"], ["matInput", "", "formControlName", "employeePassportNo"], ["matInput", "", "formControlName", "employeePassportExpiry", 3, "matDatepicker"], ["matSuffix", "", 3, "for"], ["matInput", "", "formControlName", "employeeNumber"], ["formControlName", "employeeDepartment"], [3, "value", 4, "ngFor", "ngForOf"], ["matInput", "", "formControlName", "employeeTravellingContact"], ["matInput", "", "formControlName", "employeeContact"], ["matInput", "", "formControlName", "purpose"], ["matInput", "", "formControlName", "city"], ["formControlName", "country"], ["appearance", "fill"], ["formControlName", "visaRequired"], [3, "value"], ["matInput", "", "formControlName", "departureDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "departureTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "returnDate", 3, "matDatepicker"], ["matInput", "", "formControlName", "returnTime", "readonly", "", 3, "ngxMatTimepicker"], ["matInput", "", "formControlName", "perDiemStartDate", 3, "dateChange", "dateInput", "matDatepicker"], ["style", "color: red;", 4, "ngIf"], [3, "formGroup"], ["matInput", "", "formControlName", "perDiemEndDate", 3, "dateChange", "dateInput", "matDatepicker"], ["class", "form-error", 4, "ngIf"], [1, "step-actions"], ["mat-raised-button", "", "color", "accent", "type", "button", "matStepperNext", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", "class", "spinner", 4, "ngIf"], [4, "ngIf"], ["matInput", "", "formControlName", "daysOutOfficialAssignmentDate", "type", "number", "readonly", "true"], ["formControlName", "hotelReservation"], ["value", "yes"], ["value", "no"], ["matInput", "", "formControlName", "hotelName"], ["matInput", "", "formControlName", "hotelAddress"], ["matInput", "", "formControlName", "hotelCity"], ["formControlName", "hotelCountry"], ["formControlName", "rentalCarRequired"], ["formControlName", "airportTransportRequiredToAndFrom"], ["matInput", "", "formControlName", "subsistenceAllowance"], ["matInput", "", "formControlName", "perDiemDays", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "estimatedPerDiemAmount", "type", "number", "readonly", "true"], ["matInput", "", "formControlName", "totalEstimatedTravelCost", "type", "number"], ["matInput", "", "formControlName", "travelBudgetCode"], ["formControlName", "classOfTravelDeparture"], ["value", "FisrtClass"], ["value", "BusClass"], ["value", "Economy"], ["formControlName", "classOfTravelReturn"], ["value", "FirstClass"], ["matInput", "", "formControlName", "excoHeadEmail"], ["matInput", "", "formControlName", "cfoEmail"], ["mat-stroked-button", "", "color", "primary", "type", "button", "matStepperPrevious", "", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", "class", "spinner", 4, "ngIf"], [1, "form-actions"], ["mat-raised-button", "", "color", "primary", "type", "submit", 3, "disabled"], ["mat-stroked-button", "", "color", "warn", "type", "button", 3, "click"], [2, "color", "red"], [1, "form-error"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "primary", 1, "spinner"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", 1, "spinner"]], template: function TravelCreateComponent_Template(rf, ctx) {
     if (rf & 1) {
       const _r1 = \u0275\u0275getCurrentView();
       \u0275\u0275elementStart(0, "form", 8);
@@ -43926,9 +43926,8 @@ var TravelCreateComponent = class _TravelCreateComponent {
       \u0275\u0275element(100, "mat-datepicker-toggle", 19)(101, "mat-datepicker", null, 6);
       \u0275\u0275template(103, TravelCreateComponent_mat_hint_103_Template, 2, 1, "mat-hint", 36);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(104, "mat-form-field", 14)(105, "mat-label");
-      \u0275\u0275text(106, " Per Diem End Date - ");
-      \u0275\u0275template(107, TravelCreateComponent_span_107_Template, 2, 0, "span", 37);
+      \u0275\u0275elementStart(104, "form", 37)(105, "mat-form-field", 14)(106, "mat-label");
+      \u0275\u0275text(107, "Per Diem End Date");
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(108, "input", 38);
       \u0275\u0275listener("dateChange", function TravelCreateComponent_Template_input_dateChange_108_listener() {
@@ -43941,137 +43940,140 @@ var TravelCreateComponent = class _TravelCreateComponent {
       \u0275\u0275elementEnd();
       \u0275\u0275element(109, "mat-datepicker-toggle", 19)(110, "mat-datepicker", null, 7);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(112, "div", 39)(113, "button", 40);
-      \u0275\u0275template(114, TravelCreateComponent_mat_progress_spinner_114_Template, 1, 0, "mat-progress-spinner", 41)(115, TravelCreateComponent_span_115_Template, 2, 0, "span", 42);
+      \u0275\u0275template(112, TravelCreateComponent_div_112_Template, 2, 0, "div", 39);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(113, "div", 40)(114, "button", 41);
+      \u0275\u0275template(115, TravelCreateComponent_mat_progress_spinner_115_Template, 1, 0, "mat-progress-spinner", 42)(116, TravelCreateComponent_span_116_Template, 2, 0, "span", 43);
       \u0275\u0275elementEnd()()()()();
-      \u0275\u0275elementStart(116, "mat-step")(117, "div", 12)(118, "div", 13)(119, "mat-form-field", 14)(120, "mat-label");
-      \u0275\u0275text(121, "Days Out");
+      \u0275\u0275elementStart(117, "mat-step")(118, "div", 12)(119, "div", 13)(120, "mat-form-field", 14)(121, "mat-label");
+      \u0275\u0275text(122, "Days Out");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(122, "input", 43);
+      \u0275\u0275element(123, "input", 44);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(123, "mat-form-field", 14)(124, "mat-label");
-      \u0275\u0275text(125, "Hotel Reservation");
+      \u0275\u0275elementStart(124, "mat-form-field", 14)(125, "mat-label");
+      \u0275\u0275text(126, "Hotel Reservation");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(126, "mat-select", 44)(127, "mat-option", 45);
-      \u0275\u0275text(128, "Yes");
+      \u0275\u0275elementStart(127, "mat-select", 45)(128, "mat-option", 46);
+      \u0275\u0275text(129, "Yes");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(129, "mat-option", 46);
-      \u0275\u0275text(130, "No");
+      \u0275\u0275elementStart(130, "mat-option", 47);
+      \u0275\u0275text(131, "No");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(131, "mat-form-field", 14)(132, "mat-label");
-      \u0275\u0275text(133, "Hotel Name");
+      \u0275\u0275elementStart(132, "mat-form-field", 14)(133, "mat-label");
+      \u0275\u0275text(134, "Hotel Name");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(134, "input", 47);
+      \u0275\u0275element(135, "input", 48);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(135, "mat-form-field", 14)(136, "mat-label");
-      \u0275\u0275text(137, "Hotel Address");
+      \u0275\u0275elementStart(136, "mat-form-field", 14)(137, "mat-label");
+      \u0275\u0275text(138, "Hotel Address");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(138, "input", 48);
+      \u0275\u0275element(139, "input", 49);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(139, "mat-form-field", 14)(140, "mat-label");
-      \u0275\u0275text(141, "Hotel City");
+      \u0275\u0275elementStart(140, "mat-form-field", 14)(141, "mat-label");
+      \u0275\u0275text(142, "Hotel City");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(142, "input", 49);
+      \u0275\u0275element(143, "input", 50);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(143, "mat-form-field", 14)(144, "mat-label");
-      \u0275\u0275text(145, "Hotel Country");
+      \u0275\u0275elementStart(144, "mat-form-field", 14)(145, "mat-label");
+      \u0275\u0275text(146, "Hotel Country");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(146, "mat-select", 50);
-      \u0275\u0275template(147, TravelCreateComponent_mat_option_147_Template, 2, 2, "mat-option", 22);
+      \u0275\u0275elementStart(147, "mat-select", 51);
+      \u0275\u0275template(148, TravelCreateComponent_mat_option_148_Template, 2, 2, "mat-option", 22);
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(148, "mat-form-field", 14)(149, "mat-label");
-      \u0275\u0275text(150, "Rental Car Required");
+      \u0275\u0275elementStart(149, "mat-form-field", 14)(150, "mat-label");
+      \u0275\u0275text(151, "Rental Car Required");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(151, "mat-select", 51)(152, "mat-option", 45);
-      \u0275\u0275text(153, "Yes");
+      \u0275\u0275elementStart(152, "mat-select", 52)(153, "mat-option", 46);
+      \u0275\u0275text(154, "Yes");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(154, "mat-option", 46);
-      \u0275\u0275text(155, "No");
+      \u0275\u0275elementStart(155, "mat-option", 47);
+      \u0275\u0275text(156, "No");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(156, "mat-form-field", 14)(157, "mat-label");
-      \u0275\u0275text(158, "Airport Transport Required");
+      \u0275\u0275elementStart(157, "mat-form-field", 14)(158, "mat-label");
+      \u0275\u0275text(159, "Airport Transport Required");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(159, "mat-select", 52)(160, "mat-option", 45);
-      \u0275\u0275text(161, "Yes");
+      \u0275\u0275elementStart(160, "mat-select", 53)(161, "mat-option", 46);
+      \u0275\u0275text(162, "Yes");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(162, "mat-option", 46);
-      \u0275\u0275text(163, "No");
+      \u0275\u0275elementStart(163, "mat-option", 47);
+      \u0275\u0275text(164, "No");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(164, "mat-form-field", 14)(165, "mat-label");
-      \u0275\u0275text(166, "Subsistence Allowance");
+      \u0275\u0275elementStart(165, "mat-form-field", 14)(166, "mat-label");
+      \u0275\u0275text(167, "Subsistence Allowance");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(167, "input", 53);
+      \u0275\u0275element(168, "input", 54);
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(168, "div", 13)(169, "mat-form-field", 14)(170, "mat-label");
-      \u0275\u0275text(171, "Per Diem Days");
+      \u0275\u0275elementStart(169, "div", 13)(170, "mat-form-field", 14)(171, "mat-label");
+      \u0275\u0275text(172, "Per Diem Days");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(172, "input", 54);
+      \u0275\u0275element(173, "input", 55);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(173, "mat-form-field", 14)(174, "mat-label");
-      \u0275\u0275text(175, "Estimated Per Diem Amount");
+      \u0275\u0275elementStart(174, "mat-form-field", 14)(175, "mat-label");
+      \u0275\u0275text(176, "Estimated Per Diem Amount");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(176, "input", 55);
+      \u0275\u0275element(177, "input", 56);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(177, "mat-form-field", 14)(178, "mat-label");
-      \u0275\u0275text(179, "Total Estimated Travel Cost");
+      \u0275\u0275elementStart(178, "mat-form-field", 14)(179, "mat-label");
+      \u0275\u0275text(180, "Total Estimated Travel Cost");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(180, "input", 56);
+      \u0275\u0275element(181, "input", 57);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(181, "mat-form-field", 14)(182, "mat-label");
-      \u0275\u0275text(183, "Travel Budget Code");
+      \u0275\u0275elementStart(182, "mat-form-field", 14)(183, "mat-label");
+      \u0275\u0275text(184, "Travel Budget Code");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(184, "input", 57);
+      \u0275\u0275element(185, "input", 58);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(185, "mat-form-field", 14)(186, "mat-label");
-      \u0275\u0275text(187, "Class of Travel (Departure)");
+      \u0275\u0275elementStart(186, "mat-form-field", 14)(187, "mat-label");
+      \u0275\u0275text(188, "Class of Travel (Departure)");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(188, "mat-select", 58)(189, "mat-option", 59);
-      \u0275\u0275text(190, "Fisrt Class");
+      \u0275\u0275elementStart(189, "mat-select", 59)(190, "mat-option", 60);
+      \u0275\u0275text(191, "Fisrt Class");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(191, "mat-option", 60);
-      \u0275\u0275text(192, "Business Class");
+      \u0275\u0275elementStart(192, "mat-option", 61);
+      \u0275\u0275text(193, "Business Class");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(193, "mat-option", 61);
-      \u0275\u0275text(194, "Economy");
+      \u0275\u0275elementStart(194, "mat-option", 62);
+      \u0275\u0275text(195, "Economy");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(195, "mat-form-field", 14)(196, "mat-label");
-      \u0275\u0275text(197, "Class of Travel (Return)");
+      \u0275\u0275elementStart(196, "mat-form-field", 14)(197, "mat-label");
+      \u0275\u0275text(198, "Class of Travel (Return)");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(198, "mat-select", 62)(199, "mat-option", 63);
-      \u0275\u0275text(200, "Fisrt Class");
+      \u0275\u0275elementStart(199, "mat-select", 63)(200, "mat-option", 64);
+      \u0275\u0275text(201, "Fisrt Class");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(201, "mat-option", 60);
-      \u0275\u0275text(202, "Business Class");
+      \u0275\u0275elementStart(202, "mat-option", 61);
+      \u0275\u0275text(203, "Business Class");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(203, "mat-option", 61);
-      \u0275\u0275text(204, "Economy");
+      \u0275\u0275elementStart(204, "mat-option", 62);
+      \u0275\u0275text(205, "Economy");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(205, "mat-form-field", 14)(206, "mat-label");
-      \u0275\u0275text(207, "EXCO Head Email");
+      \u0275\u0275elementStart(206, "mat-form-field", 14)(207, "mat-label");
+      \u0275\u0275text(208, "EXCO Head Email");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(208, "input", 64);
+      \u0275\u0275element(209, "input", 65);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(209, "mat-form-field", 14)(210, "mat-label");
-      \u0275\u0275text(211, "CFO Email");
+      \u0275\u0275elementStart(210, "mat-form-field", 14)(211, "mat-label");
+      \u0275\u0275text(212, "CFO Email");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(212, "input", 65);
+      \u0275\u0275element(213, "input", 66);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(213, "div", 39)(214, "button", 66);
-      \u0275\u0275template(215, TravelCreateComponent_mat_progress_spinner_215_Template, 1, 0, "mat-progress-spinner", 67)(216, TravelCreateComponent_span_216_Template, 2, 0, "span", 42);
+      \u0275\u0275elementStart(214, "div", 40)(215, "button", 67);
+      \u0275\u0275template(216, TravelCreateComponent_mat_progress_spinner_216_Template, 1, 0, "mat-progress-spinner", 68)(217, TravelCreateComponent_span_217_Template, 2, 0, "span", 43);
       \u0275\u0275elementEnd()()()()()()();
-      \u0275\u0275elementStart(217, "mat-card-actions", 68)(218, "button", 69);
-      \u0275\u0275template(219, TravelCreateComponent_mat_progress_spinner_219_Template, 1, 0, "mat-progress-spinner", 67)(220, TravelCreateComponent_span_220_Template, 2, 0, "span", 42);
+      \u0275\u0275elementStart(218, "mat-card-actions", 69)(219, "button", 70);
+      \u0275\u0275template(220, TravelCreateComponent_mat_progress_spinner_220_Template, 1, 0, "mat-progress-spinner", 68)(221, TravelCreateComponent_span_221_Template, 2, 0, "span", 43);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(221, "button", 70);
-      \u0275\u0275listener("click", function TravelCreateComponent_Template_button_click_221_listener() {
+      \u0275\u0275elementStart(222, "button", 71);
+      \u0275\u0275listener("click", function TravelCreateComponent_Template_button_click_222_listener() {
         \u0275\u0275restoreView(_r1);
         return \u0275\u0275resetView(ctx.onCancel());
       });
-      \u0275\u0275text(222, " Cancel ");
+      \u0275\u0275text(223, " Cancel ");
       \u0275\u0275elementEnd()()()();
     }
     if (rf & 2) {
-      let tmp_25_0;
+      let tmp_28_0;
+      let tmp_29_0;
       const passportPicker_r6 = \u0275\u0275reference(30);
       const depPicker_r7 = \u0275\u0275reference(76);
       const departureTimePicker_r8 = \u0275\u0275reference(82);
@@ -44112,14 +44114,16 @@ var TravelCreateComponent = class _TravelCreateComponent {
       \u0275\u0275property("for", startPicker_r11);
       \u0275\u0275advance(3);
       \u0275\u0275property("ngIf", ctx.warningMessage);
-      \u0275\u0275advance(4);
-      \u0275\u0275property("ngIf", !((tmp_25_0 = ctx.travelForm.get("perDiemEndDate")) == null ? null : tmp_25_0.value));
       \u0275\u0275advance();
+      \u0275\u0275property("formGroup", ctx.travelForm);
+      \u0275\u0275advance(4);
       \u0275\u0275property("matDatepicker", endPicker_r12);
       \u0275\u0275advance();
       \u0275\u0275property("for", endPicker_r12);
-      \u0275\u0275advance(4);
-      \u0275\u0275property("disabled", ctx.loading);
+      \u0275\u0275advance(3);
+      \u0275\u0275property("ngIf", !((tmp_28_0 = ctx.travelForm.get("perDiemEndDate")) == null ? null : tmp_28_0.value));
+      \u0275\u0275advance(2);
+      \u0275\u0275property("disabled", ctx.loading || !((tmp_29_0 = ctx.travelForm.get("perDiemEndDate")) == null ? null : tmp_29_0.value));
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", ctx.loading);
       \u0275\u0275advance();
@@ -44183,7 +44187,7 @@ var TravelCreateComponent = class _TravelCreateComponent {
     NgxMatTimepickerComponent,
     NgxMatTimepickerDirective,
     MatSnackBarModule
-  ], styles: ["\n\n.form-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.5rem;\n  justify-content: center;\n}\n.step-wrapper[_ngcontent-%COMP%] {\n  padding: 2rem;\n  margin-bottom: 2rem;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  background-color: #f4f4f4;\n}\n.column-box[_ngcontent-%COMP%] {\n  background-color: white;\n  padding: 2rem;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);\n  border-radius: 4px;\n  min-height: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  max-width: 794px;\n  width: 100%;\n  box-sizing: border-box;\n}\nmat-form-field[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.step-actions[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: flex;\n  justify-content: space-between;\n}\n.warning-text[_ngcontent-%COMP%] {\n  color: #d9534f;\n  font-weight: 500;\n}\nbutton[mat-raised-button][_ngcontent-%COMP%], \nbutton[mat-stroked-button][_ngcontent-%COMP%] {\n  padding: 0.75rem 2rem;\n  font-size: 1rem;\n  font-weight: 600;\n  border-radius: 8px;\n  text-transform: none;\n  transition: all 0.3s ease;\n  min-width: 140px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\nbutton[mat-raised-button][_ngcontent-%COMP%]:hover:not(:disabled), \nbutton[mat-stroked-button][_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-1px);\n  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);\n}\n.spinner[_ngcontent-%COMP%] {\n  margin-right: 0.75rem;\n}\n@media (max-width: 768px) {\n  .form-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .column-box[_ngcontent-%COMP%] {\n    max-width: 100%;\n  }\n}\n.error-message[_ngcontent-%COMP%] {\n  color: red;\n  font-size: 13px;\n  margin-top: 6px;\n}\n.error-label[_ngcontent-%COMP%] {\n  color: #f44336;\n  font-weight: 500;\n}\n/*# sourceMappingURL=travel-create.component.css.map */"] });
+  ], styles: ["\n\n.form-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.5rem;\n  justify-content: center;\n}\n.step-wrapper[_ngcontent-%COMP%] {\n  padding: 2rem;\n  margin-bottom: 2rem;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  background-color: #f4f4f4;\n}\n.column-box[_ngcontent-%COMP%] {\n  background-color: white;\n  padding: 2rem;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);\n  border-radius: 4px;\n  min-height: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  max-width: 794px;\n  width: 100%;\n  box-sizing: border-box;\n}\nmat-form-field[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.step-actions[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n  display: flex;\n  justify-content: space-between;\n}\n.warning-text[_ngcontent-%COMP%] {\n  color: #d9534f;\n  font-weight: 500;\n}\nbutton[mat-raised-button][_ngcontent-%COMP%], \nbutton[mat-stroked-button][_ngcontent-%COMP%] {\n  padding: 0.75rem 2rem;\n  font-size: 1rem;\n  font-weight: 600;\n  border-radius: 8px;\n  text-transform: none;\n  transition: all 0.3s ease;\n  min-width: 140px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\nbutton[mat-raised-button][_ngcontent-%COMP%]:hover:not(:disabled), \nbutton[mat-stroked-button][_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-1px);\n  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);\n}\n.spinner[_ngcontent-%COMP%] {\n  margin-right: 0.75rem;\n}\n@media (max-width: 768px) {\n  .form-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .column-box[_ngcontent-%COMP%] {\n    max-width: 100%;\n  }\n}\n.error-message[_ngcontent-%COMP%] {\n  color: red;\n  font-size: 13px;\n  margin-top: 6px;\n}\n.form-error[_ngcontent-%COMP%] {\n  color: #f44336;\n  font-weight: 500;\n  margin-bottom: 12px;\n}\n/*# sourceMappingURL=travel-create.component.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TravelCreateComponent, [{
@@ -44364,26 +44368,25 @@ var TravelCreateComponent = class _TravelCreateComponent {
           <mat-datepicker #startPicker></mat-datepicker>
           <mat-hint *ngIf="warningMessage" style="color: red;">{{ warningMessage }}</mat-hint>
         </mat-form-field>
-  
-        <mat-form-field class="full-width" appearance="fill">
-          <mat-label>
-            Per Diem End Date -
-            <span class="error-label" 
-                  *ngIf="!travelForm.get('perDiemEndDate')?.value">
-              &nbsp; Per Diem End Date cannot be earlier than Per Diem Start Date.
-            </span>
-          </mat-label>
-        
-          <input 
-            matInput 
-            [matDatepicker]="endPicker" 
-            formControlName="perDiemEndDate"
-            (dateChange)="calculateWorkingDays()" 
-            (dateInput)="calculateWorkingDays()" />
-        
-          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-          <mat-datepicker #endPicker></mat-datepicker>
-        </mat-form-field>
+
+        <form [formGroup]="travelForm">
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Per Diem End Date</mat-label>
+            <input 
+              matInput 
+              [matDatepicker]="endPicker" 
+              formControlName="perDiemEndDate"
+              (dateChange)="calculateWorkingDays()" 
+              (dateInput)="calculateWorkingDays()" />
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </mat-form-field>
+          <!-- \u{1F534} Error displayed at the top of the form -->
+        <div class="form-error" *ngIf="!travelForm.get('perDiemEndDate')?.value">
+          Per Diem End Date cannot be earlier than Per Diem Start Date.
+        </div>
+        </form>
+
                         
         
          <!-- next button> -->
@@ -44393,7 +44396,7 @@ var TravelCreateComponent = class _TravelCreateComponent {
             color="accent"
             type="button"
             matStepperNext
-            [disabled]="loading"
+            [disabled]="loading  || !travelForm.get('perDiemEndDate')?.value"
           >
             <mat-progress-spinner
               *ngIf="loading"
@@ -44635,7 +44638,7 @@ var TravelCreateComponent = class _TravelCreateComponent {
   </form>
   
   
-  `, styles: ["/* src/app/travel/travel-create/travel-create.component.scss */\n.form-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.5rem;\n  justify-content: center;\n}\n.step-wrapper {\n  padding: 2rem;\n  margin-bottom: 2rem;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  background-color: #f4f4f4;\n}\n.column-box {\n  background-color: white;\n  padding: 2rem;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);\n  border-radius: 4px;\n  min-height: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  max-width: 794px;\n  width: 100%;\n  box-sizing: border-box;\n}\nmat-form-field {\n  width: 100%;\n}\n.step-actions {\n  margin-top: 2rem;\n  display: flex;\n  justify-content: space-between;\n}\n.warning-text {\n  color: #d9534f;\n  font-weight: 500;\n}\nbutton[mat-raised-button],\nbutton[mat-stroked-button] {\n  padding: 0.75rem 2rem;\n  font-size: 1rem;\n  font-weight: 600;\n  border-radius: 8px;\n  text-transform: none;\n  transition: all 0.3s ease;\n  min-width: 140px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\nbutton[mat-raised-button]:hover:not(:disabled),\nbutton[mat-stroked-button]:hover:not(:disabled) {\n  transform: translateY(-1px);\n  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);\n}\n.spinner {\n  margin-right: 0.75rem;\n}\n@media (max-width: 768px) {\n  .form-grid {\n    grid-template-columns: 1fr;\n  }\n  .column-box {\n    max-width: 100%;\n  }\n}\n.error-message {\n  color: red;\n  font-size: 13px;\n  margin-top: 6px;\n}\n.error-label {\n  color: #f44336;\n  font-weight: 500;\n}\n/*# sourceMappingURL=travel-create.component.css.map */\n"] }]
+  `, styles: ["/* src/app/travel/travel-create/travel-create.component.scss */\n.form-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1.5rem;\n  justify-content: center;\n}\n.step-wrapper {\n  padding: 2rem;\n  margin-bottom: 2rem;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  background-color: #f4f4f4;\n}\n.column-box {\n  background-color: white;\n  padding: 2rem;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);\n  border-radius: 4px;\n  min-height: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  max-width: 794px;\n  width: 100%;\n  box-sizing: border-box;\n}\nmat-form-field {\n  width: 100%;\n}\n.step-actions {\n  margin-top: 2rem;\n  display: flex;\n  justify-content: space-between;\n}\n.warning-text {\n  color: #d9534f;\n  font-weight: 500;\n}\nbutton[mat-raised-button],\nbutton[mat-stroked-button] {\n  padding: 0.75rem 2rem;\n  font-size: 1rem;\n  font-weight: 600;\n  border-radius: 8px;\n  text-transform: none;\n  transition: all 0.3s ease;\n  min-width: 140px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\nbutton[mat-raised-button]:hover:not(:disabled),\nbutton[mat-stroked-button]:hover:not(:disabled) {\n  transform: translateY(-1px);\n  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);\n}\n.spinner {\n  margin-right: 0.75rem;\n}\n@media (max-width: 768px) {\n  .form-grid {\n    grid-template-columns: 1fr;\n  }\n  .column-box {\n    max-width: 100%;\n  }\n}\n.error-message {\n  color: red;\n  font-size: 13px;\n  margin-top: 6px;\n}\n.form-error {\n  color: #f44336;\n  font-weight: 500;\n  margin-bottom: 12px;\n}\n/*# sourceMappingURL=travel-create.component.css.map */\n"] }]
   }], () => [{ type: FormBuilder }, { type: TravelService }, { type: Router }, { type: MatDialog }, { type: HttpClient }, { type: ChangeDetectorRef }, { type: MatSnackBar }], null);
 })();
 (() => {
@@ -46966,7 +46969,7 @@ var BuheadListComponent = class _BuheadListComponent {
           "Pending CFO Approval",
           "CFO Approval Successful",
           "BU Head Approval Successful"
-        ].includes(travel.status)).filter((travel) => travel.excoHeadEmail?.toLowerCase() === currentUserEmail).sort((a2, b2) => new Date(b2.dateCreated).getTime() - new Date(a2.dateCreated).getTime());
+        ].includes(travel.status)).filter((travel) => travel.excoHeadEmail?.toLowerCase() === currentUserEmail?.toLowerCase()).sort((a2, b2) => new Date(b2.dateCreated).getTime() - new Date(a2.dateCreated).getTime());
         this.filteredRequests = [...this.travelRequests];
         this.loading = false;
       },
@@ -47436,7 +47439,7 @@ var CfoListComponent = class _CfoListComponent {
           "Pending CFO Approval",
           "CFO Approval Successful",
           "BU Head Approval Successful"
-        ].includes(travel.status)).filter((travel) => travel.cfoEmail === currentUserEmail).sort((a2, b2) => new Date(b2.dateCreated).getTime() - new Date(a2.dateCreated).getTime());
+        ].includes(travel.status)).filter((travel) => travel.cfoEmail?.toLowerCase() === currentUserEmail?.toLowerCase()).sort((a2, b2) => new Date(b2.dateCreated).getTime() - new Date(a2.dateCreated).getTime());
         this.filteredRequests = [...this.travelRequests];
         this.loading = false;
       },
@@ -47928,7 +47931,7 @@ var CfoDetailComponent = class _CfoDetailComponent {
             error: (err2) => console.error(`Failed to send notification email to ${recipient.name}`, err2)
           });
         });
-        this.router.navigate(["/travel/buhead/list"]);
+        this.router.navigate(["/travel/cfo/list"]);
       },
       error: () => {
         this.snackBar.open("Failed to update status.", "Close", { duration: 3e3 });
@@ -84554,4 +84557,4 @@ jspdf/dist/jspdf.es.min.js:
    * http://opensource.org/licenses/mit-license
    *)
 */
-//# sourceMappingURL=chunk-KXUM2MYE.js.map
+//# sourceMappingURL=chunk-NAMGCRBF.js.map
