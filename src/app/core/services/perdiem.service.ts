@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { PerDiem } from 'src/app/shared/models/perdiem/perdiem.model';
 import { ApiResponse } from 'src/app/shared/models/travel/api-response.model';
-import { baseUrl,baseUrlLocal, generateUUID } from './constants';
+import { generateUUID } from './constants';
+import { ConfigService } from 'src/app//config.service';
 
 
 @Injectable({
@@ -13,7 +14,13 @@ export class PerdiemService {
 
   // private baseUrl = 'http://localhost:9090/camp/perdiems'; // Adjust if needed
 
-  constructor(private http: HttpClient) { }
+  private baseUrl: string; 
+  private baseUrlCamp: string;
+
+  constructor(private http: HttpClient, private config: ConfigService) { 
+    this.baseUrl = this.config.get('baseUrl');
+    this.baseUrlCamp = this.config.get('baseUrlCamp');
+  }
 
   getAll(): Observable<PerDiem[]> {
     const token = localStorage.getItem('userToken') || '';
@@ -22,7 +29,7 @@ export class PerdiemService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
     
-    return this.http.get<ApiResponse<PerDiem[]>>(`${baseUrl}/perdiems/all`,{headers}).pipe(
+    return this.http.get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/perdiems/all`,{headers}).pipe(
       map(response => response.data)
     );
   }
@@ -34,7 +41,7 @@ export class PerdiemService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.get<ApiResponse<PerDiem>>(`${baseUrl}/perdiems/${id}`,{headers}).pipe(
+    return this.http.get<ApiResponse<PerDiem>>(`${this.baseUrl}/perdiems/${id}`,{headers}).pipe(
       map(response => response.data)
     );
   }
@@ -46,7 +53,7 @@ export class PerdiemService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.post<PerDiem>(`${baseUrl}/perdiems/add`, travel,{headers});
+    return this.http.post<PerDiem>(`${this.baseUrl}/perdiems/add`, travel,{headers});
   }
 
   update(id: string, travel: PerDiem): Observable<PerDiem> {
@@ -56,7 +63,7 @@ export class PerdiemService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.put<PerDiem>(`${baseUrl}/perdiems/update/${id}`, travel,{headers});
+    return this.http.put<PerDiem>(`${this.baseUrl}/perdiems/update/${id}`, travel,{headers});
   }
 
   delete(id: string, travel: PerDiem): Observable<PerDiem> {
@@ -66,7 +73,7 @@ export class PerdiemService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.delete<ApiResponse<PerDiem>>(`${baseUrl}/perdiems/delete/${id}`,{headers}).pipe(
+    return this.http.delete<ApiResponse<PerDiem>>(`${this.baseUrl}/perdiems/delete/${id}`,{headers}).pipe(
       map(response => response.data)
     );
   }

@@ -99,7 +99,9 @@ export class BuheadListComponent implements OnInit {
               'Pending BU Head Approval',
               'Pending CFO Approval',
               'CFO Approval Successful',
-              'BU Head Approval Successful'
+              'BU Head Approval Successful',
+              'Rejected by BU Head',
+              'CFO Approval Rejected'
             ].includes(travel.status)
           )
           .filter((travel: any) => travel.excoHeadEmail?.toLowerCase() === currentUserEmail?.toLowerCase())

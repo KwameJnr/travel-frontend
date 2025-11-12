@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/per-diem/perdiem-detail/perdiem-detail.component.scss"],
-  "sourcesContent": [".detail-wrapper {\n    padding: 2rem;\n    display: flex;\n    flex-direction: column;\n    gap: 2rem;\n  }\n  \n  .info-card {\n    border-radius: 12px;\n    box-shadow: 0 4px 12px rgba(0,0,0,0.1);\n  }\n  \n  .page-title {\n    font-size: 2rem;\n    display: flex;\n    align-items: center;\n    gap: 0.5rem;\n    margin-bottom: 1rem;\n  }\n  \n  .info-grid {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 1rem;\n  }\n  \n  mat-icon {\n    vertical-align: middle;\n    margin-right: 0.25rem;\n  }\n  \n  .back-btn {\n    margin-bottom: 1rem;\n    font-weight: 500;\n    text-transform: none;\n  }\n  "],
-  "mappings": ";AAAA,CAAA;AACI,WAAA;AACA,WAAA;AACA,kBAAA;AACA,OAAA;;AAGF,CAAA;AACE,iBAAA;AACA,cAAA,EAAA,IAAA,KAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA;;AAGF,CAAA;AACE,aAAA;AACA,WAAA;AACA,eAAA;AACA,OAAA;AACA,iBAAA;;AAGF,CAAA;AACE,WAAA;AACA,yBAAA,IAAA;AACA,OAAA;;AAGF;AACE,kBAAA;AACA,gBAAA;;AAGF,CAAA;AACE,iBAAA;AACA,eAAA;AACA,kBAAA;;",
-  "names": []
-}

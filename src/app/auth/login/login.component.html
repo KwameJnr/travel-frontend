@@ -1,16 +1,71 @@
-<div class="login-container">
+<div class="login-wrapper">
+  <!-- Left image section -->
+  <div class="login-left">
+    <div class="overlay-text">
+      <h1>Travel Request Management System</h1>
+      <p>Book and manage your official travels seamlessly</p>
+    </div>
+  </div>
+
+  <!-- Right login section -->
+  <div class="login-right">
+    <mat-card class="login-card">
+      <div class="version-label">v0.1.2</div>
+
+      <div class="login-header">
+        <img src="assets/images/fnb-logo.png" alt="Company Logo" class="login-logo" />
+        <div>
+          <mat-card-title>Welcome Back</mat-card-title>
+          <mat-card-subtitle>Sign in with your f-number and password</mat-card-subtitle>
+        </div>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>F-Number</mat-label>
+          <input matInput type="text" formControlName="fnumber" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required />
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-btn"
+          [disabled]="loginForm.invalid"
+        >
+          Sign In
+        </button>
+      </form>
+
+      <div
+        *ngIf="showPollingMessage"
+        class="polling-message"
+        [ngClass]="{ error: isErrorPollingMessage }"
+      >
+        <mat-spinner *ngIf="isPolling" diameter="24"></mat-spinner>
+        <span style="margin-left: 10px;">{{ pollingMessage }}</span>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<!-- <div class="login-container">
   <div class="login-image-section">
     <div class="system-title">
       <h1>Travel Request Management System</h1>
     </div>
     <img src="assets/images/travels.svg" alt="Travel Illustration" />
-  </div>
+  </div> -->
 
-  <div class="login-form-section">
-    <mat-card class="login-card" appearance="outlined">
+  <!-- <div class="login-form-section">
+    <mat-card class="login-card" appearance="outlined"> -->
 
       <!-- Version label -->
-      <div class="version-label">v0.1.0</div>
+      <!-- <div class="version-label">v0.1.1</div>
 
       <mat-card-title>Welcome Back</mat-card-title>
       <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>
@@ -34,52 +89,7 @@
       <div *ngIf="showPollingMessage" class="polling-message" [ngClass]="{'error': isErrorPollingMessage}">
         <mat-spinner *ngIf="isPolling" diameter="24"></mat-spinner>
         <span style="margin-left: 10px;">{{ pollingMessage }}</span>
-      </div>           
-    </mat-card>
-  </div>
-</div>
-
-
-
-<!-- <div class="login-container">
-  <div class="login-image-section">
-    <div class="system-title">
-      <h1>Travel Request Management System</h1>
-    </div>
-    <img src="assets/images/travels.svg" alt="Travel Illustration" />
-  </div>
-
-  <div class="login-form-section">
-    <mat-card class="login-card" appearance="outlined">
-      <mat-card-title>Welcome Back</mat-card-title>
-      <mat-card-subtitle>Sign in to book your travel requests</mat-card-subtitle>
-
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email" required />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" required />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Select Role</mat-label>
-          <mat-select formControlName="role" required>
-            <mat-option value="EMPLOYEE">EMPLOYEE</mat-option>
-            <mat-option value="BU_HEAD">BU_HEAD</mat-option>
-            <mat-option value="CFO">CFO</mat-option>
-            <mat-option value="ADMIN">ADMIN</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">
-          Sign In
-        </button>
-      </form>
-    </mat-card>
+      </div>            -->
+    <!-- </mat-card>
   </div>
 </div> -->
-

@@ -7,116 +7,134 @@
     Travel Request Details
   </h2>
 
+  <!-- ✅ Export Button -->
+  <div class="action-buttons">
+    <button mat-raised-button color="primary" (click)="exportAsPDF()">
+      <mat-icon>picture_as_pdf</mat-icon> Export as PDF
+    </button>
+    <button mat-stroked-button color="accent" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon> Back
+    </button>
+  </div>
+
   <!-- Employee Info -->
-  <mat-card class="info-card">
-    <mat-card-title>
-      <mat-icon>person</mat-icon> Employee Information
-    </mat-card-title>
-    <mat-card-content>
-      <div class="info-grid">
-        <div><mat-icon>badge</mat-icon> <strong>Name:</strong> {{ travel.employeeName }}</div>
-        <div><mat-icon>mail</mat-icon> <strong>Email:</strong> {{ travel.employeeEmail }}</div>
-        <div><mat-icon>passport</mat-icon> <strong>Passport No:</strong> {{ travel.employeePassportNo }}</div>
-        <div><mat-icon>event</mat-icon> <strong>Expiry:</strong> {{ travel.employeePassportExpiry | date }}</div>
-        <div><mat-icon>numbers</mat-icon> <strong>Emp #:</strong> {{ travel.employeeNumber }}</div>
-        <div><mat-icon>apartment</mat-icon> <strong>Dept:</strong> {{ travel.employeeDepartment }}</div>
-        <div><mat-icon>phone</mat-icon> <strong>Travel Contact:</strong> {{ travel.employeeTravellingContact }}</div>
-        <div><mat-icon>contact_phone</mat-icon> <strong>Personal Contact:</strong> {{ travel.employeeContact }}</div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <div id="pdfContent">
 
-  <!-- Travel Info -->
-  <mat-card class="info-card">
-    <mat-card-title>
-      <mat-icon>flight_takeoff</mat-icon> Travel Information
-    </mat-card-title>
-    <mat-card-content>
-      <div class="info-grid">
-        <div><mat-icon>flag</mat-icon> <strong>Purpose:</strong> {{ travel.purpose }}</div>
-        <div><mat-icon>location_city</mat-icon> <strong>City:</strong> {{ travel.city }}</div>
-        <div><mat-icon>public</mat-icon> <strong>Country:</strong> {{ travel.country }}</div>
-        <div><mat-icon>check_circle</mat-icon> <strong>Visa:</strong> {{ travel.visaRequired }}</div>
-        <div><mat-icon>departure_board</mat-icon> <strong>Departure:</strong> {{ travel.departureDate | date }} {{ travel.departureTime }}</div>
-        <div><mat-icon>flight_land</mat-icon> <strong>Return:</strong> {{ travel.returnDate | date }} {{ travel.returnTime }}</div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+    <div class="pdf-header">
+      <img src="assets/images/fnb-logo.png" alt="Company Logo" class="pdf-logo">
+      <h3>Travel Request Details</h3>
+    </div>
 
-  <!-- Per Diem -->
-  <mat-card class="info-card">
-    <mat-card-title>
-      <mat-icon>attach_money</mat-icon> Per Diem & Allowances
-    </mat-card-title>
-    <mat-card-content>
-      <div class="info-grid">
-        <div><mat-icon>calendar_today</mat-icon> <strong>Start:</strong> {{ travel.perDiemStartDate | date }}</div>
-        <div><mat-icon>calendar_today</mat-icon> <strong>End:</strong> {{ travel.perDiemEndDate | date }}</div>
-        <div><mat-icon>event_note</mat-icon> <strong>Days Out:</strong> {{ travel.daysOutOfficialAssignmentDate | date }}</div>
-        <div><mat-icon>monetization_on</mat-icon> <strong>Allowance:</strong> {{ travel.subsistenceAllowance }}</div>
-        <div><mat-icon>schedule</mat-icon> <strong>Days:</strong> {{ travel.perDiemDays }}</div>
-        <div><mat-icon>calculate</mat-icon> <strong>Est. Amount:</strong> {{ travel.estimatedPerDiemAmount | currency }}</div>
-        <div><mat-icon>attach_money</mat-icon> <strong>Total Cost:</strong> {{ travel.totalEstimatedTravelCost | currency }}</div>
-        <div><mat-icon>confirmation_number</mat-icon> <strong>Budget Code:</strong> {{ travel.travelBudgetCode }}</div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+    <mat-card class="info-card">
+      <mat-card-title>
+        <mat-icon>person</mat-icon> Employee Information
+      </mat-card-title>
+      <mat-card-content>
+        <div class="info-grid">
+          <div><mat-icon>badge</mat-icon> <strong>Name:</strong> {{ travel.employeeName }}</div>
+          <div><mat-icon>mail</mat-icon> <strong>Email:</strong> {{ travel.employeeEmail }}</div>
+          <div><mat-icon>passport</mat-icon> <strong>Passport No:</strong> {{ travel.employeePassportNo }}</div>
+          <div><mat-icon>event</mat-icon> <strong>Expiry:</strong> {{ travel.employeePassportExpiry | date }}</div>
+          <div><mat-icon>numbers</mat-icon> <strong>Emp #:</strong> {{ travel.employeeNumber }}</div>
+          <div><mat-icon>apartment</mat-icon> <strong>Dept:</strong> {{ travel.employeeDepartment }}</div>
+          <div><mat-icon>phone</mat-icon> <strong>Travel Contact:</strong> {{ travel.employeeTravellingContact }}</div>
+          <div><mat-icon>contact_phone</mat-icon> <strong>Personal Contact:</strong> {{ travel.employeeContact }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-  <!-- Hotel -->
-  <mat-card class="info-card">
-    <mat-card-title>
-      <mat-icon>hotel</mat-icon> Hotel & Transportation
-    </mat-card-title>
-    <mat-card-content>
-      <div class="info-grid">
-        <div><mat-icon>hotel</mat-icon> <strong>Hotel:</strong> {{ travel.hotelName }}</div>
-        <div><mat-icon>book_online</mat-icon> <strong>Reservation:</strong> {{ travel.hotelReservation }}</div>
-        <div><mat-icon>place</mat-icon> <strong>Address:</strong> {{ travel.hotelAddress }}</div>
-        <div><mat-icon>location_city</mat-icon> <strong>City:</strong> {{ travel.hotelCity }}</div>
-        <div><mat-icon>public</mat-icon> <strong>Country:</strong> {{ travel.hotelCountry }}</div>
-        <div><mat-icon>directions_car</mat-icon> <strong>Rental Car:</strong> {{ travel.rentalCarRequired }}</div>
-        <div><mat-icon>airport_shuttle</mat-icon> <strong>Airport Transport:</strong> {{ travel.airportTransportRequiredToAndFrom }}</div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+    <!-- Travel Info -->
+    <mat-card class="info-card">
+      <mat-card-title>
+        <mat-icon>flight_takeoff</mat-icon> Travel Information
+      </mat-card-title>
+      <mat-card-content>
+        <div class="info-grid">
+          <div><mat-icon>flag</mat-icon> <strong>Purpose:</strong> {{ travel.purpose }}</div>
+          <div><mat-icon>location_city</mat-icon> <strong>City:</strong> {{ travel.city }}</div>
+          <div><mat-icon>public</mat-icon> <strong>Country:</strong> {{ travel.country }}</div>
+          <div><mat-icon>check_circle</mat-icon> <strong>Visa:</strong> {{ travel.visaRequired }}</div>
+          <div><mat-icon>departure_board</mat-icon> <strong>Departure:</strong> {{ travel.departureDate | date }} {{ travel.departureTime }}</div>
+          <div><mat-icon>flight_land</mat-icon> <strong>Return:</strong> {{ travel.returnDate | date }} {{ travel.returnTime }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-  <!-- Approvals -->
-  <mat-card class="info-card">
-    <mat-card-title>
-      <mat-icon>approval</mat-icon> Approval Details
-    </mat-card-title>
-    <mat-card-content>
-      <div class="info-grid">
-        <div><mat-icon>airplane_ticket</mat-icon> <strong>Departure Class:</strong> {{ travel.classOfTravelDeparture }}</div>
-        <div><mat-icon>airplane_ticket</mat-icon> <strong>Return Class:</strong> {{ travel.classOfTravelReturn }}</div>
+    <!-- Per Diem -->
+    <mat-card class="info-card">
+      <mat-card-title>
+        <mat-icon>attach_money</mat-icon> Per Diem & Allowances
+      </mat-card-title>
+      <mat-card-content>
+        <div class="info-grid">
+          <div><mat-icon>calendar_today</mat-icon> <strong>Start:</strong> {{ travel.perDiemStartDate | date }}</div>
+          <div><mat-icon>calendar_today</mat-icon> <strong>End:</strong> {{ travel.perDiemEndDate | date }}</div>
+          <div><mat-icon>event_note</mat-icon> <strong>Days Out:</strong> {{ travel.daysOutOfficialAssignmentDate | date }}</div>
+          <div><mat-icon>monetization_on</mat-icon> <strong>Allowance:</strong> {{ travel.subsistenceAllowance }}</div>
+          <div><mat-icon>schedule</mat-icon> <strong>Days:</strong> {{ travel.perDiemDays }}</div>
+          <div><mat-icon>calculate</mat-icon> <strong>Est. Amount:</strong> {{ travel.estimatedPerDiemAmount | currency }}</div>
+          <div><mat-icon>attach_money</mat-icon> <strong>Total Cost:</strong> {{ travel.totalEstimatedTravelCost | currency }}</div>
+          <div><mat-icon>confirmation_number</mat-icon> <strong>Budget Code:</strong> {{ travel.travelBudgetCode }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-        <div><mat-icon>person_outline</mat-icon> <strong>EXCO Name:</strong> {{ travel.excoHeadName }}</div>
-        <div><mat-icon>mail</mat-icon> <strong>EXCO Email:</strong> {{ travel.excoHeadEmail }}</div>
-        <div><mat-icon>check_circle_outline</mat-icon> <strong>EXCO Status:</strong> {{ travel.excoHeadStatus }}</div>
-        <div><mat-icon>feedback</mat-icon> <strong>EXCO Feedback:</strong> {{ travel.excoHeadFeedback }}</div>
-        <div><mat-icon>comment</mat-icon> <strong>EXCO Remarks:</strong> {{ travel.excoHeadFeedbackRemarks }}</div>
+    <!-- Hotel -->
+    <mat-card class="info-card">
+      <mat-card-title>
+        <mat-icon>hotel</mat-icon> Hotel & Transportation
+      </mat-card-title>
+      <mat-card-content>
+        <div class="info-grid">
+          <div><mat-icon>hotel</mat-icon> <strong>Hotel:</strong> {{ travel.hotelName }}</div>
+          <div><mat-icon>book_online</mat-icon> <strong>Reservation:</strong> {{ travel.hotelReservation }}</div>
+          <div><mat-icon>place</mat-icon> <strong>Address:</strong> {{ travel.hotelAddress }}</div>
+          <div><mat-icon>location_city</mat-icon> <strong>City:</strong> {{ travel.hotelCity }}</div>
+          <div><mat-icon>public</mat-icon> <strong>Country:</strong> {{ travel.hotelCountry }}</div>
+          <div><mat-icon>directions_car</mat-icon> <strong>Rental Car:</strong> {{ travel.rentalCarRequired }}</div>
+          <div><mat-icon>airport_shuttle</mat-icon> <strong>Airport Transport:</strong> {{ travel.airportTransportRequiredToAndFrom }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-        <div><mat-icon>person_outline</mat-icon> <strong>CFO Name:</strong> {{ travel.cfoName }}</div>
-        <div><mat-icon>mail</mat-icon> <strong>CFO Email:</strong> {{ travel.cfoEmail }}</div>
-        <div><mat-icon>check_circle_outline</mat-icon> <strong>CFO Status:</strong> {{ travel.cfoStatus }}</div>
-        <div><mat-icon>feedback</mat-icon> <strong>CFO Feedback:</strong> {{ travel.cfoFeedback }}</div>
-        <div><mat-icon>comment</mat-icon> <strong>CFO Remarks:</strong> {{ travel.cfoFeedbackRemarks }}</div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+    <!-- Approvals -->
+    <mat-card class="info-card">
+      <mat-card-title>
+        <mat-icon>approval</mat-icon> Approval Details
+      </mat-card-title>
+      <mat-card-content>
+        <div class="info-grid">
+          <div><mat-icon>airplane_ticket</mat-icon> <strong>Departure Class:</strong> {{ travel.classOfTravelDeparture }}</div>
+          <div><mat-icon>airplane_ticket</mat-icon> <strong>Return Class:</strong> {{ travel.classOfTravelReturn }}</div>
 
-  <!-- Meta -->
-  <mat-card class="info-card">
-    <mat-card-title>
-      <mat-icon>info</mat-icon> Meta Info
-    </mat-card-title>
-    <mat-card-content>
-      <div class="info-grid">
-        <div><mat-icon>verified</mat-icon> <strong>Status:</strong> {{ travel.status }}</div>
-        <div><mat-icon>calendar_month</mat-icon> <strong>Created:</strong> {{ travel.dateCreated | date:'medium' }}</div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+          <div><mat-icon>person_outline</mat-icon> <strong>EXCO Name:</strong> {{ travel.excoHeadName }}</div>
+          <div><mat-icon>mail</mat-icon> <strong>EXCO Email:</strong> {{ travel.excoHeadEmail }}</div>
+          <div><mat-icon>check_circle_outline</mat-icon> <strong>EXCO Status:</strong> {{ travel.excoHeadStatus }}</div>
+          <div><mat-icon>feedback</mat-icon> <strong>EXCO Feedback:</strong> {{ travel.excoHeadFeedback }}</div>
+          <div><mat-icon>comment</mat-icon> <strong>EXCO Remarks:</strong> {{ travel.excoHeadFeedbackRemarks }}</div>
+
+          <div><mat-icon>person_outline</mat-icon> <strong>CFO Name:</strong> {{ travel.cfoName }}</div>
+          <div><mat-icon>mail</mat-icon> <strong>CFO Email:</strong> {{ travel.cfoEmail }}</div>
+          <div><mat-icon>check_circle_outline</mat-icon> <strong>CFO Status:</strong> {{ travel.cfoStatus }}</div>
+          <div><mat-icon>feedback</mat-icon> <strong>CFO Feedback:</strong> {{ travel.cfoFeedback }}</div>
+          <div><mat-icon>comment</mat-icon> <strong>CFO Remarks:</strong> {{ travel.cfoFeedbackRemarks }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Meta -->
+    <mat-card class="info-card">
+      <mat-card-title>
+        <mat-icon>info</mat-icon> Meta Info
+      </mat-card-title>
+      <mat-card-content>
+        <div class="info-grid">
+          <div><mat-icon>verified</mat-icon> <strong>Status:</strong> {{ travel.status }}</div>
+          <div><mat-icon>calendar_month</mat-icon> <strong>Created:</strong> {{ travel.dateCreated | date:'medium' }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
 <button mat-button color="primary" (click)="goBack()" class="back-btn">
   <mat-icon>arrow_back</mat-icon> Back

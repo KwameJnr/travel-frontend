@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TravelService } from 'src/app/core/services/travel.service';
 import { Travel } from 'src/app/shared/models/travel/travel.model';
 import { Location } from '@angular/common';
+import html2pdf from 'html2pdf.js';
 
 
 @Component({
@@ -50,4 +51,25 @@ export class TravelDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  // ✅ Export Travel Details as PDF
+  exportAsPDF(): void {
+    const element = document.getElementById('pdfContent');
+  
+    if (!element) {
+      console.error('❌ PDF export failed: #pdfContent not found.');
+      return;
+    }
+  
+    const options: any = {
+      margin: 0.5,
+      filename: `travel-request-${this.travel?.employeeName || 'export'}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+  
+    html2pdf().set(options).from(element).save();
+  }  
+  
 }

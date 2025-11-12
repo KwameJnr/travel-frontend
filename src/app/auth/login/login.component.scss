@@ -1,75 +1,197 @@
+.login-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
 
-.login-container {
-    display: flex;
-    height: 100vh;
+.login-left {
+  flex: 1.2;
+  background-image: url('assets/images/travel-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  }
-  .login-image-section {
-    flex: 1.5;
-    background: linear-gradient(to bottom right, #00796b, #004d40);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0; /* Remove inner spacing */
-    margin: 0;  /* Remove outer spacing */
-    height: 100vh; /* Ensure full height if needed */
-  
-    img {
-      width: 100%;        /* Use full container width */
-      height: auto;       /* Maintain aspect ratio */
-      max-width: none;    /* Remove max limit if image is constrained */
-      display: block;     /* Removes inline spacing */
-      margin: 0;          /* Ensure no auto margin */
-      padding: 0;
-      animation: fadeIn 1s ease-in;
-    }
+.overlay-text {
+  background-color: rgba(0, 0, 0, 0.45);
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  text-align: center;
+  max-width: 80%;
+}
+
+.overlay-text h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.overlay-text p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.login-right {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #269089e9;
+}
+
+.login-card {
+  width: 85%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  position: relative;
+
+  /* 👇 Font style applied only within this card */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: #333;
+
+  mat-card-title {
+    font-weight: 600;
+    font-size: 1.4rem;
   }
 
-  .system-title {
-    position: absolute;
-    top: 20px;
-    text-align: center;
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: white;
-      margin: 0;
-    }
-  }
-  
-  .login-form-section {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #ffffff;
-  }
-  
-  .login-card {
-    width: 100%;
-    max-width: 400px;
-    padding: 2rem;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  }
-  
-  .full-width {
-    width: 100%;
-  }
-  
-  .login-btn {
-    margin-top: 16px;
-    width: 100%;
-  }
-  .version-label {
-    position: absolute;
-    top: 10px;
-    right: 16px;
-    font-size: 12px;
-    color: gray;
+  mat-card-subtitle {
     font-weight: 400;
-    opacity: 0.8;
+    font-size: 0.95rem;
+    color: #777;
   }
+
+  button {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+}
+
+.version-label {
+  font-family: 'Poppins', sans-serif;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.login-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  font-weight: 500;
+}
+
+.login-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space between logo and text */
+  margin-bottom: 1.5rem;
+
+  .login-logo {
+    width: 50px;      /* adjust as needed */
+    height: 50px;
+    object-fit: contain;
+  }
+
+  mat-card-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 0.2rem;
+  }
+
+  mat-card-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+
+// .login-container {
+//     display: flex;
+//     height: 100vh;
+
+//   }
+//   .login-image-section {
+//     flex: 1.5;
+//     background: linear-gradient(to bottom right, #00796b, #004d40);
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     padding: 0; /* Remove inner spacing */
+//     margin: 0;  /* Remove outer spacing */
+//     height: 100vh; /* Ensure full height if needed */
+  
+//     img {
+//       width: 100%;        /* Use full container width */
+//       height: auto;       /* Maintain aspect ratio */
+//       max-width: none;    /* Remove max limit if image is constrained */
+//       display: block;     /* Removes inline spacing */
+//       margin: 0;          /* Ensure no auto margin */
+//       padding: 0;
+//       animation: fadeIn 1s ease-in;
+//     }
+//   }
+
+//   .system-title {
+//     position: absolute;
+//     top: 20px;
+//     text-align: center;
+
+//     h1 {
+//       font-size: 2.5rem;
+//       font-weight: 700;
+//       color: white;
+//       margin: 0;
+//     }
+//   }
+  
+//   .login-form-section {
+//     flex: 1;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     background: #ffffff;
+//   }
+  
+//   .login-card {
+//     width: 100%;
+//     max-width: 400px;
+//     padding: 2rem;
+//     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+//   }
+  
+//   .full-width {
+//     width: 100%;
+//   }
+  
+//   .login-btn {
+//     margin-top: 16px;
+//     width: 100%;
+//   }
+//   .version-label {
+//     position: absolute;
+//     top: 10px;
+//     right: 16px;
+//     font-size: 12px;
+//     color: gray;
+//     font-weight: 400;
+//     opacity: 0.8;
+//   }
   .polling-message {
     display: flex;
     align-items: center;

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/travel/travel-edit/travel-edit.component.scss"],
-  "sourcesContent": [".travel-edit-container {\n  max-width: 800px;\n  margin: 0 auto;\n  display: flex;\n  flex-direction: column;\n\n  mat-form-field {\n    width: 100%;\n    margin-bottom: 16px;\n  }\n\n  .actions {\n    margin-top: 24px;\n    display: flex;\n    justify-content: flex-end;\n\n    .submit-button {\n      display: flex;\n      align-items: center;\n      gap: 8px;\n      font-weight: 600;\n      padding: 10px 24px;\n      border-radius: 8px;\n      text-transform: none;\n      font-size: 15px;\n      transition: background-color 0.3s ease;\n\n      mat-icon {\n        font-size: 20px;\n      }\n\n      &:disabled {\n        background-color: #ccc !important;\n        color: #666 !important;\n      }\n    }\n  }\n\n  .loading {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 200px;\n  }\n}\n\n  "],
-  "mappings": ";AAAA,CAAA;AACE,aAAA;AACA,UAAA,EAAA;AACA,WAAA;AACA,kBAAA;;AAEA,CANF,sBAME;AACE,SAAA;AACA,iBAAA;;AAGF,CAXF,sBAWE,CAAA;AACE,cAAA;AACA,WAAA;AACA,mBAAA;;AAEA,CAhBJ,sBAgBI,CALF,QAKE,CAAA;AACE,WAAA;AACA,eAAA;AACA,OAAA;AACA,eAAA;AACA,WAAA,KAAA;AACA,iBAAA;AACA,kBAAA;AACA,aAAA;AACA,cAAA,iBAAA,KAAA;;AAEA,CA3BN,sBA2BM,CAhBJ,QAgBI,CAXF,cAWE;AACE,aAAA;;AAGF,CA/BN,sBA+BM,CApBJ,QAoBI,CAfF,aAeE;AACE,oBAAA;AACA,SAAA;;AAKN,CAtCF,sBAsCE,CAAA;AACE,WAAA;AACA,mBAAA;AACA,eAAA;AACA,UAAA;;",
-  "names": []
-}

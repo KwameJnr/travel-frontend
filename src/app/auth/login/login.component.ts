@@ -10,8 +10,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { baseUrlCamp } from 'src/app/core/services/constants';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { ConfigService } from 'src/app//config.service';
 
 
 @Component({
@@ -35,17 +35,9 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  // private baseUrl: string;
+  private baseUrlCamp: string;
   // roles = ['EMPLOYEE', 'BU_HEAD', 'CFO', 'ADMIN'];
-
-  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, private cdr: ChangeDetectorRef, private snackBar: MatSnackBar) {}
-
-      ngOnInit(): void {
-        document.body.classList.add('login-page');
-        this.loginForm = this.fb.group({
-          fnumber: ['', Validators.required],
-          password: ['', Validators.required]
-        });
-    }
 
     pollingInterval: any;
     maxPollingAttempts = 30; // 1 minute with 2s interval
@@ -54,10 +46,27 @@ export class LoginComponent implements OnInit {
     pollingMessage = ''; // message to show during polling
     showPollingMessage: boolean = false;
     isErrorPollingMessage = false; 
+    hasLoggedIn = false;
+    isComponentAlive = true;
+
+  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, private cdr: ChangeDetectorRef, private snackBar: MatSnackBar, private config: ConfigService) {
+    // this.baseUrl = this.config.get('baseUrl');
+    this.baseUrlCamp = this.config.get('baseUrlCamp');
+  }
+
+      ngOnInit(): void {
+        document.body.classList.add('login-page');
+        this.baseUrlCamp = this.config.get('baseUrlCamp');
+        this.loginForm = this.fb.group({
+          fnumber: ['', Validators.required],
+          password: ['', Validators.required]
+        });
+    }
 
     ngOnDestroy(): void {
+      this.isComponentAlive = false; // 👈 stop all async behavior
+      this.stopPolling();
       document.body.classList.remove('login-page');
-      clearInterval(this.pollingInterval); // Clear polling interval on component destroy
     }
 
     get fnumber() {
@@ -81,7 +90,7 @@ export class LoginComponent implements OnInit {
         'X-SrcApp': 'Travel-Request'
       });
 
-      this.http.post<any>(`${baseUrlCamp}/security/search-and-authenticate`, {
+      this.http.post<any>(`${this.baseUrlCamp}/security/search-and-authenticate`, {
         fnumber,
         password
       }, { headers: authHeaders }).subscribe({
@@ -106,19 +115,32 @@ export class LoginComponent implements OnInit {
 
   start2FAPolling(authId: string): void {
     this.pollingAttempts = 0;
+    this.hasLoggedIn = false;
 
-    this.pollingInterval = setInterval(() => {
+    // Define the polling function once
+    const poll = () => {
+      // 🔒 Prevent running if already logged in
+      if (this.hasLoggedIn || !this.isComponentAlive) { // 👈 check both
+        this.stopPolling();
+        return;
+      }
+
       this.pollingAttempts++;
 
-      this.http.post<any>(`${baseUrlCamp}/security/verify-2fa`, { authId }).subscribe({
+      this.http.post<any>(`${this.baseUrlCamp}/security/verify-2fa`, { authId }).subscribe({
         next: (res) => {
+          // ✅ Skip handling if already logged in
+          if (this.hasLoggedIn || !this.isComponentAlive) return;
+
           const statusCode = res?.statusCode;
           const statusMessage = res?.statusMessage || '';
 
           if (statusCode === '000') {
             // ✅ Authentication successful
-            clearInterval(this.pollingInterval);
-            this.resetPollingState();
+            this.hasLoggedIn = true; // prevent further polling
+            this.stopPolling();
+            // clearInterval(this.pollingInterval);
+            // this.resetPollingState();
 
             const userToken = res?.token;
             const user = res?.user;
@@ -133,7 +155,9 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('userName', user?.name);
               localStorage.setItem('userToken', userToken);
 
+              this.stopPolling();
               this.router.navigate(['/travel/list']);
+              // console.log('Login successful, navigating to /travel/list');
             } else {
               this.pollingMessage = 'Login failed: Email not found in response.';
               this.showPollingMessage = true;
@@ -144,6 +168,7 @@ export class LoginComponent implements OnInit {
             this.pollingMessage = statusMessage || 'Authentication failed. Please try again.';
             this.isErrorPollingMessage = true;
             this.showPollingMessage = true;
+            this.stopPolling();
             this.cdr.detectChanges();
             clearInterval(this.pollingInterval);
             this.resetPollingState();
@@ -166,6 +191,8 @@ export class LoginComponent implements OnInit {
           }
         },
         error: (err) => {
+          if (this.isComponentAlive) return;
+          this.stopPolling();
           clearInterval(this.pollingInterval);
           const msg = err?.error?.statusMessage || 'Network error. Please try again.';
           this.snackBar.open(msg, 'Dismiss', { duration: 4000 });
@@ -175,13 +202,16 @@ export class LoginComponent implements OnInit {
       });
 
       if (this.pollingAttempts >= this.maxPollingAttempts) {
+        this.stopPolling();
         clearInterval(this.pollingInterval);
         this.snackBar.open('2FA timeout. Please try logging in again.', 'Dismiss', { duration: 4000 });
         this.resetPollingState();
         this.cdr.detectChanges();
       }
 
-    }, 2000);
+    };
+
+    this.pollingInterval = setInterval(poll, 2000);
   }
 
   resetPollingState(): void {
@@ -190,4 +220,13 @@ export class LoginComponent implements OnInit {
     clearInterval(this.pollingInterval);
   }
 
+  private stopPolling(): void {
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+      this.pollingInterval = null;
+    }
+    this.isPolling = false;
+  }
+
 }
+

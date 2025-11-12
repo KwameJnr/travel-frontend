@@ -34,3 +34,22 @@ mat-icon {
   font-weight: 500;
   text-transform: none;
 }
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pdf-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pdf-logo {
+  width: 60px;
+  height: auto;
+}

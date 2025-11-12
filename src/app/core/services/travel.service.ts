@@ -9,22 +9,54 @@ import { Department } from 'src/app/shared/models/deparment/department.model';
 import { Travel } from 'src/app/shared/models/travel/travel.model';
 import { BauHeadForm } from 'src/app/shared/models/buhead/buheadform';
 import { PerDiemForm } from 'src/app/shared/models/perdiem/perdiemform.model';
-import { baseUrl,baseUrlCamp,generateUUID } from './constants';
+import { generateUUID } from './constants';
+import { ConfigService } from 'src/app//config.service';
 
 
 
-@Injectable({
-  providedIn: 'root'
-})
-export class TravelService {
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class TravelService {
   
-  // private travelApibaseUrlLocal = baseUrlLocal+'/travels';
-  // private apiUrl = baseUrlLocal+'/company/department/index';
+//   // private travelApibaseUrlLocal = baseUrlLocal+'/travels';
+//   // private apiUrl = baseUrlLocal+'/company/department/index';
+//   private baseUrl: string =''; 
+//   private baseUrlCamp: string ='';
 
-  private travelApibaseUrlLocal = baseUrl+'/travels'; // Adjust if needed
-  private apiUrl = baseUrlCamp+'/company/department/index';
+//   constructor(private http: HttpClient, private config: ConfigService) { 
+//     this.baseUrl = this.config.get('baseUrl');
+//     this.baseUrlCamp = this.config.get('baseUrlCamp');
+//   }
 
-  constructor(private http: HttpClient) { }
+//   init(): void {    
+//     this.baseUrl = this.config.get('baseUrl');
+//     this.baseUrlCamp = this.config.get('baseUrlCamp');
+    
+//   }
+
+//   private travelApibaseUrlLocal = this.baseUrl+'/travels'; 
+//   private apiUrl = this.baseUrlCamp+'/company/department/index';
+
+@Injectable({ providedIn: 'root' })
+export class TravelService {
+  constructor(private http: HttpClient, private config: ConfigService) {}
+
+  private get baseUrl() {
+    return this.config.get('baseUrl');
+  }
+
+  private get baseUrlCamp() {
+    return this.config.get('baseUrlCamp');
+  }
+
+  private get travelApibaseUrlLocal() {
+    return `${this.baseUrl}/travels`;
+  }
+
+  private get apiUrl() {
+    return `${this.baseUrlCamp}/company/department/index`;
+  }
 
   getAll(): Observable<Travel[]> {
     const token = localStorage.getItem('userToken') || '';
@@ -136,7 +168,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.post(baseUrl+'/notifications/send-approval-msg', payload,{ headers });
+    return this.http.post(this.baseUrl+'/notifications/send-approval-msg', payload,{ headers });
   }
 
   sendApprovalEmailFrontEnd(payload: ApprovalEmailPayload): Observable<any> {
@@ -146,7 +178,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.post(baseUrl+'/notifications/send-approval-frontend-msg', payload,{ headers });
+    return this.http.post(this.baseUrl+'/notifications/send-approval-frontend-msg', payload,{ headers });
   }
 
   sendApprovalEmailFrontEndWithAttachment(payload: ApprovalEmailPayload): Observable<any> {
@@ -156,7 +188,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.post(baseUrl+'/notifications/send-approval-frontend-msg-with-attachment', payload,{ headers });
+    return this.http.post(this.baseUrl+'/notifications/send-approval-frontend-msg-with-attachment', payload,{ headers });
   }
 
   sendEmailMsg(payload: EmailMsgPayload): Observable<any> {
@@ -166,7 +198,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.post(baseUrl+'/notifications/send-msg', payload,{ headers });
+    return this.http.post(this.baseUrl+'/notifications/send-msg', payload,{ headers });
   }
   
   //Cfo dashboard notification endpoints 
@@ -177,7 +209,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    return this.http.get<CfoDashboardMetrics>(baseUrl+'/cfo-dashboard/metrics',{ headers });
+    return this.http.get<CfoDashboardMetrics>(this.baseUrl+'/cfo-dashboard/metrics',{ headers });
   }
 
   getMonthlyCosts(year: number, month?: number): Observable<{ month: string; cost: number }[]> {
@@ -190,7 +222,7 @@ export class TravelService {
     let params = `year=${year}`;
     if (month) params += `&month=${month}`;
   
-    return this.http.get<{ month: string; cost: number }[]>(`${baseUrl}/cfo-dashboard/monthly-costs?${params}`, { headers });
+    return this.http.get<{ month: string; cost: number }[]>(`${this.baseUrl}/cfo-dashboard/monthly-costs?${params}`, { headers });
   }
 
   getTopDepartments(year: number, month?: number) {
@@ -202,7 +234,7 @@ export class TravelService {
 
     let params = `year=${year}`;
     if (month) params += `&month=${month}`;
-    return this.http.get<{ department: string, cost: number }[]>(`${baseUrl}/cfo-dashboard/top-departments?${params}`, { headers });
+    return this.http.get<{ department: string, cost: number }[]>(`${this.baseUrl}/cfo-dashboard/top-departments?${params}`, { headers });
   }
   
   getDepartments(): Observable<{ status: string, message: string, data: Department[] }> {
@@ -224,9 +256,9 @@ export class TravelService {
     .set('Authorization', `Bearer ${token}`)
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
-    console.log('Calling BAU Heads endpoint:', baseUrlCamp+'/company/bau/index');
+    console.log('Calling BAU Heads endpoint:', this.baseUrlCamp+'/company/bau/index');
     return this.http.get<{ statusCode: string, statusMessage: string, data: BauHeadForm[] }>(
-      baseUrlCamp+'/company/bau/index',{ headers }
+      this.baseUrlCamp+'/company/bau/index',{ headers }
     );
   }
 
@@ -237,7 +269,7 @@ export class TravelService {
     .set('X-SrcApp', 'Travel-Request')
     .set('X-Request-ID', generateUUID());
 
-    console.log('Calling Per Diem Countries endpoint:', `${baseUrl}/perdiems/all`);
-    return this.http.get<ApiResponse<PerDiemForm[]>>(`${baseUrl}/perdiems/all`,{headers});
+    console.log('Calling Per Diem Countries endpoint:', `${this.baseUrl}/perdiems/all`);
+    return this.http.get<ApiResponse<PerDiemForm[]>>(`${this.baseUrl}/perdiems/all`,{headers});
   }
 }
