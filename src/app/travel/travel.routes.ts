@@ -12,7 +12,6 @@ import { CfoListComponent } from '../approval/cfo-list/cfo-list.component';
 import { CfoDetailComponent } from '../approval/cfo-detail/cfo-detail.component';
 import { BuheadCreateComponent } from '../bu-head/buhead-create/buhead-create.component';
 import { BuheadEditComponent } from '../bu-head/buhead-edit/buhead-edit.component';
-import { LoginComponent } from '../auth/login/login.component';
 import { CfoDashboardComponent } from '../approval/cfo-dashboard/cfo-dashboard.component';
 import { PerDiemComponent } from '../per-diem/perdiem-create/per-diem.component';
 import { PerdiemListComponent } from '../per-diem/perdiem-list/perdiem-list.component';
