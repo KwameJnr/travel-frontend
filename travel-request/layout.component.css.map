@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/layouts/layout.component.ts"],
+  "sourcesContent": ["\n    .top-toolbar {\n      position: sticky;\n      top: 0;\n      z-index: 1000;\n      background-color: #048a73;\n      color: white; /* Ensures text and icons are visible */\n    }\n  \n    .logo {\n      font-weight: bold;\n      font-size: 1.3rem;\n    }\n  \n    .spacer {\n      flex: 1 1 auto;\n    }\n\n    .logout-warning {\n    background-color: #fff3cd;\n    color: #856404;\n    padding: 12px;\n    text-align: center;\n    font-weight: bold;\n    position: fixed;\n    top: 64px; // adjust based on your header height\n    width: 100%;\n    z-index: 1000;\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n  }\n  \n    button, .mat-button, .mat-icon-button {\n      color: black;\n    }\n  "],
+  "mappings": ";AACI,CAAA;AACE,YAAA;AACA,OAAA;AACA,WAAA;AACA,oBAAA;AACA,SAAA;;AAGF,CAAA;AACE,eAAA;AACA,aAAA;;AAGF,CAAA;AACE,QAAA,EAAA,EAAA;;AAGF,CAAA;AACA,oBAAA;AACA,SAAA;AACA,WAAA;AACA,cAAA;AACA,eAAA;AACA,YAAA;AACA,OAAA;AACA,SAAA;AACA,WAAA;AACA,cAAA,EAAA,IAAA,IAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA;;AAGA;AAAA,CAAA;AAAA,CAAA;AACE,SAAA;;",
+  "names": []
+}

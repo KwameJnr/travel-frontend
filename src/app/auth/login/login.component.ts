@@ -139,8 +139,6 @@ export class LoginComponent implements OnInit {
             // ✅ Authentication successful
             this.hasLoggedIn = true; // prevent further polling
             this.stopPolling();
-            // clearInterval(this.pollingInterval);
-            // this.resetPollingState();
 
             const userToken = res?.token;
             const user = res?.user;
@@ -177,7 +175,8 @@ export class LoginComponent implements OnInit {
 
           } else if (statusCode === '002') {
             // 🔄 Waiting for push notification
-            this.pollingMessage = statusMessage || 'Awaiting push notification on your phone...';
+            // this.pollingMessage = statusMessage || 'Awaiting push notification on your phone...';
+            this.pollingMessage = 'Awaiting push notification on your phone...';
             this.isErrorPollingMessage = false;
             this.showPollingMessage = true;
             this.cdr.detectChanges();
