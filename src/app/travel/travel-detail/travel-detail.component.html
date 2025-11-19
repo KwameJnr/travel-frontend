@@ -2,20 +2,10 @@
   <mat-spinner diameter="60" strokeWidth="4" color="primary"></mat-spinner>
 </div>
 <div *ngIf="!loading && travel" class="detail-wrapper">
-  <h2 class="page-title">
+  <!-- <h2 class="page-title">
     <mat-icon color="primary">travel_explore</mat-icon>
     Travel Request Details
-  </h2>
-
-  <!-- ✅ Export Button -->
-  <div class="action-buttons">
-    <button mat-raised-button color="primary" (click)="exportAsPDF()">
-      <mat-icon>picture_as_pdf</mat-icon> Export as PDF
-    </button>
-    <button mat-stroked-button color="accent" (click)="goBack()">
-      <mat-icon>arrow_back</mat-icon> Back
-    </button>
-  </div>
+  </h2> -->
 
   <!-- Employee Info -->
   <div id="pdfContent">
@@ -98,29 +88,31 @@
     </mat-card>
 
     <!-- Approvals -->
-    <mat-card class="info-card">
-      <mat-card-title>
-        <mat-icon>approval</mat-icon> Approval Details
-      </mat-card-title>
-      <mat-card-content>
-        <div class="info-grid">
-          <div><mat-icon>airplane_ticket</mat-icon> <strong>Departure Class:</strong> {{ travel.classOfTravelDeparture }}</div>
-          <div><mat-icon>airplane_ticket</mat-icon> <strong>Return Class:</strong> {{ travel.classOfTravelReturn }}</div>
+    <div class="pdf-page-break-avoid">
+      <mat-card class="info-card">
+        <mat-card-title>
+          <mat-icon>approval</mat-icon> Approval Details
+        </mat-card-title>
+        <mat-card-content>
+          <div class="info-grid">
+            <div><mat-icon>airplane_ticket</mat-icon> <strong>Departure Class:</strong> {{ travel.classOfTravelDeparture }}</div>
+            <div><mat-icon>airplane_ticket</mat-icon> <strong>Return Class:</strong> {{ travel.classOfTravelReturn }}</div>
 
-          <div><mat-icon>person_outline</mat-icon> <strong>EXCO Name:</strong> {{ travel.excoHeadName }}</div>
-          <div><mat-icon>mail</mat-icon> <strong>EXCO Email:</strong> {{ travel.excoHeadEmail }}</div>
-          <div><mat-icon>check_circle_outline</mat-icon> <strong>EXCO Status:</strong> {{ travel.excoHeadStatus }}</div>
-          <div><mat-icon>feedback</mat-icon> <strong>EXCO Feedback:</strong> {{ travel.excoHeadFeedback }}</div>
-          <div><mat-icon>comment</mat-icon> <strong>EXCO Remarks:</strong> {{ travel.excoHeadFeedbackRemarks }}</div>
+            <div><mat-icon>person_outline</mat-icon> <strong>EXCO Name:</strong> {{ travel.excoHeadName }}</div>
+            <div><mat-icon>mail</mat-icon> <strong>EXCO Email:</strong> {{ travel.excoHeadEmail }}</div>
+            <div><mat-icon>check_circle_outline</mat-icon> <strong>EXCO Status:</strong> {{ travel.excoHeadStatus }}</div>
+            <div><mat-icon>feedback</mat-icon> <strong>EXCO Feedback:</strong> {{ travel.excoHeadFeedback }}</div>
+            <div><mat-icon>comment</mat-icon> <strong>EXCO Remarks:</strong> {{ travel.excoHeadFeedbackRemarks }}</div>
 
-          <div><mat-icon>person_outline</mat-icon> <strong>CFO Name:</strong> {{ travel.cfoName }}</div>
-          <div><mat-icon>mail</mat-icon> <strong>CFO Email:</strong> {{ travel.cfoEmail }}</div>
-          <div><mat-icon>check_circle_outline</mat-icon> <strong>CFO Status:</strong> {{ travel.cfoStatus }}</div>
-          <div><mat-icon>feedback</mat-icon> <strong>CFO Feedback:</strong> {{ travel.cfoFeedback }}</div>
-          <div><mat-icon>comment</mat-icon> <strong>CFO Remarks:</strong> {{ travel.cfoFeedbackRemarks }}</div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+            <div><mat-icon>person_outline</mat-icon> <strong>CFO Name:</strong> {{ travel.cfoName }}</div>
+            <div><mat-icon>mail</mat-icon> <strong>CFO Email:</strong> {{ travel.cfoEmail }}</div>
+            <div><mat-icon>check_circle_outline</mat-icon> <strong>CFO Status:</strong> {{ travel.cfoStatus }}</div>
+            <div><mat-icon>feedback</mat-icon> <strong>CFO Feedback:</strong> {{ travel.cfoFeedback }}</div>
+            <div><mat-icon>comment</mat-icon> <strong>CFO Remarks:</strong> {{ travel.cfoFeedbackRemarks }}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  </div>
 
     <!-- Meta -->
     <mat-card class="info-card">
@@ -136,6 +128,15 @@
     </mat-card>
   </div>
 </div>
-<button mat-button color="primary" (click)="goBack()" class="back-btn">
+<!-- <button mat-button color="primary" (click)="goBack()" class="back-btn">
   <mat-icon>arrow_back</mat-icon> Back
-</button>
+</button> -->
+<!-- ✅ Export Button -->
+<div class="action-buttons">
+  <button mat-raised-button color="primary" (click)="exportAsPDF()">
+    <mat-icon>picture_as_pdf</mat-icon> Export as PDF
+  </button>
+  <button mat-button color="primary" (click)="goBack()" class="back-btn">
+    <mat-icon>arrow_back</mat-icon> Back  
+  </button>
+</div>

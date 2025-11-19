@@ -7,9 +7,10 @@ export const loginGuard: CanActivateFn = () => {
 
   // If logged in, redirect to dashboard
   if (token) {
-    return router.createUrlTree(['/travels/list']);
+    router.createUrlTree(['/travel/list']);
+    return false;
   }
 
-  // Otherwise allow access to login page
   return true;
 };
+

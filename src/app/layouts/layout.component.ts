@@ -24,7 +24,7 @@ import { NgIf } from '@angular/common';
       <span class="spacer"></span>
 
       <!-- Admin Dropdown -->
-      <ng-container *ngIf="isAdmin">
+      <ng-container *ngIf="isAdmin || canCreateTravel">
         <mat-menu #adminMenu="matMenu">
           <button mat-menu-item [routerLink]="'/travel/perdiem/create'">Create Per Diem</button>
           <button mat-menu-item [routerLink]="'/travel/perdiem/list'">List Per Diem</button>

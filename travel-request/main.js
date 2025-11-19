@@ -73,7 +73,6 @@ import {
   RuntimeError,
   bootstrapApplication,
   importProvidersFrom,
-  inject,
   mergeApplicationConfig,
   performanceMarkFeature,
   provideHttpClient,
@@ -4728,6 +4727,7 @@ var LoginComponent = class _LoginComponent {
               localStorage.setItem("userToken", userToken);
               this.stopPolling();
               this.router.navigate(["/travel/list"]);
+              console.log("Login successful, navigating to /travel/list");
             } else {
               this.pollingMessage = "Login failed: Email not found in response.";
               this.showPollingMessage = true;
@@ -4890,49 +4890,25 @@ var LoginComponent = class _LoginComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LoginComponent, { className: "LoginComponent", filePath: "src/app/auth/login/login.component.ts", lineNumber: 36 });
 })();
 
-// src/app/auth/login/guards/auth.guard.ts
-var roleRoutes = {
-  EMPLOYEE: ["/travels", "/travels/list", "/travels/detail/:id"],
-  BU_HEAD: ["/buhead", "/buhead/list", "/buhead/detail/:id"],
-  CFO: ["/cfo", "/cfo/dashboard", "/cfo/list"],
-  ADMIN: ["ALL"]
-};
-var authGuard = (route, state) => {
-  const router = inject(Router);
-  const role = localStorage.getItem("userRole");
-  const email = localStorage.getItem("loggedInEmail");
-  const requestedUrl = state.url;
-  if (!role || !email) {
-    return router.createUrlTree(["/login"]);
-  }
-  const allowedRoutes = roleRoutes[role] || [];
-  if (allowedRoutes.includes("ALL"))
-    return true;
-  const hasAccess = allowedRoutes.some((r) => requestedUrl.startsWith(r));
-  if (hasAccess)
-    return true;
-  return router.createUrlTree(["/login/unauthorized"]);
-};
-
 // src/app/app.routes.ts
 var appRoutes = [
   {
     path: "login",
     component: LoginComponent
+    // canActivate: [loginGuard],
   },
   {
     path: "",
     component: LayoutComponent,
-    canActivate: [authGuard],
-    // ✅ PROTECT ALL CHILD ROUTES
+    // canActivate: [authGuard],  // ✅ PROTECT ALL CHILD ROUTES
     children: [
       {
         path: "travel",
-        loadChildren: () => import("./chunk-5UUBE2XO.js").then((m) => m.travelRoutes)
+        loadChildren: () => import("./chunk-7JJKWJYR.js").then((m) => m.travelRoutes)
       },
       {
         path: "",
-        redirectTo: "travel/create",
+        redirectTo: "travel/list",
         pathMatch: "full"
       }
     ]
@@ -4943,7 +4919,7 @@ var appRoutes = [
   },
   {
     path: "**",
-    redirectTo: "travel/create"
+    redirectTo: "travel/list"
   }
 ];
 

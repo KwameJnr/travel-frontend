@@ -62,8 +62,13 @@ export class PerDiemComponent implements OnInit {
 
     this.perdiemForm = this.fb.group({
       rate : ['', Validators.required],
+      airfareCost: [''],
+      accommodationCost: [''],
+      visaApplicationFee: [''],
+      transportationCost: [''],
       status: ['', Validators.required],
       location: ['', Validators.required],
+      cfoEmail: ['', [Validators.required, Validators.email]],
       effectiveDate: ['', Validators.required],
       createdBy: [''],
       editedBy: [''],

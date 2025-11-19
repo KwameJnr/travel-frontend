@@ -2,24 +2,18 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './layouts/layout.component';
 import { LoginComponent } from './auth/login/login.component';
 import { authGuard } from './auth/login/guards/auth.guard';
-
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { loginGuard } from './auth/login/guards/login.guard';
 
 export const appRoutes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    // canActivate: [loginGuard],
   },
   {
     path: '',
     component: LayoutComponent, 
-    canActivate: [authGuard],  // ✅ PROTECT ALL CHILD ROUTES
+    // canActivate: [authGuard],  // ✅ PROTECT ALL CHILD ROUTES
     children: [
       {
         path: 'travel',
@@ -28,7 +22,7 @@ export const appRoutes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'travel/create',
+        redirectTo: 'travel/list',
         pathMatch: 'full',
       },
     ],
@@ -42,6 +36,6 @@ export const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'travel/create',
+    redirectTo: 'travel/list',
   },
 ];

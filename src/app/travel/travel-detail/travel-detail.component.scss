@@ -53,3 +53,13 @@ mat-icon {
   width: 60px;
   height: auto;
 }
+
+.pdf-page-break-avoid {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+.pdf-force-page-break {
+  page-break-before: always !important;
+  break-before: page !important;
+}

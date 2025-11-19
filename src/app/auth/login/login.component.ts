@@ -155,7 +155,8 @@ export class LoginComponent implements OnInit {
 
               this.stopPolling();
               this.router.navigate(['/travel/list']);
-              // console.log('Login successful, navigating to /travel/list');
+              
+              console.log('Login successful, navigating to /travel/list');
             } else {
               this.pollingMessage = 'Login failed: Email not found in response.';
               this.showPollingMessage = true;

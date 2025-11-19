@@ -67129,518 +67129,490 @@ var TravelEditComponent = class _TravelEditComponent {
 var import_html2pdf = __toESM(require_html2pdf());
 function TravelDetailComponent_div_0_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 3);
-    \u0275\u0275element(1, "mat-spinner", 4);
+    \u0275\u0275elementStart(0, "div", 4);
+    \u0275\u0275element(1, "mat-spinner", 5);
     \u0275\u0275elementEnd();
   }
 }
 function TravelDetailComponent_div_1_Template(rf, ctx) {
   if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 5)(1, "h2", 6)(2, "mat-icon", 7);
-    \u0275\u0275text(3, "travel_explore");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(4, " Travel Request Details ");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "div", 8)(6, "button", 9);
-    \u0275\u0275listener("click", function TravelDetailComponent_div_1_Template_button_click_6_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.exportAsPDF());
-    });
-    \u0275\u0275elementStart(7, "mat-icon");
-    \u0275\u0275text(8, "picture_as_pdf");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(9, " Export as PDF ");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "button", 10);
-    \u0275\u0275listener("click", function TravelDetailComponent_div_1_Template_button_click_10_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.goBack());
-    });
-    \u0275\u0275elementStart(11, "mat-icon");
-    \u0275\u0275text(12, "arrow_back");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(13, " Back ");
+    \u0275\u0275elementStart(0, "div", 6)(1, "div", 7)(2, "div", 8);
+    \u0275\u0275element(3, "img", 9);
+    \u0275\u0275elementStart(4, "h3");
+    \u0275\u0275text(5, "Travel Request Details");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(14, "div", 11)(15, "div", 12);
-    \u0275\u0275element(16, "img", 13);
-    \u0275\u0275elementStart(17, "h3");
-    \u0275\u0275text(18, "Travel Request Details");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "mat-card", 14)(20, "mat-card-title")(21, "mat-icon");
-    \u0275\u0275text(22, "person");
+    \u0275\u0275elementStart(6, "mat-card", 10)(7, "mat-card-title")(8, "mat-icon");
+    \u0275\u0275text(9, "person");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(23, " Employee Information ");
+    \u0275\u0275text(10, " Employee Information ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "mat-card-content")(25, "div", 15)(26, "div")(27, "mat-icon");
-    \u0275\u0275text(28, "badge");
+    \u0275\u0275elementStart(11, "mat-card-content")(12, "div", 11)(13, "div")(14, "mat-icon");
+    \u0275\u0275text(15, "badge");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(29, "strong");
-    \u0275\u0275text(30, "Name:");
+    \u0275\u0275elementStart(16, "strong");
+    \u0275\u0275text(17, "Name:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(31);
+    \u0275\u0275text(18);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(32, "div")(33, "mat-icon");
-    \u0275\u0275text(34, "mail");
+    \u0275\u0275elementStart(19, "div")(20, "mat-icon");
+    \u0275\u0275text(21, "mail");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(35, "strong");
-    \u0275\u0275text(36, "Email:");
+    \u0275\u0275elementStart(22, "strong");
+    \u0275\u0275text(23, "Email:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(37);
+    \u0275\u0275text(24);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "div")(26, "mat-icon");
+    \u0275\u0275text(27, "passport");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(28, "strong");
+    \u0275\u0275text(29, "Passport No:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(30);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(31, "div")(32, "mat-icon");
+    \u0275\u0275text(33, "event");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(34, "strong");
+    \u0275\u0275text(35, "Expiry:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(36);
+    \u0275\u0275pipe(37, "date");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(38, "div")(39, "mat-icon");
-    \u0275\u0275text(40, "passport");
+    \u0275\u0275text(40, "numbers");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(41, "strong");
-    \u0275\u0275text(42, "Passport No:");
+    \u0275\u0275text(42, "Emp #:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(43);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(44, "div")(45, "mat-icon");
-    \u0275\u0275text(46, "event");
+    \u0275\u0275text(46, "apartment");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(47, "strong");
-    \u0275\u0275text(48, "Expiry:");
+    \u0275\u0275text(48, "Dept:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(49);
-    \u0275\u0275pipe(50, "date");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(51, "div")(52, "mat-icon");
-    \u0275\u0275text(53, "numbers");
+    \u0275\u0275elementStart(50, "div")(51, "mat-icon");
+    \u0275\u0275text(52, "phone");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(54, "strong");
-    \u0275\u0275text(55, "Emp #:");
+    \u0275\u0275elementStart(53, "strong");
+    \u0275\u0275text(54, "Travel Contact:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(56);
+    \u0275\u0275text(55);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(57, "div")(58, "mat-icon");
-    \u0275\u0275text(59, "apartment");
+    \u0275\u0275elementStart(56, "div")(57, "mat-icon");
+    \u0275\u0275text(58, "contact_phone");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(60, "strong");
-    \u0275\u0275text(61, "Dept:");
+    \u0275\u0275elementStart(59, "strong");
+    \u0275\u0275text(60, "Personal Contact:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(62);
+    \u0275\u0275text(61);
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(62, "mat-card", 10)(63, "mat-card-title")(64, "mat-icon");
+    \u0275\u0275text(65, "flight_takeoff");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(63, "div")(64, "mat-icon");
-    \u0275\u0275text(65, "phone");
+    \u0275\u0275text(66, " Travel Information ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(66, "strong");
-    \u0275\u0275text(67, "Travel Contact:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(68);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(69, "div")(70, "mat-icon");
-    \u0275\u0275text(71, "contact_phone");
+    \u0275\u0275elementStart(67, "mat-card-content")(68, "div", 11)(69, "div")(70, "mat-icon");
+    \u0275\u0275text(71, "flag");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(72, "strong");
-    \u0275\u0275text(73, "Personal Contact:");
+    \u0275\u0275text(73, "Purpose:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(74);
-    \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(75, "mat-card", 14)(76, "mat-card-title")(77, "mat-icon");
-    \u0275\u0275text(78, "flight_takeoff");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(79, " Travel Information ");
+    \u0275\u0275elementStart(75, "div")(76, "mat-icon");
+    \u0275\u0275text(77, "location_city");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(80, "mat-card-content")(81, "div", 15)(82, "div")(83, "mat-icon");
-    \u0275\u0275text(84, "flag");
+    \u0275\u0275elementStart(78, "strong");
+    \u0275\u0275text(79, "City:");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(85, "strong");
-    \u0275\u0275text(86, "Purpose:");
+    \u0275\u0275text(80);
     \u0275\u0275elementEnd();
-    \u0275\u0275text(87);
+    \u0275\u0275elementStart(81, "div")(82, "mat-icon");
+    \u0275\u0275text(83, "public");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(88, "div")(89, "mat-icon");
-    \u0275\u0275text(90, "location_city");
+    \u0275\u0275elementStart(84, "strong");
+    \u0275\u0275text(85, "Country:");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(91, "strong");
-    \u0275\u0275text(92, "City:");
+    \u0275\u0275text(86);
     \u0275\u0275elementEnd();
-    \u0275\u0275text(93);
+    \u0275\u0275elementStart(87, "div")(88, "mat-icon");
+    \u0275\u0275text(89, "check_circle");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(94, "div")(95, "mat-icon");
-    \u0275\u0275text(96, "public");
+    \u0275\u0275elementStart(90, "strong");
+    \u0275\u0275text(91, "Visa:");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(97, "strong");
-    \u0275\u0275text(98, "Country:");
+    \u0275\u0275text(92);
     \u0275\u0275elementEnd();
-    \u0275\u0275text(99);
+    \u0275\u0275elementStart(93, "div")(94, "mat-icon");
+    \u0275\u0275text(95, "departure_board");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(96, "strong");
+    \u0275\u0275text(97, "Departure:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(98);
+    \u0275\u0275pipe(99, "date");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(100, "div")(101, "mat-icon");
-    \u0275\u0275text(102, "check_circle");
+    \u0275\u0275text(102, "flight_land");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(103, "strong");
-    \u0275\u0275text(104, "Visa:");
+    \u0275\u0275text(104, "Return:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(105);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(106, "div")(107, "mat-icon");
-    \u0275\u0275text(108, "departure_board");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(109, "strong");
-    \u0275\u0275text(110, "Departure:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(111);
-    \u0275\u0275pipe(112, "date");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(113, "div")(114, "mat-icon");
-    \u0275\u0275text(115, "flight_land");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(116, "strong");
-    \u0275\u0275text(117, "Return:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(118);
-    \u0275\u0275pipe(119, "date");
+    \u0275\u0275pipe(106, "date");
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(120, "mat-card", 14)(121, "mat-card-title")(122, "mat-icon");
-    \u0275\u0275text(123, "attach_money");
+    \u0275\u0275elementStart(107, "mat-card", 10)(108, "mat-card-title")(109, "mat-icon");
+    \u0275\u0275text(110, "attach_money");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(124, " Per Diem & Allowances ");
+    \u0275\u0275text(111, " Per Diem & Allowances ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(125, "mat-card-content")(126, "div", 15)(127, "div")(128, "mat-icon");
-    \u0275\u0275text(129, "calendar_today");
+    \u0275\u0275elementStart(112, "mat-card-content")(113, "div", 11)(114, "div")(115, "mat-icon");
+    \u0275\u0275text(116, "calendar_today");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(130, "strong");
-    \u0275\u0275text(131, "Start:");
+    \u0275\u0275elementStart(117, "strong");
+    \u0275\u0275text(118, "Start:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(132);
-    \u0275\u0275pipe(133, "date");
+    \u0275\u0275text(119);
+    \u0275\u0275pipe(120, "date");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(134, "div")(135, "mat-icon");
-    \u0275\u0275text(136, "calendar_today");
+    \u0275\u0275elementStart(121, "div")(122, "mat-icon");
+    \u0275\u0275text(123, "calendar_today");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(137, "strong");
-    \u0275\u0275text(138, "End:");
+    \u0275\u0275elementStart(124, "strong");
+    \u0275\u0275text(125, "End:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(139);
-    \u0275\u0275pipe(140, "date");
+    \u0275\u0275text(126);
+    \u0275\u0275pipe(127, "date");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(128, "div")(129, "mat-icon");
+    \u0275\u0275text(130, "event_note");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(131, "strong");
+    \u0275\u0275text(132, "Days Out:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(133);
+    \u0275\u0275pipe(134, "date");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(135, "div")(136, "mat-icon");
+    \u0275\u0275text(137, "monetization_on");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(138, "strong");
+    \u0275\u0275text(139, "Allowance:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(140);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(141, "div")(142, "mat-icon");
-    \u0275\u0275text(143, "event_note");
+    \u0275\u0275text(143, "schedule");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(144, "strong");
-    \u0275\u0275text(145, "Days Out:");
+    \u0275\u0275text(145, "Days:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(146);
-    \u0275\u0275pipe(147, "date");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(148, "div")(149, "mat-icon");
-    \u0275\u0275text(150, "monetization_on");
+    \u0275\u0275elementStart(147, "div")(148, "mat-icon");
+    \u0275\u0275text(149, "calculate");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(151, "strong");
-    \u0275\u0275text(152, "Allowance:");
+    \u0275\u0275elementStart(150, "strong");
+    \u0275\u0275text(151, "Est. Amount:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(153);
+    \u0275\u0275text(152);
+    \u0275\u0275pipe(153, "currency");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(154, "div")(155, "mat-icon");
-    \u0275\u0275text(156, "schedule");
+    \u0275\u0275text(156, "attach_money");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(157, "strong");
-    \u0275\u0275text(158, "Days:");
+    \u0275\u0275text(158, "Total Cost:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(159);
+    \u0275\u0275pipe(160, "currency");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(160, "div")(161, "mat-icon");
-    \u0275\u0275text(162, "calculate");
+    \u0275\u0275elementStart(161, "div")(162, "mat-icon");
+    \u0275\u0275text(163, "confirmation_number");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(163, "strong");
-    \u0275\u0275text(164, "Est. Amount:");
+    \u0275\u0275elementStart(164, "strong");
+    \u0275\u0275text(165, "Budget Code:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(165);
-    \u0275\u0275pipe(166, "currency");
+    \u0275\u0275text(166);
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(167, "mat-card", 10)(168, "mat-card-title")(169, "mat-icon");
+    \u0275\u0275text(170, "hotel");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(167, "div")(168, "mat-icon");
-    \u0275\u0275text(169, "attach_money");
+    \u0275\u0275text(171, " Hotel & Transportation ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(170, "strong");
-    \u0275\u0275text(171, "Total Cost:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(172);
-    \u0275\u0275pipe(173, "currency");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(174, "div")(175, "mat-icon");
-    \u0275\u0275text(176, "confirmation_number");
+    \u0275\u0275elementStart(172, "mat-card-content")(173, "div", 11)(174, "div")(175, "mat-icon");
+    \u0275\u0275text(176, "hotel");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(177, "strong");
-    \u0275\u0275text(178, "Budget Code:");
+    \u0275\u0275text(178, "Hotel:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(179);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(180, "div")(181, "mat-icon");
+    \u0275\u0275text(182, "book_online");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(183, "strong");
+    \u0275\u0275text(184, "Reservation:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(185);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(186, "div")(187, "mat-icon");
+    \u0275\u0275text(188, "place");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(189, "strong");
+    \u0275\u0275text(190, "Address:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(191);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(192, "div")(193, "mat-icon");
+    \u0275\u0275text(194, "location_city");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(195, "strong");
+    \u0275\u0275text(196, "City:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(197);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(198, "div")(199, "mat-icon");
+    \u0275\u0275text(200, "public");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(201, "strong");
+    \u0275\u0275text(202, "Country:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(203);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(204, "div")(205, "mat-icon");
+    \u0275\u0275text(206, "directions_car");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(207, "strong");
+    \u0275\u0275text(208, "Rental Car:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(209);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(210, "div")(211, "mat-icon");
+    \u0275\u0275text(212, "airport_shuttle");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(213, "strong");
+    \u0275\u0275text(214, "Airport Transport:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(215);
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(180, "mat-card", 14)(181, "mat-card-title")(182, "mat-icon");
-    \u0275\u0275text(183, "hotel");
+    \u0275\u0275elementStart(216, "div", 12)(217, "mat-card", 10)(218, "mat-card-title")(219, "mat-icon");
+    \u0275\u0275text(220, "approval");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(184, " Hotel & Transportation ");
+    \u0275\u0275text(221, " Approval Details ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(185, "mat-card-content")(186, "div", 15)(187, "div")(188, "mat-icon");
-    \u0275\u0275text(189, "hotel");
+    \u0275\u0275elementStart(222, "mat-card-content")(223, "div", 11)(224, "div")(225, "mat-icon");
+    \u0275\u0275text(226, "airplane_ticket");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(190, "strong");
-    \u0275\u0275text(191, "Hotel:");
+    \u0275\u0275elementStart(227, "strong");
+    \u0275\u0275text(228, "Departure Class:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(192);
+    \u0275\u0275text(229);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(193, "div")(194, "mat-icon");
-    \u0275\u0275text(195, "book_online");
+    \u0275\u0275elementStart(230, "div")(231, "mat-icon");
+    \u0275\u0275text(232, "airplane_ticket");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(196, "strong");
-    \u0275\u0275text(197, "Reservation:");
+    \u0275\u0275elementStart(233, "strong");
+    \u0275\u0275text(234, "Return Class:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(198);
+    \u0275\u0275text(235);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(199, "div")(200, "mat-icon");
-    \u0275\u0275text(201, "place");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(202, "strong");
-    \u0275\u0275text(203, "Address:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(204);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(205, "div")(206, "mat-icon");
-    \u0275\u0275text(207, "location_city");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(208, "strong");
-    \u0275\u0275text(209, "City:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(210);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(211, "div")(212, "mat-icon");
-    \u0275\u0275text(213, "public");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(214, "strong");
-    \u0275\u0275text(215, "Country:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(216);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(217, "div")(218, "mat-icon");
-    \u0275\u0275text(219, "directions_car");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(220, "strong");
-    \u0275\u0275text(221, "Rental Car:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(222);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(223, "div")(224, "mat-icon");
-    \u0275\u0275text(225, "airport_shuttle");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(226, "strong");
-    \u0275\u0275text(227, "Airport Transport:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(228);
-    \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(229, "mat-card", 14)(230, "mat-card-title")(231, "mat-icon");
-    \u0275\u0275text(232, "approval");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(233, " Approval Details ");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(234, "mat-card-content")(235, "div", 15)(236, "div")(237, "mat-icon");
-    \u0275\u0275text(238, "airplane_ticket");
+    \u0275\u0275elementStart(236, "div")(237, "mat-icon");
+    \u0275\u0275text(238, "person_outline");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(239, "strong");
-    \u0275\u0275text(240, "Departure Class:");
+    \u0275\u0275text(240, "EXCO Name:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(241);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(242, "div")(243, "mat-icon");
-    \u0275\u0275text(244, "airplane_ticket");
+    \u0275\u0275text(244, "mail");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(245, "strong");
-    \u0275\u0275text(246, "Return Class:");
+    \u0275\u0275text(246, "EXCO Email:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(247);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(248, "div")(249, "mat-icon");
-    \u0275\u0275text(250, "person_outline");
+    \u0275\u0275text(250, "check_circle_outline");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(251, "strong");
-    \u0275\u0275text(252, "EXCO Name:");
+    \u0275\u0275text(252, "EXCO Status:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(253);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(254, "div")(255, "mat-icon");
-    \u0275\u0275text(256, "mail");
+    \u0275\u0275text(256, "feedback");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(257, "strong");
-    \u0275\u0275text(258, "EXCO Email:");
+    \u0275\u0275text(258, "EXCO Feedback:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(259);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(260, "div")(261, "mat-icon");
-    \u0275\u0275text(262, "check_circle_outline");
+    \u0275\u0275text(262, "comment");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(263, "strong");
-    \u0275\u0275text(264, "EXCO Status:");
+    \u0275\u0275text(264, "EXCO Remarks:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(265);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(266, "div")(267, "mat-icon");
-    \u0275\u0275text(268, "feedback");
+    \u0275\u0275text(268, "person_outline");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(269, "strong");
-    \u0275\u0275text(270, "EXCO Feedback:");
+    \u0275\u0275text(270, "CFO Name:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(271);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(272, "div")(273, "mat-icon");
-    \u0275\u0275text(274, "comment");
+    \u0275\u0275text(274, "mail");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(275, "strong");
-    \u0275\u0275text(276, "EXCO Remarks:");
+    \u0275\u0275text(276, "CFO Email:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(277);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(278, "div")(279, "mat-icon");
-    \u0275\u0275text(280, "person_outline");
+    \u0275\u0275text(280, "check_circle_outline");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(281, "strong");
-    \u0275\u0275text(282, "CFO Name:");
+    \u0275\u0275text(282, "CFO Status:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(283);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(284, "div")(285, "mat-icon");
-    \u0275\u0275text(286, "mail");
+    \u0275\u0275text(286, "feedback");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(287, "strong");
-    \u0275\u0275text(288, "CFO Email:");
+    \u0275\u0275text(288, "CFO Feedback:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(289);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(290, "div")(291, "mat-icon");
-    \u0275\u0275text(292, "check_circle_outline");
+    \u0275\u0275text(292, "comment");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(293, "strong");
-    \u0275\u0275text(294, "CFO Status:");
+    \u0275\u0275text(294, "CFO Remarks:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(295);
+    \u0275\u0275elementEnd()()()()();
+    \u0275\u0275elementStart(296, "mat-card", 10)(297, "mat-card-title")(298, "mat-icon");
+    \u0275\u0275text(299, "info");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(296, "div")(297, "mat-icon");
-    \u0275\u0275text(298, "feedback");
+    \u0275\u0275text(300, " Meta Info ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(299, "strong");
-    \u0275\u0275text(300, "CFO Feedback:");
+    \u0275\u0275elementStart(301, "mat-card-content")(302, "div", 11)(303, "div")(304, "mat-icon");
+    \u0275\u0275text(305, "verified");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(301);
+    \u0275\u0275elementStart(306, "strong");
+    \u0275\u0275text(307, "Status:");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(302, "div")(303, "mat-icon");
-    \u0275\u0275text(304, "comment");
+    \u0275\u0275text(308);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(305, "strong");
-    \u0275\u0275text(306, "CFO Remarks:");
+    \u0275\u0275elementStart(309, "div")(310, "mat-icon");
+    \u0275\u0275text(311, "calendar_month");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(307);
-    \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(308, "mat-card", 14)(309, "mat-card-title")(310, "mat-icon");
-    \u0275\u0275text(311, "info");
+    \u0275\u0275elementStart(312, "strong");
+    \u0275\u0275text(313, "Created:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(312, " Meta Info ");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(313, "mat-card-content")(314, "div", 15)(315, "div")(316, "mat-icon");
-    \u0275\u0275text(317, "verified");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(318, "strong");
-    \u0275\u0275text(319, "Status:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(320);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(321, "div")(322, "mat-icon");
-    \u0275\u0275text(323, "calendar_month");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(324, "strong");
-    \u0275\u0275text(325, "Created:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(326);
-    \u0275\u0275pipe(327, "date");
+    \u0275\u0275text(314);
+    \u0275\u0275pipe(315, "date");
     \u0275\u0275elementEnd()()()()()();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(31);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.employeeName, "");
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance(18);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.employeeName, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.employeeEmail, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.employeeEmail, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.employeePassportNo, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.employeePassportNo, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(50, 45, ctx_r1.travel.employeePassportExpiry), "");
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(37, 45, ctx_r0.travel.employeePassportExpiry), "");
     \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.employeeNumber, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.employeeNumber, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.employeeDepartment, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.employeeDepartment, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.employeeTravellingContact, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.employeeTravellingContact, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.employeeContact, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.employeeContact, "");
     \u0275\u0275advance(13);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.purpose, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.purpose, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.city, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.city, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.country, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.country, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.visaRequired, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.visaRequired, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(112, 47, ctx_r1.travel.departureDate), " ", ctx_r1.travel.departureTime, "");
+    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(99, 47, ctx_r0.travel.departureDate), " ", ctx_r0.travel.departureTime, "");
     \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(119, 49, ctx_r1.travel.returnDate), " ", ctx_r1.travel.returnTime, "");
+    \u0275\u0275textInterpolate2(" ", \u0275\u0275pipeBind1(106, 49, ctx_r0.travel.returnDate), " ", ctx_r0.travel.returnTime, "");
     \u0275\u0275advance(14);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(133, 51, ctx_r1.travel.perDiemStartDate), "");
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(120, 51, ctx_r0.travel.perDiemStartDate), "");
     \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(140, 53, ctx_r1.travel.perDiemEndDate), "");
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(127, 53, ctx_r0.travel.perDiemEndDate), "");
     \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(147, 55, ctx_r1.travel.daysOutOfficialAssignmentDate), "");
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(134, 55, ctx_r0.travel.daysOutOfficialAssignmentDate), "");
     \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.subsistenceAllowance, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.subsistenceAllowance, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.perDiemDays, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.perDiemDays, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(166, 57, ctx_r1.travel.estimatedPerDiemAmount), "");
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(153, 57, ctx_r0.travel.estimatedPerDiemAmount), "");
     \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(173, 59, ctx_r1.travel.totalEstimatedTravelCost), "");
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(160, 59, ctx_r0.travel.totalEstimatedTravelCost), "");
     \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.travelBudgetCode, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.travelBudgetCode, "");
     \u0275\u0275advance(13);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.hotelName, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.hotelName, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.hotelReservation, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.hotelReservation, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.hotelAddress, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.hotelAddress, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.hotelCity, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.hotelCity, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.hotelCountry, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.hotelCountry, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.rentalCarRequired, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.rentalCarRequired, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.airportTransportRequiredToAndFrom, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.airportTransportRequiredToAndFrom, "");
+    \u0275\u0275advance(14);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.classOfTravelDeparture, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.classOfTravelReturn, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.excoHeadName, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.excoHeadEmail, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.excoHeadStatus, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.excoHeadFeedback, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.excoHeadFeedbackRemarks, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.cfoName, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.cfoEmail, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.cfoStatus, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.cfoFeedback, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.cfoFeedbackRemarks, "");
     \u0275\u0275advance(13);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.classOfTravelDeparture, "");
+    \u0275\u0275textInterpolate1(" ", ctx_r0.travel.status, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.classOfTravelReturn, "");
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.excoHeadName, "");
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.excoHeadEmail, "");
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.excoHeadStatus, "");
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.excoHeadFeedback, "");
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.excoHeadFeedbackRemarks, "");
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.cfoName, "");
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.cfoEmail, "");
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.cfoStatus, "");
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.cfoFeedback, "");
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.cfoFeedbackRemarks, "");
-    \u0275\u0275advance(13);
-    \u0275\u0275textInterpolate1(" ", ctx_r1.travel.status, "");
-    \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind2(327, 61, ctx_r1.travel.dateCreated, "medium"), "");
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind2(315, 61, ctx_r0.travel.dateCreated, "medium"), "");
   }
 }
 var TravelDetailComponent = class _TravelDetailComponent {
@@ -67691,25 +67663,25 @@ var TravelDetailComponent = class _TravelDetailComponent {
   static \u0275fac = function TravelDetailComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _TravelDetailComponent)(\u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Location));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _TravelDetailComponent, selectors: [["app-travel-detail"]], decls: 6, vars: 2, consts: [["class", "loading-container", 4, "ngIf"], ["class", "detail-wrapper", 4, "ngIf"], ["mat-button", "", "color", "primary", 1, "back-btn", 3, "click"], [1, "loading-container"], ["diameter", "60", "strokeWidth", "4", "color", "primary"], [1, "detail-wrapper"], [1, "page-title"], ["color", "primary"], [1, "action-buttons"], ["mat-raised-button", "", "color", "primary", 3, "click"], ["mat-stroked-button", "", "color", "accent", 3, "click"], ["id", "pdfContent"], [1, "pdf-header"], ["src", "assets/images/fnb-logo.png", "alt", "Company Logo", 1, "pdf-logo"], [1, "info-card"], [1, "info-grid"]], template: function TravelDetailComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _TravelDetailComponent, selectors: [["app-travel-detail"]], decls: 7, vars: 2, consts: [["class", "loading-container", 4, "ngIf"], ["class", "detail-wrapper", 4, "ngIf"], [1, "action-buttons"], ["mat-raised-button", "", "color", "primary", 3, "click"], [1, "loading-container"], ["diameter", "60", "strokeWidth", "4", "color", "primary"], [1, "detail-wrapper"], ["id", "pdfContent"], [1, "pdf-header"], ["src", "assets/images/fnb-logo.png", "alt", "Company Logo", 1, "pdf-logo"], [1, "info-card"], [1, "info-grid"], [1, "pdf-page-break-avoid"]], template: function TravelDetailComponent_Template(rf, ctx) {
     if (rf & 1) {
-      \u0275\u0275template(0, TravelDetailComponent_div_0_Template, 2, 0, "div", 0)(1, TravelDetailComponent_div_1_Template, 328, 64, "div", 1);
-      \u0275\u0275elementStart(2, "button", 2);
-      \u0275\u0275listener("click", function TravelDetailComponent_Template_button_click_2_listener() {
-        return ctx.goBack();
+      \u0275\u0275template(0, TravelDetailComponent_div_0_Template, 2, 0, "div", 0)(1, TravelDetailComponent_div_1_Template, 316, 64, "div", 1);
+      \u0275\u0275elementStart(2, "div", 2)(3, "button", 3);
+      \u0275\u0275listener("click", function TravelDetailComponent_Template_button_click_3_listener() {
+        return ctx.exportAsPDF();
       });
-      \u0275\u0275elementStart(3, "mat-icon");
-      \u0275\u0275text(4, "arrow_back");
+      \u0275\u0275elementStart(4, "mat-icon");
+      \u0275\u0275text(5, "picture_as_pdf");
       \u0275\u0275elementEnd();
-      \u0275\u0275text(5, " Back\n");
-      \u0275\u0275elementEnd();
+      \u0275\u0275text(6, " Export as PDF ");
+      \u0275\u0275elementEnd()();
     }
     if (rf & 2) {
       \u0275\u0275property("ngIf", ctx.loading);
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", !ctx.loading && ctx.travel);
     }
-  }, dependencies: [CommonModule, NgIf, CurrencyPipe, DatePipe, MatCardModule, MatCard, MatCardContent, MatCardTitle, MatProgressSpinnerModule, MatProgressSpinner, MatIconModule, MatIcon], styles: ["\n\n.detail-wrapper[_ngcontent-%COMP%] {\n  padding: 2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 2rem;\n}\n.info-card[_ngcontent-%COMP%] {\n  border-radius: 12px;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\n.page-title[_ngcontent-%COMP%] {\n  font-size: 2rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-bottom: 1rem;\n}\n.info-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1rem;\n}\nmat-icon[_ngcontent-%COMP%] {\n  vertical-align: middle;\n  margin-right: 0.25rem;\n}\n.back-btn[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n  font-weight: 500;\n  text-transform: none;\n}\n.action-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: flex-end;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n.pdf-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n.pdf-logo[_ngcontent-%COMP%] {\n  width: 60px;\n  height: auto;\n}\n/*# sourceMappingURL=travel-detail.component.css.map */"] });
+  }, dependencies: [CommonModule, NgIf, CurrencyPipe, DatePipe, MatCardModule, MatCard, MatCardContent, MatCardTitle, MatProgressSpinnerModule, MatProgressSpinner, MatIconModule, MatIcon], styles: ["\n\n.detail-wrapper[_ngcontent-%COMP%] {\n  padding: 2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 2rem;\n}\n.info-card[_ngcontent-%COMP%] {\n  border-radius: 12px;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\n.page-title[_ngcontent-%COMP%] {\n  font-size: 2rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-bottom: 1rem;\n}\n.info-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1rem;\n}\nmat-icon[_ngcontent-%COMP%] {\n  vertical-align: middle;\n  margin-right: 0.25rem;\n}\n.back-btn[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n  font-weight: 500;\n  text-transform: none;\n}\n.action-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: flex-end;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n.pdf-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n.pdf-logo[_ngcontent-%COMP%] {\n  width: 60px;\n  height: auto;\n}\n.pdf-page-break-avoid[_ngcontent-%COMP%] {\n  page-break-inside: avoid !important;\n  break-inside: avoid !important;\n}\n.pdf-force-page-break[_ngcontent-%COMP%] {\n  page-break-before: always !important;\n  break-before: page !important;\n}\n/*# sourceMappingURL=travel-detail.component.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TravelDetailComponent, [{
@@ -67723,20 +67695,10 @@ var TravelDetailComponent = class _TravelDetailComponent {
   <mat-spinner diameter="60" strokeWidth="4" color="primary"></mat-spinner>
 </div>
 <div *ngIf="!loading && travel" class="detail-wrapper">
-  <h2 class="page-title">
+  <!-- <h2 class="page-title">
     <mat-icon color="primary">travel_explore</mat-icon>
     Travel Request Details
-  </h2>
-
-  <!-- \u2705 Export Button -->
-  <div class="action-buttons">
-    <button mat-raised-button color="primary" (click)="exportAsPDF()">
-      <mat-icon>picture_as_pdf</mat-icon> Export as PDF
-    </button>
-    <button mat-stroked-button color="accent" (click)="goBack()">
-      <mat-icon>arrow_back</mat-icon> Back
-    </button>
-  </div>
+  </h2> -->
 
   <!-- Employee Info -->
   <div id="pdfContent">
@@ -67819,29 +67781,31 @@ var TravelDetailComponent = class _TravelDetailComponent {
     </mat-card>
 
     <!-- Approvals -->
-    <mat-card class="info-card">
-      <mat-card-title>
-        <mat-icon>approval</mat-icon> Approval Details
-      </mat-card-title>
-      <mat-card-content>
-        <div class="info-grid">
-          <div><mat-icon>airplane_ticket</mat-icon> <strong>Departure Class:</strong> {{ travel.classOfTravelDeparture }}</div>
-          <div><mat-icon>airplane_ticket</mat-icon> <strong>Return Class:</strong> {{ travel.classOfTravelReturn }}</div>
+    <div class="pdf-page-break-avoid">
+      <mat-card class="info-card">
+        <mat-card-title>
+          <mat-icon>approval</mat-icon> Approval Details
+        </mat-card-title>
+        <mat-card-content>
+          <div class="info-grid">
+            <div><mat-icon>airplane_ticket</mat-icon> <strong>Departure Class:</strong> {{ travel.classOfTravelDeparture }}</div>
+            <div><mat-icon>airplane_ticket</mat-icon> <strong>Return Class:</strong> {{ travel.classOfTravelReturn }}</div>
 
-          <div><mat-icon>person_outline</mat-icon> <strong>EXCO Name:</strong> {{ travel.excoHeadName }}</div>
-          <div><mat-icon>mail</mat-icon> <strong>EXCO Email:</strong> {{ travel.excoHeadEmail }}</div>
-          <div><mat-icon>check_circle_outline</mat-icon> <strong>EXCO Status:</strong> {{ travel.excoHeadStatus }}</div>
-          <div><mat-icon>feedback</mat-icon> <strong>EXCO Feedback:</strong> {{ travel.excoHeadFeedback }}</div>
-          <div><mat-icon>comment</mat-icon> <strong>EXCO Remarks:</strong> {{ travel.excoHeadFeedbackRemarks }}</div>
+            <div><mat-icon>person_outline</mat-icon> <strong>EXCO Name:</strong> {{ travel.excoHeadName }}</div>
+            <div><mat-icon>mail</mat-icon> <strong>EXCO Email:</strong> {{ travel.excoHeadEmail }}</div>
+            <div><mat-icon>check_circle_outline</mat-icon> <strong>EXCO Status:</strong> {{ travel.excoHeadStatus }}</div>
+            <div><mat-icon>feedback</mat-icon> <strong>EXCO Feedback:</strong> {{ travel.excoHeadFeedback }}</div>
+            <div><mat-icon>comment</mat-icon> <strong>EXCO Remarks:</strong> {{ travel.excoHeadFeedbackRemarks }}</div>
 
-          <div><mat-icon>person_outline</mat-icon> <strong>CFO Name:</strong> {{ travel.cfoName }}</div>
-          <div><mat-icon>mail</mat-icon> <strong>CFO Email:</strong> {{ travel.cfoEmail }}</div>
-          <div><mat-icon>check_circle_outline</mat-icon> <strong>CFO Status:</strong> {{ travel.cfoStatus }}</div>
-          <div><mat-icon>feedback</mat-icon> <strong>CFO Feedback:</strong> {{ travel.cfoFeedback }}</div>
-          <div><mat-icon>comment</mat-icon> <strong>CFO Remarks:</strong> {{ travel.cfoFeedbackRemarks }}</div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+            <div><mat-icon>person_outline</mat-icon> <strong>CFO Name:</strong> {{ travel.cfoName }}</div>
+            <div><mat-icon>mail</mat-icon> <strong>CFO Email:</strong> {{ travel.cfoEmail }}</div>
+            <div><mat-icon>check_circle_outline</mat-icon> <strong>CFO Status:</strong> {{ travel.cfoStatus }}</div>
+            <div><mat-icon>feedback</mat-icon> <strong>CFO Feedback:</strong> {{ travel.cfoFeedback }}</div>
+            <div><mat-icon>comment</mat-icon> <strong>CFO Remarks:</strong> {{ travel.cfoFeedbackRemarks }}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  </div>
 
     <!-- Meta -->
     <mat-card class="info-card">
@@ -67857,10 +67821,16 @@ var TravelDetailComponent = class _TravelDetailComponent {
     </mat-card>
   </div>
 </div>
-<button mat-button color="primary" (click)="goBack()" class="back-btn">
+<!-- <button mat-button color="primary" (click)="goBack()" class="back-btn">
   <mat-icon>arrow_back</mat-icon> Back
-</button>
-`, styles: ["/* src/app/travel/travel-detail/travel-detail.component.scss */\n.detail-wrapper {\n  padding: 2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 2rem;\n}\n.info-card {\n  border-radius: 12px;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\n.page-title {\n  font-size: 2rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-bottom: 1rem;\n}\n.info-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1rem;\n}\nmat-icon {\n  vertical-align: middle;\n  margin-right: 0.25rem;\n}\n.back-btn {\n  margin-bottom: 1rem;\n  font-weight: 500;\n  text-transform: none;\n}\n.action-buttons {\n  display: flex;\n  justify-content: flex-end;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n.pdf-header {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n.pdf-logo {\n  width: 60px;\n  height: auto;\n}\n/*# sourceMappingURL=travel-detail.component.css.map */\n"] }]
+</button> -->
+<!-- \u2705 Export Button -->
+<div class="action-buttons">
+  <button mat-raised-button color="primary" (click)="exportAsPDF()">
+    <mat-icon>picture_as_pdf</mat-icon> Export as PDF
+  </button>
+</div>
+`, styles: ["/* src/app/travel/travel-detail/travel-detail.component.scss */\n.detail-wrapper {\n  padding: 2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 2rem;\n}\n.info-card {\n  border-radius: 12px;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\n.page-title {\n  font-size: 2rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-bottom: 1rem;\n}\n.info-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1rem;\n}\nmat-icon {\n  vertical-align: middle;\n  margin-right: 0.25rem;\n}\n.back-btn {\n  margin-bottom: 1rem;\n  font-weight: 500;\n  text-transform: none;\n}\n.action-buttons {\n  display: flex;\n  justify-content: flex-end;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n.pdf-header {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n.pdf-logo {\n  width: 60px;\n  height: auto;\n}\n.pdf-page-break-avoid {\n  page-break-inside: avoid !important;\n  break-inside: avoid !important;\n}\n.pdf-force-page-break {\n  page-break-before: always !important;\n  break-before: page !important;\n}\n/*# sourceMappingURL=travel-detail.component.css.map */\n"] }]
   }], () => [{ type: ActivatedRoute }, { type: TravelService }, { type: Location }], null);
 })();
 (() => {
@@ -95992,4 +95962,4 @@ xlsx/xlsx.mjs:
 xlsx/xlsx.mjs:
   (*! sheetjs (C) 2013-present SheetJS -- http://sheetjs.com *)
 */
-//# sourceMappingURL=chunk-5UUBE2XO.js.map
+//# sourceMappingURL=chunk-7JJKWJYR.js.map

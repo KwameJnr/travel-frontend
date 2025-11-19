@@ -11,7 +11,13 @@
         <!-- Personal Info -->
         <ng-container *ngFor="let field of [
           { icon: 'money', label: 'Rate', value: data.rate },
+          { icon: 'money', label: 'Rate', value: data.airfareCost },
+          { icon: 'money', label: 'Accommodation Cost', value: data.accommodationCost },
+          { icon: 'money', label: 'Visa Application Fee', value: data.visaApplicationFee },
+          { icon: 'money', label: 'Transportation Cost', value: data.transportationCost },
+          { icon: 'money', label: 'Other Cost', value: data.otherCost },
           { icon: 'location_on', label: 'Location', value: data.location },
+          { icon: 'email', label: 'CFO Email', value: data.cfoEmail },
           { icon: 'date_range', label: 'Effective Date', value: data.effectiveDate | date: 'shortDate' },
           { icon: 'badge', label: 'Status', value: data.status },
         ]">
