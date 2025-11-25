@@ -9,6 +9,8 @@ export interface PerDiemForm {
     transportationCost: number; 
     otherCost: number; 
     cfoEmail: string;
+    cfoApproval: string;
+    cfoRemark: string;
     status: string;
     effectiveDate: string;
   }

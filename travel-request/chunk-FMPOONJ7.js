@@ -53,7 +53,7 @@ import {
   trigger,
   ɵNgNoValidate,
   ɵNgSelectMultipleOption
-} from "./chunk-V5J5XSAD.js";
+} from "./chunk-Y33IH5QB.js";
 import {
   require_html2canvas
 } from "./chunk-AW7S63MK.js";
@@ -261,6 +261,7 @@ import {
   ɵɵpureFunction4,
   ɵɵpureFunction5,
   ɵɵpureFunction8,
+  ɵɵpureFunctionV,
   ɵɵqueryRefresh,
   ɵɵreference,
   ɵɵrepeater,
@@ -279,7 +280,7 @@ import {
   ɵɵtwoWayListener,
   ɵɵtwoWayProperty,
   ɵɵviewQuery
-} from "./chunk-WKIGJXVH.js";
+} from "./chunk-KTQHYMAC.js";
 import {
   __commonJS,
   __esm,
@@ -67129,24 +67130,24 @@ var TravelEditComponent = class _TravelEditComponent {
 var import_html2pdf = __toESM(require_html2pdf());
 function TravelDetailComponent_div_0_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 4);
-    \u0275\u0275element(1, "mat-spinner", 5);
+    \u0275\u0275elementStart(0, "div", 5);
+    \u0275\u0275element(1, "mat-spinner", 6);
     \u0275\u0275elementEnd();
   }
 }
 function TravelDetailComponent_div_1_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 6)(1, "div", 7)(2, "div", 8);
-    \u0275\u0275element(3, "img", 9);
+    \u0275\u0275elementStart(0, "div", 7)(1, "div", 8)(2, "div", 9);
+    \u0275\u0275element(3, "img", 10);
     \u0275\u0275elementStart(4, "h3");
     \u0275\u0275text(5, "Travel Request Details");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(6, "mat-card", 10)(7, "mat-card-title")(8, "mat-icon");
+    \u0275\u0275elementStart(6, "mat-card", 11)(7, "mat-card-title")(8, "mat-icon");
     \u0275\u0275text(9, "person");
     \u0275\u0275elementEnd();
     \u0275\u0275text(10, " Employee Information ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "mat-card-content")(12, "div", 11)(13, "div")(14, "mat-icon");
+    \u0275\u0275elementStart(11, "mat-card-content")(12, "div", 12)(13, "div")(14, "mat-icon");
     \u0275\u0275text(15, "badge");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(16, "strong");
@@ -67211,12 +67212,12 @@ function TravelDetailComponent_div_1_Template(rf, ctx) {
     \u0275\u0275elementEnd();
     \u0275\u0275text(61);
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(62, "mat-card", 10)(63, "mat-card-title")(64, "mat-icon");
+    \u0275\u0275elementStart(62, "mat-card", 11)(63, "mat-card-title")(64, "mat-icon");
     \u0275\u0275text(65, "flight_takeoff");
     \u0275\u0275elementEnd();
     \u0275\u0275text(66, " Travel Information ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(67, "mat-card-content")(68, "div", 11)(69, "div")(70, "mat-icon");
+    \u0275\u0275elementStart(67, "mat-card-content")(68, "div", 12)(69, "div")(70, "mat-icon");
     \u0275\u0275text(71, "flag");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(72, "strong");
@@ -67266,12 +67267,12 @@ function TravelDetailComponent_div_1_Template(rf, ctx) {
     \u0275\u0275text(105);
     \u0275\u0275pipe(106, "date");
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(107, "mat-card", 10)(108, "mat-card-title")(109, "mat-icon");
+    \u0275\u0275elementStart(107, "mat-card", 11)(108, "mat-card-title")(109, "mat-icon");
     \u0275\u0275text(110, "attach_money");
     \u0275\u0275elementEnd();
     \u0275\u0275text(111, " Per Diem & Allowances ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(112, "mat-card-content")(113, "div", 11)(114, "div")(115, "mat-icon");
+    \u0275\u0275elementStart(112, "mat-card-content")(113, "div", 12)(114, "div")(115, "mat-icon");
     \u0275\u0275text(116, "calendar_today");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(117, "strong");
@@ -67340,12 +67341,12 @@ function TravelDetailComponent_div_1_Template(rf, ctx) {
     \u0275\u0275elementEnd();
     \u0275\u0275text(166);
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(167, "mat-card", 10)(168, "mat-card-title")(169, "mat-icon");
+    \u0275\u0275elementStart(167, "mat-card", 11)(168, "mat-card-title")(169, "mat-icon");
     \u0275\u0275text(170, "hotel");
     \u0275\u0275elementEnd();
     \u0275\u0275text(171, " Hotel & Transportation ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(172, "mat-card-content")(173, "div", 11)(174, "div")(175, "mat-icon");
+    \u0275\u0275elementStart(172, "mat-card-content")(173, "div", 12)(174, "div")(175, "mat-icon");
     \u0275\u0275text(176, "hotel");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(177, "strong");
@@ -67401,12 +67402,12 @@ function TravelDetailComponent_div_1_Template(rf, ctx) {
     \u0275\u0275elementEnd();
     \u0275\u0275text(215);
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(216, "div", 12)(217, "mat-card", 10)(218, "mat-card-title")(219, "mat-icon");
+    \u0275\u0275elementStart(216, "div", 13)(217, "mat-card", 11)(218, "mat-card-title")(219, "mat-icon");
     \u0275\u0275text(220, "approval");
     \u0275\u0275elementEnd();
     \u0275\u0275text(221, " Approval Details ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(222, "mat-card-content")(223, "div", 11)(224, "div")(225, "mat-icon");
+    \u0275\u0275elementStart(222, "mat-card-content")(223, "div", 12)(224, "div")(225, "mat-icon");
     \u0275\u0275text(226, "airplane_ticket");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(227, "strong");
@@ -67502,12 +67503,12 @@ function TravelDetailComponent_div_1_Template(rf, ctx) {
     \u0275\u0275elementEnd();
     \u0275\u0275text(295);
     \u0275\u0275elementEnd()()()()();
-    \u0275\u0275elementStart(296, "mat-card", 10)(297, "mat-card-title")(298, "mat-icon");
+    \u0275\u0275elementStart(296, "mat-card", 11)(297, "mat-card-title")(298, "mat-icon");
     \u0275\u0275text(299, "info");
     \u0275\u0275elementEnd();
     \u0275\u0275text(300, " Meta Info ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(301, "mat-card-content")(302, "div", 11)(303, "div")(304, "mat-icon");
+    \u0275\u0275elementStart(301, "mat-card-content")(302, "div", 12)(303, "div")(304, "mat-icon");
     \u0275\u0275text(305, "verified");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(306, "strong");
@@ -67663,7 +67664,7 @@ var TravelDetailComponent = class _TravelDetailComponent {
   static \u0275fac = function TravelDetailComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _TravelDetailComponent)(\u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(TravelService), \u0275\u0275directiveInject(Location));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _TravelDetailComponent, selectors: [["app-travel-detail"]], decls: 7, vars: 2, consts: [["class", "loading-container", 4, "ngIf"], ["class", "detail-wrapper", 4, "ngIf"], [1, "action-buttons"], ["mat-raised-button", "", "color", "primary", 3, "click"], [1, "loading-container"], ["diameter", "60", "strokeWidth", "4", "color", "primary"], [1, "detail-wrapper"], ["id", "pdfContent"], [1, "pdf-header"], ["src", "assets/images/fnb-logo.png", "alt", "Company Logo", 1, "pdf-logo"], [1, "info-card"], [1, "info-grid"], [1, "pdf-page-break-avoid"]], template: function TravelDetailComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _TravelDetailComponent, selectors: [["app-travel-detail"]], decls: 11, vars: 2, consts: [["class", "loading-container", 4, "ngIf"], ["class", "detail-wrapper", 4, "ngIf"], [1, "action-buttons"], ["mat-raised-button", "", "color", "primary", 3, "click"], ["mat-button", "", "color", "primary", 1, "back-btn", 3, "click"], [1, "loading-container"], ["diameter", "60", "strokeWidth", "4", "color", "primary"], [1, "detail-wrapper"], ["id", "pdfContent"], [1, "pdf-header"], ["src", "assets/images/fnb-logo.png", "alt", "Company Logo", 1, "pdf-logo"], [1, "info-card"], [1, "info-grid"], [1, "pdf-page-break-avoid"]], template: function TravelDetailComponent_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275template(0, TravelDetailComponent_div_0_Template, 2, 0, "div", 0)(1, TravelDetailComponent_div_1_Template, 316, 64, "div", 1);
       \u0275\u0275elementStart(2, "div", 2)(3, "button", 3);
@@ -67674,6 +67675,15 @@ var TravelDetailComponent = class _TravelDetailComponent {
       \u0275\u0275text(5, "picture_as_pdf");
       \u0275\u0275elementEnd();
       \u0275\u0275text(6, " Export as PDF ");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(7, "button", 4);
+      \u0275\u0275listener("click", function TravelDetailComponent_Template_button_click_7_listener() {
+        return ctx.goBack();
+      });
+      \u0275\u0275elementStart(8, "mat-icon");
+      \u0275\u0275text(9, "arrow_back");
+      \u0275\u0275elementEnd();
+      \u0275\u0275text(10, " Back ");
       \u0275\u0275elementEnd()();
     }
     if (rf & 2) {
@@ -67828,6 +67838,9 @@ var TravelDetailComponent = class _TravelDetailComponent {
 <div class="action-buttons">
   <button mat-raised-button color="primary" (click)="exportAsPDF()">
     <mat-icon>picture_as_pdf</mat-icon> Export as PDF
+  </button>
+  <button mat-button color="primary" (click)="goBack()" class="back-btn">
+    <mat-icon>arrow_back</mat-icon> Back  
   </button>
 </div>
 `, styles: ["/* src/app/travel/travel-detail/travel-detail.component.scss */\n.detail-wrapper {\n  padding: 2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 2rem;\n}\n.info-card {\n  border-radius: 12px;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\n.page-title {\n  font-size: 2rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  margin-bottom: 1rem;\n}\n.info-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1rem;\n}\nmat-icon {\n  vertical-align: middle;\n  margin-right: 0.25rem;\n}\n.back-btn {\n  margin-bottom: 1rem;\n  font-weight: 500;\n  text-transform: none;\n}\n.action-buttons {\n  display: flex;\n  justify-content: flex-end;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n.pdf-header {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n.pdf-logo {\n  width: 60px;\n  height: auto;\n}\n.pdf-page-break-avoid {\n  page-break-inside: avoid !important;\n  break-inside: avoid !important;\n}\n.pdf-force-page-break {\n  page-break-before: always !important;\n  break-before: page !important;\n}\n/*# sourceMappingURL=travel-detail.component.css.map */\n"] }]
@@ -94696,10 +94709,15 @@ var CfoDashboardComponent = class _CfoDashboardComponent {
 
 // src/app/per-diem/per-diem-feedback-dialog/per-diem-feedback-dialog.component.ts
 var _c013 = (a0) => ({ icon: "money", label: "Rate", value: a0 });
-var _c114 = (a0) => ({ icon: "location_on", label: "Location", value: a0 });
-var _c213 = (a0) => ({ icon: "date_range", label: "Effective Date", value: a0 });
-var _c39 = (a0) => ({ icon: "badge", label: "Status", value: a0 });
-var _c46 = (a0, a1, a2, a3) => [a0, a1, a2, a3];
+var _c114 = (a0) => ({ icon: "money", label: "Accommodation Cost", value: a0 });
+var _c213 = (a0) => ({ icon: "money", label: "Visa Application Fee", value: a0 });
+var _c39 = (a0) => ({ icon: "money", label: "Transportation Cost", value: a0 });
+var _c46 = (a0) => ({ icon: "money", label: "Other Cost", value: a0 });
+var _c55 = (a0) => ({ icon: "location_on", label: "Location", value: a0 });
+var _c65 = (a0) => ({ icon: "email", label: "CFO Email", value: a0 });
+var _c74 = (a0) => ({ icon: "date_range", label: "Effective Date", value: a0 });
+var _c84 = (a0) => ({ icon: "badge", label: "Status", value: a0 });
+var _c94 = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => [a0, a1, a2, a3, a4, a5, a6, a7, a8, a9];
 function PerDiemFeedbackDialogComponent_ng_container_8_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementContainerStart(0);
@@ -94739,7 +94757,7 @@ var PerDiemFeedbackDialogComponent = class _PerDiemFeedbackDialogComponent {
   static \u0275fac = function PerDiemFeedbackDialogComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _PerDiemFeedbackDialogComponent)(\u0275\u0275directiveInject(MatDialogRef), \u0275\u0275directiveInject(MAT_DIALOG_DATA));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PerDiemFeedbackDialogComponent, selectors: [["app-per-diem-feedback-dialog"]], decls: 15, vars: 17, consts: [[1, "confirmation-card"], ["color", "primary", 2, "vertical-align", "middle", "margin-right", "8px"], [1, "confirm-scroll-content"], [1, "confirm-grid"], [4, "ngFor", "ngForOf"], ["align", "end", 1, "confirm-actions"], ["mat-stroked-button", "", "color", "warn", 3, "click"], ["mat-raised-button", "", "color", "primary", 3, "click"], [1, "field-row"], [1, "field-label"], ["color", "primary", 1, "field-icon"], [1, "field-value"]], template: function PerDiemFeedbackDialogComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PerDiemFeedbackDialogComponent, selectors: [["app-per-diem-feedback-dialog"]], decls: 15, vars: 35, consts: [[1, "confirmation-card"], ["color", "primary", 2, "vertical-align", "middle", "margin-right", "8px"], [1, "confirm-scroll-content"], [1, "confirm-grid"], [4, "ngFor", "ngForOf"], ["align", "end", 1, "confirm-actions"], ["mat-stroked-button", "", "color", "warn", 3, "click"], ["mat-raised-button", "", "color", "primary", 3, "click"], [1, "field-row"], [1, "field-label"], ["color", "primary", 1, "field-icon"], [1, "field-value"]], template: function PerDiemFeedbackDialogComponent_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "mat-card", 0)(1, "mat-card-header")(2, "mat-card-title")(3, "mat-icon", 1);
       \u0275\u0275text(4, "check_circle");
@@ -94765,7 +94783,7 @@ var PerDiemFeedbackDialogComponent = class _PerDiemFeedbackDialogComponent {
     }
     if (rf & 2) {
       \u0275\u0275advance(8);
-      \u0275\u0275property("ngForOf", \u0275\u0275pureFunction4(12, _c46, \u0275\u0275pureFunction1(4, _c013, ctx.data.rate), \u0275\u0275pureFunction1(6, _c114, ctx.data.location), \u0275\u0275pureFunction1(8, _c213, \u0275\u0275pipeBind2(9, 1, ctx.data.effectiveDate, "shortDate")), \u0275\u0275pureFunction1(10, _c39, ctx.data.status)));
+      \u0275\u0275property("ngForOf", \u0275\u0275pureFunctionV(24, _c94, [\u0275\u0275pureFunction1(4, _c013, ctx.data.rate), \u0275\u0275pureFunction1(6, _c013, ctx.data.airfareCost), \u0275\u0275pureFunction1(8, _c114, ctx.data.accommodationCost), \u0275\u0275pureFunction1(10, _c213, ctx.data.visaApplicationFee), \u0275\u0275pureFunction1(12, _c39, ctx.data.transportationCost), \u0275\u0275pureFunction1(14, _c46, ctx.data.otherCost), \u0275\u0275pureFunction1(16, _c55, ctx.data.location), \u0275\u0275pureFunction1(18, _c65, ctx.data.cfoEmail), \u0275\u0275pureFunction1(20, _c74, \u0275\u0275pipeBind2(9, 1, ctx.data.effectiveDate, "shortDate")), \u0275\u0275pureFunction1(22, _c84, ctx.data.status)]));
     }
   }, dependencies: [CommonModule, NgForOf, DatePipe, MatDialogModule, MatButtonModule, MatButton, MatCardModule, MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle, MatIcon], styles: ["\n\n.confirmation-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  max-height: 90vh;\n}\n.confirmation-card[_ngcontent-%COMP%]   mat-card-content[_ngcontent-%COMP%] {\n  max-height: 60vh;\n  overflow-y: auto;\n  padding-right: 8px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  padding: 16px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  border-bottom: 1px solid #e0e0e0;\n  padding-bottom: 8px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%]   .field-label[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  font-weight: 600;\n  color: #333;\n  font-size: 14px;\n  margin-bottom: 4px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%]   .field-label[_ngcontent-%COMP%]   .field-icon[_ngcontent-%COMP%] {\n  font-size: 18px;\n  margin-right: 6px;\n}\n.confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%]   .field-row[_ngcontent-%COMP%]   .field-value[_ngcontent-%COMP%] {\n  color: #555;\n  font-size: 13px;\n  word-wrap: break-word;\n}\n.confirmation-card[_ngcontent-%COMP%]   mat-card-actions[_ngcontent-%COMP%] {\n  margin-top: 20px;\n  display: flex;\n  justify-content: flex-end;\n  flex-wrap: wrap;\n  gap: 10px;\n  padding: 0 16px 16px;\n}\n@media (max-width: 768px) {\n  .confirmation-card[_ngcontent-%COMP%]   .confirm-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .confirmation-card[_ngcontent-%COMP%]   mat-card-actions[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n}\n@media (max-width: 480px) {\n  .confirmation-card[_ngcontent-%COMP%]   mat-card-title[_ngcontent-%COMP%] {\n    font-size: 18px;\n  }\n  .confirmation-card[_ngcontent-%COMP%]   .field-label[_ngcontent-%COMP%], \n   .confirmation-card[_ngcontent-%COMP%]   .field-value[_ngcontent-%COMP%] {\n    font-size: 12px;\n  }\n}\n/*# sourceMappingURL=per-diem-feedback-dialog.component.css.map */"] });
 };
@@ -94785,7 +94803,13 @@ var PerDiemFeedbackDialogComponent = class _PerDiemFeedbackDialogComponent {
         <!-- Personal Info -->
         <ng-container *ngFor="let field of [
           { icon: 'money', label: 'Rate', value: data.rate },
+          { icon: 'money', label: 'Rate', value: data.airfareCost },
+          { icon: 'money', label: 'Accommodation Cost', value: data.accommodationCost },
+          { icon: 'money', label: 'Visa Application Fee', value: data.visaApplicationFee },
+          { icon: 'money', label: 'Transportation Cost', value: data.transportationCost },
+          { icon: 'money', label: 'Other Cost', value: data.otherCost },
           { icon: 'location_on', label: 'Location', value: data.location },
+          { icon: 'email', label: 'CFO Email', value: data.cfoEmail },
           { icon: 'date_range', label: 'Effective Date', value: data.effectiveDate | date: 'shortDate' },
           { icon: 'badge', label: 'Status', value: data.status },
         ]">
@@ -94856,6 +94880,11 @@ var PerdiemService = class _PerdiemService {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
     return this.http.delete(`${this.baseUrl}/perdiems/delete/${id}`, { headers }).pipe(map((response) => response.data));
   }
+  sendApprovalEmail(payload) {
+    const token = localStorage.getItem("userToken") || "";
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`).set("X-SrcApp", "Travel-Request").set("X-Request-ID", generateUUID());
+    return this.http.post(this.baseUrl + "/notifications/send-approval-msg", payload, { headers });
+  }
   static \u0275fac = function PerdiemService_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _PerdiemService)(\u0275\u0275inject(HttpClient), \u0275\u0275inject(ConfigService));
   };
@@ -94871,12 +94900,12 @@ var PerdiemService = class _PerdiemService {
 })();
 
 // src/app/per-diem/perdiem-create/per-diem.component.ts
-function PerDiemComponent_mat_progress_spinner_33_Template(rf, ctx) {
+function PerDiemComponent_mat_progress_spinner_57_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "mat-progress-spinner", 19);
+    \u0275\u0275element(0, "mat-progress-spinner", 25);
   }
 }
-function PerDiemComponent_span_34_Template(rf, ctx) {
+function PerDiemComponent_span_58_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span");
     \u0275\u0275text(1, "Submit");
@@ -94898,14 +94927,19 @@ var PerDiemComponent = class _PerDiemComponent {
   }
   ngOnInit() {
     const userRole = localStorage.getItem("userRole");
-    if (userRole !== "TR-ADMIN") {
+    if (userRole !== "TR-EMPLOYEE") {
       this.router.navigate(["/unauthorized"]);
       return;
     }
     this.perdiemForm = this.fb.group({
       rate: ["", Validators.required],
+      airfareCost: [""],
+      accommodationCost: [""],
+      visaApplicationFee: [""],
+      transportationCost: [""],
       status: ["", Validators.required],
       location: ["", Validators.required],
+      cfoEmail: ["", [Validators.required, Validators.email]],
       effectiveDate: ["", Validators.required],
       createdBy: [""],
       editedBy: [""],
@@ -94925,36 +94959,148 @@ var PerDiemComponent = class _PerDiemComponent {
       data: payload
     });
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.loading = true;
-        this.perdiemService.create(payload).subscribe({
-          next: () => {
-            this.loading = false;
-            this.dialog.open(SubmissionResultDialogComponent, {
-              width: "400px",
-              // maxHeight: '80vh',
-              data: {
-                success: true,
-                message: "Your per-diem create request was submitted successfully."
+      if (!result)
+        return;
+      this.loading = true;
+      this.perdiemService.create(payload).subscribe({
+        next: (savedPerDiem) => {
+          this.loading = false;
+          const successDialog = this.dialog.open(SubmissionResultDialogComponent, {
+            width: "400px",
+            data: {
+              success: true,
+              message: "Your per-diem create request was submitted successfully."
+            }
+          });
+          successDialog.afterClosed().subscribe(() => {
+            if (!savedPerDiem.cfoEmail) {
+              console.warn("CFO email is missing from API response", savedPerDiem);
+              this.dialog.open(SubmissionResultDialogComponent, {
+                width: "400px",
+                data: {
+                  success: false,
+                  message: "Per-diem saved, but no CFO email returned. Email not sent."
+                }
+              });
+              return;
+            }
+            const emailPayload = {
+              clientKey: "Travel-Request-Manager-EmailerId-PerDiem-Approval",
+              approvalRequestId: savedPerDiem.perDiemId,
+              fromEmail: "Travel Request <travelrequest@firstnationalbank.com.gh>",
+              toEmail: savedPerDiem.cfoEmail,
+              subject: `Approval Request for Per-Diem ${savedPerDiem.location}`,
+              body: `
+                <p>Dear Chief Financial Officer,</p>
+  
+                <p>A new per-diem setup has been submitted and requires your approval.</p>
+  
+                <p><strong>Request Details:</strong></p>
+  
+                <p>
+                  Location: ${savedPerDiem.location}<br>
+                  Rate: ${savedPerDiem.rate}<br>
+                  Airfare Cost: ${savedPerDiem.airfareCost}<br>
+                  Accommodation Cost: ${savedPerDiem.accommodationCost}<br>
+                  Visa Application Fee: ${savedPerDiem.visaApplicationFee}<br>
+                  Transportation Cost: ${savedPerDiem.transportationCost}<br>
+                  Other Cost: ${savedPerDiem.otherCost}<br>
+                  Effective Date: ${savedPerDiem.effectiveDate}<br>
+                </p>
+  
+                <p>
+                  Please log into the Travel Request Management System to review and take action,
+                  or use the approval links in the email.
+                </p>
+  
+                <p>Regards,<br>Travel Request Management System</p>
+              `
+            };
+            this.perdiemService.sendApprovalEmail(emailPayload).subscribe({
+              next: () => {
+                this.dialog.open(SubmissionResultDialogComponent, {
+                  width: "400px",
+                  data: {
+                    success: true,
+                    message: "Approval email was sent successfully to the CFO."
+                  }
+                });
+              },
+              error: (err2) => {
+                console.error("Failed to send approval email", err2);
+                this.dialog.open(SubmissionResultDialogComponent, {
+                  width: "400px",
+                  data: {
+                    success: false,
+                    message: "Per-diem saved, but email sending failed. Please contact IT."
+                  }
+                });
               }
             });
-            this.perdiemForm.reset();
-          },
-          error: (err2) => {
-            this.loading = false;
-            console.error("Creation failed", err2);
-            this.dialog.open(SubmissionResultDialogComponent, {
-              width: "400px",
-              data: {
-                success: false,
-                message: "Failed to submit your per-diem create request. Please try again."
-              }
-            });
-          }
-        });
-      }
+          });
+          this.perdiemForm.reset();
+        },
+        error: (err2) => {
+          this.loading = false;
+          console.error("Creation failed", err2);
+          this.dialog.open(SubmissionResultDialogComponent, {
+            width: "400px",
+            data: {
+              success: false,
+              message: "Failed to submit your per-diem create request. Please try again."
+            }
+          });
+        }
+      });
     });
   }
+  // onSubmit(): void {
+  //   if (this.perdiemForm.invalid) return;
+  //   const formValue = this.perdiemForm.value;
+  //   const formatToLocalDateTime = (date: Date | string | null): string | null =>
+  //     date ? new Date(date).toISOString().slice(0, 19) : null;
+  //   const payload = {
+  //     ...formValue,
+  //     dateCreated: formatToLocalDateTime(new Date()),
+  //   };
+  //   const dialogRef = this.dialog.open(PerDiemFeedbackDialogComponent, {
+  //     width: '600px',
+  //     data: payload,
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       this.loading = true;
+  //       this.perdiemService.create(payload).subscribe({
+  //         next: () => {
+  //           this.loading = false;
+  //           // Show success dialog
+  //           this.dialog.open(SubmissionResultDialogComponent, {
+  //             width: '400px',
+  //             // maxHeight: '80vh',
+  //             data: {
+  //               success: true,
+  //               message: 'Your per-diem create request was submitted successfully.'
+  //             }
+  //           });
+  //           this.perdiemForm.reset(); // Soft reset
+  //         },
+  //         error: (err) => {
+  //           this.loading = false;
+  //           console.error('Creation failed', err);
+  //           // Show failure dialog
+  //           this.dialog.open(SubmissionResultDialogComponent, {
+  //             width: '400px',
+  //             data: {
+  //               success: false,
+  //               message: 'Failed to submit your per-diem create request. Please try again.'
+  //             }
+  //           });
+  //           // Do not reset form – keep user input for retry
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
   onCancel() {
     this.perdiemForm.reset();
     this.router.navigate(["/travel/perdiem/create"]);
@@ -94962,7 +95108,7 @@ var PerDiemComponent = class _PerDiemComponent {
   static \u0275fac = function PerDiemComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _PerDiemComponent)(\u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(PerdiemService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(MatDialog));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PerDiemComponent, selectors: [["app-perdiem-create"]], decls: 37, vars: 8, consts: [["startPicker", ""], [1, "buhead-form", 3, "ngSubmit", "formGroup"], [1, "buhead-card"], ["color", "primary", 2, "vertical-align", "middle", "margin-right", "8px"], [1, "form-grid"], ["appearance", "outline", 1, "full-width"], ["matInput", "", "formControlName", "rate", "required", ""], ["appearance", "fill"], ["formControlName", "status"], [3, "value"], ["matInput", "", "formControlName", "location", "required", ""], ["appearance", "fill", 1, "full-width"], ["matInput", "", "formControlName", "effectiveDate", 3, "matDatepicker"], ["matSuffix", "", 3, "for"], [1, "form-actions"], ["mat-raised-button", "", "color", "primary", "type", "submit", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", "class", "spinner", 4, "ngIf"], [4, "ngIf"], ["mat-stroked-button", "", "color", "warn", "type", "button", 3, "click"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", 1, "spinner"]], template: function PerDiemComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PerDiemComponent, selectors: [["app-perdiem-create"]], decls: 61, vars: 8, consts: [["startPicker", ""], [1, "buhead-form", 3, "ngSubmit", "formGroup"], [1, "buhead-card"], ["color", "primary", 2, "vertical-align", "middle", "margin-right", "8px"], [1, "form-grid"], ["appearance", "outline", 1, "full-width"], ["matInput", "", "formControlName", "rate", "required", ""], ["matInput", "", "formControlName", "airfareCost"], ["matInput", "", "formControlName", "AccommodationCost"], ["matInput", "", "formControlName", "visaApplicationFee"], ["matInput", "", "formControlName", "transportationCost"], ["matInput", "", "formControlName", "otherCost"], ["appearance", "fill"], ["formControlName", "status"], [3, "value"], ["matInput", "", "formControlName", "location", "required", ""], ["matInput", "", "formControlName", "cfoEmail", "required", ""], ["appearance", "fill", 1, "full-width"], ["matInput", "", "formControlName", "effectiveDate", 3, "matDatepicker"], ["matSuffix", "", 3, "for"], [1, "form-actions"], ["mat-raised-button", "", "color", "primary", "type", "submit", 3, "disabled"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", "class", "spinner", 4, "ngIf"], [4, "ngIf"], ["mat-stroked-button", "", "color", "warn", "type", "button", 3, "click"], ["mode", "indeterminate", "diameter", "20", "strokeWidth", "3", "color", "accent", 1, "spinner"]], template: function PerDiemComponent_Template(rf, ctx) {
     if (rf & 1) {
       const _r1 = \u0275\u0275getCurrentView();
       \u0275\u0275elementStart(0, "form", 1);
@@ -94980,44 +95126,74 @@ var PerDiemComponent = class _PerDiemComponent {
       \u0275\u0275elementEnd();
       \u0275\u0275element(11, "input", 6);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(12, "mat-form-field", 7)(13, "mat-label");
-      \u0275\u0275text(14, "Status");
+      \u0275\u0275elementStart(12, "mat-form-field", 5)(13, "mat-label");
+      \u0275\u0275text(14, "Airfare Cost");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(15, "mat-select", 8)(16, "mat-option", 9);
-      \u0275\u0275text(17, "Active");
+      \u0275\u0275element(15, "input", 7);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(18, "mat-option", 9);
-      \u0275\u0275text(19, "Inactive");
-      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(16, "mat-form-field", 5)(17, "mat-label");
+      \u0275\u0275text(18, "Accommodation Cost");
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(19, "input", 8);
+      \u0275\u0275elementEnd();
       \u0275\u0275elementStart(20, "mat-form-field", 5)(21, "mat-label");
-      \u0275\u0275text(22, "Location");
+      \u0275\u0275text(22, "Visa Application Fee");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(23, "input", 10);
+      \u0275\u0275element(23, "input", 9);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(24, "mat-form-field", 11)(25, "mat-label");
-      \u0275\u0275text(26, "Effective Date");
+      \u0275\u0275elementStart(24, "mat-form-field", 5)(25, "mat-label");
+      \u0275\u0275text(26, "Transportation Cost");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(27, "input", 12)(28, "mat-datepicker-toggle", 13)(29, "mat-datepicker", null, 0);
+      \u0275\u0275element(27, "input", 10);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(28, "mat-form-field", 5)(29, "mat-label");
+      \u0275\u0275text(30, "Other Cost");
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(31, "input", 11);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(32, "mat-form-field", 12)(33, "mat-label");
+      \u0275\u0275text(34, "Status");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(35, "mat-select", 13)(36, "mat-option", 14);
+      \u0275\u0275text(37, "Active");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(38, "mat-option", 14);
+      \u0275\u0275text(39, "Inactive");
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(31, "mat-card-actions", 14)(32, "button", 15);
-      \u0275\u0275template(33, PerDiemComponent_mat_progress_spinner_33_Template, 1, 0, "mat-progress-spinner", 16)(34, PerDiemComponent_span_34_Template, 2, 0, "span", 17);
+      \u0275\u0275elementStart(40, "mat-form-field", 5)(41, "mat-label");
+      \u0275\u0275text(42, "Location");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(35, "button", 18);
-      \u0275\u0275listener("click", function PerDiemComponent_Template_button_click_35_listener() {
+      \u0275\u0275element(43, "input", 15);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(44, "mat-form-field", 5)(45, "mat-label");
+      \u0275\u0275text(46, "CFO Email");
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(47, "input", 16);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(48, "mat-form-field", 17)(49, "mat-label");
+      \u0275\u0275text(50, "Effective Date");
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(51, "input", 18)(52, "mat-datepicker-toggle", 19)(53, "mat-datepicker", null, 0);
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(55, "mat-card-actions", 20)(56, "button", 21);
+      \u0275\u0275template(57, PerDiemComponent_mat_progress_spinner_57_Template, 1, 0, "mat-progress-spinner", 22)(58, PerDiemComponent_span_58_Template, 2, 0, "span", 23);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(59, "button", 24);
+      \u0275\u0275listener("click", function PerDiemComponent_Template_button_click_59_listener() {
         \u0275\u0275restoreView(_r1);
         return \u0275\u0275resetView(ctx.onCancel());
       });
-      \u0275\u0275text(36, " Cancel ");
+      \u0275\u0275text(60, " Cancel ");
       \u0275\u0275elementEnd()()()();
     }
     if (rf & 2) {
-      const startPicker_r2 = \u0275\u0275reference(30);
+      const startPicker_r2 = \u0275\u0275reference(54);
       \u0275\u0275property("formGroup", ctx.perdiemForm);
-      \u0275\u0275advance(16);
+      \u0275\u0275advance(36);
       \u0275\u0275property("value", "Active");
       \u0275\u0275advance(2);
       \u0275\u0275property("value", "Inactive");
-      \u0275\u0275advance(9);
+      \u0275\u0275advance(13);
       \u0275\u0275property("matDatepicker", startPicker_r2);
       \u0275\u0275advance();
       \u0275\u0275property("for", startPicker_r2);
@@ -95094,11 +95270,31 @@ var PerDiemComponent = class _PerDiemComponent {
             <mat-label>$ Rate</mat-label>
             <input matInput formControlName="rate" required>
           </mat-form-field>
-  
-          <!-- <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Status</mat-label>
-            <input matInput formControlName="status" required>
-          </mat-form-field> -->
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Airfare Cost</mat-label>
+            <input matInput formControlName="airfareCost" >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Accommodation Cost</mat-label>
+            <input matInput formControlName="AccommodationCost" >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Visa Application Fee</mat-label>
+            <input matInput formControlName="visaApplicationFee" >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Transportation Cost</mat-label>
+            <input matInput formControlName="transportationCost" >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Other Cost</mat-label>
+            <input matInput formControlName="otherCost" >
+          </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Status</mat-label>
@@ -95111,6 +95307,11 @@ var PerDiemComponent = class _PerDiemComponent {
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Location</mat-label>
             <input matInput formControlName="location" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>CFO Email</mat-label>
+            <input matInput formControlName="cfoEmail" required>
           </mat-form-field>
 
           <!-- <mat-form-field appearance="outline" class="full-width">
@@ -95511,7 +95712,7 @@ function PerdiemDetailComponent_div_1_Template(rf, ctx) {
     \u0275\u0275elementStart(5, "mat-card", 8)(6, "mat-card-title")(7, "mat-icon");
     \u0275\u0275text(8, "person");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(9, " Employee Information ");
+    \u0275\u0275text(9, " Per-Diem Information ");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(10, "mat-card-content")(11, "div", 9)(12, "div")(13, "mat-icon");
     \u0275\u0275text(14, "badge");
@@ -95522,46 +95723,110 @@ function PerdiemDetailComponent_div_1_Template(rf, ctx) {
     \u0275\u0275text(17);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(18, "div")(19, "mat-icon");
-    \u0275\u0275text(20, "mail");
+    \u0275\u0275text(20, "badge");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(21, "strong");
-    \u0275\u0275text(22, "Location:");
+    \u0275\u0275text(22, "Airfare Cost:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(23);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(24, "div")(25, "mat-icon");
-    \u0275\u0275text(26, "passport");
+    \u0275\u0275text(26, "badge");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(27, "strong");
-    \u0275\u0275text(28, "Perdiem Status:");
+    \u0275\u0275text(28, "Accommodation Cost:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(29);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(30, "div")(31, "mat-icon");
-    \u0275\u0275text(32, "event");
+    \u0275\u0275text(32, "badge");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(33, "strong");
-    \u0275\u0275text(34, "Date created:");
+    \u0275\u0275text(34, "Visa Application Fee:");
     \u0275\u0275elementEnd();
     \u0275\u0275text(35);
-    \u0275\u0275pipe(36, "date");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(37, "div")(38, "mat-icon");
-    \u0275\u0275text(39, "numbers");
+    \u0275\u0275elementStart(36, "div")(37, "mat-icon");
+    \u0275\u0275text(38, "badge");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(40, "strong");
-    \u0275\u0275text(41, "Created by:");
+    \u0275\u0275elementStart(39, "strong");
+    \u0275\u0275text(40, "Transportation Cost:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(42);
+    \u0275\u0275text(41);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(43, "div")(44, "mat-icon");
-    \u0275\u0275text(45, "apartment");
+    \u0275\u0275elementStart(42, "div")(43, "mat-icon");
+    \u0275\u0275text(44, "badge");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(46, "strong");
-    \u0275\u0275text(47, "Edited by:");
+    \u0275\u0275elementStart(45, "strong");
+    \u0275\u0275text(46, "Other Cost:");
     \u0275\u0275elementEnd();
-    \u0275\u0275text(48);
-    \u0275\u0275pipe(49, "date");
+    \u0275\u0275text(47);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(48, "div")(49, "mat-icon");
+    \u0275\u0275text(50, "apartment");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(51, "strong");
+    \u0275\u0275text(52, "Location:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(53);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(54, "div")(55, "mat-icon");
+    \u0275\u0275text(56, "mail");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(57, "strong");
+    \u0275\u0275text(58, "CFO Email:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(59);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(60, "div")(61, "mat-icon");
+    \u0275\u0275text(62, "garvel");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(63, "strong");
+    \u0275\u0275text(64, "CFO Approval:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(65);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(66, "div")(67, "mat-icon");
+    \u0275\u0275text(68, "garvel");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(69, "strong");
+    \u0275\u0275text(70, "CFO Remarks:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(71);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(72, "div")(73, "mat-icon");
+    \u0275\u0275text(74, "passport");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(75, "strong");
+    \u0275\u0275text(76, "Perdiem Status:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(77);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(78, "div")(79, "mat-icon");
+    \u0275\u0275text(80, "event");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(81, "strong");
+    \u0275\u0275text(82, "Date created:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(83);
+    \u0275\u0275pipe(84, "date");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(85, "div")(86, "mat-icon");
+    \u0275\u0275text(87, "numbers");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(88, "strong");
+    \u0275\u0275text(89, "Created by:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(90);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(91, "div")(92, "mat-icon");
+    \u0275\u0275text(93, "apartment");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(94, "strong");
+    \u0275\u0275text(95, "Edited by:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(96);
+    \u0275\u0275pipe(97, "date");
     \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
@@ -95569,15 +95834,31 @@ function PerdiemDetailComponent_div_1_Template(rf, ctx) {
     \u0275\u0275advance(17);
     \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.rate, "");
     \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.airfareCost, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.accommodationCost, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.visaApplicationFee, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.transportationCost, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.otherCost, "");
+    \u0275\u0275advance(6);
     \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.location, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.cfoEmail, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.cfoApproval, "");
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.cfoRemark, "");
     \u0275\u0275advance(6);
     \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.status, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(36, 6, ctx_r0.perdiem.dateCreated), "");
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(84, 14, ctx_r0.perdiem.dateCreated), "");
     \u0275\u0275advance(7);
     \u0275\u0275textInterpolate1(" ", ctx_r0.perdiem.createdBy, "");
     \u0275\u0275advance(6);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(49, 8, ctx_r0.perdiem.editedDate), "");
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(97, 16, ctx_r0.perdiem.editedDate), "");
   }
 }
 var PerdiemDetailComponent = class _PerdiemDetailComponent {
@@ -95614,7 +95895,7 @@ var PerdiemDetailComponent = class _PerdiemDetailComponent {
   };
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PerdiemDetailComponent, selectors: [["app-perdiem-detail"]], decls: 6, vars: 2, consts: [["class", "loading-container", 4, "ngIf"], ["class", "detail-wrapper", 4, "ngIf"], ["mat-button", "", "color", "primary", 1, "back-btn", 3, "click"], [1, "loading-container"], ["diameter", "60", "strokeWidth", "4", "color", "primary"], [1, "detail-wrapper"], [1, "page-title"], ["color", "primary"], [1, "info-card"], [1, "info-grid"]], template: function PerdiemDetailComponent_Template(rf, ctx) {
     if (rf & 1) {
-      \u0275\u0275template(0, PerdiemDetailComponent_div_0_Template, 2, 0, "div", 0)(1, PerdiemDetailComponent_div_1_Template, 50, 10, "div", 1);
+      \u0275\u0275template(0, PerdiemDetailComponent_div_0_Template, 2, 0, "div", 0)(1, PerdiemDetailComponent_div_1_Template, 98, 18, "div", 1);
       \u0275\u0275elementStart(2, "button", 2);
       \u0275\u0275listener("click", function PerdiemDetailComponent_Template_button_click_2_listener() {
         return ctx.goBack();
@@ -95652,12 +95933,20 @@ var PerdiemDetailComponent = class _PerdiemDetailComponent {
     <!-- Employee Info -->
     <mat-card class="info-card">
       <mat-card-title>
-        <mat-icon>person</mat-icon> Employee Information
+        <mat-icon>person</mat-icon> Per-Diem Information
       </mat-card-title>
       <mat-card-content>
         <div class="info-grid">
           <div><mat-icon>badge</mat-icon> <strong>Rate:</strong> {{ perdiem.rate }}</div>
-          <div><mat-icon>mail</mat-icon> <strong>Location:</strong> {{ perdiem.location }}</div>
+          <div><mat-icon>badge</mat-icon> <strong>Airfare Cost:</strong> {{ perdiem.airfareCost }}</div>
+          <div><mat-icon>badge</mat-icon> <strong>Accommodation Cost:</strong> {{ perdiem.accommodationCost }}</div>
+          <div><mat-icon>badge</mat-icon> <strong>Visa Application Fee:</strong> {{ perdiem.visaApplicationFee }}</div>
+          <div><mat-icon>badge</mat-icon> <strong>Transportation Cost:</strong> {{ perdiem.transportationCost }}</div>
+          <div><mat-icon>badge</mat-icon> <strong>Other Cost:</strong> {{ perdiem.otherCost }}</div>
+          <div><mat-icon>apartment</mat-icon> <strong>Location:</strong> {{ perdiem.location }}</div>
+          <div><mat-icon>mail</mat-icon> <strong>CFO Email:</strong> {{ perdiem.cfoEmail }}</div>
+          <div><mat-icon>garvel</mat-icon> <strong>CFO Approval:</strong> {{ perdiem.cfoApproval }}</div>
+          <div><mat-icon>garvel</mat-icon> <strong>CFO Remarks:</strong> {{ perdiem.cfoRemark }}</div>
           <div><mat-icon>passport</mat-icon> <strong>Perdiem Status:</strong> {{ perdiem.status }}</div>
           <div><mat-icon>event</mat-icon> <strong>Date created:</strong> {{ perdiem.dateCreated| date }}</div>
           <div><mat-icon>numbers</mat-icon> <strong>Created by:</strong> {{ perdiem.createdBy }}</div>
@@ -95962,4 +96251,4 @@ xlsx/xlsx.mjs:
 xlsx/xlsx.mjs:
   (*! sheetjs (C) 2013-present SheetJS -- http://sheetjs.com *)
 */
-//# sourceMappingURL=chunk-7JJKWJYR.js.map
+//# sourceMappingURL=chunk-FMPOONJ7.js.map

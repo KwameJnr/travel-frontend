@@ -5,6 +5,7 @@ import { PerDiem } from 'src/app/shared/models/perdiem/perdiem.model';
 import { ApiResponse } from 'src/app/shared/models/travel/api-response.model';
 import { generateUUID } from './constants';
 import { ConfigService } from 'src/app//config.service';
+import { ApprovalEmailPayload } from 'src/app/shared/models/notification/ApprovalEmailPayload';
 
 
 @Injectable({
@@ -76,5 +77,15 @@ export class PerdiemService {
     return this.http.delete<ApiResponse<PerDiem>>(`${this.baseUrl}/perdiems/delete/${id}`,{headers}).pipe(
       map(response => response.data)
     );
+  }
+
+  sendApprovalEmail(payload: ApprovalEmailPayload): Observable<any> {
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`)
+    .set('X-SrcApp', 'Travel-Request')
+    .set('X-Request-ID', generateUUID());
+
+    return this.http.post(this.baseUrl+'/notifications/send-approval-msg', payload,{ headers });
   }
 }

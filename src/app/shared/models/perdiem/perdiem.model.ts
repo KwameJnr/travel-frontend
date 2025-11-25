@@ -9,6 +9,8 @@ export interface PerDiem {
     status: string;
     location: string;
     cfoEmail: string;
+    cfoApproval: string;
+    cfoRemark: string;
     dateCreated: string; 
     effectiveDate: string;
     createdBy: string; 

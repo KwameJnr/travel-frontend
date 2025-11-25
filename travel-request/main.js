@@ -28,13 +28,13 @@ import {
   style,
   ɵNgNoValidate,
   ɵPRE_STYLE
-} from "./chunk-V5J5XSAD.js";
+} from "./chunk-Y33IH5QB.js";
 import {
   MatMenu,
   MatMenuItem,
   MatMenuModule,
   MatMenuTrigger
-} from "./chunk-5NQJQAJC.js";
+} from "./chunk-HC3IYS5A.js";
 import {
   ANIMATION_MODULE_TYPE,
   APP_INITIALIZER,
@@ -104,7 +104,7 @@ import {
   ɵɵtemplate,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-WKIGJXVH.js";
+} from "./chunk-KTQHYMAC.js";
 import {
   __objRest,
   __spreadValues
@@ -4486,7 +4486,7 @@ var LayoutComponent = class _LayoutComponent {
     if (rf & 2) {
       const userMenu_r3 = \u0275\u0275reference(12);
       \u0275\u0275advance(4);
-      \u0275\u0275property("ngIf", ctx.isAdmin);
+      \u0275\u0275property("ngIf", ctx.isAdmin || ctx.canCreateTravel);
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", ctx.canCreateTravel || ctx.isBUHead || ctx.isCFO || ctx.isAdmin);
       \u0275\u0275advance();
@@ -4533,7 +4533,7 @@ var LayoutComponent = class _LayoutComponent {
       <span class="spacer"></span>
 
       <!-- Admin Dropdown -->
-      <ng-container *ngIf="isAdmin">
+      <ng-container *ngIf="isAdmin || canCreateTravel">
         <mat-menu #adminMenu="matMenu">
           <button mat-menu-item [routerLink]="'/travel/perdiem/create'">Create Per Diem</button>
           <button mat-menu-item [routerLink]="'/travel/perdiem/list'">List Per Diem</button>
@@ -4904,7 +4904,7 @@ var appRoutes = [
     children: [
       {
         path: "travel",
-        loadChildren: () => import("./chunk-7JJKWJYR.js").then((m) => m.travelRoutes)
+        loadChildren: () => import("./chunk-FMPOONJ7.js").then((m) => m.travelRoutes)
       },
       {
         path: "",
@@ -4915,7 +4915,7 @@ var appRoutes = [
   },
   {
     path: "unauthorized",
-    loadComponent: () => import("./chunk-I2MEXHWQ.js").then((m) => m.UnauthorizedComponent)
+    loadComponent: () => import("./chunk-PATNCKJU.js").then((m) => m.UnauthorizedComponent)
   },
   {
     path: "**",
