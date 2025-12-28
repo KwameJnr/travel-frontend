@@ -53,7 +53,7 @@ private devLogin(): void {
       userId: 'F123456',
       name: 'Dev User',
       mail: 'dev.user@bank.com',
-      role: 'ADMIN',
+      role: 'TR-ADMIN',
       mobile: '0000000000',
       title: 'Software Engineer'
     }
