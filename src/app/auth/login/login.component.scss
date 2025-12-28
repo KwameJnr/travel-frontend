@@ -119,79 +119,6 @@
     font-family: 'Poppins', sans-serif;
   }
 }
-
-
-// .login-container {
-//     display: flex;
-//     height: 100vh;
-
-//   }
-//   .login-image-section {
-//     flex: 1.5;
-//     background: linear-gradient(to bottom right, #00796b, #004d40);
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     padding: 0; /* Remove inner spacing */
-//     margin: 0;  /* Remove outer spacing */
-//     height: 100vh; /* Ensure full height if needed */
-  
-//     img {
-//       width: 100%;        /* Use full container width */
-//       height: auto;       /* Maintain aspect ratio */
-//       max-width: none;    /* Remove max limit if image is constrained */
-//       display: block;     /* Removes inline spacing */
-//       margin: 0;          /* Ensure no auto margin */
-//       padding: 0;
-//       animation: fadeIn 1s ease-in;
-//     }
-//   }
-
-//   .system-title {
-//     position: absolute;
-//     top: 20px;
-//     text-align: center;
-
-//     h1 {
-//       font-size: 2.5rem;
-//       font-weight: 700;
-//       color: white;
-//       margin: 0;
-//     }
-//   }
-  
-//   .login-form-section {
-//     flex: 1;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     background: #ffffff;
-//   }
-  
-//   .login-card {
-//     width: 100%;
-//     max-width: 400px;
-//     padding: 2rem;
-//     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-//   }
-  
-//   .full-width {
-//     width: 100%;
-//   }
-  
-//   .login-btn {
-//     margin-top: 16px;
-//     width: 100%;
-//   }
-//   .version-label {
-//     position: absolute;
-//     top: 10px;
-//     right: 16px;
-//     font-size: 12px;
-//     color: gray;
-//     font-weight: 400;
-//     opacity: 0.8;
-//   }
   .polling-message {
     display: flex;
     align-items: center;
@@ -211,5 +138,205 @@
   .polling-text {
     margin-left: 8px;
   }
+
+  /* ===== Animated Countdown Ring ===== */
+.countdown-ring {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 1.5rem;
+
+  svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+  }
+
+  circle {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+  }
+
+  .ring-bg {
+    stroke: #e0e0e0;
+  }
+
+  .ring-progress {
+    stroke: #1976d2;
+    transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
+  }
+
+  &.warn .ring-progress {
+    stroke: #fb8c00;
+  }
+
+  &.danger .ring-progress {
+    stroke: #e53935;
+    animation: pulse 1s infinite;
+  }
+}
+
+.countdown-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #1976d2;
+  transition: color 0.5s ease;
+}
+
+.countdown-ring.warn .countdown-value {
+  color: #fb8c00;
+}
+
+.countdown-ring.danger .countdown-value {
+  color: #e53935;
+}
+
+/* Pulse animation when almost expired */
+@keyframes pulse {
+  0% {
+    stroke-width: 10;
+  }
+  50% {
+    stroke-width: 14;
+  }
+  100% {
+    stroke-width: 10;
+  }
+}
+
+/* Expires text */
+.expires-text {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Cancel button */
+.cancel-btn {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+/* ===== Polling Header ===== */
+.polling-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.polling-logo {
+  height: 48px;
+  max-width: 180px;
+  object-fit: contain;
+}
+/* ===== Animated Waiting Text ===== */
+.animated-wait {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  animation: subtleFloat 2s ease-in-out infinite;
+}
+
+/* Floating text motion */
+@keyframes subtleFloat {
+  0% {
+    opacity: 0.75;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 0.75;
+    transform: translateY(0);
+  }
+}
+
+/* Animated dots */
+.dots span {
+  animation: dotFade 1.4s infinite both;
+  font-weight: 600;
+}
+
+.dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+.dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dotFade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* ===== Centered Flow Layout ===== */
+.centered-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Title */
+.polling-title {
+  margin: 0.8rem 0 0.3rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* Animated instruction text */
+.polling-subtext {
+  margin-bottom: 1.2rem;
+  max-width: 280px;
+}
+
+/* Countdown ring spacing */
+.countdown-ring {
+  margin: 0.5rem 0 1rem;
+}
+
+/* Expires text */
+.expires-text {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1.2rem;
+}
+
+/* Cancel button */
+.cancel-btn {
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 280px;
+}
+
+.polling-card {
+  width: 100%;
+  max-width: 360px;
+}
+
+
+
   
   

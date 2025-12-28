@@ -1,65 +1,119 @@
 .detail-wrapper {
   padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  background: #f6f7f9;
 }
 
-.info-card {
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.pdf-container {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 14px;
 }
 
-.page-title {
-  font-size: 2rem;
+/* HEADER */
+.pdf-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 1.5rem;
+  border-bottom: 2px solid #e6e8eb;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.info-grid {
+.pdf-logo {
+  width: 70px;
+}
+
+.header-text h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.subtle {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+/* SECTIONS */
+.section {
+  margin-bottom: 2.2rem;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+/* KEY-VALUE GRID */
+.kv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem 2rem;
+}
+
+.kv {
+  display: flex;
+  flex-direction: column;
+}
+
+.kv span {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.kv strong {
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.kv.highlight strong {
+  font-size: 1.05rem;
+  color: #0f766e;
+}
+
+/* APPROVALS */
+.approval-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
-mat-icon {
-  vertical-align: middle;
-  margin-right: 0.25rem;
+.approval-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.2rem;
 }
 
-.back-btn {
-  margin-bottom: 1rem;
-  font-weight: 500;
-  text-transform: none;
+.approval-box h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
 }
 
+.muted {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+/* META */
+.section.meta {
+  border-top: 1px dashed #e5e7eb;
+  padding-top: 1.5rem;
+}
+
+/* ACTIONS */
 .action-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 1.5rem;
 }
 
-.pdf-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.pdf-logo {
-  width: 60px;
-  height: auto;
-}
-
+/* PDF SAFETY */
 .pdf-page-break-avoid {
-  page-break-inside: avoid !important;
-  break-inside: avoid !important;
-}
-
-.pdf-force-page-break {
-  page-break-before: always !important;
-  break-before: page !important;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }

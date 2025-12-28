@@ -89,6 +89,7 @@ export class TravelCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.travelForm = this.fb.group({
+      step1: this.fb.group({
       employeeName: ['', Validators.required],
       employeeEmail: ['', [Validators.required, Validators.email]],
       employeePassportNo: [''],
@@ -98,6 +99,7 @@ export class TravelCreateComponent implements OnInit {
       employeeTravellingContact: [''],
       employeeContact: [''],
       purpose: ['', Validators.required],
+      }),
       city: [''],
       country: [''],
       visaRequired: [''],
@@ -535,5 +537,4 @@ export class TravelCreateComponent implements OnInit {
     this.router.navigate(['/travel']); // Navigate back to travel list or desired route
   }
   
-}
-
+} 

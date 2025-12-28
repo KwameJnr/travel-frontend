@@ -1,186 +1,245 @@
-import { Component, HostListener } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, HostListener, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { CommonModule, NgIf } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
-import { NgIf } from '@angular/common';
+import { filter, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
   imports: [
-    RouterModule, 
-    MatToolbarModule, 
-    MatButtonModule, 
-    MatIconModule, 
+    CommonModule,
+    RouterModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
     MatMenuModule,
     NgIf
   ],
   template: `
-    <mat-toolbar color="primary" class="top-toolbar">
-      <span class="logo">Travel Request Manager</span>
+    <mat-toolbar class="bank-toolbar">
+      <div class="brand" routerLink="/travel/list">
+        <img src="assets/images/fnb-logo.png" class="brand-logo" />
+        <span class="brand-text">Travel Request Manager</span>
+      </div>
 
       <span class="spacer"></span>
 
-      <!-- Admin Dropdown -->
-      <ng-container *ngIf="isAdmin || canCreateTravel">
-        <mat-menu #adminMenu="matMenu">
-          <button mat-menu-item [routerLink]="'/travel/perdiem/create'">Create Per Diem</button>
-          <button mat-menu-item [routerLink]="'/travel/perdiem/list'">List Per Diem</button>
-          <!-- <button mat-menu-item [routerLink]="'/travel/buhead/create'">Create BU Head</button> -->
-        </mat-menu>
-        <button mat-button [matMenuTriggerFor]="adminMenu">Manage</button>
+      <!-- NAV LINKS -->
+      <ng-container *ngIf="isAuthenticated">
+        <button mat-button *ngIf="canViewTravel" routerLink="/travel/list"
+          [class.active-link]="currentUrl === '/travel/list'">Travel Requests</button>
+
+        <button mat-button *ngIf="canCreateTravel" routerLink="/travel/create"
+          [class.active-link]="currentUrl === '/travel/create'">Create Travel</button>
+
+        <button mat-button *ngIf="isBUHead || isAdmin" routerLink="/travel/buhead/list"
+          [class.active-link]="currentUrl.startsWith('/travel/buhead')">BU Head Approvals</button>
+
+        <button mat-button *ngIf="isCFO || isAdmin" routerLink="/travel/cfo/list"
+          [class.active-link]="currentUrl.startsWith('/travel/cfo/list')">CFO Approvals</button>
+
+        <button mat-button *ngIf="isCFO || isAdmin" routerLink="/travel/cfo/dashboard"
+          [class.active-link]="currentUrl.startsWith('/travel/cfo/dashboard')">CFO Dashboard</button>
+
+        <!-- Admin Manage -->
+        <ng-container *ngIf="isAdmin">
+          <button mat-button [matMenuTriggerFor]="manageMenu"
+            [class.active-link]="currentUrl.startsWith('/travel/perdiem')">Manage</button>
+          <mat-menu #manageMenu="matMenu">
+            <button mat-menu-item routerLink="/travel/perdiem/create"
+              [class.active-link]="currentUrl.startsWith('/travel/perdiem/create')">Create Per Diem</button>
+            <button mat-menu-item routerLink="/travel/perdiem/list"
+              [class.active-link]="currentUrl.startsWith('/travel/perdiem/list')">List Per Diem</button>
+          </mat-menu>
+        </ng-container>
       </ng-container>
 
-      <!-- Common Tabs -->
-      <button mat-button [routerLink]="'/travel/list'" *ngIf="canCreateTravel || isBUHead || isCFO || isAdmin" >Travel Requests</button>
-      <button mat-button [routerLink]="'/travel/create'" *ngIf="canCreateTravel || isBUHead || isCFO || isAdmin">Create Travel</button>
-      <button mat-button routerLink="/travel/buhead/list" *ngIf="isBUHead || isAdmin">BU Head Approvals</button>
-      <button mat-button routerLink="/travel/cfo/list" *ngIf="isCFO || isAdmin">CFO Approvals</button>
-      <button mat-button routerLink="/travel/cfo/dashboard" *ngIf="isCFO || isAdmin">CFO Dashboard</button>
-      
       <span class="spacer"></span>
 
-      <!-- User info & Logout -->
-      <mat-menu #userMenu="matMenu">
-        <button mat-menu-item disabled>Logged in as: <strong>{{ userName }}</strong></button>
-        <button mat-menu-item disabled>Email: <strong>{{ loggedInEmail }}</strong></button>
-        <button mat-menu-item disabled>System Role: <strong>{{ userRole }}</strong></button>
-        <button mat-menu-item disabled>F-Number: <strong>{{ userFnumber }}</strong></button>
-        <button mat-menu-item disabled>Mobile: <strong>{{ userMobile }}</strong></button>
-        <button mat-menu-item disabled>Job Title: <strong>{{ userTitle }}</strong></button>
-        <button mat-menu-item (click)="logout()">Logout</button>
-      </mat-menu>
-      <button mat-icon-button [matMenuTriggerFor]="userMenu">
-        <mat-icon>account_circle</mat-icon>
-      </button>
+      <!-- USER OVERLAY TRIGGER -->
+      <ng-container *ngIf="isAuthenticated">
+        <button mat-icon-button (click)="toggleUserOverlay()" class="user-trigger">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+
+        <div class="user-overlay" *ngIf="showUserOverlay" [class.show]="showUserOverlay">
+          <div class="user-header">
+            <div class="user-avatar">{{ userName?.charAt(0) || 'U' }}</div>
+            <div class="user-meta">
+              <div class="user-name">{{ userName }}</div>
+              <div class="user-email">{{ loggedInEmail }}</div>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="user-details">
+            <div class="detail-row"><span class="label">Role</span><span class="value">{{ userRole }}</span></div>
+            <div class="detail-row"><span class="label">F-Number</span><span class="value">{{ userFnumber }}</span></div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <button mat-button class="logout-btn" (click)="logout()">Logout</button>
+        </div>
+      </ng-container>
     </mat-toolbar>
+
     <div *ngIf="showWarning" class="logout-warning">
-  ⚠️ You will be logged out in 1 minute due to inactivity. Move your mouse or press a key to stay logged in.
+      ⚠️ You will be logged out in 1 minute due to inactivity.
     </div>
 
-    <router-outlet></router-outlet>
+    <main class="layout-content">
+      <router-outlet></router-outlet>
+    </main>
   `,
   styles: [`
-    .top-toolbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background-color: #048a73;
-      color: white; /* Ensures text and icons are visible */
+    .bank-toolbar { 
+      position: sticky; top: 0; z-index: 1000; height: 64px; 
+      background-color: #fff; color: #000; display: flex; padding: 0 20px; 
+      border-bottom: 2px solid #149e97a1; 
     }
-  
-    .logo {
-      font-weight: bold;
-      font-size: 1.3rem;
-    }
-  
-    .spacer {
-      flex: 1 1 auto;
+    .bank-toolbar .mat-mdc-button:hover, .bank-toolbar .mat-mdc-icon-button:hover { 
+      background-color: rgba(39,184,189,0.08); 
     }
 
-    .logout-warning {
-    background-color: #fff3cd;
-    color: #856404;
-    padding: 12px;
-    text-align: center;
-    font-weight: bold;
-    position: fixed;
-    top: 64px; // adjust based on your header height
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-    button, .mat-button, .mat-icon-button {
-      color: black;
+    .brand { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+    .brand-logo { height: 36px; object-fit: contain; }
+    .brand-text { font-size: 1.2rem; font-weight: 600; }
+    .spacer { flex: 1 1 auto; }
+    button.mat-button { font-weight: 500; }
+
+    button.mat-button.active-link {
+      background-color: #27b8bd;
+      color: #fff;
+      border-radius: 4px;
     }
+
+    /* USER OVERLAY */
+    .user-overlay {
+      position: absolute;
+      top: 64px;
+      right: 20px;
+      width: 260px;
+      background: #ffffff;
+      border: 1px solid #149e97a1;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      padding: 16px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.25s ease;
+    }
+
+    .user-overlay.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .user-avatar { 
+      background-color: #149e97; color: #fff; width: 40px; height: 40px; 
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+      font-weight: 700; font-size: 1.2rem; 
+    }
+    .user-meta { display: flex; flex-direction: column; }
+    .user-name { font-weight: 600; }
+    .user-email { font-size: 0.85rem; color: #555; }
+    .user-details { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; }
+    .detail-row { display: flex; justify-content: space-between; }
+    .logout-btn { color: #d32f2f; font-weight: 600; justify-content: flex-start; }
+
+    .logout-warning { position: fixed; top: 64px; width: 100%; background: #fff3cd; color: #856404; padding: 12px; text-align: center; font-weight: 500; z-index: 999; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+
+    .layout-content { padding: 24px; }
   `]
 })
-export class LayoutComponent {
-  private logoutTimeout: any;
-  private warningTimeout: any;
-
-  private readonly INACTIVITY_LIMIT_MS = 10 * 60 * 1000; // 10 minutes
-  private readonly WARNING_BEFORE_MS = 1 * 60 * 1000;     // 1 minute before logout
-
-  showWarning = false;
-
-  loggedInEmail = localStorage.getItem('loggedInEmail') || 'Guest';
-  userRole = localStorage.getItem('userRole') || 'Guest';
-
+export class LayoutComponent implements OnInit, OnDestroy {
+  loggedInEmail = localStorage.getItem('loggedInEmail');
+  userRole = localStorage.getItem('userRole');
   userFnumber = localStorage.getItem('userFnumber');
-  userMobile = localStorage.getItem('userMobile');
-  userTitle = localStorage.getItem('userTitle');
   userName = localStorage.getItem('userName');
 
-  get isAdmin() {
-    return this.userRole === 'TR-ADMIN';
-  }
+  showWarning = false;
+  showUserOverlay = false;
+  currentUrl = '';
 
-  get isBUHead() {
-    return this.userRole === 'TR-BU_HEAD';
-  }
+  private logoutTimeout: any;
+  private warningTimeout: any;
+  private readonly INACTIVITY_LIMIT_MS = 10 * 60 * 1000;
+  private readonly WARNING_BEFORE_MS = 1 * 60 * 1000;
+  private routerSub!: Subscription;
 
-  get isCFO() {
-    return this.userRole === 'TR-CFO';
-  }
+  constructor(private router: Router, private elementRef: ElementRef) {}
 
-  get canCreateTravel() {
-    return this.userRole === 'TR-EMPLOYEE' || this.isAdmin;
-  }
+  ngOnInit(): void {
+    this.currentUrl = this.router.url;
+    this.routerSub = this.router.events.pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((event: any) => this.currentUrl = event.urlAfterRedirects);
 
-  ngOnInit() {
     this.startInactivityWatcher();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.clearTimeouts();
+    if (this.routerSub) this.routerSub.unsubscribe();
   }
 
+  /* ===================== ROLE GETTERS ===================== */
+  get isAuthenticated() { return !!this.userRole; }
+  get isAdmin() { return this.userRole === 'TR-ADMIN'; }
+  get isBUHead() { return this.userRole === 'TR-BU_HEAD'; }
+  get isCFO() { return this.userRole === 'TR-CFO'; }
+  get canCreateTravel() { return this.userRole === 'TR-EMPLOYEE' || this.isAdmin; }
+  get canViewTravel() { return this.canCreateTravel || this.isBUHead || this.isCFO; }
+
+  /* ===================== INACTIVITY WATCHER ===================== */
   @HostListener('document:mousemove')
   @HostListener('document:keydown')
-  @HostListener('document:click')
   @HostListener('document:scroll')
-  resetTimer() {
+  resetTimer(): void {
     this.showWarning = false;
     this.clearTimeouts();
     this.startInactivityWatcher();
   }
 
-  startInactivityWatcher() {
-    // Show warning 1 minute before logout
-    this.warningTimeout = setTimeout(() => {
-      this.showWarning = true;
-    }, this.INACTIVITY_LIMIT_MS - this.WARNING_BEFORE_MS);
-
-    // Perform logout after full timeout
-    this.logoutTimeout = setTimeout(() => {
-      this.logout(true);
-    }, this.INACTIVITY_LIMIT_MS);
+  private startInactivityWatcher(): void {
+    this.warningTimeout = setTimeout(() => this.showWarning = true, this.INACTIVITY_LIMIT_MS - this.WARNING_BEFORE_MS);
+    this.logoutTimeout = setTimeout(() => this.logout(true), this.INACTIVITY_LIMIT_MS);
   }
 
-  clearTimeouts() {
-    if (this.logoutTimeout) {
-      clearTimeout(this.logoutTimeout);
-    }
-    if (this.warningTimeout) {
-      clearTimeout(this.warningTimeout);
-    }
+  private clearTimeouts(): void {
+    if (this.logoutTimeout) clearTimeout(this.logoutTimeout);
+    if (this.warningTimeout) clearTimeout(this.warningTimeout);
   }
 
-  logout(auto: boolean = false) {
+  /* ===================== LOGOUT ===================== */
+  logout(auto = false): void {
     this.showWarning = false;
-    // Clear token and redirect to login
-    localStorage.removeItem('loggedInEmail');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userFnumber');
-    localStorage.removeItem('userMobile');
-    localStorage.removeItem('userName');
-    if (auto) {
-      alert('You were logged out due to inactivity.');
-    }
-    location.href = 'tent/travel-request/login';
+    this.showUserOverlay = false;
+    localStorage.clear();
+    if (auto) alert('You were logged out due to inactivity.');
+    this.router.navigateByUrl('tent/travel-request/login');
+  }
+
+  /* ===================== USER OVERLAY ===================== */
+  toggleUserOverlay(): void { setTimeout(() => this.showUserOverlay = !this.showUserOverlay); }
+  closeUserOverlay(): void { this.showUserOverlay = false; }
+
+  /* ===================== CLOSE ON OUTSIDE CLICK ===================== */
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: Event) {
+    if (!this.showUserOverlay) return;
+    const clickedInside = this.elementRef.nativeElement.contains(event.target);
+    if (!clickedInside && this.showUserOverlay) this.closeUserOverlay();
   }
 }

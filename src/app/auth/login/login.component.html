@@ -52,3 +52,68 @@
     </mat-card>
   </div>
 </div>
+<!-- 🔒 2FA Polling Overlay -->
+<div class="polling-overlay" *ngIf="showPollingOverlay">
+  <div class="polling-card centered-flow">
+
+    <!-- Header Logo -->
+    <div class="polling-header">
+      <img
+        src="assets/images/fnb-logo.png"
+        alt="Company Logo"
+        class="polling-logo"
+      />
+    </div>
+
+    <h2 class="polling-title">Waiting for Approval</h2>
+
+    <!-- Animated Instruction Text -->
+    <p class="polling-subtext animated-wait">
+      Approve the sign-in request on your phone
+      <span class="dots">
+        <span>.</span><span>.</span><span>.</span>
+      </span>
+    </p>
+
+    <!-- Animated Countdown Ring -->
+    <div
+      class="countdown-ring"
+      [ngClass]="{
+        warn: pollingCountdown <= 20 && pollingCountdown > 10,
+        danger: pollingCountdown <= 10
+      }"
+    >
+      <svg viewBox="0 0 120 120">
+        <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
+        <circle
+          class="ring-progress"
+          cx="60"
+          cy="60"
+          r="54"
+          [attr.stroke-dasharray]="339"
+          [attr.stroke-dashoffset]="
+            339 - (pollingCountdown / (maxPollingAttempts * 2)) * 339
+          "
+        ></circle>
+      </svg>
+
+      <div class="countdown-value">
+        {{ pollingCountdown }}
+      </div>
+    </div>
+
+    <p class="expires-text">
+      Expires in <strong>{{ pollingCountdown }}</strong> seconds
+    </p>
+
+    <button
+      mat-stroked-button
+      color="warn"
+      class="cancel-btn"
+      (click)="cancelPolling()"
+    >
+      Cancel & Return to Login
+    </button>
+
+  </div>
+</div>
