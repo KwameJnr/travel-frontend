@@ -24,7 +24,7 @@ import { filter, Subscription } from 'rxjs';
   template: `
     <mat-toolbar class="bank-toolbar">
       <div class="brand" routerLink="/travel/list">
-        <img src="assets/images/fnb-logo.png" class="brand-logo" />
+        <img src="assets/images/fnb-logo1.png" class="brand-logo" />
         <span class="brand-text">Travel Request Manager</span>
       </div>
 
@@ -32,32 +32,10 @@ import { filter, Subscription } from 'rxjs';
 
       <!-- NAV LINKS -->
       <ng-container *ngIf="isAuthenticated">
-        <button mat-button *ngIf="canViewTravel" routerLink="/travel/list"
-          [class.active-link]="currentUrl === '/travel/list'">Travel Requests</button>
 
-        <button mat-button *ngIf="canCreateTravel" routerLink="/travel/create"
-          [class.active-link]="currentUrl === '/travel/create'">Create Travel</button>
+        <button mat-button *ngIf="canCreateTravel" routerLink="/travel/landing"
+          [class.active-link]="currentUrl === '/travel/landing'">Home</button>
 
-        <button mat-button *ngIf="isBUHead || isAdmin" routerLink="/travel/buhead/list"
-          [class.active-link]="currentUrl.startsWith('/travel/buhead')">BU Head Approvals</button>
-
-        <button mat-button *ngIf="isCFO || isAdmin" routerLink="/travel/cfo/list"
-          [class.active-link]="currentUrl.startsWith('/travel/cfo/list')">CFO Approvals</button>
-
-        <button mat-button *ngIf="isCFO || isAdmin" routerLink="/travel/cfo/dashboard"
-          [class.active-link]="currentUrl.startsWith('/travel/cfo/dashboard')">CFO Dashboard</button>
-
-        <!-- Admin Manage -->
-        <ng-container *ngIf="isAdmin">
-          <button mat-button [matMenuTriggerFor]="manageMenu"
-            [class.active-link]="currentUrl.startsWith('/travel/perdiem')">Manage</button>
-          <mat-menu #manageMenu="matMenu">
-            <button mat-menu-item routerLink="/travel/perdiem/create"
-              [class.active-link]="currentUrl.startsWith('/travel/perdiem/create')">Create Per Diem</button>
-            <button mat-menu-item routerLink="/travel/perdiem/list"
-              [class.active-link]="currentUrl.startsWith('/travel/perdiem/list')">List Per Diem</button>
-          </mat-menu>
-        </ng-container>
       </ng-container>
 
       <span class="spacer"></span>

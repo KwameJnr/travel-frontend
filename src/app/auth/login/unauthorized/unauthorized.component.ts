@@ -21,18 +21,7 @@ export class UnauthorizedComponent {
   constructor(private router: Router) {}
 
   goHome() {
-    this.router.navigate(['/travel']);
+    this.router.navigate(['/travel/landing']);
   }
   
 }
-
-
-// @Component({
-//   selector: 'app-unauthorized',
-//   imports: [],
-//   templateUrl: './unauthorized.component.html',
-//   styleUrl: './unauthorized.component.scss'
-// })
-// export class UnauthorizedComponent {
-
-// }

@@ -245,7 +245,8 @@ private devLogin(): void {
     localStorage.setItem('userName', user.name);
     localStorage.setItem('userToken', res?.token);
 
-    this.router.navigate(['/travel/list']);
+    // this.router.navigate(['/travel/list']);
+    this.router.navigate(['/travel/landing']);
   }
 
   /* =====================

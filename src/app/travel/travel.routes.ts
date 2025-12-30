@@ -16,6 +16,7 @@ import { CfoDashboardComponent } from '../approval/cfo-dashboard/cfo-dashboard.c
 import { PerDiemComponent } from '../per-diem/perdiem-create/per-diem.component';
 import { PerdiemListComponent } from '../per-diem/perdiem-list/perdiem-list.component';
 import { PerdiemDetailComponent } from '../per-diem/perdiem-detail/perdiem-detail.component';
+import { TravelLandingComponent } from './travel-landing/travel-landing.component';
 
 export const travelRoutes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' }, // Default to create
@@ -23,6 +24,7 @@ export const travelRoutes: Routes = [
   { path: 'edit/:id', component: TravelEditComponent },
   { path: 'detail/:id', component: TravelDetailComponent },
   { path: 'list', component: TravelListComponent },
+  { path: 'landing', component: TravelLandingComponent},
 
   {
     path: 'buhead',

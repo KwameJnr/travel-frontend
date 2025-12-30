@@ -1,96 +1,87 @@
-// .unauthorized-container {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     height: 80vh;
-  
-//     .unauthorized-card {
-//       padding: 2rem;
-//       text-align: center;
-//       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-//     }
-//   }
+/* Unauthorized Page Styles */
 
-.unauthorized-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
-    padding: 24px;
-    background-color: #f9fafa;
-    animation: fadeIn 0.8s ease-in;
-  }
-  
+.unauthorized-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 64px); /* full height minus toolbar */
+  padding: 1rem;
+  background: linear-gradient #ffffff;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.unauthorized-card {
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease;
+}
+
+.unauthorized-card:hover {
+  transform: translateY(-4px);
+}
+
+.icon-wrapper {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.warning-icon {
+  font-size: 5rem;
+}
+
+.card-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #d32f2f;
+}
+
+.message {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.sub-message {
+  font-size: 0.875rem;
+  color: #888;
+}
+
+.card-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+button[mat-raised-button] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .unauthorized-card {
-    max-width: 400px;
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    padding: 16px;
+    padding: 1.5rem;
   }
-  
-  .warning-icon {
-    font-size: 48px;
-    color: #f44336;
-  }
-  
-  .message {
-    font-size: 1rem;
-    color: #555;
-    margin-top: 12px;
-  }
-  
-  mat-card-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  mat-card-actions {
-    margin-top: 16px;
-  }
-  
-  button {
-    border-radius: 24px;
-    font-weight: 600;
-    text-transform: none;
-    padding: 10px 24px;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
 
-    .top-toolbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background-color: #048a73;
-      color: white; /* Ensures text and icons are visible */
-    }
-  
-    .logo {
-      font-weight: bold;
-      font-size: 1.3rem;
-    }
-  
-    .spacer {
-      flex: 1 1 auto;
-    }
-  
-    button, .mat-button, .mat-icon-button {
-      color: black;
-    }
-  
+  .card-title {
+    font-size: 1.4rem;
+  }
+
+  .icon-wrapper {
+    font-size: 4rem;
+  }
+}

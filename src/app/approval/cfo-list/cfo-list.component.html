@@ -5,7 +5,7 @@
       {{ showHistory ? 'CFO History' : 'CFO Pending Requests' }}
     </span>
 
-    <button mat-raised-button color="accent" (click)="toggleView()">
+    <button mat-raised-button color="accent" class="btn-toggle" (click)="toggleView()">
       <mat-icon>{{ showHistory ? 'assignment' : 'history' }}</mat-icon>
       {{ showHistory ? 'Pending' : 'History' }}
     </button>

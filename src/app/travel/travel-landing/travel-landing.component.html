@@ -1,0 +1,87 @@
+<mat-card class="landing-card">
+  <!-- HERO -->
+  <div class="hero">
+    <!-- <img src="assets/images/fnb-logo1.png" class="brand-logo" /> -->
+    <h1>Travel Request Management System</h1>
+    <p>
+      A secure and streamlined platform for managing employee travel requests,
+      approvals, and reporting.
+    </p>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+<div class="action-grid" *ngIf="isAuthenticated">
+
+  <button
+    mat-flat-button
+    color="primary"
+    routerLink="/travel/create"
+    *ngIf="canCreateTravel">
+    <mat-icon>add_circle</mat-icon>
+    Create Travel Request
+  </button>
+
+  <button
+    mat-stroked-button
+    routerLink="/travel/list"
+    *ngIf="canViewTravel">
+    <mat-icon>assignment</mat-icon>
+    My Requests
+  </button>
+
+  <button
+    mat-stroked-button
+    routerLink="/travel/cfo/dashboard"
+    *ngIf="isCFO || isAdmin">
+    <mat-icon>dashboard</mat-icon>
+    CFO Dashboard
+  </button>
+
+  <button
+    mat-stroked-button
+    routerLink="/travel/buhead/list"
+    *ngIf="isBUHead || isAdmin">
+    <mat-icon>how_to_reg</mat-icon>
+    BU Approvals
+  </button>
+
+  <button
+    mat-stroked-button
+    routerLink="/travel/cfo/list"
+    *ngIf="isCFO || isAdmin">
+    <mat-icon>gavel</mat-icon>
+    CFO Approvals
+  </button>
+
+  <!-- <button
+    mat-stroked-button
+    routerLink="/settings"
+    *ngIf="isAdmin">
+    <mat-icon>settings</mat-icon>
+    Settings
+  </button> -->
+  <ng-container *ngIf="isAdmin">
+  <button
+    mat-stroked-button
+    [matMenuTriggerFor]="manageMenu"
+    class="settings-btn">
+    <mat-icon>settings</mat-icon>
+    Settings
+  </button>
+
+  <mat-menu #manageMenu="matMenu">
+    <button mat-menu-item routerLink="/travel/perdiem/create">
+      <mat-icon>add</mat-icon>
+      Create Per Diem
+    </button>
+
+    <button mat-menu-item routerLink="/travel/perdiem/list">
+      <mat-icon>list</mat-icon>
+      List Per Diem
+    </button>
+  </mat-menu>
+</ng-container>
+
+
+</div>
+</mat-card>
