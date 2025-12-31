@@ -85,3 +85,16 @@ button[mat-raised-button] {
     font-size: 4rem;
   }
 }
+
+.unauthorized-container {
+  font-family: var(--font-primary);
+}
+
+.unauthorized-card {
+  text-align: center;
+}
+
+.warning-icon {
+  font-size: 40px;
+}
+

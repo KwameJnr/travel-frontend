@@ -11,14 +11,19 @@
   background-size: cover;
   background-position: center;
   position: relative;
-  color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.login-left h1,
+.login-left p {
+  color: #ffffff;
+}
+
+
 .overlay-text {
-  background-color: rgba(0, 0, 0, 0.45);
+  background-color: rgba(3, 3, 3, 0.45);
   padding: 2rem 3rem;
   border-radius: 1rem;
   text-align: center;

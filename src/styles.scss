@@ -1,10 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
-@use "@angular/material" as mat;
-// @import "./app/themes/fnb-colortheme.css";
-@import "./app/themes/greenfnbtheme.css";
-// html, body { height: 100%; }
-// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* ===================== */
+/* SASS USE — MUST BE FIRST */
+/* ===================== */
+@use '@angular/material' as mat;
+@use './styles/typography';
+
+/* ===================== */
+/* EXTERNAL CSS (ALLOWED) */
+/* ===================== */
+@use './app/themes/greenfnbtheme.css';
+
+/* ===================== */
+/* MATERIAL TYPOGRAPHY HOOK */
+/* ===================== */
+.mat-typography {
+  font-family: var(--font-primary);
+}
+
+/* ===================== */
+/* GLOBAL BASE STYLES */
+/* ===================== */
+body {
+  margin: 0;
+  background-color: #ffffff;
+}
+
 body.login-page {
-    margin: 0;
-  }
-  
+  margin: 0;
+}
+
+/* ===================== */
+/* BUTTONS */
+/* ===================== */
+.mat-button,
+.mat-raised-button,
+.mat-flat-button,
+.mat-stroked-button {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.25px;
+}
+
+/* ===================== */
+/* FORM FIELDS */
+/* ===================== */
+.mat-form-field,
+.mat-input-element {
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+}
+
+/* ===================== */
+/* TABLES */
+/* ===================== */
+.mat-header-cell {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.mat-cell {
+  font-size: 0.9rem;
+}
+
