@@ -12,11 +12,14 @@ import { saveAs } from 'file-saver';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { Router } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-cfo-dashboard',
   standalone: true,
-  imports: [CommonModule, MatCardModule, NgChartsModule, FormsModule],
+  imports: [CommonModule, MatCardModule, NgChartsModule, FormsModule, MatFormFieldModule, MatOptionModule, MatOptionModule, MatIcon],
   templateUrl: './cfo-dashboard.component.html',
   styleUrl: './cfo-dashboard.component.scss'
 })

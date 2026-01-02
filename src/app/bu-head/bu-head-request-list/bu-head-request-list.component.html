@@ -1,111 +1,142 @@
-<mat-card>
-  <mat-card-title class="flex justify-between items-center mb-6">
-    <span>
-      {{ showHistory ? 'Travel Request History' : 'BU Head Pending Requests' }}
-    </span>
+<mat-card class="bank-card">
 
-    <button mat-raised-button color="accent" class="btn-toggle" (click)="toggleView()">
+  <!-- ===== HEADER ===== -->
+  <div class="card-header">
+    <div class="title-group">
+      <h2 class="card-title">
+        {{ showHistory ? 'Travel Request History' : 'Pending Travel Requests' }}
+      </h2>
+      <p class="card-subtitle">
+        {{ showHistory
+          ? 'Previously processed and completed BU requests'
+          : 'Requests awaiting BU Head action'
+        }}
+      </p>
+    </div>
+
+    <button
+      mat-stroked-button
+      color="primary"
+      class="toggle-btn"
+      (click)="toggleView()">
       <mat-icon>{{ showHistory ? 'assignment' : 'history' }}</mat-icon>
-      {{ showHistory ? 'Pending' : 'History' }}
+      {{ showHistory ? 'View Pending' : 'View History' }}
     </button>
-  </mat-card-title>
+  </div>
 
-  <!-- ✅ Search filters appear only in History -->
-<div *ngIf="showHistory" class="search-filters mb-6">
-  <div class="search-row">
+  <!-- ===== FILTER BAR (History only) ===== -->
+  <div *ngIf="showHistory" class="filter-bar">
     <form
       [formGroup]="searchForm"
       (ngSubmit)="applyFilters()"
-      class="search-form"
-    >
-      <!-- Employee Search -->
-      <mat-form-field appearance="outline" class="emp-field">
+      class="filter-form">
+
+      <mat-form-field appearance="outline">
         <mat-label>Employee</mat-label>
-        <input
-          matInput
-          formControlName="employee"
-          placeholder="Search by employee"
-        />
+        <input matInput formControlName="employee" placeholder="Employee name">
       </mat-form-field>
 
-      <!-- Status Select (wider box) -->
-      <mat-form-field appearance="outline" class="status-field">
+      <mat-form-field appearance="outline">
         <mat-label>Status</mat-label>
         <mat-select formControlName="status">
-          <mat-option value="">All</mat-option>
-          <mat-option value="Pending BU Head Approval">Pending BU Head Approval</mat-option>
-          <mat-option value="Pending CFO Approval">Pending CFO Approval</mat-option>
-          <mat-option value="CFO Approval Successful">CFO Approval Successful</mat-option>
-          <mat-option value="BU Head Approval Successful">BU Head Approval Successful</mat-option>
+          <mat-option value="">All statuses</mat-option>
+          <mat-option value="Pending BU Head Approval">Pending BU Head</mat-option>
+          <mat-option value="Pending CFO Approval">Pending CFO</mat-option>
+          <mat-option value="BU Head Approval Successful">BU Approved</mat-option>
+          <mat-option value="CFO Approval Successful">CFO Approved</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <!-- Search Button -->
-      <button mat-raised-button color="primary" type="submit">
-        <mat-icon>search</mat-icon> Search
-      </button>
+      <div class="filter-actions">
+        <button mat-flat-button class="search-btn" color="primary" type="submit">
+          <mat-icon>search</mat-icon>
+          Apply
+        </button>
 
-      <!-- Reset Button -->
-      <button mat-raised-button color="warn" type="button" (click)="resetFilters()">
-        <mat-icon>refresh</mat-icon> Reset
-      </button>
+        <button mat-button class="search-btn" type="button" (click)="resetFilters()">
+          <mat-icon>refresh</mat-icon>
+          Reset
+        </button>
+      </div>
     </form>
   </div>
-</div>
 
-  <div *ngIf="loading" class="loading-spinner">
-    <mat-spinner diameter="40"></mat-spinner>
+  <!-- ===== LOADING ===== -->
+  <div *ngIf="loading" class="loading-state">
+    <mat-spinner diameter="36"></mat-spinner>
+    <span>Loading travel requests…</span>
   </div>
 
-  <table
-    mat-table
-    [dataSource]="showHistory ? filteredRequests : travelRequests"
-    class="mat-elevation-z2 w-full"
-    *ngIf="!loading && (showHistory ? filteredRequests.length : travelRequests.length)"
-  >
-    <!-- Employee Name -->
-    <ng-container matColumnDef="employeeName">
-      <th mat-header-cell *matHeaderCellDef> Employee </th>
-      <td mat-cell *matCellDef="let row"> {{ row.employeeName }} </td>
-    </ng-container>
+  <!-- ===== TABLE ===== -->
+  <div
+    class="table-wrapper"
+    *ngIf="!loading && (showHistory ? filteredRequests.length : travelRequests.length)">
 
-    <!-- Purpose -->
-    <ng-container matColumnDef="purpose">
-      <th mat-header-cell *matHeaderCellDef> Purpose </th>
-      <td mat-cell *matCellDef="let row"> {{ row.purpose }} </td>
-    </ng-container>
+    <table mat-table
+           [dataSource]="showHistory ? filteredRequests : travelRequests"
+           class="bank-table">
 
-    <!-- Departure Date -->
-    <ng-container matColumnDef="departureDate">
-      <th mat-header-cell *matHeaderCellDef> Departure </th>
-      <td mat-cell *matCellDef="let row"> {{ row.departureDate | date }} </td>
-    </ng-container>
+      <!-- Employee -->
+      <ng-container matColumnDef="employeeName">
+        <th mat-header-cell *matHeaderCellDef>Employee</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="employee-cell">
+            <strong>{{ row.employeeName }}</strong>
+            <span class="muted">{{ row.employeeEmail }}</span>
+          </div>
+        </td>
+      </ng-container>
 
-    <!-- Status -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let row"> {{ row.status }} </td>
-    </ng-container>
+      <!-- Purpose -->
+      <ng-container matColumnDef="purpose">
+        <th mat-header-cell *matHeaderCellDef>Purpose</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.purpose }}
+        </td>
+      </ng-container>
 
-    <!-- Actions -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let row">
-        <button mat-raised-button color="primary" (click)="viewDetails(row.travelId)">
-          <mat-icon>visibility</mat-icon> View
-        </button>
-      </td>
-    </ng-container>
+      <!-- Departure -->
+      <ng-container matColumnDef="departureDate">
+        <th mat-header-cell *matHeaderCellDef>Departure</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.departureDate | date:'mediumDate' }}
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+      <!-- Status -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="status-chip" [ngClass]="row.status | lowercase">
+            {{ row.status }}
+          </span>
+        </td>
+      </ng-container>
 
-  <p *ngIf="!loading && (showHistory ? !filteredRequests.length : !travelRequests.length)">
-    No {{ showHistory ? 'history' : 'pending requests' }} found.
-  </p>
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="viewDetails(row.travelId)"
+            matTooltip="View details">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <!-- ===== EMPTY STATE ===== -->
+  <div *ngIf="!loading && !(showHistory ? filteredRequests.length : travelRequests.length)"
+       class="empty-state">
+    <mat-icon>inbox</mat-icon>
+    <p>No {{ showHistory ? 'historical records' : 'pending requests' }} found.</p>
+  </div>
+
 </mat-card>
-
-
-  
-  

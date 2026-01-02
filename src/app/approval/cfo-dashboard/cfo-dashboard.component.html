@@ -1,122 +1,130 @@
-<mat-card class="dashboard-card">
-    <h2>CFO Dashboard Overview</h2>
-  
-    <div class="grid">
-      <mat-card>
-        <h3>Total Requests</h3>
-        <p>{{ metrics.totalRequests }}</p>
-      </mat-card>
-  
-      <mat-card>
-        <h3>Approved</h3>
-        <p>{{ metrics.approvedRequests }}</p>
-      </mat-card>
-  
-      <mat-card>
-        <h3>Pending</h3>
-        <p>{{ metrics.pendingRequests }}</p>
-      </mat-card>
-  
-      <mat-card>
-        <h3>Rejected</h3>
-        <p>{{ metrics.rejectedRequests }}</p>
-      </mat-card>
-  
-      <mat-card>
-        <h3>Total Estimated Cost</h3>
-        <p>GHS {{ metrics.totalEstimatedCost | number:'1.2-2' }}</p>
-      </mat-card>
-  
-      <mat-card>
-        <h3>Total Per Diem Cost</h3>
-        <p>$ {{ metrics.totalApprovedCost | number:'1.2-2' }}</p>
-      </mat-card>
+<mat-card class="bank-dashboard">
+
+  <!-- ===== HEADER ===== -->
+  <div class="dashboard-header">
+    <div>
+      <h2 class="dashboard-title">CFO Dashboard</h2>
+      <p class="dashboard-subtitle">
+        Financial overview of travel requests and approvals
+      </p>
     </div>
-  
-    <div class="charts">
-      <mat-card>
-        <h3>Approval Status Breakdown</h3>
-        <canvas baseChart
-                [data]="approvalChartData"
-                [type]="'doughnut'">
-        </canvas>
-      </mat-card>
-  
-      <mat-card>
-        <h3>Monthly Estimated Cost</h3>
 
-        <div class="filters">
-          <label for="year">Year:</label>
-          <select id="year" [(ngModel)]="selectedYear" (change)="onYearChange()">
-            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-            <option value="other">Other</option>
-          </select>
-        
-          <div *ngIf="customYearInputEnabled">
-            <input
-              type="number"
-              min="2000"
-              max="2100"
-              [(ngModel)]="customYear"
-              placeholder="Enter year"
-            />
-            <button mat-button (click)="applyCustomYear()">Apply</button>
-          </div>
-        
-          <label for="month">Month:</label>
-          <select id="month" [(ngModel)]="selectedMonth" (change)="onFilterChange()">
-            <option [ngValue]="null">All</option>
-            <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">
-              {{ m }}
-            </option>
-          </select>
-        </div>
-        <canvas baseChart
-                [data]="monthlyCostChartData"
-                [type]="'bar'">
-        </canvas>
-      </mat-card>
+    <div class="export-actions">
+      <button
+        mat-stroked-button
+        color="primary"
+        class="export-btn"
+        (click)="exportToExcel()"
+      >
+        <mat-icon>table_view</mat-icon>
+        Excel
+      </button>
 
-      <mat-card>
-        <h3>Top 6 Departments by Estimated Cost</h3>
-      
-        <div class="filters">
-          <label for="year">Year:</label>
-          <select id="year" [(ngModel)]="selectedYear" (change)="onYearChange()">
-            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-            <option value="other">Other</option>
-          </select>
-        
-          <div *ngIf="customYearInputEnabled">
-            <input
-              type="number"
-              min="2000"
-              max="2100"
-              [(ngModel)]="customYear"
-              placeholder="Enter year"
-            />
-            <button mat-button (click)="applyCustomYear()">Apply</button>
-          </div>
-        
-          <label for="month">Month:</label>
-          <select id="month" [(ngModel)]="selectedMonth" (change)="onFilterChange()">
-            <option [ngValue]="null">All</option>
-            <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">
-              {{ m }}
-            </option>
-          </select>
+      <button
+        mat-stroked-button
+        color="accent"
+        class="export-btn"
+        (click)="exportToPdf()"
+      >
+        <mat-icon>picture_as_pdf</mat-icon>
+        PDF
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ===== KPI METRICS ===== -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <span class="kpi-label">Total Requests</span>
+      <span class="kpi-value">{{ metrics.totalRequests }}</span>
+    </div>
+
+    <div class="kpi-card success">
+      <span class="kpi-label">Approved</span>
+      <span class="kpi-value">{{ metrics.approvedRequests }}</span>
+    </div>
+
+    <div class="kpi-card warning">
+      <span class="kpi-label">Pending</span>
+      <span class="kpi-value">{{ metrics.pendingRequests }}</span>
+    </div>
+
+    <div class="kpi-card danger">
+      <span class="kpi-label">Rejected</span>
+      <span class="kpi-value">{{ metrics.rejectedRequests }}</span>
+    </div>
+
+    <div class="kpi-card">
+      <span class="kpi-label">Estimated Cost</span>
+      <span class="kpi-value">
+        GHS {{ metrics.totalEstimatedCost | number:'1.2-2' }}
+      </span>
+    </div>
+
+    <div class="kpi-card">
+      <span class="kpi-label">Approved Cost</span>
+      <span class="kpi-value">
+        GHS {{ metrics.totalApprovedCost | number:'1.2-2' }}
+      </span>
+    </div>
+  </div>
+
+  <!-- ===== CHARTS ===== -->
+  <div class="charts-grid">
+
+    <!-- Approval Status -->
+    <mat-card class="chart-card">
+      <h3 class="chart-title">Approval Breakdown</h3>
+      <canvas baseChart
+              [data]="approvalChartData"
+              [type]="'doughnut'">
+      </canvas>
+    </mat-card>
+
+    <!-- Monthly Cost -->
+    <mat-card class="chart-card wide">
+      <div class="chart-header">
+        <h3 class="chart-title">Monthly Estimated Cost</h3>
+
+        <div class="chart-filters">
+          <mat-form-field appearance="outline">
+            <mat-label>Year</mat-label>
+            <mat-select [(ngModel)]="selectedYear" (selectionChange)="onYearChange()">
+              <mat-option *ngFor="let year of years" [value]="year">
+                {{ year }}
+              </mat-option>
+              <mat-option value="other">Other</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Month</mat-label>
+            <mat-select [(ngModel)]="selectedMonth" (selectionChange)="onFilterChange()">
+              <mat-option [value]="null">All</mat-option>
+              <mat-option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">
+                {{ m }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-      
-        <canvas baseChart
-                [data]="topDepartmentsChartData"
-                [type]="'bar'">
-        </canvas>
-      </mat-card>
-      <div class="export-buttons">
-        <button mat-raised-button color="primary" (click)="exportToExcel()">Export to Excel</button>
-        <button mat-raised-button color="accent" (click)="exportToPdf()">Export to PDF</button>
       </div>
-    </div>
-  </mat-card>
-  
-  
+
+      <canvas baseChart
+              [data]="monthlyCostChartData"
+              [type]="'bar'">
+      </canvas>
+    </mat-card>
+
+    <!-- Top Departments -->
+    <mat-card class="chart-card wide">
+      <h3 class="chart-title">Top Departments by Cost</h3>
+      <canvas baseChart
+              [data]="topDepartmentsChartData"
+              [type]="'bar'">
+      </canvas>
+    </mat-card>
+
+  </div>
+
+</mat-card>

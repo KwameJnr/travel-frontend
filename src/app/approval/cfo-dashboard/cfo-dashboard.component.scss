@@ -1,69 +1,125 @@
-.dashboard-card {
-    margin: 24px;
-  }
-  
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-  }
-  
-  mat-card {
-    padding: 16px;
-    text-align: center;
-    background-color: #f8f9fa;
-  }
-  
-  .charts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 24px;
-    justify-content: center;
-  }
-  
-  .charts mat-card {
-    flex: 1 1 45%;
-    max-width: 500px;
-  }
-  
-  canvas {
-    max-width: 100%;
-    height: auto !important;
-  }
-  
-//   .export-buttons {
-//     display: flex;
-//     gap: 12px;
-//     margin: 16px 0;
-//   }
-  
-  .filter-section {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
+.bank-dashboard {
+  margin: 24px;
+  padding: 24px;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+/* ===== HEADER ===== */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.dashboard-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.dashboard-subtitle {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.export-actions {
+  display: flex;
+  gap: 8px;
+}
+/* ===== EXPORT BUTTONS ===== */
+.export-btn {
+  border-radius: 12px;        /* same radius used across app */
+  padding: 0.6rem 1.25rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+  height: 42px;               /* consistent button height */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+/* ===== KPI GRID ===== */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.kpi-card {
+  padding: 16px;
+  border-radius: 14px;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kpi-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.kpi-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Status accents */
+.kpi-card.success { background: #ecfdf5; }
+.kpi-card.warning { background: #fffbeb; }
+.kpi-card.danger  { background: #fef2f2; }
+
+/* ===== CHARTS ===== */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.chart-card {
+  padding: 16px;
+  border-radius: 14px;
+}
+
+.chart-card.wide {
+  min-height: 360px;
+}
+
+.chart-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* ===== FILTERS ===== */
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.chart-filters {
+  display: flex;
+  gap: 12px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 768px) {
+  .charts-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .export-buttons {
-    display: flex;
-    gap: 16px;
-    margin-top: 24px;
-    justify-content: center;
-  
-    button {
-      padding: 12px 24px;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 0.5px;
-      border-radius: 8px;
-      text-transform: uppercase;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-      transition: background-color 0.3s ease, transform 0.2s ease;
-  
-      &:hover {
-        transform: translateY(-2px);
-      }
-    }
+  .chart-card.wide {
+    grid-column: span 2;
   }
-  
+}
