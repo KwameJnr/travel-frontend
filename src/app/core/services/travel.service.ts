@@ -13,31 +13,6 @@ import { generateUUID } from './constants';
 import { ConfigService } from 'src/app//config.service';
 
 
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class TravelService {
-  
-//   // private travelApibaseUrlLocal = baseUrlLocal+'/travels';
-//   // private apiUrl = baseUrlLocal+'/company/department/index';
-//   private baseUrl: string =''; 
-//   private baseUrlCamp: string ='';
-
-//   constructor(private http: HttpClient, private config: ConfigService) { 
-//     this.baseUrl = this.config.get('baseUrl');
-//     this.baseUrlCamp = this.config.get('baseUrlCamp');
-//   }
-
-//   init(): void {    
-//     this.baseUrl = this.config.get('baseUrl');
-//     this.baseUrlCamp = this.config.get('baseUrlCamp');
-    
-//   }
-
-//   private travelApibaseUrlLocal = this.baseUrl+'/travels'; 
-//   private apiUrl = this.baseUrlCamp+'/company/department/index';
-
 @Injectable({ providedIn: 'root' })
 export class TravelService {
   constructor(private http: HttpClient, private config: ConfigService) {}
@@ -237,39 +212,24 @@ export class TravelService {
     return this.http.get<{ department: string, cost: number }[]>(`${this.baseUrl}/cfo-dashboard/top-departments?${params}`, { headers });
   }
   
-  getDepartments(): Observable<{ status: string, message: string, data: Department[] }> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
+  /* ================= COMPONENT (NO AUTH) ENDPOINTS ================= */
 
-    const apiUrl = this.apiUrl;
-    console.log('Calling department endpoint:', apiUrl);
-    return this.http.get<{ status: string, message: string, data: Department[] }>(this.apiUrl,{ headers });
-   
-  }
-  
-  getBAUHeads(): Observable<{ statusCode: string, statusMessage: string, data: BauHeadForm[] }> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-    console.log('Calling BAU Heads endpoint:', this.baseUrlCamp+'/company/bau/index');
-    return this.http.get<{ statusCode: string, statusMessage: string, data: BauHeadForm[] }>(
-      this.baseUrlCamp+'/company/bau/index',{ headers }
-    );
-  }
+    getComponentDepartments(): Observable<ApiResponse<Department[]>> {
+      const url = `${this.baseUrl}/travel-request/components/departments`;
+      console.log('Component Departments:', url);
+      return this.http.get<ApiResponse<Department[]>>(url);
+    }
 
-  getAllPerDiemCountries(): Observable<ApiResponse<PerDiemForm[]>> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
+    getComponentBUHeads(): Observable<ApiResponse<BauHeadForm[]>> {
+      const url = `${this.baseUrl}/travel-request/components/bu-heads`;
+      console.log('Component BU Heads:', url);
+      return this.http.get<ApiResponse<BauHeadForm[]>>(url);
+    }
 
-    console.log('Calling Per Diem Countries endpoint:', `${this.baseUrl}/perdiems/all`);
-    return this.http.get<ApiResponse<PerDiemForm[]>>(`${this.baseUrl}/perdiems/all`,{headers});
-  }
+    getComponentPerDiemCountries(): Observable<ApiResponse<PerDiemForm[]>> {
+      const url = `${this.baseUrl}/travel-request/components/per-diem`;
+      console.log('Component Per Diem:', url);
+      return this.http.get<ApiResponse<PerDiemForm[]>>(url);
+    }
+
 }

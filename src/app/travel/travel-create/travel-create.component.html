@@ -1,4 +1,4 @@
-<form [formGroup]="travelForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="travelForm" *ngIf="travelForm" (ngSubmit)="onSubmit()">
 
   <mat-card class="travel-card">
 
@@ -22,7 +22,7 @@
         <!-- ================= STEP 1 ================= -->
         <mat-step label="Employee Information" [stepControl]="travelForm">
           <ng-template matStepContent>
-            <div class="form-grid">
+            <div class="form-grid" formGroupName="step1">
               <h3 class="section-title">Employee Information</h3>
 
               <mat-form-field appearance="outline">
@@ -91,14 +91,23 @@
                 <input matInput formControlName="city">
               </mat-form-field>
 
-              <mat-form-field appearance="outline">
+              <!-- <mat-form-field appearance="outline">
                 <mat-label>Country</mat-label>
                 <mat-select formControlName="country">
                   <mat-option *ngFor="let c of perDiemCountries" [value]="c.location">
                     {{ c.location }}
                   </mat-option>
                 </mat-select>
+              </mat-form-field> -->
+              <mat-form-field appearance="outline">
+                <mat-label>Country</mat-label>
+                <mat-select formControlName="country">
+                  <mat-option *ngFor="let country of perDiemCountries" [value]="country">
+                    {{ country }}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
+
 
               <mat-form-field appearance="outline">
                 <mat-label>Visa Required</mat-label>

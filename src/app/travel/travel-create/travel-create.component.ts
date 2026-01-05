@@ -88,7 +88,9 @@ export class TravelCreateComponent implements OnInit {
 
   departments: Department[] = [];
   bauHeads: BauHeadForm[] = [];
-  perDiemCountries: PerDiemForm[] = [];
+  perDiems: PerDiemForm[] = [];      
+  perDiemCountries: string[] = [];   
+
 
   private perDiemLoaded = false;
 
@@ -182,28 +184,62 @@ export class TravelCreateComponent implements OnInit {
 
   /* ---------------- DATA LOAD ---------------- */
 
-  private loadInitialData(): void {
-    this.travelService.getDepartments().subscribe(r => {
-      this.departments = r.data;
-      this.cdr.markForCheck();
-    });
+    private loadInitialData(): void {
+      this.loadDepartments();
+      this.loadBUHeads();
+    }
 
-    this.travelService.getBAUHeads().subscribe(r => {
-      this.bauHeads = r.data;
-      this.cdr.markForCheck();
-    });
-  }
-
-  onStepChange(index: number): void {
-    if (index === 1 && !this.perDiemLoaded) {
-      this.perDiemLoaded = true;
-
-      this.travelService.getAllPerDiemCountries().subscribe(r => {
-        this.perDiemCountries = this.uniqueCountries(r.data);
-        this.cdr.markForCheck();
+    private loadDepartments(): void {
+      this.travelService.getComponentDepartments().subscribe({
+        next: (res) => {
+          this.departments = res.data ?? [];
+          this.cdr.markForCheck();
+        },
+        error: (err) => {
+          console.error('Failed to load departments', err);
+          this.departments = [];
+          this.cdr.markForCheck();
+        }
       });
     }
-  }
+
+    private loadBUHeads(): void {
+      this.travelService.getComponentBUHeads().subscribe({
+        next: (res) => {
+          this.bauHeads = res.data ?? [];
+          this.cdr.markForCheck();
+        },
+        error: (err) => {
+          console.error('Failed to load BU Heads', err);
+          this.bauHeads = [];
+          this.cdr.markForCheck();
+        }
+      });
+    }
+
+    /* ---------------- STEP CHANGE ---------------- */
+
+    onStepChange(index: number): void {
+      if (index !== 1 || this.perDiemLoaded) {
+        return;
+      }
+
+      this.perDiemLoaded = true;
+
+      this.travelService.getComponentPerDiemCountries().subscribe({
+        next: (res) => {
+          this.perDiems = res.data ?? []; // full API response for calculations
+          this.perDiemCountries = this.uniqueCountries(this.perDiems); // strings only
+          this.cdr.markForCheck();
+        },
+        error: (err) => {
+          console.error('Failed to load Per Diem countries', err);
+          this.perDiems = [];
+          this.perDiemCountries = [];
+          this.cdr.markForCheck();
+        }
+      });
+    }
 
   /* ---------------- HELPERS ---------------- */
 
@@ -214,14 +250,9 @@ export class TravelCreateComponent implements OnInit {
     }
   }
 
-  private uniqueCountries(data: PerDiemForm[]): PerDiemForm[] {
-    const seen = new Set<string>();
-    return data.filter(p => {
-      const loc = p.location?.trim();
-      if (!loc || seen.has(loc)) return false;
-      seen.add(loc);
-      return true;
-    });
+  private uniqueCountries(perDiems: any[]): string[] {
+    const countries = perDiems.map(p => p.country); // pick only the country
+    return Array.from(new Set(countries)); // remove duplicates
   }
 
   populateHeadFields(dept: string): void {

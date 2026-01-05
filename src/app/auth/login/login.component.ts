@@ -134,7 +134,7 @@ private devLogin(): void {
     });
 
     this.http
-      .post<any>(`${this.baseUrlCamp}/security/search-and-authenticate`, {
+      .post<any>(`${this.baseUrlCamp}/travel-request/auth/login`, {
         fnumber,
         password
       }, { headers })
@@ -175,7 +175,7 @@ private devLogin(): void {
       this.pollingAttempts++;
 
       this.http
-        .post<any>(`${this.baseUrlCamp}/security/verify-2fa`, { authId })
+        .post<any>(`${this.baseUrlCamp}/travel-request/auth/verify2fa`, { authId })
         .subscribe({
           next: (res) => {
             if (!this.isComponentAlive || this.hasLoggedIn) return;
