@@ -66,14 +66,13 @@
                 <input matInput formControlName="purpose">
               </mat-form-field>
 
-              <div class="step-actions">
-              <button
+              <div class="step-actions step-actions-right">
+                <button
                   mat-stroked-button
                   class="bank-primary-btn"
                   matStepperNext>
                   Continue
                 </button>
-
               </div>
             </div>
           </ng-template>
@@ -91,14 +90,6 @@
                 <input matInput formControlName="city">
               </mat-form-field>
 
-              <!-- <mat-form-field appearance="outline">
-                <mat-label>Country</mat-label>
-                <mat-select formControlName="country">
-                  <mat-option *ngFor="let c of perDiemCountries" [value]="c.location">
-                    {{ c.location }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field> -->
               <mat-form-field appearance="outline">
                 <mat-label>Country</mat-label>
                 <mat-select formControlName="country">
@@ -240,18 +231,18 @@
               <div class="form-actions">
                 <button
                   mat-stroked-button
-                  class="bank-submit-btn"
-                  type="submit"
-                  [disabled]="loading || travelForm.invalid">
-                  Submit Travel Request
-                </button>
-
-                <button
-                  mat-stroked-button
                   class="bank-danger-btn"
                   type="button"
                   (click)="onCancel()">
                   Cancel
+                </button>
+                
+                <button
+                  mat-stroked-button
+                  class="bank-submit-btn"
+                  type="submit"
+                  [disabled]="loading || travelForm.invalid">
+                  Submit Travel Request
                 </button>
 
               </div>

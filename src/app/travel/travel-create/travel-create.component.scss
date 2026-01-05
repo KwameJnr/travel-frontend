@@ -37,6 +37,10 @@
   align-items: center;
 }
 
+.step-actions-right {
+  justify-content: flex-end;
+}
+
   .warning-text {
     color: #d9534f; // Bootstrap danger red
     font-weight: 500;

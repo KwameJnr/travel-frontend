@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { filter, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-layout',
@@ -23,30 +24,22 @@ import { filter, Subscription } from 'rxjs';
   ],
   template: `
     <mat-toolbar class="bank-toolbar">
-      <div class="brand" routerLink="/travel/list">
+      <div class="brand" routerLink="/travel/landing">
         <img src="assets/images/fnb-logo1.png" class="brand-logo" />
         <span class="brand-text">Travel Request Manager</span>
       </div>
 
       <span class="spacer"></span>
 
-      <!-- NAV LINKS -->
-      <ng-container *ngIf="isAuthenticated">
-
-        <button mat-button *ngIf="canCreateTravel" routerLink="/travel/landing"
-          [class.active-link]="currentUrl === '/travel/landing'">Home</button>
-
-      </ng-container>
-
       <span class="spacer"></span>
 
       <!-- USER OVERLAY TRIGGER -->
       <ng-container *ngIf="isAuthenticated">
-        <button mat-icon-button (click)="toggleUserOverlay()" class="user-trigger">
+        <button mat-icon-button (click)="toggleUserOverlay($event)" class="user-trigger" #userTrigger>
           <mat-icon>account_circle</mat-icon>
         </button>
 
-        <div class="user-overlay" *ngIf="showUserOverlay" [class.show]="showUserOverlay">
+        <div class="user-overlay" *ngIf="showUserOverlay" [class.show]="showUserOverlay" #userOverlay>
           <div class="user-header">
             <div class="user-avatar">{{ userName?.charAt(0) || 'U' }}</div>
             <div class="user-meta">
@@ -97,6 +90,18 @@ import { filter, Subscription } from 'rxjs';
       background-color: #27b8bd;
       color: #fff;
       border-radius: 4px;
+    }
+
+    .nav-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 800;
+    }
+
+    .nav-icon {
+      font-size: 20px;
+      line-height: 20px;
     }
 
     /* USER OVERLAY */
@@ -159,6 +164,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private elementRef: ElementRef) {}
 
+  @ViewChild('userOverlay', { read: ElementRef }) userOverlayRef!: ElementRef;
+  @ViewChild('userTrigger', { read: ElementRef }) userTriggerRef!: ElementRef;
+
+
+
   ngOnInit(): void {
     this.currentUrl = this.router.url;
     this.routerSub = this.router.events.pipe(filter(e => e instanceof NavigationEnd))
@@ -210,14 +220,29 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   /* ===================== USER OVERLAY ===================== */
-  toggleUserOverlay(): void { setTimeout(() => this.showUserOverlay = !this.showUserOverlay); }
+  toggleUserOverlay(event: MouseEvent): void {
+    event.stopPropagation(); // prevents immediate close
+    this.showUserOverlay = !this.showUserOverlay;
+  }
   closeUserOverlay(): void { this.showUserOverlay = false; }
 
   /* ===================== CLOSE ON OUTSIDE CLICK ===================== */
-  @HostListener('document:click', ['$event'])
-  handleClickOutside(event: Event) {
-    if (!this.showUserOverlay) return;
-    const clickedInside = this.elementRef.nativeElement.contains(event.target);
-    if (!clickedInside && this.showUserOverlay) this.closeUserOverlay();
-  }
+ @HostListener('document:click', ['$event'])
+    handleClickOutside(event: MouseEvent): void {
+      if (!this.showUserOverlay) return;
+
+      const target = event.target as HTMLElement;
+
+      const overlayEl = this.userOverlayRef?.nativeElement;
+      const triggerEl = this.userTriggerRef?.nativeElement;
+
+      if (!overlayEl || !triggerEl) return;
+
+      const clickedInsideOverlay = overlayEl.contains(target);
+      const clickedOnTrigger = triggerEl.contains(target);
+
+      if (!clickedInsideOverlay && !clickedOnTrigger) {
+        this.closeUserOverlay();
+      }
+    }
 }
