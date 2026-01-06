@@ -220,8 +220,8 @@ export class TravelService {
       return this.http.get<ApiResponse<Department[]>>(url);
     }
 
-    getComponentBUHeads(): Observable<ApiResponse<BauHeadForm[]>> {
-      const url = `${this.baseUrl}/travel-request/components/bu-heads`;
+    getComponentBUHeads(code: string): Observable<ApiResponse<BauHeadForm[]>> {
+      const url = `${this.baseUrl}/travel-request/components/bu-heads/${code}`;
       console.log('Component BU Heads:', url);
       return this.http.get<ApiResponse<BauHeadForm[]>>(url);
     }

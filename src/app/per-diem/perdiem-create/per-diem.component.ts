@@ -118,25 +118,25 @@ export class PerDiemComponent implements OnInit {
           successDialog.afterClosed().subscribe(() => {
   
             // SAFETY CHECK — ensure CFO email exists
-            if (!savedPerDiem.cfoEmail) {
-              console.warn("CFO email is missing from API response", savedPerDiem);
+            // if (!savedPerDiem.cfoEmail) {
+            //   console.warn("CFO email is missing from API response", savedPerDiem);
   
-              this.dialog.open(SubmissionResultDialogComponent, {
-                width: '400px',
-                data: {
-                  success: false,
-                  message: 'Per-diem saved, but no CFO email returned. Email not sent.'
-                }
-              });
-              return;
-            }
+            //   this.dialog.open(SubmissionResultDialogComponent, {
+            //     width: '400px',
+            //     data: {
+            //       success: false,
+            //       message: 'Per-diem saved, but no CFO email returned. Email not sent.'
+            //     }
+            //   });
+            //   return;
+            // }
   
             const emailPayload = {
               clientKey: 'Travel-Request-Manager-EmailerId-PerDiem-Approval',
               approvalRequestId: savedPerDiem.perDiemId,
               fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
-              toEmail: savedPerDiem.cfoEmail,
-              subject: `Approval Request for Per-Diem ${savedPerDiem.location}`,
+              // toEmail: savedPerDiem.cfoEmail,
+              subject: `Approval Request for Per-Diem ${savedPerDiem.country}`,
               body: `
                 <p>Dear Chief Financial Officer,</p>
   
@@ -145,14 +145,13 @@ export class PerDiemComponent implements OnInit {
                 <p><strong>Request Details:</strong></p>
   
                 <p>
-                  Location: ${savedPerDiem.location}<br>
-                  Rate: ${savedPerDiem.rate}<br>
-                  Airfare Cost: ${savedPerDiem.airfareCost}<br>
+                  Location: ${savedPerDiem.country}<br>
+                  Rate: ${savedPerDiem.dollarRate}<br>
+                  Airfare Cost: ${savedPerDiem.airFareCost}<br>
                   Accommodation Cost: ${savedPerDiem.accommodationCost}<br>
-                  Visa Application Fee: ${savedPerDiem.visaApplicationFee}<br>
+                  Visa Application Fee: ${savedPerDiem.visaApplicationCost}<br>
                   Transportation Cost: ${savedPerDiem.transportationCost}<br>
                   Other Cost: ${savedPerDiem.otherCost}<br>
-                  Effective Date: ${savedPerDiem.effectiveDate}<br>
                 </p>
   
                 <p>
@@ -165,28 +164,28 @@ export class PerDiemComponent implements OnInit {
             };
   
             // 5 — SEND EMAIL
-            this.perdiemService.sendApprovalEmail(emailPayload).subscribe({
-              next: () => {
-                this.dialog.open(SubmissionResultDialogComponent, {
-                  width: '400px',
-                  data: {
-                    success: true,
-                    message: 'Approval email was sent successfully to the CFO.'
-                  }
-                });
-              },
-              error: (err) => {
-                console.error('Failed to send approval email', err);
+            // this.perdiemService.sendApprovalEmail(emailPayload).subscribe({
+            //   next: () => {
+            //     this.dialog.open(SubmissionResultDialogComponent, {
+            //       width: '400px',
+            //       data: {
+            //         success: true,
+            //         message: 'Approval email was sent successfully to the CFO.'
+            //       }
+            //     });
+            //   },
+            //   error: (err) => {
+            //     console.error('Failed to send approval email', err);
   
-                this.dialog.open(SubmissionResultDialogComponent, {
-                  width: '400px',
-                  data: {
-                    success: false,
-                    message: 'Per-diem saved, but email sending failed. Please contact IT.'
-                  }
-                });
-              }
-            });
+            //     this.dialog.open(SubmissionResultDialogComponent, {
+            //       width: '400px',
+            //       data: {
+            //         success: false,
+            //         message: 'Per-diem saved, but email sending failed. Please contact IT.'
+            //       }
+            //     });
+            //   }
+            // });
   
           });
   
@@ -208,65 +207,6 @@ export class PerDiemComponent implements OnInit {
       });
     });
   }
-  
-  // onSubmit(): void {
-  //   if (this.perdiemForm.invalid) return;
-  
-  //   const formValue = this.perdiemForm.value;
-  
-  //   const formatToLocalDateTime = (date: Date | string | null): string | null =>
-  //     date ? new Date(date).toISOString().slice(0, 19) : null;
-  
-  //   const payload = {
-  //     ...formValue,
-  //     dateCreated: formatToLocalDateTime(new Date()),
-  //   };
-  
-  //   const dialogRef = this.dialog.open(PerDiemFeedbackDialogComponent, {
-  //     width: '600px',
-  //     data: payload,
-  //   });
-  
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       this.loading = true;
-  
-  //       this.perdiemService.create(payload).subscribe({
-  //         next: () => {
-  //           this.loading = false;
-  
-  //           // Show success dialog
-  //           this.dialog.open(SubmissionResultDialogComponent, {
-  //             width: '400px',
-  //             // maxHeight: '80vh',
-  //             data: {
-  //               success: true,
-  //               message: 'Your per-diem create request was submitted successfully.'
-  //             }
-  //           });
-  
-  //           this.perdiemForm.reset(); // Soft reset
-  //         },
-  //         error: (err) => {
-  //           this.loading = false;
-  
-  //           console.error('Creation failed', err);
-  
-  //           // Show failure dialog
-  //           this.dialog.open(SubmissionResultDialogComponent, {
-  //             width: '400px',
-  //             data: {
-  //               success: false,
-  //               message: 'Failed to submit your per-diem create request. Please try again.'
-  //             }
-  //           });
-  
-  //           // Do not reset form – keep user input for retry
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
   
   onCancel(): void {
     this.perdiemForm.reset(); // Optional: Reset the form

@@ -40,13 +40,26 @@
                 <input matInput formControlName="employeeNumber">
               </mat-form-field>
 
-              <mat-form-field appearance="outline">
+              <!-- <mat-form-field appearance="outline">
                 <mat-label>Department</mat-label>
                 <mat-select formControlName="employeeDepartment">
                   <mat-option *ngFor="let dept of departments" [value]="dept.name">
                     {{ dept.name }}
                   </mat-option>
                 </mat-select>
+              </mat-form-field> -->
+              <mat-form-field appearance="outline">
+                <mat-label>Department</mat-label>
+                <mat-select formControlName="employeeDepartment">
+                  <mat-option *ngFor="let dept of departments" [value]="dept">
+                    {{ dept.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Department Code</mat-label>
+                <input matInput formControlName="departmentCode">
               </mat-form-field>
 
               <mat-form-field appearance="outline">
@@ -82,7 +95,7 @@
         <mat-step label="Travel Details">
           <ng-template matStepContent>
 
-            <div class="form-grid">
+            <div class="form-grid" formGroupName="step2">
               <h3 class="section-title">Travel Details</h3>
 
               <mat-form-field appearance="outline">
@@ -99,12 +112,11 @@
                 </mat-select>
               </mat-form-field>
 
-
               <mat-form-field appearance="outline">
                 <mat-label>Visa Required</mat-label>
                 <mat-select formControlName="visaRequired">
-                  <mat-option value="Yes">Yes</mat-option>
-                  <mat-option value="No">No</mat-option>
+                  <mat-option value="true">Yes</mat-option>
+                  <mat-option value="false">No</mat-option>
                 </mat-select>
               </mat-form-field>
 
@@ -115,6 +127,14 @@
                 <mat-datepicker #depPicker></mat-datepicker>
               </mat-form-field>
 
+              <!-- Departure Time -->
+              <mat-form-field appearance="outline">
+                <mat-label>Departure Time</mat-label>
+                <input matInput [ngxMatTimepicker]="depTimePicker" readonly formControlName="departureTime">
+                <ngx-mat-timepicker #depTimePicker [format]="12"></ngx-mat-timepicker>
+                <mat-icon matSuffix (click)="depTimePicker.open()">access_time</mat-icon>
+              </mat-form-field>
+
               <mat-form-field appearance="outline">
                 <mat-label>Return Date</mat-label>
                 <input matInput [matDatepicker]="retPicker" formControlName="returnDate">
@@ -122,11 +142,19 @@
                 <mat-datepicker #retPicker></mat-datepicker>
               </mat-form-field>
 
+              <!-- Return Time -->
+              <mat-form-field appearance="outline">
+                <mat-label>Return Time</mat-label>
+                <input matInput [ngxMatTimepicker]="retTimePicker" readonly formControlName="returnTime">
+                <ngx-mat-timepicker #retTimePicker [format]="12"></ngx-mat-timepicker>
+                <mat-icon matSuffix (click)="retTimePicker.open()">access_time</mat-icon>
+              </mat-form-field>
+
               <mat-form-field appearance="outline">
                 <mat-label>Per Diem Start Date</mat-label>
                 <input matInput [matDatepicker]="startPicker"
                       formControlName="perDiemStartDate"
-                      (dateChange)="calculateWorkingDays()">
+                      (dateChange)="calculatePerDiemDays()">
                 <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                 <mat-datepicker #startPicker></mat-datepicker>
               </mat-form-field>
@@ -135,9 +163,19 @@
                 <mat-label>Per Diem End Date</mat-label>
                 <input matInput [matDatepicker]="endPicker"
                       formControlName="perDiemEndDate"
-                      (dateChange)="calculateWorkingDays()">
+                      (dateChange)="calculatePerDiemDays()">
                 <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
                 <mat-datepicker #endPicker></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Days Out Of ficial Assignment Date</mat-label>
+                <input matInput formControlName="daysOutOfOfficialAssignment">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Per-diem Days</mat-label>
+                <input matInput formControlName="perDiemDays">
               </mat-form-field>
 
               <div class="step-actions">
@@ -164,7 +202,7 @@
         <mat-step label="Accommodation & Financials">
           <ng-template matStepContent>
 
-            <div class="form-grid">
+            <div class="form-grid" formGroupName="step3">
               <h3 class="section-title">Accommodation & Financials</h3>
 
               <mat-form-field appearance="outline">
@@ -181,6 +219,51 @@
               </mat-form-field>
 
               <mat-form-field appearance="outline">
+                <mat-label>Hotel Address</mat-label>
+                <input matInput formControlName="hotelName">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Hotel City</mat-label>
+                <input matInput formControlName="hotelCity">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Hotel Country</mat-label>
+                <mat-select formControlName="hotelCountry">
+                  <mat-option *ngFor="let country of perDiemCountries" [value]="country">
+                    {{ country }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Rental Car Required</mat-label>
+                <mat-select formControlName="rentalCarRequired">
+                  <mat-option value="true">Yes</mat-option>
+                  <mat-option value="false">No</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Airport Transport Required To & From</mat-label>
+                <mat-select formControlName="airportTransportRequiredToAndFrom">
+                  <mat-option value="true">Yes</mat-option>
+                  <mat-option value="false">No</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Subsistence Allowance</mat-label>
+                <input matInput formControlName="subsistenceAllowance">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Total Estimated Per-diem Cost</mat-label>
+                <input matInput formControlName="estimatedPerDiemAmount">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
                 <mat-label>Total Estimated Travel Cost</mat-label>
                 <input matInput formControlName="totalEstimatedTravelCost">
               </mat-form-field>
@@ -188,6 +271,24 @@
               <mat-form-field appearance="outline">
                 <mat-label>Travel Budget Code</mat-label>
                 <input matInput formControlName="travelBudgetCode">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>class Of Travel Departure</mat-label>
+                <mat-select formControlName="classOfTravelDeparture">
+                  <mat-option value="FIRST">First Class</mat-option>
+                  <mat-option value="BUSINESS">Business Class</mat-option>
+                  <mat-option value="ECONOMY">Economy</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>class Of Travel Return</mat-label>
+                <mat-select formControlName="classOfTravelReturn">
+                  <mat-option value="FIRST">First Class</mat-option>
+                  <mat-option value="BUSINESS">Business Class</mat-option>
+                  <mat-option value="ECONOMY">Economy</mat-option>
+                </mat-select>
               </mat-form-field>
 
               <div class="step-actions">
@@ -214,12 +315,22 @@
         <mat-step label="Approvals & Submit">
           <ng-template matStepContent>
 
-            <div class="form-grid">
+            <div class="form-grid" formGroupName="step4">
               <h3 class="section-title">Approvals & Confirmation</h3>
 
               <mat-form-field appearance="outline">
-                <mat-label>EXCO Head Email</mat-label>
+                <mat-label>BU Head Name</mat-label>
+                <input matInput formControlName="excoHeadName">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>BU Head Email</mat-label>
                 <input matInput formControlName="excoHeadEmail">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>CFO Name</mat-label>
+                <input matInput formControlName="cfoName">
               </mat-form-field>
 
               <mat-form-field appearance="outline">
@@ -236,7 +347,7 @@
                   (click)="onCancel()">
                   Cancel
                 </button>
-                
+
                 <button
                   mat-stroked-button
                   class="bank-submit-btn"

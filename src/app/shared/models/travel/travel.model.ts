@@ -6,6 +6,7 @@ export interface Travel {
     employeePassportExpiry: string;
     employeeNumber: string;
     employeeDepartment: string;
+    departmentCode: string;
     employeeTravellingContact: string;
     employeeContact: string;
     purpose: string;
@@ -18,7 +19,7 @@ export interface Travel {
     returnTime: string;
     perDiemStartDate: string;
     perDiemEndDate: string;
-    daysOutOfficialAssignmentDate: string;
+    daysOutOfOfficialAssignment: string;
     hotelReservation: string;
     hotelName: string;
     hotelAddress: string;

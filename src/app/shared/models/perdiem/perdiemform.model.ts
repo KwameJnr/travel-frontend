@@ -1,17 +1,13 @@
 // models/per-diem.model.ts
 export interface PerDiemForm {
     id: string;
-    location: string; // e.g., country
-    rate: number;
-    airfareCost: number; 
+    country: string; // e.g., country
+    dollarRate: number;
+    airFareCost: number; 
     accommodationCost: number; 
-    visaApplicationFee: number; 
+    visaApplicationCost: number; 
     transportationCost: number; 
     otherCost: number; 
-    cfoEmail: string;
-    cfoApproval: string;
-    cfoRemark: string;
     status: string;
-    effectiveDate: string;
   }
  

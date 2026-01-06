@@ -123,38 +123,54 @@ export class TravelCreateComponent implements OnInit {
         employeePassportExpiry: [''],
         employeeNumber: [''],
         employeeDepartment: [''],
+        departmentCode:[{value: null,disabled: true}],
         employeeTravellingContact: [''],
         employeeContact: [''],
         purpose: ['', Validators.required]
       }),
 
+      step2: this.fb.group({
       city: [''],
       country: [''],
       visaRequired: [''],
-
       departureDate: ['', Validators.required],
       departureTime: ['', Validators.required],
       returnDate: ['', Validators.required],
       returnTime: ['', Validators.required],
-
       perDiemStartDate: [{ value: null, disabled: true }],
       perDiemEndDate: [{ value: null, disabled: true }],
-      daysOutOfficialAssignmentDate: [{ value: 0, disabled: true }],
+      daysOutOfOfficialAssignment: [0],
       perDiemDays: [{ value: 0, disabled: true }],
+      }),
+
+      step3: this.fb.group({
+      hotelReservation:[''],
+      hotelName:[''],
+      hotelAddress:[''],
+      hotelCity:[''],
+      hotelCountry:[''],
+      rentalCarRequired:[''],
+      airportTransportRequiredToAndFrom:[''],
+      subsistenceAllowance:[''],
       estimatedPerDiemAmount: [{ value: 0, disabled: true }],
-
-      totalEstimatedTravelCost: [0],
+      totalEstimatedTravelCost: [{ value: 0, disabled: true }],
       travelBudgetCode: [''],
+      classOfTravelDeparture:[''],
+      classOfTravelReturn:['']
+      }),
 
+      step4: this.fb.group({
       excoHeadName: [''],
       excoHeadEmail: [''],
       cfoName: [''],
       cfoEmail: [''],
-
-      status: [''],
-      dateCreated: [new Date()]
-    }, { validators: perDiemDateValidator });
-  }
+      })
+    },
+    {
+      validators: perDiemDateValidator
+    }
+  );
+}
 
   /* ---------------- SUBSCRIPTIONS ---------------- */
 
@@ -169,25 +185,28 @@ export class TravelCreateComponent implements OnInit {
     this.travelForm.get('employeeDepartment')?.valueChanges
       .subscribe(dept => this.populateHeadFields(dept));
 
-    ['departureDate', 'departureTime', 'returnDate', 'returnTime']
-      .forEach(field =>
-        this.travelForm.get(field)?.valueChanges
-          .subscribe(() => this.calculateWorkingDays())
-      );
+      ['step2.country', 'step2.perDiemDays']
+    .forEach(path =>
+      this.travelForm.get(path)?.valueChanges
+        .subscribe(() => this.calculateEstimatedCostsFromPerDiem())
+    );
 
-    ['perDiemStartDate', 'perDiemEndDate', 'country']
+    ['departureDate', 'departureTime', 'returnDate', 'returnTime', 'daysOutOfOfficialAssignment']
       .forEach(field =>
-        this.travelForm.get(field)?.valueChanges
+        this.travelForm.get(`step2.${field}`)?.valueChanges
           .subscribe(() => this.calculatePerDiemDays())
       );
+
   }
 
   /* ---------------- DATA LOAD ---------------- */
 
     private loadInitialData(): void {
       this.loadDepartments();
-      this.loadBUHeads();
+      this.loadCFO();     
+      this.listenToDepartmentChange();
     }
+
 
     private loadDepartments(): void {
       this.travelService.getComponentDepartments().subscribe({
@@ -203,20 +222,92 @@ export class TravelCreateComponent implements OnInit {
       });
     }
 
-    private loadBUHeads(): void {
-      this.travelService.getComponentBUHeads().subscribe({
+    private loadCFO(): void {
+      const CFO_DEPT_CODE = 'FIN';
+
+      this.travelService.getComponentBUHeads(CFO_DEPT_CODE).subscribe({
         next: (res) => {
-          this.bauHeads = res.data ?? [];
+          const cfo = res.data?.[0]; // assuming one CFO
+
+          if (!cfo) {
+            this.resetCFOFields();
+            return;
+          }
+
+          this.travelForm.patchValue({
+            step4: {
+              cfoName: cfo.name,
+              cfoEmail: cfo.email
+            }
+          });
+
+          this.cdr.markForCheck();
+        },
+        error: () => this.resetCFOFields()
+      });
+    }
+
+
+    private listenToDepartmentChange(): void {
+      const deptControl = this.travelForm.get('step1.employeeDepartment');
+
+            deptControl?.valueChanges.subscribe((dept: Department) => {
+        if (!dept) return;
+
+        this.travelForm.patchValue({
+          step1: {
+            departmentCode: dept.code
+          }
+        });
+
+        this.loadBUHeadByDepartmentCode(dept.code);
+      });
+
+    }
+
+    private loadBUHeadByDepartmentCode(deptCode: string): void {
+      this.travelService.getComponentBUHeads(deptCode).subscribe({
+        next: (res) => {
+          const buHead = res.data?.[0]; // assuming one BU head per department
+
+          if (!buHead) {
+            this.resetBUHeadFields();
+            return;
+          }
+
+          this.travelForm.patchValue({
+            step4: {
+              excoHeadName: buHead.name,
+              excoHeadEmail: buHead.email
+            }
+          });
+
           this.cdr.markForCheck();
         },
         error: (err) => {
-          console.error('Failed to load BU Heads', err);
-          this.bauHeads = [];
-          this.cdr.markForCheck();
+          console.error('Failed to load BU Head', err);
+          this.resetBUHeadFields();
         }
       });
     }
 
+    private resetBUHeadFields(): void {
+      this.travelForm.patchValue({
+        step4: {
+          excoHeadName: '',
+          excoHeadEmail: ''
+        }
+      });
+    }
+
+    private resetCFOFields(): void {
+      this.travelForm.patchValue({
+        step4: {
+          cfoName: '',
+          cfoEmail: ''
+        }
+      });
+    }
     /* ---------------- STEP CHANGE ---------------- */
 
     onStepChange(index: number): void {
@@ -273,8 +364,132 @@ export class TravelCreateComponent implements OnInit {
     // (Your existing logic unchanged – safe & fast)
   }
 
+  private calculateEstimatedCostsFromPerDiem(): void {
+    const step2 = this.travelForm.get('step2')!;
+    const step3 = this.travelForm.get('step3')!;
+
+    const country = step2.get('country')?.value;
+    const perDiemDays = Number(step2.get('perDiemDays')?.value || 0);
+
+    if (!country || perDiemDays <= 0) {
+      this.resetCostFields();
+      return;
+    }
+
+    const perDiem = this.perDiems.find(p => p.country === country);
+
+    if (!perDiem) {
+      this.resetCostFields();
+      return;
+    }
+
+    // 1️⃣ Per diem amount (NEVER NULL)
+    const estimatedPerDiemAmount =
+      Math.max(perDiem.dollarRate * perDiemDays, 0);
+
+    // 2️⃣ Total travel cost (from backend response)
+    const totalEstimatedTravelCost =
+      estimatedPerDiemAmount +
+      (perDiem.airFareCost || 0) +
+      (perDiem.accommodationCost || 0) +
+      (perDiem.visaApplicationCost || 0) +
+      (perDiem.transportationCost || 0) +
+      (perDiem.otherCost || 0);
+
+    // 3️⃣ Patch form safely
+    step3.patchValue(
+      {
+        estimatedPerDiemAmount,
+        totalEstimatedTravelCost
+      },
+      { emitEvent: false }
+    );
+
+    this.cdr.markForCheck();
+  }
+
+  private resetCostFields(): void {
+    this.travelForm.get('step3')?.patchValue(
+      {
+        estimatedPerDiemAmount: 0,
+        totalEstimatedTravelCost: 0
+      },
+      { emitEvent: false }
+    );
+  }
+
   calculatePerDiemDays(): void {
-    // (Your existing logic unchanged – safe & fast)
+    const step2 = this.travelForm.get('step2')!;
+    const depDate: Date = step2.get('departureDate')?.value;
+    const depTime: string = step2.get('departureTime')?.value; // "08:30 AM"
+    const retDate: Date = step2.get('returnDate')?.value;
+    const retTime: string = step2.get('returnTime')?.value;     // "05:00 PM"
+    const daysOut: number = Number(step2.get('daysOutOfOfficialAssignment')?.value || 0);
+
+    // If any required date/time is missing, alert user and reset
+    if (!depDate || !depTime || !retDate || !retTime) {
+      step2.patchValue({ perDiemStartDate: null, perDiemEndDate: null, perDiemDays: 0 });
+
+      this.snackBar.open('Please select both departure and return dates & times.', 'Close', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['warning-snackbar']
+      });
+
+      return;
+    }
+
+    const parseTime = (date: Date, timeStr: string): Date => {
+      const [time, meridian] = timeStr.split(' ');
+      let [hours, minutes] = time.split(':').map(Number);
+      if (meridian === 'PM' && hours < 12) hours += 12;
+      if (meridian === 'AM' && hours === 12) hours = 0;
+
+      const newDate = new Date(date);
+      newDate.setHours(hours, minutes, 0, 0);
+      return newDate;
+    };
+
+    const depDateTime = parseTime(depDate, depTime);
+    const retDateTime = parseTime(retDate, retTime);
+
+    let perDiemStart = new Date(depDateTime);
+    let perDiemEnd = new Date(retDateTime);
+
+    // Apply AM/PM rules
+    if (depDateTime.getHours() >= 12) perDiemStart.setDate(perDiemStart.getDate() + 1);
+    if (retDateTime.getHours() < 12) perDiemEnd.setDate(perDiemEnd.getDate() - 1);
+
+    // Ensure valid range
+    if (perDiemStart > perDiemEnd) {
+      step2.patchValue({ perDiemStartDate: null, perDiemEndDate: null, perDiemDays: 0 });
+
+      this.snackBar.open('Return date cannot be in the past. Please correct the dates.', 'Close', {
+        duration: 10000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['warning-snackbar']
+      });
+
+      return;
+    }
+
+    // Calculate per diem days
+    const msPerDay = 24 * 60 * 60 * 1000;
+    let totalDays = Math.round((perDiemEnd.getTime() - perDiemStart.getTime()) / msPerDay) + 1;
+
+    // Subtract days out of official assignment
+    totalDays = Math.max(totalDays - daysOut, 0);
+
+    // Patch the form
+    step2.patchValue({
+      perDiemStartDate: perDiemStart,
+      perDiemEndDate: perDiemEnd,
+      perDiemDays: totalDays
+    });
+
+    this.cdr.markForCheck();
   }
 
   /* ---------------- SUBMIT ---------------- */
