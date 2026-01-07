@@ -1,9 +1,6 @@
 <div *ngIf="loading" class="loading-container">
   <mat-spinner diameter="60" strokeWidth="4" color="primary"></mat-spinner>
 </div>
-<div *ngIf="loading" class="loading-container">
-  <mat-spinner diameter="60" strokeWidth="4" color="primary"></mat-spinner>
-</div>
 
 <div *ngIf="!loading && travel" class="detail-wrapper">
 
@@ -25,7 +22,7 @@
         <div class="kv"><span>Name</span><strong>{{ travel.employeeName }}</strong></div>
         <div class="kv"><span>Email</span><strong>{{ travel.employeeEmail }}</strong></div>
         <div class="kv"><span>Employee Number</span><strong>{{ travel.employeeNumber }}</strong></div>
-        <div class="kv"><span>Department</span><strong>{{ travel.employeeDepartment }}</strong></div>
+        <div class="kv"><span>Department</span><strong>{{ travel.employeeDepartment.name }}</strong></div>
         <div class="kv"><span>Passport Number</span><strong>{{ travel.employeePassportNo }}</strong></div>
         <div class="kv"><span>Passport Expiry</span><strong>{{ travel.employeePassportExpiry | date }}</strong></div>
         <div class="kv"><span>Travelling Contact</span><strong>{{ travel.employeeTravellingContact }}</strong></div>
@@ -40,14 +37,21 @@
         <div class="kv"><span>Purpose</span><strong>{{ travel.purpose }}</strong></div>
         <div class="kv"><span>City</span><strong>{{ travel.city }}</strong></div>
         <div class="kv"><span>Country</span><strong>{{ travel.country }}</strong></div>
-        <div class="kv"><span>Visa Required</span><strong>{{ travel.visaRequired }}</strong></div>
+        <div class="kv"><span>Visa Required</span><strong>{{ travel.visaRequired ? 'Yes' : 'No' }}</strong></div>
         <div class="kv">
           <span>Departure</span>
-          <strong>{{ travel.departureDate | date }} • {{ travel.departureTime }}</strong>
+          <strong>
+            {{ travel.departureDate | date:'mediumDate' }} • 
+            {{ (travel.departureDate + 'T' + travel.departureTime) | date:'h:mm a' }}
+          </strong>
         </div>
+
         <div class="kv">
           <span>Return</span>
-          <strong>{{ travel.returnDate | date }} • {{ travel.returnTime }}</strong>
+          <strong>
+            {{ travel.returnDate | date:'mediumDate' }} • 
+            {{ (travel.returnDate + 'T' + travel.returnTime) | date:'h:mm a' }}
+          </strong>
         </div>
       </div>
     </section>
@@ -58,7 +62,7 @@
       <div class="kv-grid">
         <div class="kv"><span>Per Diem Start</span><strong>{{ travel.perDiemStartDate | date }}</strong></div>
         <div class="kv"><span>Per Diem End</span><strong>{{ travel.perDiemEndDate | date }}</strong></div>
-        <div class="kv"><span>Days Out (Official)</span><strong>{{ travel.daysOutOfOfficialAssignment | date }}</strong></div>
+        <div class="kv"><span>Days Out (Official)</span><strong>{{ travel.daysOutOfOfficialAssignment}}</strong></div>
         <div class="kv"><span>Subsistence Allowance</span><strong>{{ travel.subsistenceAllowance }}</strong></div>
         <div class="kv"><span>Per Diem Days</span><strong>{{ travel.perDiemDays }}</strong></div>
         <div class="kv"><span>Estimated Per Diem</span><strong>{{ travel.estimatedPerDiemAmount | currency }}</strong></div>
@@ -74,12 +78,12 @@
       <h3 class="section-title">Hotel & Transportation</h3>
       <div class="kv-grid">
         <div class="kv"><span>Hotel Name</span><strong>{{ travel.hotelName }}</strong></div>
-        <div class="kv"><span>Hotel Reservation</span><strong>{{ travel.hotelReservation }}</strong></div>
+        <div class="kv"><span>Hotel Reservation</span><strong>{{ travel.hotelReservation ? 'Yes' : 'No' }}</strong></div>
         <div class="kv"><span>Hotel Address</span><strong>{{ travel.hotelAddress }}</strong></div>
         <div class="kv"><span>Hotel City</span><strong>{{ travel.hotelCity }}</strong></div>
         <div class="kv"><span>Hotel Country</span><strong>{{ travel.hotelCountry }}</strong></div>
-        <div class="kv"><span>Rental Car Required</span><strong>{{ travel.rentalCarRequired }}</strong></div>
-        <div class="kv"><span>Airport Transport</span><strong>{{ travel.airportTransportRequiredToAndFrom }}</strong></div>
+        <div class="kv"><span>Rental Car Required</span><strong>{{ travel.rentalCarRequired ? 'Yes' : 'No' }}</strong></div>
+        <div class="kv"><span>Airport Transport</span><strong>{{ travel.airportTransportRequiredToAndFrom ? 'Yes' : 'No' }}</strong></div>
       </div>
     </section>
 
@@ -98,8 +102,8 @@
           <p><strong>{{ travel.excoHeadName }}</strong></p>
           <p>Email: {{ travel.excoHeadEmail }}</p>
           <p>Status: {{ travel.excoHeadStatus }}</p>
-          <p>Feedback: {{ travel.excoHeadFeedback }}</p>
-          <p class="muted">{{ travel.excoHeadFeedbackRemarks }}</p>
+          <p>Feedback: {{ travel.buHeadFeedback }}</p>
+          <p class="muted">{{ travel.buHeadFeedbackRemarks }}</p>
         </div>
 
         <div class="approval-box">
@@ -126,10 +130,15 @@
 
 <!-- ACTIONS -->
 <div class="action-buttons">
-  <button mat-raised-button color="primary" (click)="exportAsPDF()">
-    <mat-icon>picture_as_pdf</mat-icon> Export as PDF
+  <button mat-raised-button class="action-btn confirm-btn" (click)="exportAsPDF()">
+    <mat-icon class="btn-icon">picture_as_pdf</mat-icon>
+    Export as PDF
   </button>
-  <button mat-button color="primary" (click)="goBack()">
-    <mat-icon>arrow_back</mat-icon> Back
+
+  <button mat-raised-button class="action-btn cancel-btn" (click)="goBack()">
+    <mat-icon class="btn-icon">arrow_back</mat-icon>
+    Back
   </button>
 </div>
+
+

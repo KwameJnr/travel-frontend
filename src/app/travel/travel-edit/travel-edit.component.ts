@@ -109,46 +109,43 @@ export class TravelEditComponent implements OnInit {
     });
   }
 
-  // loadTravel(): void {
-  //   this.loading = true;
-  //   this.travelService.getById(this.travelId).subscribe({
-  //     next: (data) => {
-  //       this.travelForm.patchValue(data);
-  //       this.loading = false;
-  //     },
-  //     error: (err) => {
-  //       console.error('Failed to load travel request', err);
-  //       this.loading = false;
-  //     }
-  //   });
-  // }
-  loadTravel(): void {
-    this.loading = true;
-    this.travelService.getById(this.travelId).subscribe({
-      next: (data) => {
-        const convertToDate = (val: string | null) => val ? new Date(val) : null;
-  
-        this.travelForm.patchValue({
-          ...data,
-          employeePassportExpiry: convertToDate(data.employeePassportExpiry),
-          departureDate: convertToDate(data.departureDate),
-          returnDate: convertToDate(data.returnDate),
-          perDiemStartDate: convertToDate(data.perDiemStartDate),
-          perDiemEndDate: convertToDate(data.perDiemEndDate),
-          status: `Pending BU Head Approval`,
-          excoHeadFeedback:`Pending`,
-        });
-  
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Failed to load travel request', err);
-        this.loading = false;
-      }
-    });
-  }
-  
+      loadTravel(): void {
+      if (!this.travelId || !this.travelForm) return;
 
+      this.loading = true;
+
+      this.travelService.getMyTravelRequestsById(this.travelId).subscribe({
+        next: (travel) => {
+          if (!travel) {
+            console.error('Travel data not found for id', this.travelId);
+            this.loading = false;
+            return;
+          }
+
+          const convertToDate = (val: string | null | undefined) => val ? new Date(val) : null;
+
+          this.travelForm.patchValue({
+            ...travel,
+            employeePassportExpiry: convertToDate(travel.employeePassportExpiry),
+            departureDate: convertToDate(travel.departureDate),
+            returnDate: convertToDate(travel.returnDate),
+            perDiemStartDate: convertToDate(travel.perDiemStartDate),
+            perDiemEndDate: convertToDate(travel.perDiemEndDate),
+
+            status: `Pending BU Head Approval`,
+            excoHeadFeedback: `Pending`,
+          });
+
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Failed to load travel request', err);
+          this.loading = false;
+        }
+      });
+    }
+
+  
   onSubmit(): void {
     if (this.travelForm.invalid) return;
 

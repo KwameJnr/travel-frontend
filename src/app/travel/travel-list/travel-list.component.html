@@ -1,101 +1,93 @@
-<mat-card>
-  <mat-card-title>Travel Request List</mat-card-title>
+<mat-card class="travel-list-card">
+  <mat-card-title>Travel Requests</mat-card-title>
 
-  <!-- Flex Container for Table & Chart -->
-  <div class="layout-container">
-    <!-- Travel Table Section -->
-    <div class="travel-table-section">
-      <!-- Loader -->
-      <div *ngIf="loading" class="loading-spinner">
-        <mat-spinner diameter="40"></mat-spinner>
+  <!-- Charts Sticky Top -->
+  <div class="charts-top">
+    <mat-card class="analytics-card mat-elevation-z3">
+      <h3>Travel Request Analytics (Pie)</h3>
+      <div class="chart-container">
+        <canvas baseChart [data]="pieChartData" type="pie"></canvas>
       </div>
+    </mat-card>
 
-      <!-- Travel List Section -->
-      <div *ngIf="!loading">
-        <button mat-raised-button color="primary" class="btn-create" routerLink="/travel/create">
-          <mat-icon>add</mat-icon> New Request
-        </button>
-
-        <table mat-table [dataSource]="travels" class="mat-elevation-z2" *ngIf="travels.length > 0">
-
-          <!-- Employee Name -->
-          <ng-container matColumnDef="employeeName">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let travel"> {{ travel.employeeName }} </td>
-          </ng-container>
-
-          <!-- Purpose -->
-          <ng-container matColumnDef="purpose">
-            <th mat-header-cell *matHeaderCellDef> Purpose </th>
-            <td mat-cell *matCellDef="let travel"> {{ travel.purpose }} </td>
-          </ng-container>
-
-          <!-- Country -->
-          <ng-container matColumnDef="country">
-            <th mat-header-cell *matHeaderCellDef> Country </th>
-            <td mat-cell *matCellDef="let travel"> {{ travel.country }} </td>
-          </ng-container>
-
-          <!-- Travel Date -->
-          <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef> Travel Date </th>
-            <td mat-cell *matCellDef="let travel"> {{ travel.departureDate | date: 'MMM d, y' }} </td>
-          </ng-container>
-
-          <!-- Status -->
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let travel">
-              <mat-icon *ngIf="travel.status === 'Approved'" color="primary">check_circle</mat-icon>
-              <mat-icon *ngIf="travel.status.includes('Pending')" color="warn">hourglass_empty</mat-icon>
-              <mat-icon *ngIf="travel.status.includes('Rejected')" color="accent">cancel</mat-icon>
-              {{ travel.status }}
-            </td>
-          </ng-container>
-
-          <!-- Actions -->
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef> Actions </th>
-            <td mat-cell *matCellDef="let row">
-              <button mat-icon-button color="accent" [routerLink]="['/travel/detail', row.travelId]">
-                <mat-icon>visibility</mat-icon>
-              </button>
-              <button mat-icon-button color="primary"
-                [routerLink]="['/travel/edit', row.travelId]"
-                *ngIf=" row.status === 'Returned for Review'">
-                <!-- *ngIf="row.status === 'Pending BU Head Approval' || row.status === 'Returned for Review'"> -->
-                <mat-icon>edit</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-        <p *ngIf="travels.length === 0">No travel requests found.</p>
+    <mat-card class="analytics-card mat-elevation-z3">
+      <h3>Travel Request Analytics (Bar)</h3>
+      <div class="chart-container">
+        <canvas baseChart [data]="barChartData" chartType="bar"></canvas>
       </div>
+    </mat-card>
+  </div>
+
+  <!-- Travel Table Section -->
+  <div class="travel-table-section mat-elevation-z4">
+    <div *ngIf="loading" class="loading-spinner">
+      <mat-spinner diameter="50"></mat-spinner>
     </div>
 
-    <!-- Analytics Chart Section -->
-    <!-- Analytics Chart Section -->
-<div class="chart-section">
-  <mat-card>
-    <h3>Travel Request Analytics (Pie)</h3>
-    <canvas baseChart
-            [data]="pieChartData"
-            type="pie">
-    </canvas>
-  </mat-card>
+    <div *ngIf="!loading">
+      <button mat-raised-button color="primary" class="btn-create" routerLink="/travel/create">
+        <mat-icon>add</mat-icon> New Request
+      </button>
 
-  <mat-card>
-    <h3>Travel Request Analytics (Bar)</h3>
-    <canvas baseChart
-            [data]="barChartData"
-            chartType="bar">
-    </canvas>
-  </mat-card>
-</div>
+      <table mat-table [dataSource]="travels" class="mat-elevation-z2" *ngIf="travels.length > 0">
 
+        <!-- Employee Name -->
+        <ng-container matColumnDef="employeeName">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let travel"> {{ travel.employeeName }} </td>
+        </ng-container>
+
+        <!-- Purpose -->
+        <ng-container matColumnDef="purpose">
+          <th mat-header-cell *matHeaderCellDef> Purpose </th>
+          <td mat-cell *matCellDef="let travel"> {{ travel.purpose }} </td>
+        </ng-container>
+
+        <!-- Country -->
+        <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef> Country </th>
+          <td mat-cell *matCellDef="let travel"> {{ travel.country }} </td>
+        </ng-container>
+
+        <!-- Travel Date -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Travel Date </th>
+          <td mat-cell *matCellDef="let travel"> {{ travel.departureDate | date: 'MMM d, y' }} </td>
+        </ng-container>
+
+        <!-- Status -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let travel">
+            <span class="status-pill" [ngClass]="getStatusClass(travel.status)">
+              {{ travel.status }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button color="accent" [routerLink]="['/travel/detail', row.travelId]">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button color="primary"
+                    [routerLink]="['/travel/edit', row.travelId]"
+                    *ngIf="row.status === 'Returned for Review'">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <p *ngIf="travels.length === 0" class="no-data">No travel requests found.</p>
+    </div>
   </div>
 </mat-card>
+
+
+

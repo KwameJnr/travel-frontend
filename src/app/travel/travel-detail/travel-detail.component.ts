@@ -34,33 +34,31 @@ export class TravelDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.travelService.getById(id).subscribe({
-        next: (data) => {
-          this.travel = data;
-          this.loading = false;
-        },
-        error: (err) => {
-          console.error('Error fetching travel details', err);
-          this.loading = false;
-        }
-      });
-    }
+    if (!id) return;
+
+    this.travelService.getMyTravelRequestsById(id).subscribe({
+      next: (travel: Travel) => {
+        this.travel = travel; // assign the first travel
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching travel details', err);
+        this.loading = false;
+      }
+    });
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  // ✅ Export Travel Details as PDF
   exportAsPDF(): void {
     const element = document.getElementById('pdfContent');
-  
     if (!element) {
       console.error('❌ PDF export failed: #pdfContent not found.');
       return;
     }
-  
+
     const options: any = {
       margin: 0.5,
       filename: `travel-request-${this.travel?.employeeName || 'export'}.pdf`,
@@ -68,8 +66,7 @@ export class TravelDetailComponent implements OnInit {
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
     };
-  
+
     html2pdf().set(options).from(element).save();
-  }  
-  
+  }
 }

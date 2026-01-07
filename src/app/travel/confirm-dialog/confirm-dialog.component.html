@@ -16,6 +16,7 @@
           { icon: 'event', label: 'Passport Expiry', value: data.employeePassportExpiry },
           { icon: 'badge', label: 'F-Number', value: data.employeeNumber },
           { icon: 'apartment', label: 'Department', value: data.employeeDepartment },
+          { icon: 'apartment', label: 'Department Code', value: data.deparmentCode },
           { icon: 'call', label: 'Travel Contact', value: data.employeeTravellingContact },
           { icon: 'smartphone', label: 'Personal Contact', value: data.employeeContact }
         ]">
@@ -128,9 +129,25 @@
     </mat-card-content>
   
    <!-- Fixed action bar -->
-  <mat-card-actions class="confirm-actions" align="end">
-    <button mat-stroked-button color="warn" (click)="onCancel()">Edit</button>
-    <button mat-raised-button color="primary" (click)="onConfirm()">Confirm</button>
+  <mat-card-actions class="confirm-actions">
+    <button
+      mat-stroked-button
+      color="warn"
+      class="action-btn cancel-btn"
+      (click)="onCancel()">
+      <mat-icon>edit</mat-icon>
+      Edit Request
+    </button>
+
+    <button
+      mat-flat-button
+      color="primary"
+      class="action-btn confirm-btn"
+      (click)="onConfirm()">
+      <mat-icon>check_circle</mat-icon>
+      Confirm & Submit
+    </button>
   </mat-card-actions>
+
 </mat-card>
   

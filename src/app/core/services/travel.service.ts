@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, forkJoin } from 'rxjs';
 import { CfoDashboardMetrics } from 'src/app/shared/models/cfo/CfoDashboadMetrics';
 import { ApprovalEmailPayload } from 'src/app/shared/models/notification/ApprovalEmailPayload';
 import { EmailMsgPayload } from 'src/app/shared/models/notification/EmailMsgPayload';
@@ -57,14 +57,58 @@ export class TravelService {
     );
   }
 
-  create(travel: Travel): Observable<ApiResponse<Travel>> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
+  // createTravelRequest(travel: Travel): Observable<ApiResponse<Travel>> {
+  //   const token = localStorage.getItem('userToken') || '';
+  //   const headers = new HttpHeaders()
+  //   .set('Authorization', `Bearer ${token}`)
+  //   .set('X-SrcApp', 'Travel-Request')
+  //   .set('X-Request-ID', generateUUID());
 
-    return this.http.post<ApiResponse<Travel>>(`${this.travelApibaseUrlLocal}/add`, travel,{ headers});
+  //   return this.http.post<ApiResponse<Travel>>(`${this.travelApibaseUrlLocal}/add`, travel,{ headers});
+  // }  
+  // Fetch travel requests for CFO by single feedback
+  getCfoFeedbackRequests(feedback: string): Observable<Travel[]> {
+    const url = `${this.baseUrl}/travel-request/travels/cfo-feedback?feedback=${feedback}`;
+    return this.http.get<ApiResponse<Travel[]>>(url).pipe(
+      map(res => res.data)
+    );
+  }
+
+  // Fetch travel requests by multiple feedbacks
+  getCfoFeedbackRequestsByMultiple(feedbacks: string[]): Observable<Travel[]> {
+    const requests = feedbacks.map(f => this.getCfoFeedbackRequests(f));
+    return forkJoin(requests).pipe(
+      map(arrays => arrays.flat()) // merge all arrays
+    );
+  }
+
+
+  getMyTravelRequestsById(id: string): Observable<Travel> {
+  const url = `${this.baseUrl}/travel-request/travels/view/${id}`;
+  return this.http.get<ApiResponse<Travel[]>>(url).pipe(
+    map(response => {
+      if (response.data && response.data.length > 0) {
+        return response.data[0]; // extract the first travel from array
+      }
+      throw new Error('No travel data found');
+    })
+  );
+}
+
+
+  getMyTravelRequests(email: string): Observable<ApiResponse<Travel[]>> {
+    const url = `${this.baseUrl}/travel-request/travels/my-requests`;
+    const params = { email }; // query param
+
+    console.log('Fetching my travel requests for email:', email, 'URL:', url);
+
+    return this.http.get<ApiResponse<Travel[]>>(url, { params });
+  }
+
+  createTravelRequest(travel: Travel): Observable<ApiResponse<Travel>> {
+    const url = `${this.baseUrl}/travel-request/travels/add`;
+    console.log('Component travel forms:', url);
+    return this.http.post<ApiResponse<Travel>>(url, travel);
   }  
 
   update(id: string, travel: Travel): Observable<Travel> {

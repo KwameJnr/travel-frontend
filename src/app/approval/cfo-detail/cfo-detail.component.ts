@@ -13,6 +13,7 @@ import { EmployeeDetailComponent } from 'src/app/travel/employee-detail/employee
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { Location } from '@angular/common';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @Component({
@@ -30,7 +31,8 @@ import { Location } from '@angular/common';
     MatSelectModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatIcon
+    MatIcon,
+    MatDividerModule
   ],
   templateUrl: './cfo-detail.component.html',
   styleUrl: './cfo-detail.component.scss'
@@ -65,7 +67,7 @@ export class CfoDetailComponent  implements OnInit {
     // console.log('BuheadDetailComponent loaded');
 
     const id = this.route.snapshot.paramMap.get('id');
-    this.travelService.getById(id!).subscribe({
+    this.travelService.getMyTravelRequestsById(id!).subscribe({
       next: (res) => {
         this.travel = res;
         this.initForm();

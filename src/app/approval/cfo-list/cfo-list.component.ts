@@ -67,17 +67,22 @@ toggleView(): void {
   } else {
     this.loadPendingRequests();
   }
-}loadPendingRequests(): void {
+}
+
+loadPendingRequests(): void {
   this.loading = true;
-  this.travelService.getPendingRequestsForCfo().subscribe({
+
+  // Fetch only pending requests from the backend
+  this.travelService.getCfoFeedbackRequests('PENDING').subscribe({
     next: (res) => {
       this.travelRequests = res.sort(
         (a: any, b: any) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
       );
+      this.filteredRequests = [...this.travelRequests];
       this.loading = false;
     },
     error: (err) => {
-      console.error('Failed to load travel requests', err);
+      console.error('Failed to load pending travel requests', err);
       this.loading = false;
     }
   });
@@ -85,38 +90,27 @@ toggleView(): void {
 
 loadHistory(): void {
   this.loading = true;
-
   const currentUserEmail = localStorage.getItem('loggedInEmail');
 
-  this.travelService.getAll().subscribe({
-    next: (data) => {
-      this.travelRequests = data
-        // ✅ You can refine this filter depending on who should see history
-        .filter((travel: any) =>
-          [
-            'Pending BU Head Approval',
-            'Pending CFO Approval',
-            'CFO Approval Successful',
-            'BU Head Approval Successful',
-            'Rejected by BU Head',
-            'CFO Approval Rejected'
-          ].includes(travel.status)
-        )
+  // Fetch approved and rejected requests
+  const feedbacks = ['APPROVED', 'REJECTED'];
+
+  this.travelService.getCfoFeedbackRequestsByMultiple(feedbacks).subscribe({
+    next: (res) => {
+      this.travelRequests = res
         .filter((travel: any) => travel.cfoEmail?.toLowerCase() === currentUserEmail?.toLowerCase())
-        .sort(
-          (a: any, b: any) =>
-            new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
-        );
+        .sort((a: any, b: any) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
 
       this.filteredRequests = [...this.travelRequests];
       this.loading = false;
     },
     error: (err) => {
-      console.error('Failed to load travel data', err);
+      console.error('Failed to load travel history', err);
       this.loading = false;
     }
   });
 }
+
 
 applyFilters(): void {
   const { employee, status } = this.searchForm.value;

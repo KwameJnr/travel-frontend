@@ -5,7 +5,7 @@ export interface Travel {
     employeePassportNo: string;
     employeePassportExpiry: string;
     employeeNumber: string;
-    employeeDepartment: string;
+    employeeDepartment: Department;
     departmentCode: string;
     employeeTravellingContact: string;
     employeeContact: string;
@@ -40,6 +40,8 @@ export interface Travel {
     excoHeadEmail: string;
     excoHeadFeedback: string;
     excoHeadFeedbackRemarks: string;
+    buHeadFeedback: string;
+    buHeadFeedbackRemarks: string;
     cfoStatus:string;
     cfoName: string;
     cfoEmail: string;
@@ -50,3 +52,11 @@ export interface Travel {
     lastUpdated: string
   }
   
+  export interface Department {
+  departmentId: number;
+  name: string;
+  description?: string;
+  code?: string;
+  dateCreated?: string;
+  lastUpdate?: string;
+}

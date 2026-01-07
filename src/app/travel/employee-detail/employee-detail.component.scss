@@ -1,76 +1,116 @@
-.confirmation-card {
+.bank-confirmation-card {
+  width: 100%;
+  max-width: 1100px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+}
+
+/* HEADER */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #ffffff;
+
+  .header-left {
     display: flex;
-    flex-direction: column;
-    max-height: 90vh;
-  
-    mat-card-content {
-      max-height: 60vh;
-      overflow-y: auto;
-      padding-right: 8px;
-    }
-  
-    .confirm-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      padding: 16px;
-  
-      .field-row {
-        display: flex;
-        flex-direction: column;
-        border-bottom: 1px solid #e0e0e0;
-        padding-bottom: 8px;
-  
-        .field-label {
-          display: flex;
-          align-items: center;
-          font-weight: 600;
-          color: #333;
-          font-size: 14px;
-          margin-bottom: 4px;
-  
-          .field-icon {
-            font-size: 18px;
-            margin-right: 6px;
-          }
-        }
-  
-        .field-value {
-          color: #555;
-          font-size: 13px;
-          word-wrap: break-word;
-        }
-      }
-    }
-  
-    mat-card-actions {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 0 16px 16px;
-    }
-  
-    @media (max-width: 768px) {
-      .confirm-grid {
-        grid-template-columns: 1fr;
-      }
-  
-      mat-card-actions {
-        justify-content: center;
-      }
-    }
-  
-    @media (max-width: 480px) {
-      mat-card-title {
-        font-size: 18px;
-      }
-  
-      .field-label,
-      .field-value {
-        font-size: 12px;
-      }
-    }
+    align-items: center;
+    gap: 12px;
   }
-  
+
+  mat-card-title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  mat-card-subtitle {
+    font-size: 13px;
+    color: #666;
+  }
+}
+
+/* CONTENT */
+.card-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+/* SECTIONS */
+.section {
+  margin-bottom: 28px;
+
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1a237e;
+  }
+}
+
+/* KEY-VALUE GRID */
+.kv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 24px;
+}
+
+.kv {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #e0e0e0;
+  padding-bottom: 6px;
+
+  span {
+    font-size: 13px;
+    color: #555;
+  }
+
+  strong {
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  &.highlight strong {
+    color: #2e7d32;
+    font-size: 14px;
+  }
+}
+
+/* FOOTER */
+.card-actions {
+  border-top: 1px solid #e0e0e0;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: flex-end;
+  background: #ffffff;
+}
+
+/* BUTTON */
+.cancel-btn {
+  min-width: 120px;
+  border-radius: 12px;
+  font-weight: 500;
+  color: #d32f2f;
+  border-color: rgba(211, 47, 47, 0.5);
+
+  &:hover {
+    background-color: rgba(211, 47, 47, 0.04);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .kv-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bank-confirmation-card {
+    max-height: 95vh;
+  }
+}

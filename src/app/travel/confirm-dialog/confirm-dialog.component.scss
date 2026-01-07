@@ -15,6 +15,49 @@
       gap: 16px;
       padding: 16px;
   
+    .confirm-actions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+
+  padding: 16px 24px;
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  z-index: 10;
+}
+
+.action-btn {
+  min-width: 160px;
+  height: 44px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+ 
+}
+
+/* Edit / Back */
+.cancel-btn {
+  color: #d32f2f;
+  border-color: rgba(211, 47, 47, 0.5);
+
+  &:hover {
+    background-color: rgba(211, 47, 47, 0.04);
+  }
+}
+
+/* Confirm */
+.confirm-btn {
+  box-shadow: 0 4px 10px rgba(25, 118, 210, 0.3);
+
+  &:hover {
+    box-shadow: 0 6px 14px rgba(25, 118, 210, 0.4);
+  }
+}
+
       .field-row {
         display: flex;
         flex-direction: column;

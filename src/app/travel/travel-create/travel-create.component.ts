@@ -42,6 +42,8 @@ import { SubmissionResultDialogComponent } from
 import { Department } from 'src/app/shared/models/deparment/department.model';
 import { BauHeadForm } from 'src/app/shared/models/buhead/buheadform';
 import { PerDiemForm } from 'src/app/shared/models/perdiem/perdiemform.model';
+import { Travel } from 'src/app/shared/models/travel/travel.model';
+
 
 /* ---------------- VALIDATOR ---------------- */
 
@@ -495,30 +497,87 @@ export class TravelCreateComponent implements OnInit {
   /* ---------------- SUBMIT ---------------- */
 
   onSubmit(): void {
-    if (this.travelForm.invalid) return;
-
-    this.loading = true;
-    const payload = this.travelForm.getRawValue();
-
-    this.travelService.create(payload).subscribe({
-      next: () => {
-        this.loading = false;
-        localStorage.removeItem('travelFormDraft');
-
-        this.dialog.open(SubmissionResultDialogComponent, {
-          data: { success: true }
-        });
-
-        this.router.navigate(['/travel/list']);
-      },
-      error: () => {
-        this.loading = false;
-        this.dialog.open(SubmissionResultDialogComponent, {
-          data: { success: false }
-        });
-      }
-    });
+  if (this.travelForm.invalid) {
+    this.travelForm.markAllAsTouched();
+    return;
   }
+
+  // 🔥 Flattened payload
+  const payload = this.buildTravelPayload();
+
+  // Pass the same payload to confirm dialog
+  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    width: '900px',
+    maxHeight: '90vh',
+    disableClose: true,
+    data: payload
+  });
+
+  dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+    if (confirmed) {
+      this.submitTravelRequest();
+    }
+  });
+}
+
+  private submitTravelRequest(): void {
+  this.loading = true;
+
+  const payload = this.buildTravelPayload();
+
+  this.travelService.createTravelRequest(payload).subscribe({
+    next: () => {
+      this.loading = false;
+      this.snackBar.open('Travel request submitted successfully', 'Close', {
+        duration: 4000
+      });
+      this.router.navigate(['/travel']);
+    },
+    error: (err) => {
+      this.loading = false;
+      console.error('Failed to submit travel request', err);
+      this.snackBar.open('Submission failed. Please try again.', 'Close', {
+        duration: 5000
+      });
+    }
+  });
+}
+
+
+  private buildTravelPayload(): Travel {
+  const raw = this.travelForm.getRawValue();
+
+  return {
+    ...raw.step1,
+    ...raw.step2,
+    ...raw.step3,
+    ...raw.step4,
+
+    // Fix booleans
+    visaRequired: raw.step2.visaRequired === true || raw.step2.visaRequired === 'true',
+    hotelReservation: raw.step3.hotelReservation === true || raw.step3.hotelReservation === 'true',
+    rentalCarRequired: raw.step3.rentalCarRequired === true || raw.step3.rentalCarRequired === 'true',
+    airportTransportRequiredToAndFrom:
+      raw.step3.airportTransportRequiredToAndFrom === true ||
+      raw.step3.airportTransportRequiredToAndFrom === 'true',
+
+    // Fix time formats (AM/PM → HH:mm:ss)
+    departureTime: this.to24HourTime(raw.step2.departureTime),
+    returnTime: this.to24HourTime(raw.step2.returnTime)
+  };
+}
+
+private to24HourTime(time: string): string {
+  if (!time) return '';
+
+  const [t, meridian] = time.split(' ');
+  let [hours, minutes] = t.split(':').map(Number);
+
+  if (meridian === 'PM' && hours < 12) hours += 12;
+  if (meridian === 'AM' && hours === 12) hours = 0;
+
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
+}
 
   onCancel(): void {
     this.router.navigate(['/travel']);

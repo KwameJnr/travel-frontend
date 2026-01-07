@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { NgChartsModule } from 'ng2-charts';
+import { ApiResponse } from 'src/app/shared/models/travel/api-response.model';
 import { ChartConfiguration } from 'chart.js';
 
 @Component({
@@ -49,26 +50,31 @@ export class TravelListComponent implements OnInit {
     }]
   };
 
+  private loggedInUser: string | null = null;
+
   constructor(private travelService: TravelService, private router: Router) {}
 
   ngOnInit(): void {
-    const loggedInEmail = localStorage.getItem('loggedInEmail');
-    if (!loggedInEmail) {
+    this.loggedInUser = localStorage.getItem('userFnumber');
+
+    if (!this.loggedInUser) {
       this.router.navigate(['/login']);
-    } else {
-      this.fetchTravels();
+      return;
     }
+
+    this.fetchTravels();
   }
 
   fetchTravels(): void {
+    if (!this.loggedInUser) return;
+
     this.loading = true;
-    this.travelService.getAll().subscribe({
-      next: (data) => {
-        const loggedInEmail = localStorage.getItem('loggedInEmail');
-        this.travels = data
-          .filter((travel: Travel) => travel.employeeEmail === loggedInEmail)
+
+    this.travelService.getMyTravelRequests(this.loggedInUser).subscribe({
+      next: (res: ApiResponse<Travel[]>) => {
+        this.travels = (res.data ?? [])
           .sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
-        
+
         this.updateAnalytics();
         this.loading = false;
       },
@@ -79,11 +85,23 @@ export class TravelListComponent implements OnInit {
     });
   }
 
+  getStatusClass(status: string): string {
+    if (!status) return 'status-pending';
+    status = status.toLowerCase();
+    if (status.includes('approved')) return 'status-approved';
+    if (status.includes('pending')) return 'status-pending';
+    if (status.includes('rejected')) return 'status-rejected';
+    if (status.includes('returned')) return 'status-returned';
+    return 'status-pending';
+  }
+
   updateAnalytics(): void {
     const counts = { Approved: 0, Pending: 0, Rejected: 0 };
+
     this.travels.forEach(travel => {
       const status = (travel.status || '').toLowerCase();
       const cfoStatus = (travel.cfoFeedback || '').toLowerCase();
+
       if (status.includes('cfo approval successful')) counts.Approved++;
       else if (status.includes('pending')) counts.Pending++;
       else if (cfoStatus.includes('rejected')) counts.Rejected++;
@@ -93,24 +111,18 @@ export class TravelListComponent implements OnInit {
 
     this.pieChartData = {
       labels: ['Approved', 'Pending', 'Rejected'],
-      datasets: [{
-        data: data,
-        backgroundColor: ['#4CAF50', '#FFC107', '#F44336']
-      }]
+      datasets: [{ data, backgroundColor: ['#4CAF50', '#FFC107', '#F44336'] }]
     };
 
     this.barChartData = {
       labels: ['Approved', 'Pending', 'Rejected'],
-      datasets: [{
-        label: 'Travel Requests',
-        data: data,
-        backgroundColor: ['#4CAF50', '#FFC107', '#F44336']
-      }]
+      datasets: [{ label: 'Travel Requests', data, backgroundColor: ['#4CAF50', '#FFC107', '#F44336'] }]
     };
   }
 
   deleteTravel(id: string | undefined): void {
     if (!id) return;
+
     if (confirm('Are you sure you want to delete this travel request?')) {
       this.travelService.delete(id).subscribe({
         next: () => this.fetchTravels(),

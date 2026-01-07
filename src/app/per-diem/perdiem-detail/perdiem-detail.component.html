@@ -14,20 +14,17 @@
       </mat-card-title>
       <mat-card-content>
         <div class="info-grid">
-          <div><mat-icon>badge</mat-icon> <strong>Rate:</strong> {{ perdiem.rate }}</div>
-          <div><mat-icon>badge</mat-icon> <strong>Airfare Cost:</strong> {{ perdiem.airfareCost }}</div>
+          <div><mat-icon>badge</mat-icon> <strong>Rate:</strong> {{ perdiem.dollarRate }}</div>
+          <div><mat-icon>badge</mat-icon> <strong>Airfare Cost:</strong> {{ perdiem.airFareCost }}</div>
           <div><mat-icon>badge</mat-icon> <strong>Accommodation Cost:</strong> {{ perdiem.accommodationCost }}</div>
-          <div><mat-icon>badge</mat-icon> <strong>Visa Application Fee:</strong> {{ perdiem.visaApplicationFee }}</div>
+          <div><mat-icon>badge</mat-icon> <strong>Visa Application Fee:</strong> {{ perdiem.visaApplicationCost }}</div>
           <div><mat-icon>badge</mat-icon> <strong>Transportation Cost:</strong> {{ perdiem.transportationCost }}</div>
           <div><mat-icon>badge</mat-icon> <strong>Other Cost:</strong> {{ perdiem.otherCost }}</div>
-          <div><mat-icon>apartment</mat-icon> <strong>Location:</strong> {{ perdiem.location }}</div>
-          <div><mat-icon>mail</mat-icon> <strong>CFO Email:</strong> {{ perdiem.cfoEmail }}</div>
-          <div><mat-icon>garvel</mat-icon> <strong>CFO Approval:</strong> {{ perdiem.cfoApproval }}</div>
-          <div><mat-icon>garvel</mat-icon> <strong>CFO Remarks:</strong> {{ perdiem.cfoRemark }}</div>
+          <div><mat-icon>apartment</mat-icon> <strong>Location:</strong> {{ perdiem.country }}</div>
           <div><mat-icon>passport</mat-icon> <strong>Perdiem Status:</strong> {{ perdiem.status }}</div>
           <div><mat-icon>event</mat-icon> <strong>Date created:</strong> {{ perdiem.dateCreated| date }}</div>
-          <div><mat-icon>numbers</mat-icon> <strong>Created by:</strong> {{ perdiem.createdBy }}</div>
-          <div><mat-icon>apartment</mat-icon> <strong>Edited by:</strong> {{ perdiem.editedDate| date }}</div>
+          <!-- <div><mat-icon>numbers</mat-icon> <strong>Created by:</strong> {{ perdiem.createdBy }}</div>
+          <div><mat-icon>apartment</mat-icon> <strong>Edited by:</strong> {{ perdiem.editedDate| date }}</div> -->
           <!-- <div><mat-icon>phone</mat-icon> <strong>Travel Contact:</strong> {{ perdiem. }}</div> -->
         </div>
       </mat-card-content>
