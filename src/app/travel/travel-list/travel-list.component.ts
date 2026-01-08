@@ -102,7 +102,7 @@ export class TravelListComponent implements OnInit {
       const status = (travel.status || '').toLowerCase();
       const cfoStatus = (travel.cfoFeedback || '').toLowerCase();
 
-      if (status.includes('cfo approval successful')) counts.Approved++;
+      if (status.includes('approved')) counts.Approved++;
       else if (status.includes('pending')) counts.Pending++;
       else if (cfoStatus.includes('rejected')) counts.Rejected++;
     });

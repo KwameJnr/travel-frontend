@@ -69,17 +69,20 @@ export class BuheadListComponent implements OnInit {
     }
   }
   
-  loadPendingRequests(): void {
+    loadPendingRequests(): void {
     this.loading = true;
-    this.travelService.getPendingRequestsForBuHead().subscribe({
+
+    // Fetch only pending requests from the backend
+    this.travelService.getBuFeedbackRequests('PENDING').subscribe({
       next: (res) => {
         this.travelRequests = res.sort(
           (a: any, b: any) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
         );
+        this.filteredRequests = [...this.travelRequests];
         this.loading = false;
       },
       error: (err) => {
-        console.error('Failed to load travel requests', err);
+        console.error('Failed to load pending travel requests', err);
         this.loading = false;
       }
     });
@@ -88,33 +91,22 @@ export class BuheadListComponent implements OnInit {
   loadHistory(): void {
     this.loading = true;
 
-    const currentUserEmail = localStorage.getItem('loggedInEmail');
+    const feedbacks: ('APPROVED' | 'REJECTED')[] = ['APPROVED', 'REJECTED'];
 
-    this.travelService.getAll().subscribe({
-      next: (data) => {
-        this.travelRequests = data
-          // ✅ You can refine this filter depending on who should see history
-          .filter((travel: any) =>
-            [
-              'Pending BU Head Approval',
-              'Pending CFO Approval',
-              'CFO Approval Successful',
-              'BU Head Approval Successful',
-              'Rejected by BU Head',
-              'CFO Approval Rejected'
-            ].includes(travel.status)
-          )
-          .filter((travel: any) => travel.excoHeadEmail?.toLowerCase() === currentUserEmail?.toLowerCase())
-          .sort(
-            (a: any, b: any) =>
-              new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
-          );
+    this.travelService.getBuFeedbackRequestsByMultiple(feedbacks).subscribe({
+      next: (res) => {
+        console.log('History records:', res); // 👈 confirm data
+        this.travelRequests = res.sort(
+          (a, b) =>
+            new Date(b.dateCreated).getTime() -
+            new Date(a.dateCreated).getTime()
+        );
 
         this.filteredRequests = [...this.travelRequests];
         this.loading = false;
       },
       error: (err) => {
-        console.error('Failed to load travel data', err);
+        console.error('Failed to load travel history', err);
         this.loading = false;
       }
     });

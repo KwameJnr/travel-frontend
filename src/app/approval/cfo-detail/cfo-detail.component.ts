@@ -53,9 +53,9 @@ export class CfoDetailComponent  implements OnInit {
   ) {}
 
   get isEditable(): boolean {
-    // const isAdminUser = this.isAdminUser(); // Check if admin
-    // return this.travel?.status === 'Pending BU Head Approval' && !isAdminUser;
-    return this.travel?.status === 'Pending CFO Approval';
+    const isAdminUser = this.isAdminUser(); // Check if admin
+    return this.travel?.status === 'PENDING_CFO_APPROVAL';
+    // return this.travel?.status === 'PENDING_CFO_APPROVAL' && !isAdminUser;  //allow only cfo to approve
   }
   
   isAdminUser(): boolean {
@@ -64,7 +64,6 @@ export class CfoDetailComponent  implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log('BuheadDetailComponent loaded');
 
     const id = this.route.snapshot.paramMap.get('id');
     this.travelService.getMyTravelRequestsById(id!).subscribe({
@@ -88,32 +87,47 @@ export class CfoDetailComponent  implements OnInit {
     });
   }
   
-  approve() {
-    if (this.actionForm.invalid) return;
-  
-    const payload = {
-      // excoHeadStatus: this.actionForm.value.excoHeadStatus,
-      cfoStatus: 'Successful',
-      cfoFeedback: this.actionForm.value.cfoFeedback,
-      cfoFeedbackRemarks: this.actionForm.value.cfoFeedbackRemarks,
-      status: 'CFO Approval Successful'
-    };
-  
-    this.submitAction(payload, false);
+  // cfo-detail.component.ts
+  approve(): void {
+    this.submitDecision('APPROVED');
   }
-  
-  reject() {
-    if (this.actionForm.invalid) return;
-  
+
+  reject(): void {
+    this.submitDecision('REJECTED');
+  }
+
+  private submitDecision(feedback: 'APPROVED' | 'REJECTED'): void {
+    if (this.actionForm.invalid) {
+      this.actionForm.markAllAsTouched();
+      return;
+    }
+
     const payload = {
-      cfoStatus: 'Successful',
-      cfoFeedback: this.actionForm.value.cfoFeedback,
-      cfoFeedbackRemarks: this.actionForm.value.cfoFeedbackRemarks,
-      status: 'CFO Approval Rejected'
+      travelId: this.travel.travelId, // UUID
+      feedback,
+      remarks: this.actionForm.value.cfoFeedbackRemarks ?? ''
     };
-  
-    this.submitAction(payload, false);
-  }  
+
+    this.travelService.submitCfoApproval(payload).subscribe({
+      next: () => {
+        this.snackBar.open(
+          `Travel request ${feedback.toLowerCase()} successfully`,
+          'Close',
+          { duration: 3000 }
+        );
+        this.router.navigate(['/cfo/list']);
+      },
+      error: (err) => {
+        console.error(err);
+        this.snackBar.open(
+          'Failed to submit CFO decision',
+          'Close',
+          { duration: 4000 }
+        );
+      }
+    });
+  }
+
 
   details() {
     this.dialog.open(EmployeeDetailComponent, {
@@ -121,95 +135,10 @@ export class CfoDetailComponent  implements OnInit {
       data: this.travel  // Pass full travel data here
     });
 
-    // this.submitAction(payload, false);
-  }
-
-  private submitAction(payload: any, notifyCfo: boolean) {
-    this.travelService.updateBuHeadFeedback(this.travel.travelId, payload).subscribe({
-      next: () => {
-        this.snackBar.open(`Request ${payload.status.toLowerCase()}`, 'Close', { duration: 3000 });
-  
-        // Notify CFO only if approved
-        if (notifyCfo) {
-          const cfoEmailPayload = {
-            clientKey: 'Travel-Request-Manager-EmailerId-CFO',
-            approvalRequestId: this.travel.travelId,
-            fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
-            toEmail: this.travel.cfoEmail,
-            subject: `Travel Request Ready for Your Approval: ${this.travel.purpose}`,
-            body: `
-              <p>Dear ${this.travel.cfoName},</p>
-              
-              <p>A travel request by <strong>${this.travel.employeeName}</strong> has been forwarded for your approval.</p>
-              
-              <p>
-                Purpose: ${this.travel.purpose}<br>
-                Departure Date: ${this.travel.departureDate}<br>
-                Return Date: ${this.travel.returnDate}
-              </p>
-              
-              <p>Regards,<br>Travel Request Management System</p>
-            `
-          };
-  
-          this.travelService.sendApprovalEmailFrontEndWithAttachment(cfoEmailPayload).subscribe({
-            next: () => console.log('Approval email sent to CFO'),
-            error: (err) => console.error('Failed to send approval email to CFO', err)
-          });
-        }
-  
-        // Always notify requester
-        const recipients = [
-          {
-            name: this.travel.employeeName,
-            email: this.travel.employeeEmail
-          },
-          {
-            name: this.travel.excoHeadName,
-            email: this.travel.excoHeadEmail
-          },
-          {
-            name: this.travel.cfoName,
-            email: this.travel.cfoEmail
-          }
-        ];
-    
-        recipients.forEach((recipient) => {
-          const personalizedEmailPayload = {
-            clientKey: 'Travel-Request-Manager-EmailerId-Requester',
-            fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
-            toEmail: recipient.email,
-            subject: `Your Travel Request Status Update`,
-            body: `
-              <p>Dear ${recipient.name},</p>
-    
-              <p>Travel request status for ${this.travel.employeeName} has been updated to: <strong>${payload.status}</strong>.</p>
-    
-              <p>
-                Purpose: ${this.travel.purpose}<br>
-                Departure Date: ${this.travel.departureDate}<br>
-                Return Date: ${this.travel.returnDate}
-              </p>
-    
-              <p>Regards,<br>Travel Request Management System</p>`
-          };
-    
-          this.travelService.sendEmailMsg(personalizedEmailPayload).subscribe({
-            next: () => console.log(`Notification email sent to ${recipient.name}`),
-            error: (err) => console.error(`Failed to send notification email to ${recipient.name}`, err)
-          });
-        });
-  
-        this.router.navigate(['/travel/cfo/list']);
-      },
-      error: () => {
-        this.snackBar.open('Failed to update status.', 'Close', { duration: 3000 });
-      }
-    });
   }
 
   goBack(): void {
-    this.location.back();  // ✅ This works
+    this.location.back();  
   }
   
 }

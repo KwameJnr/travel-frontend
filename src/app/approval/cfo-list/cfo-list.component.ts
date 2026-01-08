@@ -90,16 +90,17 @@ loadPendingRequests(): void {
 
 loadHistory(): void {
   this.loading = true;
-  const currentUserEmail = localStorage.getItem('loggedInEmail');
 
-  // Fetch approved and rejected requests
-  const feedbacks = ['APPROVED', 'REJECTED'];
+  const feedbacks: ('APPROVED' | 'REJECTED')[] = ['APPROVED', 'REJECTED'];
 
   this.travelService.getCfoFeedbackRequestsByMultiple(feedbacks).subscribe({
     next: (res) => {
-      this.travelRequests = res
-        .filter((travel: any) => travel.cfoEmail?.toLowerCase() === currentUserEmail?.toLowerCase())
-        .sort((a: any, b: any) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
+      console.log('History records:', res); // 👈 confirm data
+      this.travelRequests = res.sort(
+        (a, b) =>
+          new Date(b.dateCreated).getTime() -
+          new Date(a.dateCreated).getTime()
+      );
 
       this.filteredRequests = [...this.travelRequests];
       this.loading = false;
@@ -110,7 +111,6 @@ loadHistory(): void {
     }
   });
 }
-
 
 applyFilters(): void {
   const { employee, status } = this.searchForm.value;

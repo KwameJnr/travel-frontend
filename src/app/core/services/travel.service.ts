@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, forkJoin } from 'rxjs';
+import { map, Observable, forkJoin, tap } from 'rxjs';
 import { CfoDashboardMetrics } from 'src/app/shared/models/cfo/CfoDashboadMetrics';
 import { ApprovalEmailPayload } from 'src/app/shared/models/notification/ApprovalEmailPayload';
 import { EmailMsgPayload } from 'src/app/shared/models/notification/EmailMsgPayload';
-import { ApiResponse } from 'src/app/shared/models/travel/api-response.model';
+import { ApiResponse, ApiResponseRec, BuheadApprovalRequest, CfoApprovalRequest } from 'src/app/shared/models/travel/api-response.model';
 import { Department } from 'src/app/shared/models/deparment/department.model'; 
 import { Travel } from 'src/app/shared/models/travel/travel.model';
 import { BauHeadForm } from 'src/app/shared/models/buhead/buheadform';
@@ -66,22 +66,92 @@ export class TravelService {
 
   //   return this.http.post<ApiResponse<Travel>>(`${this.travelApibaseUrlLocal}/add`, travel,{ headers});
   // }  
+
+  submitCfoApproval(payload: CfoApprovalRequest): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/travel-request/travels/cfo-approval`,
+      payload
+    );
+  }
+
   // Fetch travel requests for CFO by single feedback
-  getCfoFeedbackRequests(feedback: string): Observable<Travel[]> {
+  getCfoFeedbackRequests(
+    feedback: 'PENDING' | 'APPROVED' | 'REJECTED'
+  ): Observable<Travel[]> {
+
     const url = `${this.baseUrl}/travel-request/travels/cfo-feedback?feedback=${feedback}`;
-    return this.http.get<ApiResponse<Travel[]>>(url).pipe(
-      map(res => res.data)
+    console.log('Fetching CFO feedback for:', feedback, url);
+
+    return this.http.get<any>(url).pipe(
+      map(res => {
+        // Prioritize records if available
+        if (Array.isArray(res.records) && res.records.length > 0) return res.records;
+        // Fallback to data if available
+        if (Array.isArray(res.data) && res.data.length > 0) return res.data;
+        console.warn('No data found for feedback:', feedback, res);
+        return [];
+      })
     );
   }
 
   // Fetch travel requests by multiple feedbacks
-  getCfoFeedbackRequestsByMultiple(feedbacks: string[]): Observable<Travel[]> {
-    const requests = feedbacks.map(f => this.getCfoFeedbackRequests(f));
-    return forkJoin(requests).pipe(
-      map(arrays => arrays.flat()) // merge all arrays
+  getCfoFeedbackRequestsByMultiple(
+    feedbacks: ('PENDING' | 'APPROVED' | 'REJECTED')[]
+  ): Observable<Travel[]> {
+
+    return forkJoin(
+      feedbacks.map(f => 
+        this.getCfoFeedbackRequests(f).pipe(
+          tap(res => console.log(`Feedback ${f} returned ${res.length} items`))
+        )
+      )
+    ).pipe(
+      map(results => results.flat())
     );
   }
 
+  submitBuApproval(payload: BuheadApprovalRequest): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/travel-request/travels/bu-head-approval`,
+      payload
+    );
+  }
+
+  // Fetch travel requests for CFO by single feedback
+  getBuFeedbackRequests(
+    feedback: 'PENDING' | 'APPROVED' | 'REJECTED' | 'RETURNED_FOR_REVIEW'
+  ): Observable<Travel[]> {
+
+    const url = `${this.baseUrl}/travel-request/travels/bu-head-feedback?feedback=${feedback}`;
+    console.log('Fetching CFO feedback for:', feedback, url);
+
+    return this.http.get<any>(url).pipe(
+      map(res => {
+        // Prioritize records if available
+        if (Array.isArray(res.records) && res.records.length > 0) return res.records;
+        // Fallback to data if available
+        if (Array.isArray(res.data) && res.data.length > 0) return res.data;
+        console.warn('No data found for feedback:', feedback, res);
+        return [];
+      })
+    );
+  }
+
+  // Fetch travel requests by multiple feedbacks
+  getBuFeedbackRequestsByMultiple(
+    feedbacks: ('PENDING' | 'APPROVED' | 'REJECTED')[]
+  ): Observable<Travel[]> {
+
+    return forkJoin(
+      feedbacks.map(f => 
+        this.getCfoFeedbackRequests(f).pipe(
+          tap(res => console.log(`Feedback ${f} returned ${res.length} items`))
+        )
+      )
+    ).pipe(
+      map(results => results.flat())
+    );
+  }
 
   getMyTravelRequestsById(id: string): Observable<Travel> {
   const url = `${this.baseUrl}/travel-request/travels/view/${id}`;
@@ -96,11 +166,11 @@ export class TravelService {
 }
 
 
-  getMyTravelRequests(email: string): Observable<ApiResponse<Travel[]>> {
+  getMyTravelRequests(fNumber: string): Observable<ApiResponse<Travel[]>> {
     const url = `${this.baseUrl}/travel-request/travels/my-requests`;
-    const params = { email }; // query param
+    const params = { fNumber }; // query param
 
-    console.log('Fetching my travel requests for email:', email, 'URL:', url);
+    console.log('Fetching my travel requests for email:', fNumber, 'URL:', url);
 
     return this.http.get<ApiResponse<Travel[]>>(url, { params });
   }

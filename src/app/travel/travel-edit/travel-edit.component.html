@@ -16,10 +16,6 @@
         <input matInput formControlName="employeePassportNo" />
       </mat-form-field>
   
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Passport Expiry</mat-label>
-        <input matInput formControlName="employeePassportExpiry" type="date" />
-      </mat-form-field> -->
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Passport Expiry</mat-label>
         <input matInput [matDatepicker]="passportPicker" formControlName="employeePassportExpiry">
@@ -71,21 +67,13 @@
         </mat-select>
       </mat-form-field>
   
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Departure Date</mat-label>
-        <input matInput formControlName="departureDate" type="date" />
-      </mat-form-field> -->
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Departure Date</mat-label>
         <input matInput [matDatepicker]="depPicker" formControlName="departureDate">
         <mat-datepicker-toggle matSuffix [for]="depPicker"></mat-datepicker-toggle>
         <mat-datepicker #depPicker></mat-datepicker>
       </mat-form-field>
-  
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Departure Time</mat-label>
-        <input matInput formControlName="departureTime" type="time" />
-      </mat-form-field> -->
+
       <mat-form-field appearance="fill">
         <mat-label>Departure Time</mat-label>
         <input
@@ -96,16 +84,7 @@
         />
         <ngx-mat-timepicker #departureTimePicker></ngx-mat-timepicker>
       </mat-form-field>  
-  
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Return Date</mat-label>
-        <input matInput formControlName="returnDate" type="date" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Return Time</mat-label>
-        <input matInput formControlName="returnTime" type="time" />
-      </mat-form-field> -->
+
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Return Date</mat-label>
         <input matInput [matDatepicker]="retPicker" formControlName="returnDate">
@@ -113,10 +92,6 @@
         <mat-datepicker #retPicker></mat-datepicker>
       </mat-form-field>
 
-      <!-- <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Return Time</mat-label>
-        <input matInput type="time" formControlName="returnTime">
-      </mat-form-field> -->
       <mat-form-field appearance="fill">
         <mat-label>Return Time</mat-label>
         <input
@@ -127,16 +102,7 @@
         />
         <ngx-mat-timepicker #returnTimePicker></ngx-mat-timepicker>
       </mat-form-field>
-  
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Per Diem Start Date</mat-label>
-        <input matInput formControlName="perDiemStartDate" type="date" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Per Diem End Date</mat-label>
-        <input matInput formControlName="perDiemEndDate" type="date" />
-      </mat-form-field> -->
+
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Per Diem Start Date</mat-label>
         <input matInput [matDatepicker]="startPicker" formControlName="perDiemStartDate">
@@ -151,16 +117,6 @@
         <mat-datepicker #endPicker></mat-datepicker>
       </mat-form-field>
   
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Official Assignment Date</mat-label>
-        <input matInput formControlName="daysOutOfficialAssignmentDate" type="date" />
-      </mat-form-field>
-  
-      <h2>Accommodation</h2>
-      <mat-form-field appearance="outline">
-        <mat-label>Hotel Reservation</mat-label>
-        <input matInput formControlName="hotelReservation" />
-      </mat-form-field> -->
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Days Out</mat-label>
         <input matInput formControlName="daysOutOfficialAssignmentDate" type="number">
@@ -196,15 +152,6 @@
       </mat-form-field>
   
       <h2>Transport</h2>
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Rental Car Required</mat-label>
-        <input matInput formControlName="rentalCarRequired" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Airport Transport</mat-label>
-        <input matInput formControlName="airportTransportRequiredToAndFrom" />
-      </mat-form-field> -->
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Rental Car Required</mat-label>
         <mat-select formControlName="rentalCarRequired">
@@ -213,10 +160,6 @@
         </mat-select>
       </mat-form-field>
 
-      <!-- <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Airport Transport Required</mat-label>
-        <input matInput formControlName="airportTransportRequiredToAndFrom">
-      </mat-form-field> -->
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Airport Transport Required</mat-label>
         <mat-select formControlName="airportTransportRequiredToAndFrom">
@@ -256,16 +199,7 @@
         <mat-label>Request Approved</mat-label>
         <input matInput formControlName="travelRequestApproved" />
       </mat-form-field>
-  
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Departure Class</mat-label>
-        <input matInput formControlName="classOfTravelDeparture" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Return Class</mat-label>
-        <input matInput formControlName="classOfTravelReturn" />
-      </mat-form-field> -->
+
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Class of Travel (Departure)</mat-label>
         <mat-select formControlName="classOfTravelDeparture">
@@ -339,11 +273,6 @@
         <input matInput formControlName="status" [disabled]="true"/>
       </mat-form-field>
   
-      <!-- <div class="actions">
-        <button mat-raised-button color="primary" type="submit" [disabled]="loading || travelForm.invalid">
-          Update Travel Request
-        </button> -->
-      <!-- </div> -->
       <div class="actions">
         <button
           mat-raised-button

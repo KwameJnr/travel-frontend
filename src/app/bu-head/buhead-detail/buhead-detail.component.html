@@ -1,49 +1,129 @@
-<mat-card *ngIf="!loading">
-  <mat-card-title>Travel Request Detail</mat-card-title>
-  <mat-card-content>
-    <div class="field"><strong>Employee:</strong> {{ travel.employeeName }}</div>
-    <div class="field"><strong>Purpose:</strong> {{ travel.purpose }}</div>
-    <div class="field"><strong>City:</strong> {{ travel.city }}, {{ travel.country }}</div>
-    <div class="field"><strong>Perdiem Amount:</strong> {{ travel.estimatedPerDiemAmount }}</div>
-    <div class="field"><strong>Departure:</strong> {{ travel.departureDate | date }} {{ travel.departureTime }}</div>
-    <div class="field"><strong>Return:</strong> {{ travel.returnDate | date }} {{ travel.returnTime }}</div>
+<mat-card *ngIf="!loading" class="travel-detail-card">
 
-    <form [formGroup]="actionForm" class="action-form">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Exco Head Status</mat-label>
-        <mat-select formControlName="excoHeadStatus" [disabled]="!isEditable">
-          <mat-option value="Pending">Pending</mat-option>
-          <mat-option value="Successful">Successful</mat-option>
-        </mat-select>
-      </mat-form-field>
+  <!-- Header -->
+  <div class="card-header">
+    <div>
+      <h2>Travel Request Review</h2>
+      <p class="subtitle">BU Head Approval & Financial Oversight</p>
+    </div>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Feedback</mat-label>
-        <mat-select formControlName="excoHeadFeedback" [disabled]="!isEditable">
-          <mat-option value="Approved">Approved</mat-option>
-          <mat-option value="Rejected">Rejected</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <span class="status-pill" [ngClass]="travel.status">
+      {{ travel.status | titlecase }}
+    </span>
+  </div>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Remarks</mat-label>
-        <textarea matInput rows="4" formControlName="excoHeadFeedbackRemarks" [disabled]="!isEditable"></textarea>
-      </mat-form-field>
+  <mat-divider></mat-divider>
 
-      <mat-hint *ngIf="!isEditable" class="read-only-hint">
-        Editing is allowed for Business Unit Heads only when status is <strong>Pending BU Head Approval</strong>. Current status: <strong>{{ travel.status }}</strong>
-        <br>
-        <strong>Notice:</strong>.  A user who is an ADMIN does not have the permissions to make edits on this page
-      </mat-hint>
-      <mat-card-actions>
-        <button mat-stroked-button color="warn" (click)="reject()" [disabled]="!isEditable">Reject</button>
-        <button mat-raised-button color="primary" (click)="approve()" [disabled]="!isEditable">Approve</button>
-        <button mat-raised-button color="primary" (click)="returnForReview()" [disabled]="!isEditable">Request Revision</button>
-        <button mat-raised-button color="primary" (click)="details()">Details</button>
-        <button mat-button color="primary" (click)="goBack()" class="back-btn">
-          <mat-icon>arrow_back</mat-icon> Back
-        </button>
-      </mat-card-actions>
-    </form>
-  </mat-card-content>
+  <!-- Summary Section -->
+  <section class="summary-grid">
+    <div class="kv">
+      <span>Employee</span>
+      <strong>{{ travel.employeeName }}</strong>
+    </div>
+
+    <div class="kv">
+      <span>Purpose</span>
+      <strong>{{ travel.purpose }}</strong>
+    </div>
+
+    <div class="kv">
+      <span>Location</span>
+      <strong>{{ travel.city }}, {{ travel.country }}</strong>
+    </div>
+
+    <div class="kv">
+      <span>Estimated Per Diem</span>
+      <strong>{{ travel.estimatedPerDiemAmount | currency }}</strong>
+    </div>
+
+    <div class="kv">
+      <span>Departure</span>
+      <strong>
+        {{ travel.departureDate | date:'mediumDate' }} •
+        {{ travel.departureTime | slice:0:5 }} {{ travel.departureTime >= '12:00:00' ? 'PM' : 'AM' }}
+      </strong>
+    </div>
+
+    <div class="kv">
+      <span>Return</span>
+      <strong>
+        {{ travel.returnDate | date:'mediumDate' }} •
+        {{ travel.returnTime | slice:0:5 }} {{ travel.returnTime >= '12:00:00' ? 'PM' : 'AM' }}
+      </strong>
+    </div>
+  </section>
+
+  <mat-divider></mat-divider>
+
+  <!-- CFO Action Section -->
+  <form [formGroup]="actionForm" class="decision-section">
+
+    <h3>BU Head Decision</h3>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>BU Head Status</mat-label>
+      <mat-select formControlName="buHeadStatus" [disabled]="!isEditable">
+        <mat-option value="Pending">Pending</mat-option>
+        <mat-option value="Successful">Successful</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Decision</mat-label>
+      <mat-select formControlName="buHeadFeedback" [disabled]="!isEditable">
+        <mat-option value="Approved">Approved</mat-option>
+        <mat-option value="Rejected">Rejected</mat-option>
+        <mat-option value="Rejected">Return</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Remarks </mat-label>
+      <textarea
+        matInput
+        rows="4"
+        formControlName="buHeadFeedbackRemarks"
+        [disabled]="!isEditable">
+      </textarea>
+    </mat-form-field>
+
+    <div *ngIf="!isEditable" class="read-only-banner">
+      Editing is restricted. Bu head actions are allowed only when status is
+      <strong>Pending Bu Head Approval</strong>.
+      <br />
+      <strong>Note:</strong> ADMIN users are view-only.
+    </div>
+
+    <!-- Actions -->
+    <div class="action-bar">
+
+      <button mat-raised-button class="default-btn" color="primary"
+              (click)="approve()"
+              [disabled]="!isEditable">
+        Approve
+      </button>
+
+      <button mat-stroked-button class="default-btn" color="warn"
+              (click)="reject()"
+              [disabled]="!isEditable">
+        Reject
+      </button>
+
+      <button mat-stroked-button class="default-btn" (click)="returnForReview()"
+              [disabled]="!isEditable">
+        Return For Review
+      </button>
+
+      <button mat-button class="default-btn" (click)="details()">
+        View Full Details
+      </button>
+
+      <button mat-button class="back-btn" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+    </div>
+
+  </form>
 </mat-card>
+
