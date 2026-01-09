@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { TravelService } from 'src/app/core/services/travel.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-travel-landing',
@@ -16,24 +18,50 @@ import { MatMenuModule } from '@angular/material/menu';
     MatIconModule,
     MatCardModule,
     MatMenuModule,
-    NgIf
+    NgIf,
+    MatTooltipModule
   ],
   templateUrl: './travel-landing.component.html',
   styleUrl: './travel-landing.component.scss'
 })
-export class TravelLandingComponent {
+export class TravelLandingComponent implements OnInit {
 
-  /* ===================== SAME STORAGE SOURCE ===================== */
+  /* ===================== USER CONTEXT ===================== */
   userRole = localStorage.getItem('userRole');
 
-  /* ===================== SAME ROLE GETTERS ===================== */
+  /* ===================== BADGE COUNTS ===================== */
+  cfoPendingCount = 0;
+  buPendingCount = 0;
+
+  constructor(private travelService: TravelService) {}
+
+  ngOnInit(): void {
+
+    if (this.isCFO) {
+      this.travelService.getCfoPendingCount().subscribe({
+        next: count => this.cfoPendingCount = count,
+        error: () => this.cfoPendingCount = 0
+      });
+    }
+
+    if (this.isBUHead) {
+      this.travelService.getBuPendingCount().subscribe({
+        next: count => this.buPendingCount = count,
+        error: () => this.buPendingCount = 0
+      });
+    }
+  }
+
+  /* ===================== ROLE GETTERS ===================== */
   get isAuthenticated() { return !!this.userRole; }
   get isAdmin() { return this.userRole === 'TR-ADMIN'; }
   get isBUHead() { return this.userRole === 'TR-BU_HEAD'; }
   get isCFO() { return this.userRole === 'TR-CFO'; }
+
   get canCreateTravel() {
     return this.userRole === 'TR-EMPLOYEE' || this.isAdmin;
   }
+
   get canViewTravel() {
     return this.canCreateTravel || this.isBUHead || this.isCFO;
   }

@@ -67,6 +67,22 @@ export class TravelService {
   //   return this.http.post<ApiResponse<Travel>>(`${this.travelApibaseUrlLocal}/add`, travel,{ headers});
   // }  
 
+  getCfoPendingCount(): Observable<number> {
+    const url = `${this.baseUrl}/travel-request/travels/cfo-feedback?feedback=PENDING`;
+
+    return this.http.get<any>(url).pipe(
+      map(res => res?.totalRecords ?? 0)
+    );
+  }
+
+  getBuPendingCount(): Observable<number> {
+    const url = `${this.baseUrl}/travel-request/travels/bu-head-feedback?feedback=PENDING`;
+
+    return this.http.get<any>(url).pipe(
+      map(res => res?.totalRecords ?? 0)
+    );
+  }
+
   submitCfoApproval(payload: CfoApprovalRequest): Observable<any> {
     return this.http.post(
       `${this.baseUrl}/travel-request/travels/cfo-approval`,

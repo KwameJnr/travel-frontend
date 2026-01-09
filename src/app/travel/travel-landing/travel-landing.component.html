@@ -40,19 +40,44 @@
   <button
     mat-stroked-button
     routerLink="/travel/buhead/list"
-    *ngIf="isBUHead || isAdmin">
+    *ngIf="isBUHead || isAdmin"
+    class="badge-btn"
+    [matTooltip]="buPendingCount + ' records pending for your action'"
+    matTooltipPosition="above"
+    matTooltipShowDelay="300"
+    matTooltipHideDelay="100"
+    [matTooltipDisabled]="buPendingCount === 0">
+
     <mat-icon>how_to_reg</mat-icon>
     BU Approvals
+
+    <span
+      class="badge badge-secondary"
+      *ngIf="isBUHead && buPendingCount > 0">
+      {{ buPendingCount }}
+    </span>
   </button>
 
   <button
     mat-stroked-button
     routerLink="/travel/cfo/list"
-    *ngIf="isCFO || isAdmin">
+    *ngIf="isCFO || isAdmin"
+    class="badge-btn"
+    [matTooltip]="cfoPendingCount + ' records pending for your action'"
+    matTooltipPosition="above"
+    matTooltipShowDelay="300"
+    matTooltipHideDelay="100"
+    [matTooltipDisabled]="cfoPendingCount === 0">
+
     <mat-icon>gavel</mat-icon>
     CFO Approvals
-  </button>
 
+    <span
+      class="badge"
+      *ngIf="isCFO && cfoPendingCount > 0">
+      {{ cfoPendingCount }}
+    </span>
+  </button>
   <!-- <button
     mat-stroked-button
     routerLink="/settings"
