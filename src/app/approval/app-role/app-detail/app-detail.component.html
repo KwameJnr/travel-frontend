@@ -1,0 +1,88 @@
+<!-- app-detail.component.html -->
+
+<div class="detail-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="title">
+      <mat-icon color="primary">badge</mat-icon>
+      <div>
+        <h2>Role Details</h2>
+        <p>View application role configuration</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button mat-stroked-button class="fnb-btn" color="primary" (click)="back()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+
+      <!-- <button
+        mat-raised-button
+        class="fnb-btn"
+        color="accent"
+        (click)="edit(role.applicationRoleId)"
+        *ngIf="role">
+        <mat-icon>edit</mat-icon>
+        Edit
+      </button> -->
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading">
+    <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <!-- Error -->
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Details -->
+  <mat-card class="detail-card" *ngIf="!loading && role">
+
+    <mat-card-content>
+
+      <div class="detail-grid">
+
+        <div class="field">
+          <span class="label">Role Name</span>
+          <span class="value highlight">{{ role.name }}</span>
+        </div>
+
+        <div class="field">
+          <span class="label">Role ID</span>
+          <span class="value">{{ role.applicationRoleId }}</span>
+        </div>
+
+        <div class="field">
+          <span class="label">Date Created</span>
+          <span class="value">
+            {{ role.dateCreated | date:'medium' }}
+          </span>
+        </div>
+
+        <div class="field">
+          <span class="label">Last Updated</span>
+          <span class="value">
+            {{ role.lastUpdated | date:'medium' }}
+          </span>
+        </div>
+
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Permissions -->
+      <div class="permissions">
+        <h3>Permissions</h3>
+        <pre>{{ role.permissions }}</pre>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>
+

@@ -1,0 +1,61 @@
+<div class="list-wrapper">
+
+  <!-- Loading spinner -->
+  <div class="loading" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <!-- Error -->
+  <div class="error" *ngIf="!loading && errorMessage">{{ errorMessage }}</div>
+
+  <button
+  mat-raised-button
+  color="primary"
+  class="btn-create"
+  [routerLink]="['/travel/user/create']">
+  <mat-icon>add</mat-icon>
+  New Request
+</button>
+
+  <!-- Table -->
+  <table mat-table [dataSource]="userRoles" class="mat-elevation-z2" *ngIf="!loading && userRoles.length">
+
+    <!-- Role Name -->
+    <ng-container matColumnDef="roleName">
+      <th mat-header-cell *matHeaderCellDef> Role Name </th>
+      <td mat-cell *matCellDef="let row"> {{ row.roleName }} </td>
+    </ng-container>
+
+    <!-- F-Number -->
+    <ng-container matColumnDef="fNumber">
+      <th mat-header-cell *matHeaderCellDef> F-Number </th>
+      <td mat-cell *matCellDef="let row"> {{ row.fNumber || '-' }} </td>
+    </ng-container>
+
+    <!-- Created -->
+    <ng-container matColumnDef="created">
+      <th mat-header-cell *matHeaderCellDef> Created </th>
+      <td mat-cell *matCellDef="let row"> {{ row.dateCreated | date:'medium' }} </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button color="primary" (click)="viewDetails(row.userRoleId)" matTooltip="View Details">
+          <mat-icon>visibility</mat-icon>
+        </button>
+
+        <!-- <button mat-icon-button color="accent" (click)="editUserRole(row.userRoleId)" matTooltip="Edit">
+          <mat-icon>edit</mat-icon>
+        </button> -->
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+</div>
+

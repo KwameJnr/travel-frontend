@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { PerDiem } from 'src/app/shared/models/perdiem/perdiem.model';
+import { PerDiem, PerDiemCreateRequest, PerDiemEditRequest } from 'src/app/shared/models/perdiem/perdiem.model';
 import { ApiResponse } from 'src/app/shared/models/travel/api-response.model';
 import { generateUUID } from './constants';
 import { ConfigService } from 'src/app//config.service';
@@ -13,8 +13,6 @@ import { ApprovalEmailPayload } from 'src/app/shared/models/notification/Approva
 })
 export class PerdiemService {
 
-  // private baseUrl = 'http://localhost:9090/camp/perdiems'; // Adjust if needed
-
   private baseUrl: string; 
   private baseUrlCamp: string;
 
@@ -25,46 +23,29 @@ export class PerdiemService {
 
   getAll(): Observable<PerDiem[]> {
     const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-    
-    return this.http.get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/perdiems/all`,{headers}).pipe(
+    return this.http.get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/travel-request/perdiems/index`).pipe(
       map(response => response.data)
     );
   }
   
-  getById(id: string): Observable<PerDiem> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
+  getById(id: string): Observable<PerDiem | undefined> {
+    return this.http
+      .get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/travel-request/perdiems/${id}`)
+      .pipe(
+        map(response => response.data?.[0])
+      );
+  }
 
-    return this.http.get<ApiResponse<PerDiem>>(`${this.baseUrl}/perdiems/${id}`,{headers}).pipe(
-      map(response => response.data)
+  create(travel: PerDiemCreateRequest): Observable<PerDiemCreateRequest> {
+
+    return this.http.post<PerDiem>(`${this.baseUrl}/travel-request/perdiems/add`, travel);
+  }
+
+  update(id: string, payload: Partial<PerDiemEditRequest>): Observable<PerDiemEditRequest> {
+    return this.http.put<PerDiemEditRequest>(
+      `${this.baseUrl}/travel-request/perdiems/update/${id}`,
+      payload
     );
-  }
-
-  create(travel: PerDiem): Observable<PerDiem> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.post<PerDiem>(`${this.baseUrl}/perdiems/add`, travel,{headers});
-  }
-
-  update(id: string, travel: PerDiem): Observable<PerDiem> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.put<PerDiem>(`${this.baseUrl}/perdiems/update/${id}`, travel,{headers});
   }
 
   delete(id: string, travel: PerDiem): Observable<PerDiem> {

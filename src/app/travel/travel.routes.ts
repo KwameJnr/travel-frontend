@@ -14,9 +14,18 @@ import { BuheadCreateComponent } from '../bu-head/buhead-create/buhead-create.co
 import { BuheadEditComponent } from '../bu-head/buhead-edit/buhead-edit.component';
 import { CfoDashboardComponent } from '../approval/cfo-dashboard/cfo-dashboard.component';
 import { PerDiemComponent } from '../per-diem/perdiem-create/per-diem.component';
+import { PerdiemEditComponent } from '../per-diem/perdiem-edit/perdiem-edit.component';
 import { PerdiemListComponent } from '../per-diem/perdiem-list/perdiem-list.component';
 import { PerdiemDetailComponent } from '../per-diem/perdiem-detail/perdiem-detail.component';
 import { TravelLandingComponent } from './travel-landing/travel-landing.component';
+import { AppListComponent } from '../approval/app-role/app-list/app-list.component';
+import { AppDetailComponent } from '../approval/app-role/app-detail/app-detail.component';
+import { AppCreateComponent } from '../approval/app-role/app-create/app-create.component';
+import { AppEditComponent } from '../approval/app-role/app-edit/app-edit.component';
+import { UserListComponent } from '../approval/user-role/user-list/user-list.component';
+import { UserDetailComponent } from '../approval/user-role/user-detail/user-detail.component';
+import { UserCreateComponent } from '../approval/user-role/user-create/user-create.component';
+import { UserEditComponent } from '../approval/user-role/user-edit/user-edit.component';
 
 export const travelRoutes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' }, // Default to create
@@ -43,7 +52,7 @@ export const travelRoutes: Routes = [
         { path: 'list', component: PerdiemListComponent },
         { path: 'detail/:id', component: PerdiemDetailComponent },
         { path: 'create', component: PerDiemComponent },
-        { path: 'edit/:id', component: PerDiemComponent},
+        { path: 'edit/:id', component: PerdiemEditComponent},
       ]},
     {
       path: 'cfo',
@@ -53,4 +62,23 @@ export const travelRoutes: Routes = [
         { path: 'detail/:id', component: CfoDetailComponent },
         { path: 'dashboard', component: CfoDashboardComponent },
       ]},
+    {
+      path: 'app',
+      children: [
+        { path: '', redirectTo: 'list', pathMatch: 'full' },
+        { path: 'list', component: AppListComponent  },
+        { path: 'detail/:id', component: AppDetailComponent },
+        { path: 'create', component: AppCreateComponent },
+        { path: 'edit/:id', component: AppEditComponent},
+      ]},
+    {
+      path: 'user',
+      children: [
+        { path: '', redirectTo: 'list', pathMatch: 'full' },
+        { path: 'list', component: UserListComponent },
+        { path: 'detail/:id', component: UserDetailComponent },
+        { path: 'create', component: UserCreateComponent },
+        { path: 'edit/:id', component: UserEditComponent},
+      ]},
+      
 ];

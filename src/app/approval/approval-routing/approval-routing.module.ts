@@ -10,16 +10,3 @@ export const approvalRoutes: Routes = [
   { path: 'dashboard', component: CfoDashboardComponent },
 ];
 
-
-// import { NgModule } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-
-
-
-// @NgModule({
-//   declarations: [],
-//   imports: [
-//     CommonModule
-//   ]
-// })
-// export class ApprovalRoutingModule { }

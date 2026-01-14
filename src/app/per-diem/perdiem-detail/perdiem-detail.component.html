@@ -1,49 +1,87 @@
 <div *ngIf="loading" class="loading-container">
-    <mat-spinner diameter="60" strokeWidth="4" color="primary"></mat-spinner>
-  </div>
-  <div *ngIf="!loading && perdiem" class="detail-wrapper">
-    <h2 class="page-title">
+  <mat-spinner diameter="56" strokeWidth="4" color="primary"></mat-spinner>
+</div>
+
+<div *ngIf="!loading && perdiem" class="detail-wrapper">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="title-group">
       <mat-icon color="primary">travel_explore</mat-icon>
-      Per Diem Details
-    </h2>
-  
-    <!-- Employee Info -->
-    <mat-card class="info-card">
-      <mat-card-title>
-        <mat-icon>person</mat-icon> Per-Diem Information
-      </mat-card-title>
-      <mat-card-content>
-        <div class="info-grid">
-          <div><mat-icon>badge</mat-icon> <strong>Rate:</strong> {{ perdiem.dollarRate }}</div>
-          <div><mat-icon>badge</mat-icon> <strong>Airfare Cost:</strong> {{ perdiem.airFareCost }}</div>
-          <div><mat-icon>badge</mat-icon> <strong>Accommodation Cost:</strong> {{ perdiem.accommodationCost }}</div>
-          <div><mat-icon>badge</mat-icon> <strong>Visa Application Fee:</strong> {{ perdiem.visaApplicationCost }}</div>
-          <div><mat-icon>badge</mat-icon> <strong>Transportation Cost:</strong> {{ perdiem.transportationCost }}</div>
-          <div><mat-icon>badge</mat-icon> <strong>Other Cost:</strong> {{ perdiem.otherCost }}</div>
-          <div><mat-icon>apartment</mat-icon> <strong>Location:</strong> {{ perdiem.country }}</div>
-          <div><mat-icon>passport</mat-icon> <strong>Perdiem Status:</strong> {{ perdiem.status }}</div>
-          <div><mat-icon>event</mat-icon> <strong>Date created:</strong> {{ perdiem.dateCreated| date }}</div>
-          <!-- <div><mat-icon>numbers</mat-icon> <strong>Created by:</strong> {{ perdiem.createdBy }}</div>
-          <div><mat-icon>apartment</mat-icon> <strong>Edited by:</strong> {{ perdiem.editedDate| date }}</div> -->
-          <!-- <div><mat-icon>phone</mat-icon> <strong>Travel Contact:</strong> {{ perdiem. }}</div> -->
-        </div>
-      </mat-card-content>
-    </mat-card>
-  
-    <!-- Meta -->
-    <!-- <mat-card class="info-card">
-      <mat-card-title>
-        <mat-icon>info</mat-icon> Meta Info
-      </mat-card-title>
-      <mat-card-content>
-        <div class="info-grid">
-          <div><mat-icon>verified</mat-icon> <strong>Status:</strong> {{ travel.status }}</div>
-          <div><mat-icon>calendar_month</mat-icon> <strong>Created:</strong> {{ travel.dateCreated | date:'medium' }}</div>
-        </div>
-      </mat-card-content>
-    </mat-card> -->
+      <div>
+        <h2>Per Diem Details</h2>
+        <p class="subtitle">View approved per-diem configuration</p>
+      </div>
+    </div>
+
+    <button mat-raised-button class="back-btn" (click)="goBack()">
+      <mat-icon class="btn-icon">arrow_back</mat-icon>
+      Back
+    </button>
   </div>
-  <button mat-button color="primary" (click)="goBack()" class="back-btn">
-    <mat-icon>arrow_back</mat-icon> Back
-  </button>
-  
+
+  <!-- Information Card -->
+  <mat-card class="info-card">
+    <mat-card-header>
+      <mat-card-title>Per-Diem Information</mat-card-title>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+      <div class="info-grid">
+
+        <div class="info-item">
+          <span class="label">Daily Rate</span>
+          <span class="value">{{ perdiem.dollarRate | currency:'USD' }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Airfare Cost</span>
+          <span class="value">{{ perdiem.airFareCost | currency:'USD' }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Accommodation Cost</span>
+          <span class="value">{{ perdiem.accommodationCost | currency:'USD' }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Visa Application Fee</span>
+          <span class="value">{{ perdiem.visaApplicationCost | currency:'USD' }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Transportation Cost</span>
+          <span class="value">{{ perdiem.transportationCost | currency:'USD' }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Other Cost</span>
+          <span class="value">{{ perdiem.otherCost | currency:'USD' }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Country</span>
+          <span class="value">{{ perdiem.country }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Status</span>
+          <span class="status-chip" [class.active]="perdiem.status === 'ACTIVE'">
+            {{ perdiem.status }}
+          </span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Date Created</span>
+          <span class="value">{{ perdiem.dateCreated | date:'mediumDate' }}</span>
+        </div>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+

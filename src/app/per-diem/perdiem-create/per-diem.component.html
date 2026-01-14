@@ -8,23 +8,23 @@
       <mat-card-content>
         <div class="form-grid">
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>$ Rate</mat-label>
-            <input matInput formControlName="rate" required>
+            <mat-label>$ Dollar Rate</mat-label>
+            <input matInput formControlName="dollarRate" required>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Airfare Cost</mat-label>
-            <input matInput formControlName="airfareCost" >
+            <input matInput formControlName="airFareCost" >
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Accommodation Cost</mat-label>
-            <input matInput formControlName="AccommodationCost" >
+            <input matInput formControlName="accommodationCost" >
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Visa Application Fee</mat-label>
-            <input matInput formControlName="visaApplicationFee" >
+            <input matInput formControlName="visaApplicationCost" >
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width">
@@ -37,45 +37,10 @@
             <input matInput formControlName="otherCost" >
           </mat-form-field>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Status</mat-label>
-            <mat-select formControlName="status">
-              <mat-option [value]="'Active'">Active</mat-option>
-              <mat-option [value]="'Inactive'">Inactive</mat-option>
-            </mat-select>
-          </mat-form-field>   
-
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Location</mat-label>
-            <input matInput formControlName="location" required>
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" >
           </mat-form-field>
-
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>CFO Email</mat-label>
-            <input matInput formControlName="cfoEmail" required>
-          </mat-form-field>
-
-          <!-- <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Effective Date</mat-label>
-            <input matInput formControlName="effectiveDate" required>
-          </mat-form-field> -->
-
-          <mat-form-field class="full-width" appearance="fill">
-            <mat-label>Effective Date</mat-label>
-            <input matInput [matDatepicker]="startPicker" formControlName="effectiveDate">
-            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-            <mat-datepicker #startPicker></mat-datepicker>
-          </mat-form-field>
-
-          <!-- <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Created By</mat-label>
-            <input matInput formControlName="createdBy" type="email" required>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Edited By</mat-label>
-            <input matInput formControlName="editedBy" type="email" required>
-          </mat-form-field> -->
   
         </div>
       </mat-card-content>

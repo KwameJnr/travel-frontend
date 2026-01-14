@@ -97,3 +97,22 @@
   background: #2e7d32;
 }
 
+.grid-placeholder {
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    #e9903d 25%,
+    #e5e7eb 37%,
+    #f3f4f6 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 2s infinite ease-in-out;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+

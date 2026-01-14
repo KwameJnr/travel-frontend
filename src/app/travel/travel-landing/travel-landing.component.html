@@ -21,6 +21,11 @@
     Create Travel Request
   </button>
 
+  <div
+    class="grid-placeholder"
+    *ngIf="userRole === 'TR-EMPLOYEE'">
+  </div>
+
   <button
     mat-stroked-button
     routerLink="/travel/list"
@@ -95,18 +100,22 @@
   </button>
 
   <mat-menu #manageMenu="matMenu">
-    <button mat-menu-item routerLink="/travel/perdiem/create">
-      <mat-icon>add</mat-icon>
-      Create Per Diem
+    <button mat-menu-item routerLink="/travel/user/list">
+      <mat-icon>person</mat-icon>
+      User Role Management
+    </button>
+
+    <button mat-menu-item routerLink="/travel/app/list">
+      <mat-icon>computer</mat-icon>
+      App Roles Management
     </button>
 
     <button mat-menu-item routerLink="/travel/perdiem/list">
-      <mat-icon>list</mat-icon>
-      List Per Diem
+      <mat-icon>map</mat-icon>
+      Per Diem Management
     </button>
   </mat-menu>
 </ng-container>
-
 
 </div>
 </mat-card>

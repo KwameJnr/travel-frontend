@@ -11,6 +11,8 @@ import { BauHeadForm } from 'src/app/shared/models/buhead/buheadform';
 import { PerDiemForm } from 'src/app/shared/models/perdiem/perdiemform.model';
 import { generateUUID } from './constants';
 import { ConfigService } from 'src/app//config.service';
+import { ApplicationRole } from 'src/app/shared/models/app/application-role-model';
+import { CreateUserRoleDto, UserRole } from 'src/app/shared/models/app/user-role-models';
 
 
 @Injectable({ providedIn: 'root' })
@@ -31,6 +33,56 @@ export class TravelService {
 
   private get apiUrl() {
     return `${this.baseUrlCamp}/company/department/index`;
+  }
+
+  // App roles
+  getApplicationRoles(): Observable<ApplicationRole[]> {
+     const url = `${this.baseUrl}/travel-request/application-roles/index`;
+    return this.http
+      .get<ApiResponse<ApplicationRole[]>>(url)
+      .pipe(map(res => res.data));
+  }
+
+  getApplicationRoleDetails(id: number): Observable<ApplicationRole> {
+    const url = `${this.baseUrl}/travel-request/application-roles/view/${id}`;
+
+    return this.http
+      .get<ApiResponse<ApplicationRole[]>>(url)
+      .pipe(map(res => res.data[0])); // <-- take first element
+  }
+
+  addApplicationRole(role: ApplicationRole): Observable<ApplicationRole> {
+    const url = `${this.baseUrl}/travel-request/application-roles/add`;
+
+    return this.http.post<ApiResponse<ApplicationRole>>(`${url}`, role)
+      .pipe(map(res => res.data));
+  }
+
+  // User roles
+  getUserRoles(): Observable<UserRole[]> {
+     const url = `${this.baseUrl}/travel-request/user-roles/index`;
+
+    return this.http
+      .get<ApiResponse<UserRole[]>>(`${url}`)
+      .pipe(map(res => res.data));
+  }
+
+  getUserRoleDetails(id: number): Observable<UserRole> {
+    const url = `${this.baseUrl}/travel-request/user-roles/${id}`;
+
+    return this.http
+      .get<ApiResponse<UserRole[]>>(url)
+      .pipe(
+        map(res => res.data[0]) 
+      );
+  }
+
+  addUserRole(payload: CreateUserRoleDto): Observable<UserRole> {
+    const url = `${this.baseUrl}/travel-request/user-roles/add`;
+
+    return this.http
+      .post<ApiResponse<UserRole>>(url, payload)
+      .pipe(map(res => res.data));
   }
 
   getAll(): Observable<Travel[]> {

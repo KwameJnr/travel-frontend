@@ -1,0 +1,52 @@
+<div class="create-wrapper">
+
+  <mat-card class="create-card">
+
+    <mat-card-title>
+      <mat-icon color="primary">person_add</mat-icon>
+      Assign User Role
+    </mat-card-title>
+
+    <mat-card-content>
+
+      <div class="success" *ngIf="successMessage">{{ successMessage }}</div>
+      <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>F-Number</mat-label>
+          <input matInput formControlName="fNumber" placeholder="Enter F-number" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Role Name</mat-label>
+          <input matInput formControlName="roleName" placeholder="e.g. TR_BU_HEAD" />
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-stroked-button class="fnb-btn" color="warn" type="button" (click)="cancel()">
+            <mat-icon>arrow_back</mat-icon>
+            Cancel
+          </button>
+
+          <button mat-raised-button class="fnb-btn" color="primary" type="submit" [disabled]="loading">
+            <mat-icon>save</mat-icon>
+            Assign
+            <mat-progress-spinner
+              *ngIf="loading"
+              diameter="18"
+              mode="indeterminate"
+              class="spinner">
+            </mat-progress-spinner>
+          </button>
+        </div>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>
+

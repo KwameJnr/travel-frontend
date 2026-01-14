@@ -1,0 +1,62 @@
+<div class="detail-wrapper">
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <!-- Error -->
+  <div class="error" *ngIf="!loading && errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Details -->
+  <mat-card *ngIf="!loading && userRole" class="detail-card">
+
+    <mat-card-title>
+      <mat-icon color="primary">person</mat-icon>
+      User Role Details
+    </mat-card-title>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+      <div class="row">
+        <span class="label">Role Name</span>
+        <span class="value">{{ userRole.roleName }}</span>
+      </div>
+
+      <div class="row">
+        <span class="label">F-Number</span>
+        <span class="value">{{ userRole.fNumber || 'N/A' }}</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Created</span>
+        <span class="value">{{ userRole.dateCreated | date:'medium' }}</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Last Updated</span>
+        <span class="value">{{ userRole.lastUpdated | date:'medium' }}</span>
+      </div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions align="end">
+      <button mat-stroked-button class="fnb-btn" color="primary" (click)="back()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+
+      <button mat-raised-button class="fnb-btn" color="accent" (click)="edit()">
+        <mat-icon>edit</mat-icon>
+        Edit
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+
+</div>
+

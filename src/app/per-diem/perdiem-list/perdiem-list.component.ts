@@ -28,7 +28,7 @@ export class PerdiemListComponent implements OnInit {
   travelRequests: any[] = [];
   perdiem: PerDiem[] = [];
   loading = true;
-  displayedColumns: string[] = ['rate', 'perdiem status', 'location', 'effectiveDate', 'actions'];
+  displayedColumns: string[] = ['dollarRate', 'country', 'airFareCost', 'actions'];
 
   constructor(private perdiemService: PerdiemService, private router: Router) {}
 

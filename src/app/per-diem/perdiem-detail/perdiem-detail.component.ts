@@ -21,6 +21,7 @@ import { Travel } from 'src/app/shared/models/travel/travel.model';
 import { Location } from '@angular/common';
 import { PerdiemService } from 'src/app/core/services/perdiem.service';
 import { PerDiem } from 'src/app/shared/models/perdiem/perdiem.model';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @Component({
@@ -32,7 +33,8 @@ import { PerDiem } from 'src/app/shared/models/perdiem/perdiem.model';
     CommonModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatDividerModule
   ]
 })
 export class PerdiemDetailComponent implements OnInit {
@@ -47,18 +49,22 @@ export class PerdiemDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.perdiemService.getById(id).subscribe({
-        next: (data) => {
-          this.perdiem = data;
-          this.loading = false;
-        },
-        error: (err) => {
-          console.error('Error fetching perdiem details', err);
-          this.loading = false;
-        }
-      });
+
+    if (!id) {
+      this.loading = false;
+      return;
     }
+
+    this.perdiemService.getById(id).subscribe({
+      next: (data) => {
+        this.perdiem = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching perdiem details', err);
+        this.loading = false;
+      }
+    });
   }
 
   goBack(): void {

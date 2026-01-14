@@ -56,24 +56,24 @@ export class PerDiemComponent implements OnInit {
     const userRole = localStorage.getItem('userRole');
 
     // Only allow TR-EMPLOYEE role to access this component BUT CHANGE TO ADMIN FOR PRODUCTION
-    if (userRole !== 'TR-EMPLOYEE' ) {
+    if (userRole !== 'TR-ADMIN' ) {
       this.router.navigate(['/unauthorized']);  // Redirect unauthorized users
       return;
     }
 
     this.perdiemForm = this.fb.group({
-      rate : ['', Validators.required],
-      airfareCost: [''],
-      accommodationCost: [''],
-      visaApplicationFee: [''],
-      transportationCost: [''],
-      status: ['', Validators.required],
-      location: ['', Validators.required],
-      cfoEmail: ['', [Validators.required, Validators.email]],
-      effectiveDate: ['', Validators.required],
-      createdBy: [''],
-      editedBy: [''],
-      editedDate: [''],
+      country: ['', Validators.required],
+
+      dollarRate: [
+        null,
+        [Validators.required, Validators.min(0)]
+      ],
+
+      airFareCost: [0, Validators.min(0)],
+      accommodationCost: [0, Validators.min(0)],
+      visaApplicationCost: [0, Validators.min(0)],
+      transportationCost: [0, Validators.min(0)],
+      otherCost: [0, Validators.min(0)]
     });
   }
 
@@ -81,15 +81,18 @@ export class PerDiemComponent implements OnInit {
     if (this.perdiemForm.invalid) return;
   
     const formValue = this.perdiemForm.value;
-  
-    const formatToLocalDateTime = (date: Date | string | null): string | null =>
-      date ? new Date(date).toISOString().slice(0, 19) : null;
-  
+    
     const payload = {
-      ...formValue,
-      dateCreated: formatToLocalDateTime(new Date()),
+      country: formValue.country,
+      dollarRate: Number(formValue.dollarRate),
+
+      airFareCost: Number(formValue.airFareCost || 0),
+      accommodationCost: Number(formValue.accommodationCost || 0),
+      visaApplicationCost: Number(formValue.visaApplicationCost || 0),
+      transportationCost: Number(formValue.transportationCost || 0),
+      otherCost: Number(formValue.otherCost || 0)
     };
-  
+
     // 1. CONFIRM DIALOG
     const dialogRef = this.dialog.open(PerDiemFeedbackDialogComponent, {
       width: '600px',
@@ -116,77 +119,7 @@ export class PerDiemComponent implements OnInit {
           });
   
           successDialog.afterClosed().subscribe(() => {
-  
-            // SAFETY CHECK — ensure CFO email exists
-            // if (!savedPerDiem.cfoEmail) {
-            //   console.warn("CFO email is missing from API response", savedPerDiem);
-  
-            //   this.dialog.open(SubmissionResultDialogComponent, {
-            //     width: '400px',
-            //     data: {
-            //       success: false,
-            //       message: 'Per-diem saved, but no CFO email returned. Email not sent.'
-            //     }
-            //   });
-            //   return;
-            // }
-  
-            const emailPayload = {
-              clientKey: 'Travel-Request-Manager-EmailerId-PerDiem-Approval',
-              approvalRequestId: savedPerDiem.perDiemId,
-              fromEmail: 'Travel Request <travelrequest@firstnationalbank.com.gh>',
-              // toEmail: savedPerDiem.cfoEmail,
-              subject: `Approval Request for Per-Diem ${savedPerDiem.country}`,
-              body: `
-                <p>Dear Chief Financial Officer,</p>
-  
-                <p>A new per-diem setup has been submitted and requires your approval.</p>
-  
-                <p><strong>Request Details:</strong></p>
-  
-                <p>
-                  Location: ${savedPerDiem.country}<br>
-                  Rate: ${savedPerDiem.dollarRate}<br>
-                  Airfare Cost: ${savedPerDiem.airFareCost}<br>
-                  Accommodation Cost: ${savedPerDiem.accommodationCost}<br>
-                  Visa Application Fee: ${savedPerDiem.visaApplicationCost}<br>
-                  Transportation Cost: ${savedPerDiem.transportationCost}<br>
-                  Other Cost: ${savedPerDiem.otherCost}<br>
-                </p>
-  
-                <p>
-                  Please log into the Travel Request Management System to review and take action,
-                  or use the approval links in the email.
-                </p>
-  
-                <p>Regards,<br>Travel Request Management System</p>
-              `
-            };
-  
-            // 5 — SEND EMAIL
-            // this.perdiemService.sendApprovalEmail(emailPayload).subscribe({
-            //   next: () => {
-            //     this.dialog.open(SubmissionResultDialogComponent, {
-            //       width: '400px',
-            //       data: {
-            //         success: true,
-            //         message: 'Approval email was sent successfully to the CFO.'
-            //       }
-            //     });
-            //   },
-            //   error: (err) => {
-            //     console.error('Failed to send approval email', err);
-  
-            //     this.dialog.open(SubmissionResultDialogComponent, {
-            //       width: '400px',
-            //       data: {
-            //         success: false,
-            //         message: 'Per-diem saved, but email sending failed. Please contact IT.'
-            //       }
-            //     });
-            //   }
-            // });
-  
+
           });
   
           this.perdiemForm.reset();
