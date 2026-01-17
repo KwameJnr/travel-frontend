@@ -44,10 +44,47 @@ export class TravelListComponent implements OnInit {
   barChartData: any = {
     labels: ['Approved', 'Pending', 'Rejected'],
     datasets: [{
-      label: 'Travel Requests',
       data: [0, 0, 0],
       backgroundColor: ['#4CAF50', '#FFC107', '#F44336']
     }]
+  };
+
+  // Add this options object
+  barChartOptions: any = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false // ✅ hides the dataset label
+      },
+      tooltip: {
+        bodyFont: {
+          family: 'Poppins, sans-serif',
+          size: 14,
+          weight: '500'
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          font: {
+            family: 'Poppins, sans-serif',
+            size: 14,
+            weight: '500'
+          }
+        }
+      },
+      y: {
+        ticks: {
+          font: {
+            family: 'Poppins, sans-serif',
+            size: 14,
+            weight: '500'
+          },
+          beginAtZero: true
+        }
+      }
+    }
   };
 
   private loggedInUser: string | null = null;

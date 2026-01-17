@@ -13,6 +13,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { TravelService } from 'src/app/core/services/travel.service';
 import { UserRole, CreateUserRoleDto  } from 'src/app/shared/models/app/user-role-models';
+import { MatSelectModule } from '@angular/material/select';
+import { ApplicationRole } from 'src/app/shared/models/app/application-role-model';
 
 
 @Component({
@@ -27,7 +29,8 @@ import { UserRole, CreateUserRoleDto  } from 'src/app/shared/models/app/user-rol
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule,
   ],
   templateUrl: './user-create.component.html',
   styleUrls: ['./user-create.component.scss']
@@ -35,6 +38,8 @@ import { UserRole, CreateUserRoleDto  } from 'src/app/shared/models/app/user-rol
 export class UserCreateComponent implements OnInit {
 
   form!: FormGroup;
+  roles: ApplicationRole[] = [];
+
   loading = false;
   errorMessage = '';
   successMessage = '';
@@ -50,6 +55,17 @@ export class UserCreateComponent implements OnInit {
       fNumber: ['', Validators.required],
       roleName: ['', Validators.required]
     });
+    this.loadRoles();
+  }
+
+  loadRoles(): void {
+    this.travelService.getApplicationRoles().subscribe({
+      next: (roles) => this.roles = roles,
+      error: (err) => {
+        console.error('Failed to load application roles', err);
+        this.errorMessage = 'Failed to load application roles';
+      }
+    });
   }
 
   submit(): void {
@@ -57,26 +73,29 @@ export class UserCreateComponent implements OnInit {
 
     this.loading = true;
     this.errorMessage = '';
-    this.successMessage = '';
 
-    const payload: CreateUserRoleDto = this.form.value;
+    const payload: CreateUserRoleDto = {
+      fNumber: this.form.value.fNumber,
+      roleName: this.form.value.roleName
+    };
 
     this.travelService.addUserRole(payload).subscribe({
-      next: (res) => {
-        this.loading = false;
+      next: () => {
         this.successMessage = 'User role assigned successfully';
+        this.loading = false;
 
         setTimeout(() => {
           this.router.navigate(['/travel/user/list']);
         }, 1000);
       },
       error: (err) => {
-        console.error('Failed to create user role', err);
-        this.errorMessage = 'Failed to create user role';
+        console.error('Failed to assign user role', err);
+        this.errorMessage = 'Failed to assign user role';
         this.loading = false;
       }
     });
   }
+
 
   cancel(): void {
     this.router.navigate(['/travel/user/list']);

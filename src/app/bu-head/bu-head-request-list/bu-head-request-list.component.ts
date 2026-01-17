@@ -45,7 +45,7 @@ export class BuheadListComponent implements OnInit {
   ngOnInit(): void {
     const userRole = localStorage.getItem('userRole');
 
-    if (userRole !== 'TR-BU_HEAD' && userRole !== 'TR-ADMIN') {
+    if (userRole !== 'TR_BU_HEAD' && userRole !== 'TR_ADMIN') {
       this.router.navigate(['/unauthorized']);  
       return;
     }

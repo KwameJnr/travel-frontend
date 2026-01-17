@@ -1,0 +1,44 @@
+.dialog-title {
+  display: flex;
+  align-items: center;      // vertical centering
+  justify-content: center;  // horizontal centering
+  gap: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+
+  mat-icon {
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .approve {
+    color: #2e7d32; // green
+  }
+
+  .reject {
+    color: #c62828; // red
+  }
+
+  .return {
+    color: #f9a825; // amber
+  }
+}
+
+.dialog-content {
+  font-size: 0.95rem;
+  color: #444;
+  padding-top: 8px;
+}
+
+.dialog-actions {
+  margin-top: 20px;
+  border-radius: 12px;
+
+  button {
+    min-width: 100px;
+    border-radius: 12px;
+  }
+}

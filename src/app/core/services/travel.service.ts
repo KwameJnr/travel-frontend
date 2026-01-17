@@ -35,6 +35,23 @@ export class TravelService {
     return `${this.baseUrlCamp}/company/department/index`;
   }
 
+  /* ============================
+     CFO DASHBOARD METRICS
+     ============================ */
+  getCfoDashboardMetrics(): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}/travel-request/travels/cfo-dashboard-metrics`
+    );
+  }
+
+  /* ============================
+     DEPARTMENT RANKING
+     ============================ */
+  getDepartmentRanking(): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}/travel-request/travels/department-ranking`
+    );
+  }
   // App roles
   getApplicationRoles(): Observable<ApplicationRole[]> {
      const url = `${this.baseUrl}/travel-request/application-roles/index`;
@@ -233,6 +250,18 @@ export class TravelService {
   );
 }
 
+updateTravelRequestsById(id: string, updatedData: any): Observable<Travel> {
+  const url = `${this.baseUrl}/travel-request/travels/update/${id}`;
+
+  return this.http.post<ApiResponse<Travel[]>>(url, updatedData).pipe(
+    map(response => {
+      if (response.data && response.data.length > 0) {
+        return response.data[0]; // extract the first travel from array
+      }
+      throw new Error('No travel data found');
+    })
+  );
+}
 
   getMyTravelRequests(fNumber: string): Observable<ApiResponse<Travel[]>> {
     const url = `${this.baseUrl}/travel-request/travels/my-requests`;

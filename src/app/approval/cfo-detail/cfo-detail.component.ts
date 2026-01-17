@@ -14,6 +14,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { Location } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
+import { ApproveDialogComponent } from '../approve-dialog/approve-dialog.component';
 
 
 @Component({
@@ -27,7 +28,6 @@ import { MatDividerModule } from '@angular/material/divider';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatOption,
     MatSelectModule,
     MatSnackBarModule,
     MatDialogModule,
@@ -60,7 +60,7 @@ export class CfoDetailComponent  implements OnInit {
   
   isAdminUser(): boolean {
     const email = localStorage.getItem('userRole') || '';
-    return email.toLowerCase().includes('tr-admin');
+    return email.toLowerCase().includes('TR_ADMIN');
   }
 
   ngOnInit(): void {
@@ -81,19 +81,17 @@ export class CfoDetailComponent  implements OnInit {
 
   initForm() {
     this.actionForm = this.fb.group({
-      cfoStatus: ['Pending', Validators.required],
-      cfoFeedback: ['', Validators.required],
       cfoFeedbackRemarks: ['', Validators.required]
     });
   }
   
   // cfo-detail.component.ts
   approve(): void {
-    this.submitDecision('APPROVED');
+    this.confirmAction('APPROVED');
   }
 
   reject(): void {
-    this.submitDecision('REJECTED');
+    this.confirmAction('REJECTED');
   }
 
   private submitDecision(feedback: 'APPROVED' | 'REJECTED'): void {
@@ -128,6 +126,28 @@ export class CfoDetailComponent  implements OnInit {
     });
   }
 
+  confirmAction(
+        action: 'APPROVED' | 'REJECTED' 
+      ): void {
+        const dialogRef = this.dialog.open(ApproveDialogComponent, {
+          width: '420px',
+          data: {
+            title: 'Confirm Action',
+            message: `Are you sure you want to ${action.toLowerCase()} this travel request?`,
+            action: action === 'APPROVED'
+              ? 'APPROVE'
+              : action === 'REJECTED'
+              ? 'REJECT'
+              : 'RETURN'
+          }
+        });
+  
+        dialogRef.afterClosed().subscribe(confirmed => {
+          if (confirmed) {
+            this.submitDecision(action);
+          }
+        });
+      }
 
   details() {
     this.dialog.open(EmployeeDetailComponent, {

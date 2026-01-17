@@ -54,6 +54,11 @@ mat-card {
     height: 100% !important;
   }
 
+  .subtitle {
+      font-size: 13px;
+      color: #666;
+    }
+
   .btn-add {
   padding: 0.75rem 1.5rem;
     font-weight: 600;
@@ -65,4 +70,17 @@ mat-card {
     // background-color: #099292;
    color: #159e97;
     transition: background-color 0.2s ease;
+}
+
+.action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.action-bar button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }

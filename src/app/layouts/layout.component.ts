@@ -184,10 +184,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   /* ===================== ROLE GETTERS ===================== */
   get isAuthenticated() { return !!this.userRole; }
-  get isAdmin() { return this.userRole === 'TR-ADMIN'; }
-  get isBUHead() { return this.userRole === 'TR-BU_HEAD'; }
-  get isCFO() { return this.userRole === 'TR-CFO'; }
-  get canCreateTravel() { return this.userRole === 'TR-EMPLOYEE' || this.isAdmin; }
+  get isAdmin() { return this.userRole === 'TR_ADMIN'; }
+  get isBUHead() { return this.userRole === 'TR_BU_HEAD'; }
+  get isCFO() { return this.userRole === 'TR_CFO'; }
+  get canCreateTravel() { return this.userRole === 'TR_USER' || this.isAdmin; }
   get canViewTravel() { return this.canCreateTravel || this.isBUHead || this.isCFO; }
 
   /* ===================== INACTIVITY WATCHER ===================== */

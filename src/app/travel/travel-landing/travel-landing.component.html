@@ -21,11 +21,6 @@
     Create Travel Request
   </button>
 
-  <div
-    class="grid-placeholder"
-    *ngIf="userRole === 'TR-EMPLOYEE'">
-  </div>
-
   <button
     mat-stroked-button
     routerLink="/travel/list"
@@ -83,13 +78,6 @@
       {{ cfoPendingCount }}
     </span>
   </button>
-  <!-- <button
-    mat-stroked-button
-    routerLink="/settings"
-    *ngIf="isAdmin">
-    <mat-icon>settings</mat-icon>
-    Settings
-  </button> -->
   <ng-container *ngIf="isAdmin">
   <button
     mat-stroked-button
@@ -115,7 +103,23 @@
       Per Diem Management
     </button>
   </mat-menu>
+
+  <button
+    mat-stroked-button
+    class="invisible-btn"
+    aria-hidden="true"
+    tabindex="-1">
+  </button>
+
 </ng-container>
+
+<button
+    mat-stroked-button
+    routerLink="/travel/user/account"
+    *ngIf="canViewTravel">
+    <mat-icon>person</mat-icon>
+    My Accounts
+  </button>
 
 </div>
 </mat-card>

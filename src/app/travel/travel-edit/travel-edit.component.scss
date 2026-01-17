@@ -1,47 +1,77 @@
 .travel-edit-container {
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 16px;
 
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 16px;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-section {
+    background: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+
+    mat-card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #1f2937;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+
+      mat-form-field {
+        width: 100%;
+      }
+    }
   }
 
   .actions {
-    margin-top: 24px;
     display: flex;
     justify-content: flex-end;
+    gap: 12px;
 
-    .submit-button {
+    button {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-weight: 600;
-      padding: 10px 24px;
-      border-radius: 8px;
-      text-transform: none;
-      font-size: 15px;
-      transition: background-color 0.3s ease;
-
-      mat-icon {
-        font-size: 20px;
-      }
-
-      &:disabled {
-        background-color: #ccc !important;
-        color: #666 !important;
-      }
+      gap: 6px;
     }
   }
 
   .loading {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 200px;
+    padding: 40px 0;
   }
 }
 
-  
+/* TABLET */
+@media (max-width: 1024px) {
+  .form-section .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* SMALL LAPTOP */
+@media (max-width: 768px) {
+  .travel-edit-container {
+    padding: 12px;
+  }
+
+  .form-section {
+    padding: 12px;
+  }
+}
+
+.fnb-btn {
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  border-radius: 8px;
+}

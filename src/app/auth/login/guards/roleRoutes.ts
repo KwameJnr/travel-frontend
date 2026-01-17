@@ -1,22 +1,22 @@
 // src/app/core/constants/role-routes.ts
 
 export const roleRoutes: Record<string, string[]> = {
-  'TR-EMPLOYEE': [
+  'TR_USER': [
     '/travel/list',
     '/travel/create'
   ],
-  'TR-BU_HEAD': [
+  'TR_BU_HEAD': [
     '/travel/list',
     '/travel/create',
     '/travel/buhead/list'
   ],
-  'TR-CFO': [
+  'TR_CFO': [
     '/travel/list',
     '/travel/cfo/list',
     '/travel/create',
     '/travel/cfo/dashboard'
   ],
-  'TR-ADMIN': [
+  'TR_ADMIN': [
     '/travel/cfo/list',
     '/travel/buhead/list',
     '/travel/create',

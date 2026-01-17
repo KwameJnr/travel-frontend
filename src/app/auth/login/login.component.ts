@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -33,45 +33,14 @@ import { ConfigService } from 'src/app/config.service';
 export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm!: FormGroup;
-
   private baseUrlCamp!: string;
 
-  /* =====================
-   DEV CONFIG (Component-only)
-   ===================== */
+  // ================= DEV CONFIG =================
   private readonly DEV_BYPASS_LOGIN = true; // 👈 SET TO FALSE BEFORE PROD
-  
-  /* =====================
-   Dev Login Bypass
-   ===================== */
-private devLogin(): void {
-  console.warn('⚠️ DEV LOGIN BYPASS ACTIVE');
 
-  const devResponse = {
-    token: 'DEV_JWT_TOKEN',
-    user: {
-      userId: 'F5353203',
-      name: 'Dev User',
-      mail: 'dev.user@bank.com',
-      role: 'TR-ADMIN',
-      // role: 'TR-EMPLOYEE',
-      // role: 'TR-CFO',
-      mobile: '0000000000',
-      title: 'Software Engineer'
-    }
-  };
-
-  // Reuse the real success handler
-  this.handleSuccess(devResponse);
-}
-
-
-  /* =====================
-     Polling State
-     ===================== */
+  // ================= Polling / Overlay =================
   pollingInterval: any = null;
   countdownInterval: any = null;
-
   maxPollingAttempts = 30; // 60 seconds (2s interval)
   pollingAttempts = 0;
   pollingCountdown = 60;
@@ -94,13 +63,9 @@ private devLogin(): void {
     private config: ConfigService
   ) {}
 
-  /* =====================
-     Lifecycle
-     ===================== */
   ngOnInit(): void {
     document.body.classList.add('login-page');
-
-    this.baseUrlCamp = this.config.get('baseUrlCamp');
+    this.baseUrlCamp = this.config.get('baseUrl');
 
     this.loginForm = this.fb.group({
       fnumber: ['', Validators.required],
@@ -114,107 +79,118 @@ private devLogin(): void {
     document.body.classList.remove('login-page');
   }
 
-  /* =====================
-     Submit Login
-     ===================== */
+  // ================= DEV LOGIN BYPASS =================
+  private devLogin(): void {
+    console.warn('⚠️ DEV LOGIN BYPASS ACTIVE');
+
+    const devResponse = {
+      token: 'DEV_JWT_TOKEN',
+      user: {
+        userId: 'F5353203',
+        name: 'Dev User',
+        mail: 'dev.user@bank.com',
+        role: 'TR_ADMIN',
+        // role: 'TR_BU_HEAD',
+        // role: 'TR_CFO',
+        mobile: '0000000000',
+        title: 'Software Engineer'
+      }
+    };
+
+    this.showPollingOverlay = true;
+    this.showPollingMessage = true;
+    this.isPolling = true;
+    this.pollingMessage = 'Logging in (DEV BYPASS)...';
+    this.isErrorPollingMessage = false;
+    this.cdr.detectChanges();
+
+    // Show overlay for 4 seconds before success
+    setTimeout(() => {
+      this.handleSuccess(devResponse);
+    }, 4000);
+  }
+
+  // ================= SUBMIT LOGIN =================
   onSubmit(): void {
     if (this.loginForm.invalid) return;
 
-    // 🚧 DEV LOGIN BYPASS (component-only)
     if (this.DEV_BYPASS_LOGIN) {
       this.devLogin();
       return;
     }
 
-    //  Normal Login Flow
     this.loginForm.disable();
-
     const { fnumber, password } = this.loginForm.value;
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-SrcApp': 'Travel-Request'
-    });
-
-    this.http
-      .post<any>(`${this.baseUrlCamp}/travel-request/auth/login`, {
-        fnumber,
-        password
-      }, { headers })
-      .subscribe({
-        next: (res) => {
-          const authId = res?.data?.[0]?.authId;
-
-          if (!authId) {
-            this.handleFailure('Authentication failed.');
-            return;
-          }
-
-          this.start2FAPolling(authId);
-        },
-        error: () => {
-          this.handleFailure('Invalid F-Number or Password.');
-        }
-      });
-  }
-
-  /* =====================
-     2FA Polling
-     ===================== */
-  start2FAPolling(authId: string): void {
-    this.pollingAttempts = 0;
-    this.hasLoggedIn = false;
+    // Properly encode special chars in query string
+    const url = `${this.baseUrlCamp}/travel-request/auth/login?fnumber=${encodeURIComponent(fnumber)}&password=${encodeURIComponent(password)}`;
 
     this.showPollingOverlay = true;
+    this.showPollingMessage = true;
     this.isPolling = true;
+    this.pollingMessage = 'Authenticating...';
+    this.isErrorPollingMessage = false;
+    this.cdr.detectChanges();
+
+    this.http.post<any>(url, null).subscribe({
+      next: (res) => {
+        const authId = res?.authId;
+        if (!authId) {
+          this.handleFailure('Authentication failed.');
+          return;
+        }
+        this.start2FAPolling(authId);
+      },
+      error: (err) => {
+        console.error('Login failed', err);
+        this.handleFailure('Invalid F-Number or Password.');
+      }
+    });
+  }
+
+  // ================= 2FA POLLING =================
+  private start2FAPolling(authId: string): void {
+    this.pollingAttempts = 0;
+    this.hasLoggedIn = false;
+    this.pollingCountdown = this.maxPollingAttempts * 2;
+
     this.startCountdown();
 
     const poll = () => {
-      if (this.hasLoggedIn || !this.isComponentAlive) {
-        this.cleanupPolling();
-        return;
-      }
+      if (this.hasLoggedIn || !this.isComponentAlive) return;
 
       this.pollingAttempts++;
 
-      this.http
-        .post<any>(`${this.baseUrlCamp}/travel-request/auth/verify2fa`, { authId })
-        .subscribe({
-          next: (res) => {
-            if (!this.isComponentAlive || this.hasLoggedIn) return;
+      this.http.post<any>(
+        `${this.baseUrlCamp}/travel-request/auth/verify2fa`,
+        null,
+        { params: { authId } }
+      ).subscribe({
+        next: (res) => {
+          if (!this.isComponentAlive || this.hasLoggedIn) return;
 
-            const statusCode = res?.statusCode;
-            const statusMessage = res?.statusMessage || '';
+          const statusCode = res?.statusCode;
 
-            switch (statusCode) {
-              case '000':
-                this.handleSuccess(res);
-                break;
-
-              case '001':
-                this.handleFailure(
-                  statusMessage || 'Authentication failed.'
-                );
-                break;
-
-              case '002':
-                this.pollingMessage = 'Approve the login request on your phone';
-                this.isErrorPollingMessage = false;
-                break;
-
-              default:
-                this.pollingMessage =
-                  statusMessage || 'Awaiting authentication...';
-                this.isErrorPollingMessage = false;
-            }
-
-            this.cdr.detectChanges();
-          },
-          error: () => {
-            if (!this.isComponentAlive) return;
-            this.handleFailure('Network error. Please try again.');
+          switch (statusCode) {
+            case '000':
+              this.handleSuccess(res);
+              break;
+            case '002':
+            case '001':
+              this.pollingMessage = 'Approve the login request on your phone';
+              this.isErrorPollingMessage = false;
+              break;
+            default:
+              this.pollingMessage = 'Awaiting authentication...';
+              this.isErrorPollingMessage = false;
           }
-        });
+          this.cdr.detectChanges();
+        },
+        error: () => {
+          if (!this.isComponentAlive) return;
+          this.handleFailure('Network error during verification');
+        }
+      });
 
       if (this.pollingAttempts >= this.maxPollingAttempts) {
         this.handleFailure('2FA timeout. Please try again.');
@@ -224,19 +200,16 @@ private devLogin(): void {
     this.pollingInterval = setInterval(poll, 2000);
   }
 
-  /* =====================
-     Success Handler
-     ===================== */
+  // ================= SUCCESS HANDLER =================
   private handleSuccess(res: any): void {
     this.hasLoggedIn = true;
+    this.showPollingOverlay = false;
     this.cleanupPolling();
 
     const user = res?.user;
-
     if (!user?.mail) {
-      this.snackBar.open('Login failed: Email missing.', 'Dismiss', {
-        duration: 4000
-      });
+      this.snackBar.open('Login failed: Email missing.', 'Dismiss', { duration: 4000 });
+      this.loginForm.enable();
       return;
     }
 
@@ -248,39 +221,30 @@ private devLogin(): void {
     localStorage.setItem('userName', user.name);
     localStorage.setItem('userToken', res?.token);
 
-    // this.router.navigate(['/travel/list']);
     this.router.navigate(['/travel/landing']);
   }
 
-  /* =====================
-     Failure Handler
-     ===================== */
+  // ================= FAILURE HANDLER =================
   private handleFailure(message: string): void {
+    this.showPollingOverlay = false;
     this.pollingMessage = message;
     this.isErrorPollingMessage = true;
-
     this.cleanupPolling();
+    this.loginForm.enable();
     this.snackBar.open(message, 'Dismiss', { duration: 4000 });
   }
 
-  /* =====================
-     Cancel
-     ===================== */
+  // ================= CANCEL POLLING =================
   cancelPolling(): void {
     this.cleanupPolling();
     this.pollingMessage = '';
+    this.loginForm.enable();
   }
 
-  /* =====================
-     Countdown
-     ===================== */
+  // ================= COUNTDOWN =================
   private startCountdown(): void {
-    this.pollingCountdown = this.maxPollingAttempts * 2;
-
     this.countdownInterval = setInterval(() => {
-      if (this.pollingCountdown > 0) {
-        this.pollingCountdown--;
-      }
+      if (this.pollingCountdown > 0) this.pollingCountdown--;
     }, 1000);
   }
 
@@ -291,17 +255,12 @@ private devLogin(): void {
     }
   }
 
-  /* =====================
-     Cleanup
-     ===================== */
+  // ================= CLEANUP =================
   private cleanupPolling(): void {
     this.stopPolling();
     this.stopCountdown();
-
     this.isPolling = false;
-    this.showPollingOverlay = false;
-
-    this.loginForm.enable();
+    this.showPollingMessage = false;
   }
 
   private stopPolling(): void {
@@ -310,4 +269,5 @@ private devLogin(): void {
       this.pollingInterval = null;
     }
   }
+
 }

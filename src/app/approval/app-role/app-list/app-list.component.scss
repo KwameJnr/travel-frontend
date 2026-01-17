@@ -104,6 +104,19 @@
     transition: background-color 0.2s ease;
   }
 
+  .action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.action-bar button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 /* Hover */
 .mat-row:hover {
   background: #f8fafc;

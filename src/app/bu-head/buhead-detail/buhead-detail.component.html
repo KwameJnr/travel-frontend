@@ -59,24 +59,7 @@
   <form [formGroup]="actionForm" class="decision-section">
 
     <h3>BU Head Decision</h3>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>BU Head Status</mat-label>
-      <mat-select formControlName="buHeadStatus" [disabled]="!isEditable">
-        <mat-option value="Pending">Pending</mat-option>
-        <mat-option value="Successful">Successful</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Decision</mat-label>
-      <mat-select formControlName="buHeadFeedback" [disabled]="!isEditable">
-        <mat-option value="Approved">Approved</mat-option>
-        <mat-option value="Rejected">Rejected</mat-option>
-        <mat-option value="Rejected">Return</mat-option>
-      </mat-select>
-    </mat-form-field>
-
+    
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Remarks </mat-label>
       <textarea
@@ -97,20 +80,29 @@
     <!-- Actions -->
     <div class="action-bar">
 
-      <button mat-raised-button class="default-btn" color="primary"
-              (click)="approve()"
-              [disabled]="!isEditable">
+      <button
+        mat-raised-button
+        class="default-btn"
+        color="primary"
+        (click)="confirmAction('APPROVED')"
+        [disabled]="!isEditable || !actionForm.get('buHeadFeedbackRemarks')?.value?.trim()">
         Approve
       </button>
 
-      <button mat-stroked-button class="default-btn" color="warn"
-              (click)="reject()"
-              [disabled]="!isEditable">
+      <button
+        mat-stroked-button
+        class="default-btn"
+        color="warn"
+        (click)="confirmAction('REJECTED')"
+        [disabled]="!isEditable || !actionForm.get('buHeadFeedbackRemarks')?.value?.trim()">
         Reject
       </button>
 
-      <button mat-stroked-button class="default-btn" (click)="returnForReview()"
-              [disabled]="!isEditable">
+      <button
+        mat-stroked-button
+        class="default-btn"
+        (click)="confirmAction('RETURNED')"
+        [disabled]="!isEditable || !actionForm.get('buHeadFeedbackRemarks')?.value?.trim()">
         Return For Review
       </button>
 

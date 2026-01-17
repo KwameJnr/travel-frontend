@@ -26,6 +26,7 @@ import { UserListComponent } from '../approval/user-role/user-list/user-list.com
 import { UserDetailComponent } from '../approval/user-role/user-detail/user-detail.component';
 import { UserCreateComponent } from '../approval/user-role/user-create/user-create.component';
 import { UserEditComponent } from '../approval/user-role/user-edit/user-edit.component';
+import { UserAccountComponent } from '../approval/user-role/user-account/user-account.component';
 
 export const travelRoutes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' }, // Default to create
@@ -78,6 +79,7 @@ export const travelRoutes: Routes = [
         { path: 'list', component: UserListComponent },
         { path: 'detail/:id', component: UserDetailComponent },
         { path: 'create', component: UserCreateComponent },
+        { path: 'account', component: UserAccountComponent },
         { path: 'edit/:id', component: UserEditComponent},
       ]},
       

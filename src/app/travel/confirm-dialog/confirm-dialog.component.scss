@@ -16,17 +16,18 @@
       padding: 16px;
   
     .confirm-actions {
-  position: sticky;
-  bottom: 0;
-  display: flex;
-  justify-content: flex-end;
-  gap: 16px;
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
 
-  padding: 16px 24px;
-  background: #fff;
-  border-top: 1px solid #e0e0e0;
-  z-index: 10;
-}
+      padding: 16px 24px;
+      background: #fff;
+      border-top: 1px solid #e0e0e0;
+      z-index: 10;
+      border-radius: 8px;
+    }
 
 .action-btn {
   min-width: 160px;
@@ -36,9 +37,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
- 
 }
-
+ 
 /* Edit / Back */
 .cancel-btn {
   color: #d32f2f;

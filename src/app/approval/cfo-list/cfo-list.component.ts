@@ -45,7 +45,7 @@ export class CfoListComponent implements OnInit {
   ngOnInit(): void {
     const userRole = localStorage.getItem('userRole');
 
-  if (userRole !== 'TR-CFO' && userRole !== 'TR-ADMIN') {
+  if (userRole !== 'TR_CFO' && userRole !== 'TR_ADMIN') {
     this.router.navigate(['/unauthorized']);  // Redirect unauthorized users
     return;
   }

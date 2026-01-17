@@ -1,0 +1,24 @@
+<h2 class="dialog-title">
+  <mat-icon [ngClass]="data.action.toLowerCase()">
+    {{ actionIcon }}
+  </mat-icon>
+  {{ data.title }}
+</h2>
+
+<mat-dialog-content class="dialog-content">
+  <p>{{ data.message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-stroked-button mat-dialog-close>
+    Cancel
+  </button>
+
+  <button
+    mat-flat-button
+    [color]="actionColor"
+    [mat-dialog-close]="true">
+    Confirm
+  </button>
+</mat-dialog-actions>
+

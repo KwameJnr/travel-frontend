@@ -55,8 +55,8 @@ export class PerDiemComponent implements OnInit {
   ngOnInit(): void {
     const userRole = localStorage.getItem('userRole');
 
-    // Only allow TR-EMPLOYEE role to access this component BUT CHANGE TO ADMIN FOR PRODUCTION
-    if (userRole !== 'TR-ADMIN' ) {
+    // Only allow TR_USER role to access this component BUT CHANGE TO ADMIN FOR PRODUCTION
+    if (userRole !== 'TR_ADMIN' ) {
       this.router.navigate(['/unauthorized']);  // Redirect unauthorized users
       return;
     }
@@ -143,7 +143,7 @@ export class PerDiemComponent implements OnInit {
   
   onCancel(): void {
     this.perdiemForm.reset(); // Optional: Reset the form
-    this.router.navigate(['/travel/perdiem/create']); // Navigate back to travel list or desired route
+    this.router.navigate(['/travel/perdiem/list']); // Navigate back to travel list or desired route
   }
   
 }

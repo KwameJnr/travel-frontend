@@ -13,7 +13,7 @@
     <mat-card class="analytics-card mat-elevation-z3">
       <h3>Travel Request Analytics (Bar)</h3>
       <div class="chart-container">
-        <canvas baseChart [data]="barChartData" chartType="bar"></canvas>
+        <canvas baseChart [data]="barChartData" [options]="barChartOptions" chartType="bar"></canvas>
       </div>
     </mat-card>
   </div>

@@ -54,12 +54,12 @@ export class TravelLandingComponent implements OnInit {
 
   /* ===================== ROLE GETTERS ===================== */
   get isAuthenticated() { return !!this.userRole; }
-  get isAdmin() { return this.userRole === 'TR-ADMIN'; }
-  get isBUHead() { return this.userRole === 'TR-BU_HEAD'; }
-  get isCFO() { return this.userRole === 'TR-CFO'; }
+  get isAdmin() { return this.userRole === 'TR_ADMIN'; }
+  get isBUHead() { return this.userRole === 'TR_BU_HEAD'; }
+  get isCFO() { return this.userRole === 'TR_CFO'; }
 
   get canCreateTravel() {
-    return this.userRole === 'TR-EMPLOYEE' || this.isAdmin;
+    return this.userRole === 'TR_USER' || this.isAdmin;
   }
 
   get canViewTravel() {

@@ -1,5 +1,13 @@
 <div class="list-wrapper">
 
+  <!-- Header -->
+  <div class="page-header">
+    <mat-icon color="primary">person</mat-icon>
+    <div>
+      <h2>User Roles</h2>
+      <p>Manage system users and access</p>
+    </div>
+  </div>
   <!-- Loading spinner -->
   <div class="loading" *ngIf="loading">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
@@ -8,15 +16,24 @@
   <!-- Error -->
   <div class="error" *ngIf="!loading && errorMessage">{{ errorMessage }}</div>
 
-  <button
-  mat-raised-button
-  color="primary"
-  class="btn-create"
-  [routerLink]="['/travel/user/create']">
-  <mat-icon>add</mat-icon>
-  New Request
-</button>
-
+  <div class="action-bar">
+    <button
+      mat-raised-button
+      color="primary"
+      class="btn-create"
+      [routerLink]="['/travel/user/create']">
+      <mat-icon>add</mat-icon>
+      New Request
+    </button>
+    <button
+        mat-stroked-button
+        class="btn-create"
+        color="accent"
+        routerLink="/travel/landing">
+        <mat-icon>home</mat-icon>
+        Home
+      </button>
+  </div>
   <!-- Table -->
   <table mat-table [dataSource]="userRoles" class="mat-elevation-z2" *ngIf="!loading && userRoles.length">
 

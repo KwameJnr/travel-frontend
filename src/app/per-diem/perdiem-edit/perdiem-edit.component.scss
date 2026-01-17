@@ -52,6 +52,17 @@
   padding: 80px 0;
 }
 
+.back-btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 150px;
+    transition: background-color 0.2s ease;
+  }
+
 /* Tablet */
 @media (max-width: 900px) {
   .form-grid {

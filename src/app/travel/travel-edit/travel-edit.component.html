@@ -1,300 +1,290 @@
 <div class="travel-edit-container" *ngIf="!loading; else loadingSpinner">
-    <form [formGroup]="travelForm" (ngSubmit)="onSubmit()">
-      <h2>Employee Details</h2>
-      <mat-form-field appearance="outline">
-        <mat-label>Employee Name</mat-label>
-        <input matInput formControlName="employeeName" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Employee Email</mat-label>
-        <input matInput formControlName="employeeEmail" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Passport Number</mat-label>
-        <input matInput formControlName="employeePassportNo" />
-      </mat-form-field>
-  
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Passport Expiry</mat-label>
-        <input matInput [matDatepicker]="passportPicker" formControlName="employeePassportExpiry">
-        <mat-datepicker-toggle matSuffix [for]="passportPicker"></mat-datepicker-toggle>
-        <mat-datepicker #passportPicker></mat-datepicker>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Employee Number</mat-label>
-        <input matInput formControlName="employeeNumber" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Department</mat-label>
-        <input matInput formControlName="employeeDepartment" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Travelling Contact</mat-label>
-        <input matInput formControlName="employeeTravellingContact" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Contact</mat-label>
-        <input matInput formControlName="employeeContact" />
-      </mat-form-field>
-  
-      <h2>Travel Details</h2>
-      <mat-form-field appearance="outline">
-        <mat-label>Purpose</mat-label>
-        <input matInput formControlName="purpose" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>City</mat-label>
-        <input matInput formControlName="city" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Country</mat-label>
-        <input matInput formControlName="country" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Visa Required</mat-label>
-        <mat-select formControlName="visaRequired">
-          <mat-option value="Yes">Yes</mat-option>
-          <mat-option value="No">No</mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Departure Date</mat-label>
-        <input matInput [matDatepicker]="depPicker" formControlName="departureDate">
-        <mat-datepicker-toggle matSuffix [for]="depPicker"></mat-datepicker-toggle>
-        <mat-datepicker #depPicker></mat-datepicker>
-      </mat-form-field>
+  <form [formGroup]="travelForm" (ngSubmit)="onSubmit()">
 
-      <mat-form-field appearance="fill">
-        <mat-label>Departure Time</mat-label>
-        <input
-          matInput
-          [ngxMatTimepicker]="departureTimePicker"
-          formControlName="departureTime"
-          readonly
-        />
-        <ngx-mat-timepicker #departureTimePicker></ngx-mat-timepicker>
-      </mat-form-field>  
+    <!-- Employee Details -->
+    <mat-card class="form-section">
+      <mat-card-title>Edit Employee Details</mat-card-title>
+      <mat-card-content>
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Employee Name</mat-label>
+            <input matInput formControlName="employeeName" />
+          </mat-form-field>
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Return Date</mat-label>
-        <input matInput [matDatepicker]="retPicker" formControlName="returnDate">
-        <mat-datepicker-toggle matSuffix [for]="retPicker"></mat-datepicker-toggle>
-        <mat-datepicker #retPicker></mat-datepicker>
-      </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Employee Email</mat-label>
+            <input matInput formControlName="employeeEmail" />
+          </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Return Time</mat-label>
-        <input
-          matInput
-          [ngxMatTimepicker]="returnTimePicker"
-          formControlName="returnTime"
-          readonly
-        />
-        <ngx-mat-timepicker #returnTimePicker></ngx-mat-timepicker>
-      </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Passport Number</mat-label>
+            <input matInput formControlName="employeePassportNo" />
+          </mat-form-field>
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Per Diem Start Date</mat-label>
-        <input matInput [matDatepicker]="startPicker" formControlName="perDiemStartDate">
-        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-        <mat-datepicker #startPicker></mat-datepicker>
-      </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Passport Expiry</mat-label>
+            <input matInput [matDatepicker]="passportPicker" formControlName="employeePassportExpiry" />
+            <mat-datepicker-toggle matSuffix [for]="passportPicker"></mat-datepicker-toggle>
+            <mat-datepicker #passportPicker></mat-datepicker>
+          </mat-form-field>
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Per Diem End Date</mat-label>
-        <input matInput [matDatepicker]="endPicker" formControlName="perDiemEndDate">
-        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-        <mat-datepicker #endPicker></mat-datepicker>
-      </mat-form-field>
-  
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Days Out</mat-label>
-        <input matInput formControlName="daysOutOfficialAssignmentDate" type="number">
-      </mat-form-field>       
+          <mat-form-field appearance="outline">
+            <mat-label>Employee Number</mat-label>
+            <input matInput formControlName="employeeNumber" />
+          </mat-form-field>
 
-      <!-- Hotel Info -->
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Hotel Reservation</mat-label>
-        <mat-select formControlName="hotelReservation">
-          <mat-option value="yes">Yes</mat-option>
-          <mat-option value="no">No</mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Hotel Name</mat-label>
-        <input matInput formControlName="hotelName" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Hotel Address</mat-label>
-        <input matInput formControlName="hotelAddress" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Hotel City</mat-label>
-        <input matInput formControlName="hotelCity" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Hotel Country</mat-label>
-        <input matInput formControlName="hotelCountry" />
-      </mat-form-field>
-  
-      <h2>Transport</h2>
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Rental Car Required</mat-label>
-        <mat-select formControlName="rentalCarRequired">
-          <mat-option value="yes">Yes</mat-option>
-          <mat-option value="no">No</mat-option>
-        </mat-select>
-      </mat-form-field>
+          <!-- <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <input matInput formControlName="employeeDepartment" />
+          </mat-form-field> -->
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Airport Transport Required</mat-label>
-        <mat-select formControlName="airportTransportRequiredToAndFrom">
-          <mat-option value="yes">Yes</mat-option>
-          <mat-option value="no">No</mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <h2>Finance & Budget</h2>
-      <mat-form-field appearance="outline">
-        <mat-label>Subsistence Allowance</mat-label>
-        <input matInput formControlName="subsistenceAllowance" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Per Diem Days</mat-label>
-        <input matInput type="number" formControlName="perDiemDays" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Estimated Per Diem Amount</mat-label>
-        <input matInput type="number" formControlName="estimatedPerDiemAmount" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Total Estimated Travel Cost</mat-label>
-        <input matInput type="number" formControlName="totalEstimatedTravelCost" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Travel Budget Code</mat-label>
-        <input matInput formControlName="travelBudgetCode" />
-      </mat-form-field>
-  
-      <h2>Approvals</h2>
-      <mat-form-field appearance="outline">
-        <mat-label>Request Approved</mat-label>
-        <input matInput formControlName="travelRequestApproved" />
-      </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Travelling Contact</mat-label>
+            <input matInput formControlName="employeeTravellingContact" />
+          </mat-form-field>
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Class of Travel (Departure)</mat-label>
-        <mat-select formControlName="classOfTravelDeparture">
-          <mat-option value="FisrtClass">Fisrt Class</mat-option>
-          <mat-option value="BusClass">Business Class</mat-option>
-          <mat-option value="Economy">Economy</mat-option>
-        </mat-select>         
-      </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Contact</mat-label>
+            <input matInput formControlName="employeeContact" />
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Class of Travel (Return)</mat-label>
-        <mat-select formControlName="classOfTravelReturn">
-          <mat-option value="FirstClass">Fisrt Class</mat-option>
-          <mat-option value="BusClass">Business Class</mat-option>
-          <mat-option value="Economy">Economy</mat-option>
-        </mat-select>         
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Exco Status</mat-label>
-        <input matInput formControlName="excoHeadStatus" [disabled]="true"/>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Exco Name</mat-label>
-        <input matInput formControlName="excoHeadName" [disabled]="true"/>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Exco Email</mat-label>
-        <input matInput formControlName="excoHeadEmail" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Exco Feedback</mat-label>
-        <textarea matInput formControlName="excoHeadFeedback" [disabled]="true"></textarea>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Exco Remarks</mat-label>
-        <textarea matInput formControlName="excoHeadFeedbackRemarks" [disabled]="true"></textarea>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>CFO Status</mat-label>
-        <input matInput formControlName="cfoStatus" [disabled]="true"/>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>CFO Name</mat-label>
-        <input matInput formControlName="cfoName" [disabled]="true"/>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>CFO Email</mat-label>
-        <input matInput formControlName="cfoEmail" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>CFO Feedback</mat-label>
-        <textarea matInput formControlName="cfoFeedback" [disabled]="true"></textarea>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>CFO Remarks</mat-label>
-        <textarea matInput formControlName="cfoFeedbackRemarks" [disabled]="true"></textarea>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline">
-        <mat-label>Status</mat-label>
-        <input matInput formControlName="status" [disabled]="true"/>
-      </mat-form-field>
-  
-      <div class="actions">
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          class="submit-button"
-          [disabled]="loading || travelForm.invalid"
-        >
-          <mat-icon>update</mat-icon>
-          Update Travel Request
-        </button>
-        <button mat-raised-button color="primary" (click)="goBack()" class="back-btn">
-          <mat-icon>arrow_back</mat-icon> Back
-        </button>
-      </div>      
-    </form>
-  </div>
-  
-  <ng-template #loadingSpinner>
-    <div class="loading">
-      <mat-spinner></mat-spinner>
+    <!-- Travel Details -->
+    <mat-card class="form-section">
+      <mat-card-title>Travel Details</mat-card-title>
+      <mat-card-content>
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Purpose</mat-label>
+            <input matInput formControlName="purpose" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Visa Required</mat-label>
+            <mat-select formControlName="visaRequired">
+              <mat-option value="Yes">Yes</mat-option>
+              <mat-option value="No">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Departure Date</mat-label>
+            <input matInput [matDatepicker]="depPicker" formControlName="departureDate" />
+            <mat-datepicker-toggle matSuffix [for]="depPicker"></mat-datepicker-toggle>
+            <mat-datepicker #depPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Departure Time</mat-label>
+            <input matInput [ngxMatTimepicker]="departureTimePicker" formControlName="departureTime" readonly />
+            <ngx-mat-timepicker #departureTimePicker></ngx-mat-timepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Return Date</mat-label>
+            <input matInput [matDatepicker]="retPicker" formControlName="returnDate" />
+            <mat-datepicker-toggle matSuffix [for]="retPicker"></mat-datepicker-toggle>
+            <mat-datepicker #retPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Return Time</mat-label>
+            <input matInput [ngxMatTimepicker]="returnTimePicker" formControlName="returnTime" readonly />
+            <ngx-mat-timepicker #returnTimePicker></ngx-mat-timepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Per Diem Start Date</mat-label>
+            <input matInput [matDatepicker]="startPicker" formControlName="perDiemStartDate" />
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Per Diem End Date</mat-label>
+            <input matInput [matDatepicker]="endPicker" formControlName="perDiemEndDate" />
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Days Out</mat-label>
+            <input matInput type="number" formControlName="daysOutOfficialAssignmentDate" />
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Hotel Info -->
+    <mat-card class="form-section">
+      <mat-card-title>Hotel Info</mat-card-title>
+      <mat-card-content>
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Hotel Reservation</mat-label>
+            <mat-select formControlName="hotelReservation">
+              <mat-option value="yes">Yes</mat-option>
+              <mat-option value="no">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Hotel Name</mat-label>
+            <input matInput formControlName="hotelName" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Hotel Address</mat-label>
+            <input matInput formControlName="hotelAddress" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Hotel City</mat-label>
+            <input matInput formControlName="hotelCity" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Hotel Country</mat-label>
+            <input matInput formControlName="hotelCountry" />
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Transport -->
+    <mat-card class="form-section">
+      <mat-card-title>Transport</mat-card-title>
+      <mat-card-content>
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Rental Car Required</mat-label>
+            <mat-select formControlName="rentalCarRequired">
+              <mat-option value="yes">Yes</mat-option>
+              <mat-option value="no">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Airport Transport Required</mat-label>
+            <mat-select formControlName="airportTransportRequiredToAndFrom">
+              <mat-option value="yes">Yes</mat-option>
+              <mat-option value="no">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Finance & Budget -->
+    <mat-card class="form-section">
+      <mat-card-title>Finance & Budget</mat-card-title>
+      <mat-card-content>
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Subsistence Allowance</mat-label>
+            <input matInput formControlName="subsistenceAllowance" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Per Diem Days</mat-label>
+            <input matInput type="number" formControlName="perDiemDays" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Estimated Per Diem Amount</mat-label>
+            <input matInput type="number" formControlName="estimatedPerDiemAmount" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Total Estimated Travel Cost</mat-label>
+            <input matInput type="number" formControlName="totalEstimatedTravelCost" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Travel Budget Code</mat-label>
+            <input matInput formControlName="travelBudgetCode" />
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Approvals -->
+    <mat-card class="form-section">
+      <mat-card-title>Approvals</mat-card-title>
+      <mat-card-content>
+        <div class="form-grid">
+          <!-- All approval fields -->
+          <mat-form-field appearance="outline">
+            <mat-label>Request Approved</mat-label>
+            <input matInput formControlName="travelRequestApproved" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Class of Travel (Departure)</mat-label>
+            <mat-select formControlName="classOfTravelDeparture">
+              <mat-option value="FirstClass">First Class</mat-option>
+              <mat-option value="BusClass">Business Class</mat-option>
+              <mat-option value="Economy">Economy</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Class of Travel (Return)</mat-label>
+            <mat-select formControlName="classOfTravelReturn">
+              <mat-option value="FirstClass">First Class</mat-option>
+              <mat-option value="BusClass">Business Class</mat-option>
+              <mat-option value="Economy">Economy</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- CFO/Exco fields -->
+          
+
+          <mat-form-field appearance="outline">
+            <mat-label>Exco Feedback</mat-label>
+            <textarea matInput formControlName="excoHeadFeedback" [disabled]="true"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>CFO Feedback</mat-label>
+            <textarea matInput formControlName="cfoFeedback" [disabled]="true"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <input matInput formControlName="status" [disabled]="true"/>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button mat-raised-button class="fnb-btn" color="primary" type="submit" [disabled]="loading || travelForm.invalid">
+        <mat-icon>update</mat-icon> Update Travel Request
+      </button>
+
+      <button mat-raised-button class="fnb-btn" color="accent" type="button" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon> Back
+      </button>
     </div>
-  </ng-template>
-  
-  
+  </form>
+</div>
+
+<ng-template #loadingSpinner>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

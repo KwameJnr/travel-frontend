@@ -1,0 +1,60 @@
+<div class="account-wrapper">
+
+  <mat-card class="account-card">
+
+    <!-- Header -->
+    <div class="account-header">
+      <div class="avatar">
+        <mat-icon>person</mat-icon>
+      </div>
+
+      <div class="user-meta">
+        <h2>{{ user.name }}</h2>
+        <p class="title">{{ user.title }}</p>
+        <span class="role-badge">{{ user.role }}</span>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Details -->
+    <div class="account-details">
+
+      <div class="detail-row">
+        <mat-icon>badge</mat-icon>
+        <div>
+          <label>F-Number</label>
+          <span>{{ user.fnumber }}</span>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <mat-icon>email</mat-icon>
+        <div>
+          <label>Email</label>
+          <span>{{ user.email }}</span>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <mat-icon>phone</mat-icon>
+        <div>
+          <label>Mobile</label>
+          <span>{{ user.mobile }}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </mat-card>
+
+</div>
+
+<button
+    mat-button
+    class="back-btn"
+    (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    Back
+  </button>
+

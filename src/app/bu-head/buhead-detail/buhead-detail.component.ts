@@ -14,6 +14,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { Location } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
+import { ApproveDialogComponent } from 'src/app/approval/approve-dialog/approve-dialog.component';
 
 
 @Component({
@@ -27,7 +28,6 @@ import { MatDividerModule } from '@angular/material/divider';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatOption,
     MatSelectModule,
     MatSnackBarModule,
     MatDialogModule,
@@ -81,22 +81,20 @@ export class BuheadDetailComponent implements OnInit {
 
   initForm() {
     this.actionForm = this.fb.group({
-      buHeadStatus: ['Pending', Validators.required],
-      buHeadFeedback: ['', Validators.required],
       buHeadFeedbackRemarks: ['', Validators.required]
     });
   }
   
    approve(): void {
-    this.submitDecision('APPROVED');
+    this.confirmAction('APPROVED');
   }
 
     reject(): void {
-      this.submitDecision('REJECTED');
+      this.confirmAction('REJECTED');
     }
 
     returnForReview() {
-      this.submitDecision('RETURNED');
+      this.confirmAction('RETURNED');
     
     }
     
@@ -128,6 +126,29 @@ export class BuheadDetailComponent implements OnInit {
             'Close',
             { duration: 4000 }
           );
+        }
+      });
+    }
+
+    confirmAction(
+      action: 'APPROVED' | 'REJECTED' | 'RETURNED'
+    ): void {
+      const dialogRef = this.dialog.open(ApproveDialogComponent, {
+        width: '420px',
+        data: {
+          title: 'Confirm Action',
+          message: `Are you sure you want to ${action.toLowerCase()} this travel request?`,
+          action: action === 'APPROVED'
+            ? 'APPROVE'
+            : action === 'REJECTED'
+            ? 'REJECT'
+            : 'RETURN'
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(confirmed => {
+        if (confirmed) {
+          this.submitDecision(action);
         }
       });
     }

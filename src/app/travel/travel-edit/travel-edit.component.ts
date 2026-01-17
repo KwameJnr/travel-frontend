@@ -14,6 +14,7 @@ import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { Location } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 // import { HttpClientModule } from '@angular/common/http';
 
 
@@ -35,7 +36,8 @@ import { Location } from '@angular/common';
     MatNativeDateModule,
     NgxMatTimepickerModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCardModule
   ]
 })
 export class TravelEditComponent implements OnInit {
@@ -167,7 +169,7 @@ export class TravelEditComponent implements OnInit {
 
     this.loading = true;
     const updatedData: Travel = this.travelForm.value;
-    this.travelService.update(this.travelId, updatedData).subscribe({
+    this.travelService.updateTravelRequestsById(this.travelId, updatedData).subscribe({
       next: () => {
         this.loading = false;
         this.router.navigate(['/list']);

@@ -1,5 +1,6 @@
 <mat-card>
     <mat-card-title>Per-Diem List</mat-card-title>
+    <p class="subtitle">Per-diem financial configuration</p>
   
     <!-- Flex Container for Table & Chart -->
     <div class="layout-container">
@@ -12,9 +13,20 @@
   
         <!-- Travel List Section -->
         <div *ngIf="!loading">
-          <button mat-raised-button class="btn-add" color="primary" routerLink="/travel/perdiem/create">
-            <mat-icon>add</mat-icon> New Request
-          </button>
+          <div class="action-bar">
+            <button mat-raised-button class="btn-add" color="primary" routerLink="/travel/perdiem/create">
+              <mat-icon>add</mat-icon> New Request
+            </button>
+
+            <button
+              mat-stroked-button
+              class="btn-add"
+              color="accent"
+              routerLink="/travel/landing">
+              <mat-icon>home</mat-icon>
+              Home
+            </button>
+          </div>
   
           <table mat-table [dataSource]="perdiem" class="mat-elevation-z2" *ngIf="perdiem.length > 0">
   
@@ -32,7 +44,7 @@
   
             <!-- Date -->
             <ng-container matColumnDef="airFareCost">
-              <th mat-header-cell *matHeaderCellDef> Air Fare Cost </th>
+              <th mat-header-cell *matHeaderCellDef> $ Air Fare Cost </th>
               <td mat-cell *matCellDef="let perdiem"> {{ perdiem.airFareCost }} </td>
             </ng-container>
   

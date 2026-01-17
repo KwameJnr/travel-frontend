@@ -15,8 +15,7 @@
           { icon: 'badge', label: 'Passport Number', value: data.employeePassportNo },
           { icon: 'event', label: 'Passport Expiry', value: data.employeePassportExpiry },
           { icon: 'badge', label: 'F-Number', value: data.employeeNumber },
-          { icon: 'apartment', label: 'Department', value: data.employeeDepartment },
-          { icon: 'apartment', label: 'Department Code', value: data.deparmentCode },
+          { icon: 'apartment', label: 'Department', value: data.employeeDepartment.name },
           { icon: 'call', label: 'Travel Contact', value: data.employeeTravellingContact },
           { icon: 'smartphone', label: 'Personal Contact', value: data.employeeContact }
         ]">
@@ -34,7 +33,7 @@
           { icon: 'work', label: 'Purpose', value: data.purpose },
           { icon: 'location_city', label: 'City', value: data.city },
           { icon: 'public', label: 'Country', value: data.country },
-          { icon: 'flight_takeoff', label: 'Visa Required', value: data.visaRequired },
+          { icon: 'flight_takeoff', label: 'Visa Required', value: data.visaRequired ? 'Yes' : 'No'},
           { icon: 'event', label: 'Departure Date', value: data.departureDate },
           { icon: 'schedule', label: 'Departure Time', value: data.departureTime },
           { icon: 'event', label: 'Return Date', value: data.returnDate },
@@ -66,7 +65,7 @@
   
         <!-- Hotel Info -->
         <ng-container *ngFor="let field of [
-          { icon: 'hotel', label: 'Hotel Reservation', value: data.hotelReservation },
+          { icon: 'hotel', label: 'Hotel Reservation', value: data.hotelReservation ? 'Yes' : 'No'},
           { icon: 'business', label: 'Hotel Name', value: data.hotelName },
           { icon: 'location_on', label: 'Hotel Address', value: data.hotelAddress },
           { icon: 'location_city', label: 'Hotel City', value: data.hotelCity },
@@ -83,8 +82,8 @@
   
         <!-- Transport -->
         <ng-container *ngFor="let field of [
-          { icon: 'directions_car', label: 'Rental Car Required', value: data.rentalCarRequired },
-          { icon: 'airport_shuttle', label: 'Airport Transport', value: data.airportTransportRequiredToAndFrom }
+          { icon: 'directions_car', label: 'Rental Car Required', value: data.rentalCarRequired ? 'Yes' : 'No'},
+          { icon: 'airport_shuttle', label: 'Airport Transport', value: data.airportTransportRequiredToAndFrom ? 'Yes' : 'No'}
         ]">
           <div class="field-row">
             <div class="field-label">
@@ -99,8 +98,8 @@
         <ng-container *ngFor="let field of [
           { icon: 'payments', label: 'Subsistence Allowance', value: data.subsistenceAllowance },
           { icon: 'confirmation_number', label: 'Per Diem Days', value: data.perDiemDays },
-          { icon: 'attach_money', label: 'Estimated Per Diem Amount', value: data.estimatedPerDiemAmount },
-          { icon: 'calculate', label: 'Total Estimated Cost', value: data.totalEstimatedTravelCost },
+          { icon: 'attach_money', label: 'Estimated Per Diem Amount', value: data.estimatedPerDiemAmount | currency},
+          { icon: 'calculate', label: 'Total Estimated Cost', value: data.totalEstimatedTravelCost | currency},
           { icon: 'code', label: 'Budget Code', value: data.travelBudgetCode }
         ]">
           <div class="field-row">

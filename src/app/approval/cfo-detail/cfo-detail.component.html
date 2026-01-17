@@ -61,22 +61,6 @@
     <h3>CFO Decision</h3>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>CFO Status</mat-label>
-      <mat-select formControlName="cfoStatus" [disabled]="!isEditable">
-        <mat-option value="Pending">Pending</mat-option>
-        <mat-option value="Successful">Successful</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Decision</mat-label>
-      <mat-select formControlName="cfoFeedback" [disabled]="!isEditable">
-        <mat-option value="Approved">Approved</mat-option>
-        <mat-option value="Rejected">Rejected</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Remarks </mat-label>
       <textarea
         matInput
@@ -96,14 +80,14 @@
     <!-- Actions -->
     <div class="action-bar">
       <button mat-stroked-button class="default-btn" color="warn"
-              (click)="reject()"
-              [disabled]="!isEditable">
+              (click)="confirmAction('REJECTED')"
+              [disabled]="!isEditable || !actionForm.get('cfoFeedbackRemarks')?.value?.trim()">
         Reject
       </button>
 
       <button mat-raised-button class="default-btn" color="primary"
-              (click)="approve()"
-              [disabled]="!isEditable">
+              (click)="confirmAction('APPROVED')"
+              [disabled]="!isEditable || !actionForm.get('cfoFeedbackRemarks')?.value?.trim()">
         Approve
       </button>
 
