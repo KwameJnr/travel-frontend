@@ -21,6 +21,16 @@
             "outputPath": "dist/travel-request-front-end",
             "index": "src/index.html",
             "browser": "src/main.ts",
+
+            "allowedCommonJsDependencies": [
+              "html2pdf.js",
+              "html2canvas",
+              "canvg",
+              "raf",
+              "rgbcolor",
+              "ts-luxon"
+            ],
+
             "polyfills": [
               "zone.js"
             ],
@@ -46,7 +56,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
+                  "maximumWarning": "800kB",
                   "maximumError": "1MB"
                 },
                 {

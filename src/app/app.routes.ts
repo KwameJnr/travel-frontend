@@ -5,14 +5,19 @@ import { authGuard } from './auth/login/guards/auth.guard';
 import { LoginGuard } from './auth/login/guards/login.guard';
 
 export const appRoutes: Routes = [
-  // ===== LOGIN =====
+
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [LoginGuard] 
+    canActivate: [LoginGuard],
   },
 
-  // ===== MAIN APP LAYOUT =====
   {
     path: '',
     component: LayoutComponent,
@@ -21,26 +26,18 @@ export const appRoutes: Routes = [
         path: 'travel',
         loadChildren: () =>
           import('./travel/travel.routes').then(m => m.travelRoutes),
-        canActivate: [authGuard], // protects all child routes
-      },
-      {
-        path: '',
-        redirectTo: 'login', // redirect empty path to login
-        pathMatch: 'full',
+        canActivate: [authGuard],
       },
     ],
   },
 
-  // ===== UNAUTHORIZED PAGE =====
   {
     path: 'unauthorized',
     loadComponent: () =>
-      import('app/auth/login/unauthorized/unauthorized.component').then(
-        m => m.UnauthorizedComponent
-      ),
+      import('app/auth/login/unauthorized/unauthorized.component')
+        .then(m => m.UnauthorizedComponent),
   },
 
-  // ===== CATCH ALL =====
   {
     path: '**',
     redirectTo: 'login',

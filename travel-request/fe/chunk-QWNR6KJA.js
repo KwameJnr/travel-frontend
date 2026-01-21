@@ -1,0 +1,1 @@
+import{Db as n,Eb as o,Zb as a,fb as p}from"./chunk-T35DG4SE.js";import"./chunk-ODN5LVDJ.js";var i=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=p({type:t,selectors:[["app-app-edit"]],decls:2,vars:0,template:function(e,m){e&1&&(n(0,"p"),a(1,"app-edit works!"),o())},encapsulation:2})};export{i as AppEditComponent};

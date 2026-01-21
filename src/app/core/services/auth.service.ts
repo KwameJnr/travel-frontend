@@ -23,6 +23,11 @@ export class AuthService {
   login(token: string): void {
     localStorage.setItem('userToken', token);
     this._isAuthenticated$.next(true);
+
+    
+  // Preload heavy PDF libraries in the background
+    // import('html2pdf.js');
+    // import('html2canvas');
   }
 
   logout(): void {

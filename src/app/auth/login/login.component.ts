@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ConfigService } from 'src/app/config.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -62,7 +63,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
-    private config: ConfigService
+    private config: ConfigService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -225,6 +227,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     localStorage.setItem('userTitle', user.title);
     localStorage.setItem('userName', user.name);
     localStorage.setItem('userToken', res?.token);
+
+    this.authService.login(res?.token);
 
     this.router.navigateByUrl('/travel/landing', { replaceUrl: true });
 

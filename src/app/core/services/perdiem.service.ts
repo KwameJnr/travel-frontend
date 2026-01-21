@@ -53,7 +53,7 @@ export class PerdiemService {
       const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
     
-    return this.http.put<PerDiemEditRequest>(
+    return this.http.post<PerDiemEditRequest>(
       `${this.baseUrl}/travel-request/perdiems/update/${id}`,
       payload,
       {headers}

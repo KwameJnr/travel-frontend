@@ -7,8 +7,6 @@ import { ActivatedRoute } from '@angular/router';
 import { TravelService } from 'src/app/core/services/travel.service';
 import { Travel } from 'src/app/shared/models/travel/travel.model';
 import { Location } from '@angular/common';
-import html2pdf from 'html2pdf.js';
-
 
 @Component({
   selector: 'app-travel-detail',
@@ -52,12 +50,15 @@ export class TravelDetailComponent implements OnInit {
     this.location.back();
   }
 
-  exportAsPDF(): void {
+  async exportAsPDF(): Promise<void> {
     const element = document.getElementById('pdfContent');
     if (!element) {
-      console.error('❌ PDF export failed: #pdfContent not found.');
+      console.error('PDF export failed: #pdfContent not found.');
       return;
     }
+
+    // 🔥 Lazy-load the library ONLY when needed
+    const html2pdf = (await import('html2pdf.js')).default;
 
     const options: any = {
       margin: 0.5,
