@@ -14,16 +14,6 @@ export class BaseUrlService {
   }
 }
 
-// export const baseUrl = "https://fib-w4ghnlb-pr-shr01.firstnationalbank.com.gh/camp/travelre"
-// export const baseUrlCamp = "https://fib-w4ghnlb-pr-shr01.firstnationalbank.com.gh/camp"
-// export const baseUrl = "http://internal-fib-w4ghalb-camp-int01-618444259.eu-west-1.elb.amazonaws.com/camp/travelre"
-// export const baseUrlCamp = "http://internal-fib-w4ghalb-camp-int01-618444259.eu-west-1.elb.amazonaws.com/camp"
-// export const baseUrlLocal = "http://localhost:9090/camp/travelre"
-// export const baseUrlLocalCamp = "http://localhost:9090/camp"
-
-// export function generateUUID(): string {
-//     return crypto.randomUUID();
-//   }
 export function generateUUID(): string {
     // Fallback UUID generator
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

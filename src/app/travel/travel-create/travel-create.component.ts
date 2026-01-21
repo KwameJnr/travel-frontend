@@ -116,6 +116,22 @@ export class TravelCreateComponent implements OnInit {
 
   /* ---------------- FORM ---------------- */
 
+  get step1(): AbstractControl {
+    return this.travelForm.get('step1')!;
+  }
+
+  get step2(): AbstractControl {
+    return this.travelForm.get('step2')!;
+  }
+
+  get step3(): AbstractControl {
+    return this.travelForm.get('step3')!;
+  }
+
+  get step4(): AbstractControl {
+    return this.travelForm.get('step4')!;
+  }
+
   private buildForm(): void {
     this.travelForm = this.fb.group({
       step1: this.fb.group({

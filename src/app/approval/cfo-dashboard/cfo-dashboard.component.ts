@@ -1,53 +1,86 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+
 import { NgChartsModule } from 'ng2-charts';
-import { ChartType, ChartConfiguration } from 'chart.js';
+import { ChartConfiguration, ChartType } from 'chart.js';
+
 import { TravelService } from 'src/app/core/services/travel.service';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cfo-dashboard',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
+    RouterModule,
+
     MatCardModule,
     MatIconModule,
     MatTableModule,
-    NgChartsModule,
-    RouterModule
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+
+    NgChartsModule
   ],
   templateUrl: './cfo-dashboard.component.html',
   styleUrls: ['./cfo-dashboard.component.scss']
 })
 export class CfoDashboardComponent implements OnInit {
 
+  /* ---------------- FILTERS ---------------- */
+  years: number[] = [];
+  months = [
+    { value: 1, label: 'January' },
+    { value: 2, label: 'February' },
+    { value: 3, label: 'March' },
+    { value: 4, label: 'April' },
+    { value: 5, label: 'May' },
+    { value: 6, label: 'June' },
+    { value: 7, label: 'July' },
+    { value: 8, label: 'August' },
+    { value: 9, label: 'September' },
+    { value: 10, label: 'October' },
+    { value: 11, label: 'November' },
+    { value: 12, label: 'December' }
+  ];
+
+  selectedYear: number | null = null;
+  selectedMonth: number | null = null;
+
+  /* ---------------- METRICS ---------------- */
   metrics: any = {};
   departmentRanking: any[] = [];
 
   displayedColumns = ['department', 'code', 'requests'];
 
-  /* -------- DONUT CHART (APPROVAL STATUS) -------- */
+  /* ---------------- CHARTS ---------------- */
+
   approvalChartType: ChartType = 'doughnut';
   approvalChartData: ChartConfiguration['data'] = {
     labels: ['Approved', 'Pending', 'Rejected'],
     datasets: [{
       data: [0, 0, 0],
-      backgroundColor: ['#16a34a', '#ca8a04', '#dc2626'] // bright colors
+      backgroundColor: ['#16a34a', '#ca8a04', '#dc2626']
     }]
   };
+
   approvalChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
-      legend: {
-        position: 'bottom'
-      }
+      legend: { position: 'bottom' }
     }
   };
 
-  /* -------- BAR CHART (DEPARTMENT RANKING) -------- */
   departmentChartType: ChartType = 'bar';
   departmentChartData: ChartConfiguration['data'] = {
     labels: [],
@@ -57,12 +90,11 @@ export class CfoDashboardComponent implements OnInit {
       backgroundColor: '#159e97'
     }]
   };
+
   departmentChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
-      legend: {
-        display: false
-      }
+      legend: { display: false }
     },
     scales: {
       y: { beginAtZero: true }
@@ -71,19 +103,32 @@ export class CfoDashboardComponent implements OnInit {
 
   constructor(private travelService: TravelService) {}
 
+  /* ---------------- INIT ---------------- */
   ngOnInit(): void {
-    this.loadMetrics();
-    this.loadDepartmentRanking();
+    this.initYears();
+    this.applyFilters(); // load initial (All)
   }
 
-  private loadMetrics(): void {
-    this.travelService.getCfoDashboardMetrics().subscribe(res => {
+  private initYears(): void {
+    const currentYear = new Date().getFullYear();
+    this.years = Array.from({ length: 6 }, (_, i) => currentYear - i);
+  }
+
+  /* ---------------- ACTIONS ---------------- */
+  applyFilters(): void {
+    this.loadMetrics(this.selectedYear ?? undefined, this.selectedMonth ?? undefined);
+    this.loadDepartmentRanking(this.selectedYear ?? undefined, this.selectedMonth ?? undefined);
+  }
+
+  /* ---------------- API CALLS ---------------- */
+
+  loadMetrics(year?: number, month?: number): void {
+    this.travelService.getCfoDashboardMetrics(year, month).subscribe(res => {
       const data = res?.data?.[0];
       if (!data) return;
 
       this.metrics = data;
 
-      // Update chart immutably to trigger re-render
       this.approvalChartData = {
         ...this.approvalChartData,
         datasets: [{
@@ -98,12 +143,11 @@ export class CfoDashboardComponent implements OnInit {
     });
   }
 
-  private loadDepartmentRanking(): void {
-    this.travelService.getDepartmentRanking().subscribe(res => {
+  loadDepartmentRanking(year?: number, month?: number): void {
+    this.travelService.getDepartmentRanking(year, month).subscribe(res => {
       const data = res?.data || [];
       this.departmentRanking = data;
 
-      // Update chart immutably to trigger re-render
       this.departmentChartData = {
         ...this.departmentChartData,
         labels: data.map((d: any) => d.departmentCode),

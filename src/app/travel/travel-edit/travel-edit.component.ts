@@ -158,21 +158,21 @@ export class TravelEditComponent implements OnInit {
     ...formValue,
     employeePassportExpiry: formatToLocalDateTime(formValue.employeePassportExpiry),
     departureDate: formatToLocalDateTime(formValue.departureDate),
+    departureTime: this.formatTime(formValue.departureTime),
     returnDate: formatToLocalDateTime(formValue.returnDate),
+    returnTime: this.formatTime(formValue.returnTime),
     perDiemStartDate: formatToLocalDateTime(formValue.perDiemStartDate),
     perDiemEndDate: formatToLocalDateTime(formValue.perDiemEndDate),
     daysOutOfficialAssignmentDate: formValue.daysOutOfficialAssignmentDate,
     perDiemDays: formValue.perDiemDays,
-    // status: `Pending BU Head Approval`,
-    // dateCreated: formatToLocalDateTime(new Date()),
   };
 
     this.loading = true;
     const updatedData: Travel = this.travelForm.value;
-    this.travelService.updateTravelRequestsById(this.travelId, updatedData).subscribe({
+    this.travelService.updateTravelRequestsById(this.travelId, payload).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/list']);
+        this.router.navigate(['travel/list']);
       },
       error: (err) => {
         console.error('Update failed', err);
@@ -180,6 +180,22 @@ export class TravelEditComponent implements OnInit {
       }
     });
   }
+
+  private formatTime(time: string): string {
+  // time can come like "08:30 AM" or "08:30"
+  const [hourMin, meridian] = time.split(' ');
+  let [hours, minutes] = hourMin.split(':').map(Number);
+
+  if (meridian) {
+    if (meridian.toUpperCase() === 'PM' && hours < 12) hours += 12;
+    if (meridian.toUpperCase() === 'AM' && hours === 12) hours = 0;
+  }
+
+  const hh = hours.toString().padStart(2, '0');
+  const mm = minutes.toString().padStart(2, '0');
+
+  return `${hh}:${mm}:00`; // always include seconds
+}
 
   goBack(): void {
     this.location.back();

@@ -113,7 +113,7 @@ export class CfoDetailComponent  implements OnInit {
           'Close',
           { duration: 3000 }
         );
-        this.router.navigate(['/cfo/list']);
+        this.router.navigate(['travel/cfo/list']);
       },
       error: (err) => {
         console.error(err);

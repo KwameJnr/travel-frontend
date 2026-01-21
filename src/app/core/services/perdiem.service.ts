@@ -23,14 +23,21 @@ export class PerdiemService {
 
   getAll(): Observable<PerDiem[]> {
     const token = localStorage.getItem('userToken') || '';
-    return this.http.get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/travel-request/perdiems/index`).pipe(
+      const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/travel-request/perdiems/index`,{headers}).pipe(
       map(response => response.data)
     );
   }
   
   getById(id: string): Observable<PerDiem | undefined> {
+    const token = localStorage.getItem('userToken') || '';
+      const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+
     return this.http
-      .get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/travel-request/perdiems/${id}`)
+      .get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/travel-request/perdiems/${id}`,{headers})
       .pipe(
         map(response => response.data?.[0])
       );
@@ -42,9 +49,14 @@ export class PerdiemService {
   }
 
   update(id: string, payload: Partial<PerDiemEditRequest>): Observable<PerDiemEditRequest> {
+    const token = localStorage.getItem('userToken') || '';
+      const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+    
     return this.http.put<PerDiemEditRequest>(
       `${this.baseUrl}/travel-request/perdiems/update/${id}`,
-      payload
+      payload,
+      {headers}
     );
   }
 
@@ -60,13 +72,4 @@ export class PerdiemService {
     );
   }
 
-  sendApprovalEmail(payload: ApprovalEmailPayload): Observable<any> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.post(this.baseUrl+'/notifications/send-approval-msg', payload,{ headers });
-  }
 }

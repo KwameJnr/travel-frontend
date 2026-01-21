@@ -117,7 +117,7 @@ export class BuheadDetailComponent implements OnInit {
             'Close',
             { duration: 3000 }
           );
-          this.router.navigate(['/buhead/list']);
+          this.router.navigate(['travel/buhead/list']);
         },
         error: (err) => {
           console.error(err);

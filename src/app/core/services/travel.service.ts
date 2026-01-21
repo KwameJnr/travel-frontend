@@ -1,9 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, forkJoin, tap } from 'rxjs';
-import { CfoDashboardMetrics } from 'src/app/shared/models/cfo/CfoDashboadMetrics';
-import { ApprovalEmailPayload } from 'src/app/shared/models/notification/ApprovalEmailPayload';
-import { EmailMsgPayload } from 'src/app/shared/models/notification/EmailMsgPayload';
 import { ApiResponse, ApiResponseRec, BuheadApprovalRequest, CfoApprovalRequest } from 'src/app/shared/models/travel/api-response.model';
 import { Department } from 'src/app/shared/models/deparment/department.model'; 
 import { Travel } from 'src/app/shared/models/travel/travel.model';
@@ -23,72 +20,97 @@ export class TravelService {
     return this.config.get('baseUrl');
   }
 
-  private get baseUrlCamp() {
-    return this.config.get('baseUrlCamp');
-  }
-
   private get travelApibaseUrlLocal() {
     return `${this.baseUrl}/travels`;
-  }
-
-  private get apiUrl() {
-    return `${this.baseUrlCamp}/company/department/index`;
   }
 
   /* ============================
      CFO DASHBOARD METRICS
      ============================ */
-  getCfoDashboardMetrics(): Observable<any> {
-    return this.http.get<any>(
-      `${this.baseUrl}/travel-request/travels/cfo-dashboard-metrics`
-    );
-  }
+    getCfoDashboardMetrics(year?: number, month?: number): Observable<any> {
+      const token = localStorage.getItem('userToken') || '';
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+      const params: any = {};
+      if (year) params.year = year;
+      if (month) params.month = month;
+
+      return this.http.get<any>(
+        `${this.baseUrl}/travel-request/travels/cfo-dashboard-metrics`,
+        { headers, params }
+      );
+    }
+
+    getDepartmentRanking(year?: number, month?: number): Observable<any> {
+      const token = localStorage.getItem('userToken') || '';
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+      const params: any = {};
+      if (year) params.year = year;
+      if (month) params.month = month;
+
+      return this.http.get<any>(
+        `${this.baseUrl}/travel-request/travels/department-ranking`,
+        { headers, params }
+      );
+    }
 
   /* ============================
-     DEPARTMENT RANKING
+     APP ROLES
      ============================ */
-  getDepartmentRanking(): Observable<any> {
-    return this.http.get<any>(
-      `${this.baseUrl}/travel-request/travels/department-ranking`
-    );
-  }
-  // App roles
   getApplicationRoles(): Observable<ApplicationRole[]> {
      const url = `${this.baseUrl}/travel-request/application-roles/index`;
+     const token = localStorage.getItem('userToken') || '';
+     const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
     return this.http
-      .get<ApiResponse<ApplicationRole[]>>(url)
+      .get<ApiResponse<ApplicationRole[]>>(url,{headers})
       .pipe(map(res => res.data));
   }
 
   getApplicationRoleDetails(id: number): Observable<ApplicationRole> {
     const url = `${this.baseUrl}/travel-request/application-roles/view/${id}`;
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
 
     return this.http
-      .get<ApiResponse<ApplicationRole[]>>(url)
+      .get<ApiResponse<ApplicationRole[]>>(url,{headers})
       .pipe(map(res => res.data[0])); // <-- take first element
   }
 
   addApplicationRole(role: ApplicationRole): Observable<ApplicationRole> {
     const url = `${this.baseUrl}/travel-request/application-roles/add`;
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
 
-    return this.http.post<ApiResponse<ApplicationRole>>(`${url}`, role)
+    return this.http.post<ApiResponse<ApplicationRole>>(`${url}`, role,{headers})
       .pipe(map(res => res.data));
   }
 
-  // User roles
+  /* ============================
+     USER ROLES
+     ============================ */
   getUserRoles(): Observable<UserRole[]> {
      const url = `${this.baseUrl}/travel-request/user-roles/index`;
+     const token = localStorage.getItem('userToken') || '';
+     const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
 
     return this.http
-      .get<ApiResponse<UserRole[]>>(`${url}`)
+      .get<ApiResponse<UserRole[]>>(`${url}`,{headers})
       .pipe(map(res => res.data));
   }
 
   getUserRoleDetails(id: number): Observable<UserRole> {
     const url = `${this.baseUrl}/travel-request/user-roles/${id}`;
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
 
     return this.http
-      .get<ApiResponse<UserRole[]>>(url)
+      .get<ApiResponse<UserRole[]>>(url,{headers})
       .pipe(
         map(res => res.data[0]) 
       );
@@ -96,66 +118,49 @@ export class TravelService {
 
   addUserRole(payload: CreateUserRoleDto): Observable<UserRole> {
     const url = `${this.baseUrl}/travel-request/user-roles/add`;
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
 
     return this.http
-      .post<ApiResponse<UserRole>>(url, payload)
+      .post<ApiResponse<UserRole>>(url, payload,{headers})
       .pipe(map(res => res.data));
   }
 
-  getAll(): Observable<Travel[]> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID()); // Generate a unique request ID
-
-    return this.http.get<ApiResponse<Travel[]>>(`${this.travelApibaseUrlLocal}/all`,{headers}).pipe(
-      map(response => response.data)
-    );
-  }
-  
-  getById(id: string): Observable<Travel> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.get<ApiResponse<Travel>>(`${this.travelApibaseUrlLocal}/view/${id}`,{headers}).pipe(
-      map(response => response.data)
-    );
-  }
-
-  // createTravelRequest(travel: Travel): Observable<ApiResponse<Travel>> {
-  //   const token = localStorage.getItem('userToken') || '';
-  //   const headers = new HttpHeaders()
-  //   .set('Authorization', `Bearer ${token}`)
-  //   .set('X-SrcApp', 'Travel-Request')
-  //   .set('X-Request-ID', generateUUID());
-
-  //   return this.http.post<ApiResponse<Travel>>(`${this.travelApibaseUrlLocal}/add`, travel,{ headers});
-  // }  
-
+  /* ============================
+     BU HEAD & CFO BADGE COUNT
+     ============================ */
   getCfoPendingCount(): Observable<number> {
-    const url = `${this.baseUrl}/travel-request/travels/cfo-feedback?feedback=PENDING`;
+    const url = `${this.baseUrl}/travel-request/travels/cfo-feedback/count?feedback=PENDING`;
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
 
-    return this.http.get<any>(url).pipe(
-      map(res => res?.totalRecords ?? 0)
+    return this.http.get<any>(url,{headers}).pipe(
+      map(res => res?.data?.[0] ?? 0)
     );
   }
 
   getBuPendingCount(): Observable<number> {
-    const url = `${this.baseUrl}/travel-request/travels/bu-head-feedback?feedback=PENDING`;
+    const url = `${this.baseUrl}/travel-request/travels/bu-head-feedback/count?feedback=PENDING`;
 
-    return this.http.get<any>(url).pipe(
-      map(res => res?.totalRecords ?? 0)
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<any>(url, { headers }).pipe(
+      map(res => res?.data?.[0] ?? 0)
     );
   }
 
   submitCfoApproval(payload: CfoApprovalRequest): Observable<any> {
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+    
     return this.http.post(
       `${this.baseUrl}/travel-request/travels/cfo-approval`,
-      payload
+      payload,{headers}
     );
   }
 
@@ -165,13 +170,14 @@ export class TravelService {
   ): Observable<Travel[]> {
 
     const url = `${this.baseUrl}/travel-request/travels/cfo-feedback?feedback=${feedback}`;
-    console.log('Fetching CFO feedback for:', feedback, url);
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+    console.log('Fetching CFO feedback for:', feedback, url,{headers});
 
-    return this.http.get<any>(url).pipe(
+    return this.http.get<any>(url,{headers}).pipe(
       map(res => {
-        // Prioritize records if available
         if (Array.isArray(res.records) && res.records.length > 0) return res.records;
-        // Fallback to data if available
         if (Array.isArray(res.data) && res.data.length > 0) return res.data;
         console.warn('No data found for feedback:', feedback, res);
         return [];
@@ -196,9 +202,13 @@ export class TravelService {
   }
 
   submitBuApproval(payload: BuheadApprovalRequest): Observable<any> {
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+    
     return this.http.post(
       `${this.baseUrl}/travel-request/travels/bu-head-approval`,
-      payload
+      payload,{headers}
     );
   }
 
@@ -208,13 +218,14 @@ export class TravelService {
   ): Observable<Travel[]> {
 
     const url = `${this.baseUrl}/travel-request/travels/bu-head-feedback?feedback=${feedback}`;
-    console.log('Fetching CFO feedback for:', feedback, url);
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+    console.log('Fetching CFO feedback for:', feedback, url,{headers});
 
-    return this.http.get<any>(url).pipe(
+    return this.http.get<any>(url,{headers}).pipe(
       map(res => {
-        // Prioritize records if available
         if (Array.isArray(res.records) && res.records.length > 0) return res.records;
-        // Fallback to data if available
         if (Array.isArray(res.data) && res.data.length > 0) return res.data;
         console.warn('No data found for feedback:', feedback, res);
         return [];
@@ -238,9 +249,17 @@ export class TravelService {
     );
   }
 
+  /* ============================
+     TRAVEL FORMS
+     ============================ */
+
   getMyTravelRequestsById(id: string): Observable<Travel> {
   const url = `${this.baseUrl}/travel-request/travels/view/${id}`;
-  return this.http.get<ApiResponse<Travel[]>>(url).pipe(
+  const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+
+  return this.http.get<ApiResponse<Travel[]>>(url,{headers}).pipe(
     map(response => {
       if (response.data && response.data.length > 0) {
         return response.data[0]; // extract the first travel from array
@@ -252,11 +271,14 @@ export class TravelService {
 
 updateTravelRequestsById(id: string, updatedData: any): Observable<Travel> {
   const url = `${this.baseUrl}/travel-request/travels/update/${id}`;
+  const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
 
-  return this.http.post<ApiResponse<Travel[]>>(url, updatedData).pipe(
+  return this.http.post<ApiResponse<Travel[]>>(url, updatedData,{headers}).pipe(
     map(response => {
       if (response.data && response.data.length > 0) {
-        return response.data[0]; // extract the first travel from array
+        return response.data[0]; 
       }
       throw new Error('No travel data found');
     })
@@ -265,28 +287,25 @@ updateTravelRequestsById(id: string, updatedData: any): Observable<Travel> {
 
   getMyTravelRequests(fNumber: string): Observable<ApiResponse<Travel[]>> {
     const url = `${this.baseUrl}/travel-request/travels/my-requests`;
-    const params = { fNumber }; // query param
+    // const params = { fNumber }; 
+    const token = localStorage.getItem('userToken') || '';
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
 
     console.log('Fetching my travel requests for email:', fNumber, 'URL:', url);
 
-    return this.http.get<ApiResponse<Travel[]>>(url, { params });
+    return this.http.get<ApiResponse<Travel[]>>(url, {headers });
   }
 
   createTravelRequest(travel: Travel): Observable<ApiResponse<Travel>> {
     const url = `${this.baseUrl}/travel-request/travels/add`;
     console.log('Component travel forms:', url);
-    return this.http.post<ApiResponse<Travel>>(url, travel);
-  }  
-
-  update(id: string, travel: Travel): Observable<Travel> {
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
+    .set('Authorization', `Bearer ${token}`);
 
-    return this.http.put<Travel>(`${this.travelApibaseUrlLocal}/update/${id}`, travel,{ headers })
-  }
+    return this.http.post<ApiResponse<Travel>>(url, travel,{headers});
+  }  
 
   delete(id: string): Observable<string> {
     const token = localStorage.getItem('userToken') || '';
@@ -299,148 +318,37 @@ updateTravelRequestsById(id: string, updatedData: any): Observable<Travel> {
       map(response => response.data)
     );
   }
-
-  //BU Heads endpoints 
-  getPendingRequestsForBuHead(): Observable<any[]> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.get<any>(`${this.travelApibaseUrlLocal}/exco-feedback/pending`,{headers}).pipe(
-      map(response => response.data)
-    );
-  }
-
-  updateBuHeadFeedback(id: string, payload: any): Observable<any> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.put(`${this.travelApibaseUrlLocal}/update/${id}`, payload, { headers });
-  }
-  
-  //CFO endpoints 
-  getPendingRequestsForCfo(): Observable<any[]> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.get<any>(`${this.travelApibaseUrlLocal}/cfo-feedback/pending`,{headers}).pipe(
-      map(response => response.data)
-    );
-  }
-
-  updateCfoFeedback(id: string, payload: any): Observable<any> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.put(`${this.travelApibaseUrlLocal}/update/${id}`, payload,{ headers });
-  }
-
-  //Notification endpoints
-  sendApprovalEmail(payload: ApprovalEmailPayload): Observable<any> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.post(this.baseUrl+'/notifications/send-approval-msg', payload,{ headers });
-  }
-
-  sendApprovalEmailFrontEnd(payload: ApprovalEmailPayload): Observable<any> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.post(this.baseUrl+'/notifications/send-approval-frontend-msg', payload,{ headers });
-  }
-
-  sendApprovalEmailFrontEndWithAttachment(payload: ApprovalEmailPayload): Observable<any> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.post(this.baseUrl+'/notifications/send-approval-frontend-msg-with-attachment', payload,{ headers });
-  }
-
-  sendEmailMsg(payload: EmailMsgPayload): Observable<any> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.post(this.baseUrl+'/notifications/send-msg', payload,{ headers });
-  }
-  
-  //Cfo dashboard notification endpoints 
-  getMetrics(): Observable<CfoDashboardMetrics> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    return this.http.get<CfoDashboardMetrics>(this.baseUrl+'/cfo-dashboard/metrics',{ headers });
-  }
-
-  getMonthlyCosts(year: number, month?: number): Observable<{ month: string; cost: number }[]> {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${token}`)
-      .set('X-SrcApp', 'Travel-Request')
-      .set('X-Request-ID', generateUUID());
-  
-    let params = `year=${year}`;
-    if (month) params += `&month=${month}`;
-  
-    return this.http.get<{ month: string; cost: number }[]>(`${this.baseUrl}/cfo-dashboard/monthly-costs?${params}`, { headers });
-  }
-
-  getTopDepartments(year: number, month?: number) {
-    const token = localStorage.getItem('userToken') || '';
-    const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${token}`)
-    .set('X-SrcApp', 'Travel-Request')
-    .set('X-Request-ID', generateUUID());
-
-    let params = `year=${year}`;
-    if (month) params += `&month=${month}`;
-    return this.http.get<{ department: string, cost: number }[]>(`${this.baseUrl}/cfo-dashboard/top-departments?${params}`, { headers });
-  }
   
   /* ================= COMPONENT (NO AUTH) ENDPOINTS ================= */
 
     getComponentDepartments(): Observable<ApiResponse<Department[]>> {
       const url = `${this.baseUrl}/travel-request/components/departments`;
+      const token = localStorage.getItem('userToken') || '';
+      const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`);
+
       console.log('Component Departments:', url);
-      return this.http.get<ApiResponse<Department[]>>(url);
+      return this.http.get<ApiResponse<Department[]>>(url,{headers});
     }
 
     getComponentBUHeads(code: string): Observable<ApiResponse<BauHeadForm[]>> {
       const url = `${this.baseUrl}/travel-request/components/bu-heads/${code}`;
+      const token = localStorage.getItem('userToken') || '';
+      const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+
       console.log('Component BU Heads:', url);
-      return this.http.get<ApiResponse<BauHeadForm[]>>(url);
+      return this.http.get<ApiResponse<BauHeadForm[]>>(url,{headers});
     }
 
     getComponentPerDiemCountries(): Observable<ApiResponse<PerDiemForm[]>> {
       const url = `${this.baseUrl}/travel-request/components/per-diem`;
+      const token = localStorage.getItem('userToken') || '';
+      const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+
       console.log('Component Per Diem:', url);
-      return this.http.get<ApiResponse<PerDiemForm[]>>(url);
+      return this.http.get<ApiResponse<PerDiemForm[]>>(url,{headers});
     }
 
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
-import { loginGuard } from 'src/app/auth/login/guards/login.guard';
+import { LoginGuard } from 'src/app/auth/login/guards/login.guard';
 import { authGuard } from 'src/app/auth/login/guards/auth.guard';
 // import { Routes } from '@angular/router';
 
@@ -8,7 +8,7 @@ export const routes: Routes = [
   { path: '', redirectTo: '/travels', pathMatch: 'full' },
 
   { path: 'travels', 
-    canActivate: [loginGuard],
+    canActivate: [LoginGuard],
     loadChildren: () => import('./travel/travel.module').then(m => m.TravelModule) 
     
   },

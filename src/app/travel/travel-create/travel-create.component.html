@@ -16,11 +16,11 @@
     <mat-card-content>
 
       <!-- <mat-horizontal-stepper > -->
-      <mat-horizontal-stepper (selectionChange)="onStepChange($event.selectedIndex)">
+      <mat-horizontal-stepper linear (selectionChange)="onStepChange($event.selectedIndex)">
 
 
         <!-- ================= STEP 1 ================= -->
-        <mat-step label="Employee Information" [stepControl]="travelForm">
+        <mat-step label="Employee Information" [stepControl]="step1">
           <ng-template matStepContent>
             <div class="form-grid" formGroupName="step1">
               <h3 class="section-title">Employee Information</h3>
@@ -95,7 +95,8 @@
         </mat-step>
 
         <!-- ================= STEP 2 ================= -->
-        <mat-step label="Travel Details">
+        <mat-step label="Travel Details" [stepControl]="step2">
+
           <ng-template matStepContent>
 
             <div class="form-grid" formGroupName="step2">
@@ -204,7 +205,8 @@
         </mat-step>
 
         <!-- ================= STEP 3 ================= -->
-        <mat-step label="Accommodation & Financials">
+        <mat-step label="Accommodation & Financials" [stepControl]="step3">
+
           <ng-template matStepContent>
 
             <div class="form-grid" formGroupName="step3">
@@ -319,7 +321,8 @@
         </mat-step>
 
         <!-- ================= STEP 4 ================= -->
-        <mat-step label="Approvals & Submit">
+        <mat-step label="Approvals & Submit" [stepControl]="step4">
+
           <ng-template matStepContent>
 
             <div class="form-grid" formGroupName="step4">

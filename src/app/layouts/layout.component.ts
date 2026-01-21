@@ -6,7 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
-import { filter, Subscription } from 'rxjs';
+import { filter, Observable, Subscription } from 'rxjs';
+import { AuthService } from '../core/services/auth.service';
 
 
 @Component({
@@ -34,8 +35,8 @@ import { filter, Subscription } from 'rxjs';
       <span class="spacer"></span>
 
       <!-- USER OVERLAY TRIGGER -->
-      <ng-container *ngIf="isAuthenticated">
-        <button mat-icon-button (click)="toggleUserOverlay($event)" class="user-trigger" #userTrigger>
+      <ng-container *ngIf="isAuthenticated$ | async">
+        <button mat-icon-button (click)="toggleUserOverlay($event)" #userTrigger>
           <mat-icon>account_circle</mat-icon>
         </button>
 
@@ -162,7 +163,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
   private readonly WARNING_BEFORE_MS = 1 * 60 * 1000;
   private routerSub!: Subscription;
 
-  constructor(private router: Router, private elementRef: ElementRef) {}
+  isAuthenticated$!: Observable<boolean>;
+  constructor(private router: Router, private elementRef: ElementRef, private authService: AuthService) {}
 
   @ViewChild('userOverlay', { read: ElementRef }) userOverlayRef!: ElementRef;
   @ViewChild('userTrigger', { read: ElementRef }) userTriggerRef!: ElementRef;
@@ -170,6 +172,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
     this.currentUrl = this.router.url;
     this.routerSub = this.router.events.pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((event: any) => this.currentUrl = event.urlAfterRedirects);
@@ -183,7 +186,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   /* ===================== ROLE GETTERS ===================== */
-  get isAuthenticated() { return !!this.userRole; }
+  // get isAuthenticated() { return !!this.userRole; }
+
   get isAdmin() { return this.userRole === 'TR_ADMIN'; }
   get isBUHead() { return this.userRole === 'TR_BU_HEAD'; }
   get isCFO() { return this.userRole === 'TR_CFO'; }
@@ -214,9 +218,15 @@ export class LayoutComponent implements OnInit, OnDestroy {
   logout(auto = false): void {
     this.showWarning = false;
     this.showUserOverlay = false;
-    localStorage.clear();
-    if (auto) alert('You were logged out due to inactivity.');
-    this.router.navigateByUrl('tent/travel-request/login');
+
+    this.clearTimeouts();
+    this.authService.logout();
+
+    if (auto) {
+      alert('You were logged out due to inactivity.');
+    }
+
+    this.router.navigateByUrl('travel-request/login');
   }
 
   /* ===================== USER OVERLAY ===================== */

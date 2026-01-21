@@ -74,8 +74,8 @@
           <mat-form-field appearance="outline">
             <mat-label>Visa Required</mat-label>
             <mat-select formControlName="visaRequired">
-              <mat-option value="Yes">Yes</mat-option>
-              <mat-option value="No">No</mat-option>
+              <mat-option value="true">Yes</mat-option>
+              <mat-option value="false">No</mat-option>
             </mat-select>
           </mat-form-field>
 
@@ -86,10 +86,11 @@
             <mat-datepicker #depPicker></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="outline">
             <mat-label>Departure Time</mat-label>
-            <input matInput [ngxMatTimepicker]="departureTimePicker" formControlName="departureTime" readonly />
-            <ngx-mat-timepicker #departureTimePicker></ngx-mat-timepicker>
+            <input matInput [ngxMatTimepicker]="depTimePicker" readonly formControlName="departureTime">
+            <ngx-mat-timepicker #depTimePicker [format]="12"></ngx-mat-timepicker>
+            <mat-icon matSuffix (click)="depTimePicker.open()">access_time</mat-icon>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
@@ -99,10 +100,11 @@
             <mat-datepicker #retPicker></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="outline">
             <mat-label>Return Time</mat-label>
-            <input matInput [ngxMatTimepicker]="returnTimePicker" formControlName="returnTime" readonly />
-            <ngx-mat-timepicker #returnTimePicker></ngx-mat-timepicker>
+            <input matInput [ngxMatTimepicker]="retTimePicker" readonly formControlName="returnTime">
+            <ngx-mat-timepicker #retTimePicker [format]="12"></ngx-mat-timepicker>
+            <mat-icon matSuffix (click)="retTimePicker.open()">access_time</mat-icon>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
@@ -135,8 +137,8 @@
           <mat-form-field appearance="outline">
             <mat-label>Hotel Reservation</mat-label>
             <mat-select formControlName="hotelReservation">
-              <mat-option value="yes">Yes</mat-option>
-              <mat-option value="no">No</mat-option>
+              <mat-option value="true">Yes</mat-option>
+              <mat-option value="false">No</mat-option>
             </mat-select>
           </mat-form-field>
 
@@ -171,16 +173,16 @@
           <mat-form-field appearance="outline">
             <mat-label>Rental Car Required</mat-label>
             <mat-select formControlName="rentalCarRequired">
-              <mat-option value="yes">Yes</mat-option>
-              <mat-option value="no">No</mat-option>
+              <mat-option value="true">Yes</mat-option>
+              <mat-option value="false">No</mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Airport Transport Required</mat-label>
             <mat-select formControlName="airportTransportRequiredToAndFrom">
-              <mat-option value="yes">Yes</mat-option>
-              <mat-option value="no">No</mat-option>
+              <mat-option value="true">Yes</mat-option>
+              <mat-option value="false">No</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -234,18 +236,18 @@
           <mat-form-field appearance="outline">
             <mat-label>Class of Travel (Departure)</mat-label>
             <mat-select formControlName="classOfTravelDeparture">
-              <mat-option value="FirstClass">First Class</mat-option>
-              <mat-option value="BusClass">Business Class</mat-option>
-              <mat-option value="Economy">Economy</mat-option>
+              <mat-option value="FIRST">First Class</mat-option>
+              <mat-option value="BUSINESS">Business Class</mat-option>
+              <mat-option value="ECONOMY">Economy</mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Class of Travel (Return)</mat-label>
             <mat-select formControlName="classOfTravelReturn">
-              <mat-option value="FirstClass">First Class</mat-option>
-              <mat-option value="BusClass">Business Class</mat-option>
-              <mat-option value="Economy">Economy</mat-option>
+              <mat-option value="FIRST">First Class</mat-option>
+              <mat-option value="BUSINESS">Business Class</mat-option>
+              <mat-option value="ECONOMY">Economy</mat-option>
             </mat-select>
           </mat-form-field>
 

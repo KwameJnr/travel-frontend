@@ -7,6 +7,34 @@
     <p>Executive overview of travel request performance</p>
   </div>
 
+  <!-- FILTERS -->
+  <div class="dashboard-filters">
+    <mat-form-field appearance="outline">
+      <mat-label>Year</mat-label>
+      <mat-select [(ngModel)]="selectedYear">
+        <mat-option [value]="null">All</mat-option>
+        <mat-option *ngFor="let y of years" [value]="y">
+          {{ y }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Month</mat-label>
+      <mat-select [(ngModel)]="selectedMonth">
+        <mat-option [value]="null">All</mat-option>
+        <mat-option *ngFor="let m of months" [value]="m.value">
+          {{ m.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button class="btn-apply" color="primary" (click)="applyFilters()">
+      Apply
+    </button>
+
+  </div>
+
   <button
     mat-stroked-button
     class="btn-home"

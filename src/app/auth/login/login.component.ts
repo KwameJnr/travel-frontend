@@ -33,10 +33,12 @@ import { ConfigService } from 'src/app/config.service';
 export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm!: FormGroup;
-  private baseUrlCamp!: string;
+  private get baseUrl() {
+    return this.config.get('baseUrl');
+  }
 
   // ================= DEV CONFIG =================
-  private readonly DEV_BYPASS_LOGIN = true; // 👈 SET TO FALSE BEFORE PROD
+  private readonly DEV_BYPASS_LOGIN = false; // 👈 SET TO FALSE BEFORE PROD
 
   // ================= Polling / Overlay =================
   pollingInterval: any = null;
@@ -65,7 +67,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     document.body.classList.add('login-page');
-    this.baseUrlCamp = this.config.get('baseUrl');
+    // this.baseUrl = this.config.get('baseUrl');
 
     this.loginForm = this.fb.group({
       fnumber: ['', Validators.required],
@@ -122,8 +124,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginForm.disable();
     const { fnumber, password } = this.loginForm.value;
 
+    console.log(this.baseUrl + "this is the base url")
     // Properly encode special chars in query string
-    const url = `${this.baseUrlCamp}/travel-request/auth/login?fnumber=${encodeURIComponent(fnumber)}&password=${encodeURIComponent(password)}`;
+    const url = `${this.baseUrl}/travel-request/auth/login?fnumber=${encodeURIComponent(fnumber)}&password=${encodeURIComponent(password)}`;
+
+    console.log(url + "working")
 
     this.showPollingOverlay = true;
     this.showPollingMessage = true;
@@ -162,7 +167,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.pollingAttempts++;
 
       this.http.post<any>(
-        `${this.baseUrlCamp}/travel-request/auth/verify2fa`,
+        `${this.baseUrl}/travel-request/auth/verify2fa`,
         null,
         { params: { authId } }
       ).subscribe({
@@ -221,7 +226,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     localStorage.setItem('userName', user.name);
     localStorage.setItem('userToken', res?.token);
 
-    this.router.navigate(['/travel/landing']);
+    this.router.navigateByUrl('/travel/landing', { replaceUrl: true });
+
   }
 
   // ================= FAILURE HANDLER =================
@@ -237,6 +243,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   // ================= CANCEL POLLING =================
   cancelPolling(): void {
     this.cleanupPolling();
+    this.showPollingOverlay = false;
     this.pollingMessage = '';
     this.loginForm.enable();
   }
