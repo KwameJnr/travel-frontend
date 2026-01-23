@@ -44,8 +44,11 @@ export class PerdiemService {
   }
 
   create(travel: PerDiemCreateRequest): Observable<PerDiemCreateRequest> {
+    const token = localStorage.getItem('userToken') || '';
+      const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
 
-    return this.http.post<PerDiem>(`${this.baseUrl}/travel-request/perdiems/add`, travel);
+    return this.http.post<PerDiem>(`${this.baseUrl}/travel-request/perdiems/add`, travel,{headers});
   }
 
   update(id: string, payload: Partial<PerDiemEditRequest>): Observable<PerDiemEditRequest> {

@@ -54,8 +54,8 @@ export class CfoDetailComponent  implements OnInit {
 
   get isEditable(): boolean {
     const isAdminUser = this.isAdminUser(); // Check if admin
-    return this.travel?.status === 'PENDING_CFO_APPROVAL';
-    // return this.travel?.status === 'PENDING_CFO_APPROVAL' && !isAdminUser;  //allow only cfo to approve
+    // return this.travel?.status === 'PENDING_CFO_APPROVAL';
+    return this.travel?.status === 'PENDING_CFO_APPROVAL' && !isAdminUser;  //allow only cfo to approve
   }
   
   isAdminUser(): boolean {

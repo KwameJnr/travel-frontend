@@ -240,7 +240,7 @@ export class TravelService {
 
     return forkJoin(
       feedbacks.map(f => 
-        this.getCfoFeedbackRequests(f).pipe(
+        this.getBuFeedbackRequests(f).pipe(
           tap(res => console.log(`Feedback ${f} returned ${res.length} items`))
         )
       )

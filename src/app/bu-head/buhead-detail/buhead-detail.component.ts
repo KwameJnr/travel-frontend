@@ -53,9 +53,9 @@ export class BuheadDetailComponent implements OnInit {
   ) {}
 
   get isEditable(): boolean {
-    // const isAdminUser = this.isAdminUser(); // Check if admin
-    // return this.travel?.status === 'PENDING_BUH_APPROVAL' && !isAdminUser;
-    return this.travel?.status === 'PENDING_BUH_APPROVAL';
+    const isAdminUser = this.isAdminUser(); // Check if admin
+    return this.travel?.status === 'PENDING_BUH_APPROVAL' && !isAdminUser;
+    // return this.travel?.status === 'PENDING_BUH_APPROVAL';
   }
   
   isAdminUser(): boolean {

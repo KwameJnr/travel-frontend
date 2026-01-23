@@ -26,8 +26,8 @@ export class AuthService {
 
     
   // Preload heavy PDF libraries in the background
-    // import('html2pdf.js');
-    // import('html2canvas');
+    import('html2pdf.js');
+    import('html2canvas');
   }
 
   logout(): void {
