@@ -29,9 +29,10 @@
 
 .kpi-card {
   mat-icon {
+    padding: 20px;
     font-size: 36px;
     width: 36px;
-    height: 36px;
+    height: 24px;
     line-height: 36px;
     display: flex;
     align-items: center;
@@ -39,7 +40,8 @@
     overflow: visible;
   }
     > div {
-    margin-left: 16px;
+    margin-left: 25px;
+    margin-bottom: 10px;
   }
   h2 {
     margin: 0;
@@ -58,19 +60,29 @@
 /* CHARTS */
 .chart-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(280px, 380px));
+  gap: 12px;
   margin-bottom: 24px;
+  justify-content: start; // prevents stretching
 }
 
 .chart-card {
-  padding: 20px;
-  border-radius: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  height: 260px; // 👈 key line
+
+  display: flex;
+  flex-direction: column;
 
   h3 {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+    font-size: 14px;
     font-weight: 600;
   }
+}
+
+.chart-card canvas {
+  max-height: 180px !important;
 }
 
 .btn-home {

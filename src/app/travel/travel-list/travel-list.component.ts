@@ -10,7 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { NgChartsModule } from 'ng2-charts';
 import { ApiResponse } from 'src/app/shared/models/travel/api-response.model';
-import { ChartConfiguration } from 'chart.js';
+import { filter, interval } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-travel-list',
@@ -100,7 +101,14 @@ export class TravelListComponent implements OnInit {
     }
 
     this.fetchTravels();
-  }
+
+    interval(30000)
+    .pipe(
+      filter(() => document.visibilityState === 'visible'),
+      takeUntilDestroyed()
+    )
+    .subscribe(() => this.fetchTravels());
+    }
 
   fetchTravels(): void {
     if (!this.loggedInUser) return;

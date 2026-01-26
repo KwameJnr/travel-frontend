@@ -128,7 +128,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     console.log(this.baseUrl + "this is the base url")
     // Properly encode special chars in query string
-    const url = `${this.baseUrl}/auth/login?fnumber=${encodeURIComponent(fnumber)}&password=${encodeURIComponent(password)}`;
+    const url = `${this.baseUrl}/auth/login?fnumber=${encodeURIComponent(fnumber.toUpperCase())}&password=${encodeURIComponent(password)}`;
 
     console.log(url + "working")
 

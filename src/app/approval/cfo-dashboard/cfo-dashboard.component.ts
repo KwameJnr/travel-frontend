@@ -76,6 +76,7 @@ export class CfoDashboardComponent implements OnInit {
 
   approvalChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: { position: 'bottom' }
     }
@@ -93,6 +94,7 @@ export class CfoDashboardComponent implements OnInit {
 
   departmentChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: { display: false }
     },

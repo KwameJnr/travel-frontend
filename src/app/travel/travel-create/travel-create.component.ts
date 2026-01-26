@@ -36,8 +36,6 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 /* App */
 import { TravelService } from 'src/app/core/services/travel.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { SubmissionResultDialogComponent } from
-  'src/app/shared/dialogs/submission-result-dialog/submission-result-dialog.component';
 
 import { Department } from 'src/app/shared/models/deparment/department.model';
 import { BauHeadForm } from 'src/app/shared/models/buhead/buheadform';
@@ -109,6 +107,7 @@ export class TravelCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+    this.populateEmployeeFromStorage();
     this.restoreDraft();
     this.registerSubscriptions();
     this.loadInitialData();
@@ -188,6 +187,25 @@ export class TravelCreateComponent implements OnInit {
       validators: perDiemDateValidator
     }
   );
+}
+
+private populateEmployeeFromStorage(): void {
+  const employeeName = localStorage.getItem('userName');
+  const employeeEmail = localStorage.getItem('loggedInEmail');
+  const employeeNumber = localStorage.getItem('userFnumber');
+  const employeeContact = localStorage.getItem('userMobile');
+
+  if (!employeeName && !employeeEmail) return;
+
+  this.travelForm.get('step1')?.patchValue({
+    employeeName,
+    employeeEmail,
+    employeeNumber,
+    employeeContact,
+    employeeTravellingContact: employeeContact
+  });
+  
+  this.cdr.markForCheck();
 }
 
   /* ---------------- SUBSCRIPTIONS ---------------- */
