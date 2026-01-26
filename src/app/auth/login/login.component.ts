@@ -128,7 +128,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     console.log(this.baseUrl + "this is the base url")
     // Properly encode special chars in query string
-    const url = `${this.baseUrl}/travel-request/auth/login?fnumber=${encodeURIComponent(fnumber)}&password=${encodeURIComponent(password)}`;
+    const url = `${this.baseUrl}/auth/login?fnumber=${encodeURIComponent(fnumber)}&password=${encodeURIComponent(password)}`;
 
     console.log(url + "working")
 
@@ -169,7 +169,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.pollingAttempts++;
 
       this.http.post<any>(
-        `${this.baseUrl}/travel-request/auth/verify2fa`,
+        `${this.baseUrl}/auth/verify2fa`,
         null,
         { params: { authId } }
       ).subscribe({

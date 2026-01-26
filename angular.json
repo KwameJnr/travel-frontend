@@ -17,10 +17,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "baseHref": "/travel-request/fe/",
+            "baseHref": "/travel-request/",
             "outputPath": "dist/travel-request-front-end",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "optimization": {
+              "fonts": false
+            },
 
             "allowedCommonJsDependencies": [
               "html2pdf.js",
@@ -41,7 +44,7 @@
               "src/assets"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/azure-blue.css",
+              "node_modules/material-icons/iconfont/material-icons.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -50,7 +53,7 @@
             "production": {
 
               "outputPath":{
-                "base":"travel-request/fe",
+                "base":"travel-request/",
                 "browser": ""
               },
               "budgets": [
@@ -69,7 +72,7 @@
             },
             "development": {
               "outputPath":{
-                "base":"travel-request/fe",
+                "base":"travel-request/",
                 "browser": ""
               },
               "optimization": false,

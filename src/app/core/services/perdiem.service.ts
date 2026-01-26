@@ -26,7 +26,7 @@ export class PerdiemService {
       const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
 
-    return this.http.get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/travel-request/perdiems/index`,{headers}).pipe(
+    return this.http.get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/perdiems/index`,{headers}).pipe(
       map(response => response.data)
     );
   }
@@ -37,7 +37,7 @@ export class PerdiemService {
     .set('Authorization', `Bearer ${token}`);
 
     return this.http
-      .get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/travel-request/perdiems/${id}`,{headers})
+      .get<ApiResponse<PerDiem[]>>(`${this.baseUrl}/perdiems/${id}`,{headers})
       .pipe(
         map(response => response.data?.[0])
       );
@@ -48,7 +48,7 @@ export class PerdiemService {
       const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
 
-    return this.http.post<PerDiem>(`${this.baseUrl}/travel-request/perdiems/add`, travel,{headers});
+    return this.http.post<PerDiem>(`${this.baseUrl}/perdiems/add`, travel,{headers});
   }
 
   update(id: string, payload: Partial<PerDiemEditRequest>): Observable<PerDiemEditRequest> {
@@ -57,7 +57,7 @@ export class PerdiemService {
     .set('Authorization', `Bearer ${token}`);
     
     return this.http.post<PerDiemEditRequest>(
-      `${this.baseUrl}/travel-request/perdiems/update/${id}`,
+      `${this.baseUrl}/perdiems/update/${id}`,
       payload,
       {headers}
     );

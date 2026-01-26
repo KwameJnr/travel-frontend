@@ -36,7 +36,7 @@ export class TravelService {
       if (month) params.month = month;
 
       return this.http.get<any>(
-        `${this.baseUrl}/travel-request/travels/cfo-dashboard-metrics`,
+        `${this.baseUrl}/travels/cfo-dashboard-metrics`,
         { headers, params }
       );
     }
@@ -50,7 +50,7 @@ export class TravelService {
       if (month) params.month = month;
 
       return this.http.get<any>(
-        `${this.baseUrl}/travel-request/travels/department-ranking`,
+        `${this.baseUrl}/travels/department-ranking`,
         { headers, params }
       );
     }
@@ -59,7 +59,7 @@ export class TravelService {
      APP ROLES
      ============================ */
   getApplicationRoles(): Observable<ApplicationRole[]> {
-     const url = `${this.baseUrl}/travel-request/application-roles/index`;
+     const url = `${this.baseUrl}/application-roles/index`;
      const token = localStorage.getItem('userToken') || '';
      const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -69,7 +69,7 @@ export class TravelService {
   }
 
   getApplicationRoleDetails(id: number): Observable<ApplicationRole> {
-    const url = `${this.baseUrl}/travel-request/application-roles/view/${id}`;
+    const url = `${this.baseUrl}/application-roles/view/${id}`;
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -80,7 +80,7 @@ export class TravelService {
   }
 
   addApplicationRole(role: ApplicationRole): Observable<ApplicationRole> {
-    const url = `${this.baseUrl}/travel-request/application-roles/add`;
+    const url = `${this.baseUrl}/application-roles/add`;
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -93,7 +93,7 @@ export class TravelService {
      USER ROLES
      ============================ */
   getUserRoles(): Observable<UserRole[]> {
-     const url = `${this.baseUrl}/travel-request/user-roles/index`;
+     const url = `${this.baseUrl}/user-roles/index`;
      const token = localStorage.getItem('userToken') || '';
      const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -104,7 +104,7 @@ export class TravelService {
   }
 
   getUserRoleDetails(id: number): Observable<UserRole> {
-    const url = `${this.baseUrl}/travel-request/user-roles/${id}`;
+    const url = `${this.baseUrl}/user-roles/${id}`;
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -117,7 +117,7 @@ export class TravelService {
   }
 
   addUserRole(payload: CreateUserRoleDto): Observable<UserRole> {
-    const url = `${this.baseUrl}/travel-request/user-roles/add`;
+    const url = `${this.baseUrl}/user-roles/add`;
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -131,7 +131,7 @@ export class TravelService {
      BU HEAD & CFO BADGE COUNT
      ============================ */
   getCfoPendingCount(): Observable<number> {
-    const url = `${this.baseUrl}/travel-request/travels/cfo-feedback/count?feedback=PENDING`;
+    const url = `${this.baseUrl}/travels/cfo-feedback/count?feedback=PENDING`;
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -142,7 +142,7 @@ export class TravelService {
   }
 
   getBuPendingCount(): Observable<number> {
-    const url = `${this.baseUrl}/travel-request/travels/bu-head-feedback/count?feedback=PENDING`;
+    const url = `${this.baseUrl}/travels/bu-head-feedback/count?feedback=PENDING`;
 
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
@@ -159,7 +159,7 @@ export class TravelService {
     .set('Authorization', `Bearer ${token}`);
     
     return this.http.post(
-      `${this.baseUrl}/travel-request/travels/cfo-approval`,
+      `${this.baseUrl}/travels/cfo-approval`,
       payload,{headers}
     );
   }
@@ -169,7 +169,7 @@ export class TravelService {
     feedback: 'PENDING' | 'APPROVED' | 'REJECTED'
   ): Observable<Travel[]> {
 
-    const url = `${this.baseUrl}/travel-request/travels/cfo-feedback?feedback=${feedback}`;
+    const url = `${this.baseUrl}/travels/cfo-feedback?feedback=${feedback}`;
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -207,7 +207,7 @@ export class TravelService {
     .set('Authorization', `Bearer ${token}`);
     
     return this.http.post(
-      `${this.baseUrl}/travel-request/travels/bu-head-approval`,
+      `${this.baseUrl}/travels/bu-head-approval`,
       payload,{headers}
     );
   }
@@ -217,7 +217,7 @@ export class TravelService {
     feedback: 'PENDING' | 'APPROVED' | 'REJECTED' | 'RETURNED_FOR_REVIEW'
   ): Observable<Travel[]> {
 
-    const url = `${this.baseUrl}/travel-request/travels/bu-head-feedback?feedback=${feedback}`;
+    const url = `${this.baseUrl}/travels/bu-head-feedback?feedback=${feedback}`;
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -254,7 +254,7 @@ export class TravelService {
      ============================ */
 
   getMyTravelRequestsById(id: string): Observable<Travel> {
-  const url = `${this.baseUrl}/travel-request/travels/view/${id}`;
+  const url = `${this.baseUrl}/travels/view/${id}`;
   const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -270,7 +270,7 @@ export class TravelService {
 }
 
 updateTravelRequestsById(id: string, updatedData: any): Observable<Travel> {
-  const url = `${this.baseUrl}/travel-request/travels/update/${id}`;
+  const url = `${this.baseUrl}/travels/update/${id}`;
   const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -286,7 +286,7 @@ updateTravelRequestsById(id: string, updatedData: any): Observable<Travel> {
 }
 
   getMyTravelRequests(fNumber: string): Observable<ApiResponse<Travel[]>> {
-    const url = `${this.baseUrl}/travel-request/travels/my-requests`;
+    const url = `${this.baseUrl}/travels/my-requests`;
     // const params = { fNumber }; 
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
@@ -298,7 +298,7 @@ updateTravelRequestsById(id: string, updatedData: any): Observable<Travel> {
   }
 
   createTravelRequest(travel: Travel): Observable<ApiResponse<Travel>> {
-    const url = `${this.baseUrl}/travel-request/travels/add`;
+    const url = `${this.baseUrl}/travels/add`;
     console.log('Component travel forms:', url);
     const token = localStorage.getItem('userToken') || '';
     const headers = new HttpHeaders()
@@ -322,7 +322,7 @@ updateTravelRequestsById(id: string, updatedData: any): Observable<Travel> {
   /* ================= COMPONENT (NO AUTH) ENDPOINTS ================= */
 
     getComponentDepartments(): Observable<ApiResponse<Department[]>> {
-      const url = `${this.baseUrl}/travel-request/components/departments`;
+      const url = `${this.baseUrl}/components/departments`;
       const token = localStorage.getItem('userToken') || '';
       const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`);
@@ -332,7 +332,7 @@ updateTravelRequestsById(id: string, updatedData: any): Observable<Travel> {
     }
 
     getComponentBUHeads(code: string): Observable<ApiResponse<BauHeadForm[]>> {
-      const url = `${this.baseUrl}/travel-request/components/bu-heads/${code}`;
+      const url = `${this.baseUrl}/components/bu-heads/${code}`;
       const token = localStorage.getItem('userToken') || '';
       const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
@@ -342,7 +342,7 @@ updateTravelRequestsById(id: string, updatedData: any): Observable<Travel> {
     }
 
     getComponentPerDiemCountries(): Observable<ApiResponse<PerDiemForm[]>> {
-      const url = `${this.baseUrl}/travel-request/components/per-diem`;
+      const url = `${this.baseUrl}/components/per-diem`;
       const token = localStorage.getItem('userToken') || '';
       const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);

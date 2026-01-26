@@ -32,12 +32,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  mat-icon {
+}
+.avatar mat-icon {
     font-size: 36px;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
     color: #fff;
   }
-}
+
 
 /* User meta */
 .user-meta {

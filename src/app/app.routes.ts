@@ -26,7 +26,7 @@ export const appRoutes: Routes = [
         path: 'travel',
         loadChildren: () =>
           import('./travel/travel.routes').then(m => m.travelRoutes),
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
       },
     ],
   },
