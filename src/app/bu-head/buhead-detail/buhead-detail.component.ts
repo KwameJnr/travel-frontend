@@ -137,7 +137,7 @@ export class BuheadDetailComponent implements OnInit {
         width: '420px',
         data: {
           title: 'Confirm Action',
-          message: `Are you sure you want to ${action.toLowerCase()} this travel request?`,
+          message: `Are you sure you want this travel request ${action.toLowerCase()} ?`,
           action: action === 'APPROVED'
             ? 'APPROVE'
             : action === 'REJECTED'

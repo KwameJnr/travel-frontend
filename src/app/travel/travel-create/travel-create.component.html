@@ -71,7 +71,7 @@
 
               <mat-form-field appearance="outline">
                 <mat-label>Passport Expiry</mat-label>
-                <input matInput [matDatepicker]="passportPicker" formControlName="employeePassportExpiry">
+                <input matInput [matDatepicker]="passportPicker" [min]="today" formControlName="employeePassportExpiry">
                 <mat-datepicker-toggle matSuffix [for]="passportPicker"></mat-datepicker-toggle>
                 <mat-datepicker #passportPicker></mat-datepicker>
               </mat-form-field>
@@ -126,7 +126,7 @@
 
               <mat-form-field appearance="outline">
                 <mat-label>Departure Date</mat-label>
-                <input matInput [matDatepicker]="depPicker" formControlName="departureDate">
+                <input matInput [matDatepicker]="depPicker" [min]="today" formControlName="departureDate">
                 <mat-datepicker-toggle matSuffix [for]="depPicker"></mat-datepicker-toggle>
                 <mat-datepicker #depPicker></mat-datepicker>
               </mat-form-field>
@@ -141,7 +141,7 @@
 
               <mat-form-field appearance="outline">
                 <mat-label>Return Date</mat-label>
-                <input matInput [matDatepicker]="retPicker" formControlName="returnDate">
+                <input matInput [matDatepicker]="retPicker" [min]="today" formControlName="returnDate">
                 <mat-datepicker-toggle matSuffix [for]="retPicker"></mat-datepicker-toggle>
                 <mat-datepicker #retPicker></mat-datepicker>
               </mat-form-field>
@@ -173,7 +173,7 @@
               </mat-form-field>
 
               <mat-form-field appearance="outline">
-                <mat-label>Days Out Of oficial Assignment Date</mat-label>
+                <mat-label>Days Out Of official Assignment Date</mat-label>
                 <input matInput formControlName="daysOutOfOfficialAssignment">
               </mat-form-field>
 
@@ -227,7 +227,7 @@
 
               <mat-form-field appearance="outline">
                 <mat-label>Hotel Address</mat-label>
-                <input matInput formControlName="hotelName">
+                <input matInput formControlName="hotelAddress">
               </mat-form-field>
 
               <mat-form-field appearance="outline">

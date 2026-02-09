@@ -1,1 +1,0 @@
-import{Db as o,Eb as s,Zb as i,fb as n}from"./chunk-T35DG4SE.js";import"./chunk-ODN5LVDJ.js";var r=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-user-edit"]],decls:2,vars:0,template:function(e,a){e&1&&(o(0,"p"),i(1,"user-edit works!"),s())},encapsulation:2})};export{r as UserEditComponent};

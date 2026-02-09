@@ -113,6 +113,8 @@ export class TravelCreateComponent implements OnInit {
     this.loadInitialData();
   }
 
+  today = new Date(new Date().setHours(0, 0, 0, 0));
+
   /* ---------------- FORM ---------------- */
 
   get step1(): AbstractControl {
@@ -139,7 +141,7 @@ export class TravelCreateComponent implements OnInit {
         employeePassportNo: [''],
         employeePassportExpiry: [''],
         employeeNumber: [''],
-        employeeDepartment: [''],
+        employeeDepartment: ['', Validators.required],
         departmentCode:[{value: null,disabled: true}],
         employeeTravellingContact: [''],
         employeeContact: [''],
@@ -168,7 +170,7 @@ export class TravelCreateComponent implements OnInit {
       hotelCountry:[''],
       rentalCarRequired:[''],
       airportTransportRequiredToAndFrom:[''],
-      subsistenceAllowance:[''],
+      subsistenceAllowance:[[0], Validators.required],
       estimatedPerDiemAmount: [{ value: 0, disabled: true }],
       totalEstimatedTravelCost: [{ value: 0, disabled: true }],
       travelBudgetCode: [''],
@@ -419,11 +421,11 @@ private populateEmployeeFromStorage(): void {
       return;
     }
 
-    // 1️⃣ Per diem amount (NEVER NULL)
+    //  Per diem amount (NEVER NULL)
     const estimatedPerDiemAmount =
       Math.max(perDiem.dollarRate * perDiemDays, 0);
 
-    // 2️⃣ Total travel cost (from backend response)
+    //  Total travel cost (from backend response)
     const totalEstimatedTravelCost =
       estimatedPerDiemAmount +
       (perDiem.airFareCost || 0) +
@@ -432,7 +434,7 @@ private populateEmployeeFromStorage(): void {
       (perDiem.transportationCost || 0) +
       (perDiem.otherCost || 0);
 
-    // 3️⃣ Patch form safely
+    //  Patch form safely
     step3.patchValue(
       {
         estimatedPerDiemAmount,

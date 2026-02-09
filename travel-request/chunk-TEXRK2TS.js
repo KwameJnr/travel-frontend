@@ -1,0 +1,1 @@
+import{$b as i,Fb as o,Gb as a,hb as n}from"./chunk-QHSVICUV.js";import"./chunk-ODN5LVDJ.js";var d=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-buhead-edit"]],decls:2,vars:0,template:function(e,s){e&1&&(o(0,"p"),i(1,"buhead-edit works well!"),a())},encapsulation:2})};export{d as BuheadEditComponent};
