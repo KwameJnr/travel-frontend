@@ -329,14 +329,14 @@
 .expires-text {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #b55604;
+  color: #b55604 !important;
   margin-bottom: 1.2rem;
 }
 
 /* Cancel button */
 .cancel-btn {
   font-weight: 600;
-  color: #b55604;
+  color: #b55604 !important;
   margin-top: 1.5rem;
   width: 100%;
   max-width: 280px;
